@@ -8,7 +8,7 @@ import AgregarP from './componentes/admAgregarProductos'
 function App() {
   return (
     <div>
-     <ProductCard />   
+      <Productos titulo={"lavadora"} descripcion={"lavadora dreams capacidad 50kg"}/>
      <AgregarP />
     </div>
   );
