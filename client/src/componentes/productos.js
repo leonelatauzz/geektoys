@@ -1,8 +1,4 @@
 import React from 'react';
-
-
-
-
 export default function Productos(props){
    
 
