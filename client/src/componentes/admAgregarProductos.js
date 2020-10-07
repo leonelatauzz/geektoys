@@ -6,9 +6,12 @@ export default class AgregarP extends React.Component {
         this.state = {
             titulo: '',
             descripcion: '',
-            precio: ''
+            precio: '',
+            datosCategorias: [],
+            categorias: []
         }
         this.handlerChange = this.handlerChange.bind(this)
+        this.handlerSelect = this.handlerSelect.bind(this)
     }
 
     handlerChange(event) {
@@ -16,6 +19,22 @@ export default class AgregarP extends React.Component {
             [event.target.name]: event.target.value
         })
     }
+
+
+    handlerSelect(event){
+         if(!(this.state.categorias.includes(event.target.value))){
+              
+             this.setState = ({ categorias: this.state.categorias.push(event.target.value)})
+         }
+    }
+
+
+    componentDidMount(){
+
+    }
+    
+
+
     render() {
         return (
             <div>
@@ -32,6 +51,12 @@ export default class AgregarP extends React.Component {
                         <input name="uploadedfile" type="file" />
                         <input type="submit" value="Subir archivo" />
                     </form>
+                    <form>
+                    <label>Selecciona una Categoria:</label>
+                    <select onChange = {this.handlerSelect}> {this.state.datosCategorias.map((cat) => <option key = {cat} value = {cat}> {cat} </option>)}
+                    </select>
+                    </form>
+                        
                     <input type='submit' value='Agregar'></input>
                 </form>
             </div>

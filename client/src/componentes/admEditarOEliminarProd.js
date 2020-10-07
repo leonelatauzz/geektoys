@@ -7,15 +7,29 @@ export default class EditOElim extends React.Component {
             buscador: '',
             titulo: '',
             descripcion: '',
-            precio: ''
+            precio: '',
+            datosCategorias: ['pepe', 'lilo', 'lepo'],
+            categorias: []
         }
         this.handlerChange = this.handlerChange.bind(this)
+        this.handlerSelect = this.handlerSelect.bind(this)
     }
     handlerChange(event) {
         this.setState({
             [event.target.name]: event.target.value
         })
     }
+
+    handlerSelect(event){
+        if(!(this.state.categorias.includes(event.target.value))){
+            this.setState = ({ categorias: this.state.categorias.push(event.target.value)})
+        }
+   }
+
+   componentDidMount(){
+
+    }
+
     render() {
         return (
             <div>
@@ -37,6 +51,11 @@ export default class EditOElim extends React.Component {
                             <input name="uploadedfile" type="file" />
                             <input type="submit" value="Subir archivo" />
                         </form>
+                        <form>
+                    <label>Selecciona una Categoria:</label>
+                    <select onChange = {this.handlerSelect}> {this.state.datosCategorias.map((cat) => <option key = {cat} value = {cat}> {cat} </option>)}
+                    </select>
+                    </form>
                         <input type='submit' placeholder='Editar' value='Enviar'></input>
                     </form>
                     <input type='submit' placeholder='Eliminar producto' value='Eliminar'></input>
