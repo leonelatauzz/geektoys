@@ -7,6 +7,7 @@ export default class Categorias extends React.Component{
 
         }
     }
+
     render() {
         return (
             <div>
