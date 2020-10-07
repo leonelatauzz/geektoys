@@ -29,11 +29,11 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true
     }
-  },{});
-  Product.associate = function(models){
-    Product.belongsToMany(models.Categorias,{
-      through: 'ProductoCategoria'
-    })
-  }
+  });
+  // Product.associate = function(models){
+  //   Product.belongsToMany(models.Categorias,{
+  //     through: 'ProductoCategoria'
+  //   })
+  // }
   return Product;
 };
