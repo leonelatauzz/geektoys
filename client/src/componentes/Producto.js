@@ -1,5 +1,6 @@
 import React from 'react';
-  
+
+// componente presentacional de producto
 export default function Productos(props){ 
   return(
     <div>
