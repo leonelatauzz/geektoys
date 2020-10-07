@@ -9,11 +9,11 @@ export default function ProductCard (props){
             <div class="row">
                 <div class="col-sm">
                     <div class="card" >
-                        <img src="/" class="card-img-top" alt="..." />
+                        <img src="" class="card-img-top" />
                         <div class="card-body">
                             <h5 class="card-title">{props.nombre}</h5>
                             <p class="card-text">{props.descripcion}</p>
-                            <a href="#" class="btn btn-primary">ver producto</a>
+                            <a href="#" class="btn btn-primary">ver productoo</a>
                         </div>
                     </div>
                 </div>
