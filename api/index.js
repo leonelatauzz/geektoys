@@ -20,8 +20,7 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 
-import categorias from './src/models/Categorias';
-import producto from './src/models/Product';
+
 
 
 // Syncing all the models at once.
@@ -31,7 +30,4 @@ conn.sync({ force: true }).then(() => {
   });
 });
 
-// Relacion muchos a muchos entre productos y categorias
-categorias.belongsToMany(producto, { through: 'ProductoCategoria' });
-producto.belongsToMany(categorias, { through: 'ProductoCategoria' });
 
