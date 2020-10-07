@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('product', {
+  var Product = sequelize.define('product', {
     nombre: {
       type: DataTypes.STRING,
       allowNull: false
@@ -29,5 +29,11 @@ module.exports = (sequelize) => {
       autoIncrement: true,
       primaryKey: true
     }
-  });
+  },{});
+  Product.associate = function(models){
+    Product.belongsToMany(models.Categorias,{
+      through: 'ProductoCategoria'
+    })
+  }
+  return Product;
 };
