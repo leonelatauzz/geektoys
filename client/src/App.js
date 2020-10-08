@@ -7,8 +7,8 @@ import Producto from './componentes/Producto'
 
 // esto es para probar la funcionalidad de catalogo routes
 
-let array = [{id:1,titulo:"pikachu",descripcion:"muñeco pikachu bonito",imagen:pikachu}]
-let objeto = {id:1,titulo:"pikachu",descripcion:"muñeco pikachu bonito",imagen:pikachu}
+let array = [{id:1,name:"pikachu",description:"muñeco pikachu bonito",picture:pikachu}]
+let objeto = {id:1,name:"pikachu",description:"muñeco pikachu bonito",picture:pikachu}
 
 function App() {
   return (
@@ -22,10 +22,10 @@ function App() {
       <Route
       path ='/products/:id'
       render = {()=> <Producto 
-        titulo={objeto.titulo}
-        descripcion={objeto.descripcion}
-        imagen={objeto.imagen}
-        precio={300}
+        name={objeto.name}
+        description={objeto.description}
+        picture={objeto.picture}
+        price={300}
       />}
       />
       </div>

@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
-const {Categorias} = require('../db.js')
+const {Category} = require('../db.js')
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -11,7 +11,7 @@ server.get('/', (req, res, next) => {
 });
 
 server.post('/category', (req, res) => {
-  Categorias.create({
+  Category.create({
     name: req.body.name
   }).then(function() {
     res.status(201).send('Categoría creada correctamente');
@@ -20,9 +20,9 @@ server.post('/category', (req, res) => {
 
 server.post('/', (req,res)=>{
   Product.create({
-    nombre: req.body.titulo,
-    descripcion: req.body.descripcion,
-    precio: req.body.precio,
+    name: req.body.name,
+    description: req.body.description,
+    price: req.body.price,
     stock: req.body.stock
   }).then((pro) => {
     if(!pro){
@@ -41,13 +41,13 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
         res.status(404).json({error: 'Producto no encontrado'})
         return;
       }
-      return Categorias.findByPk(req.params.idCategoria).then((cat) => {
+      return Category.findByPk(req.params.idCategoria).then((cat) => {
         if (!cat) {
 			res.status(404).json({error: 'Categoria no encontrada'})
 			return;
         }
 
-        Product.addCategoria(cat);
+        Product.addCategory(cat);
 		res.send(`>> Se agrego la categoría id=${req.params.idCategoria} al Producto id=${req.params.idProducto}`);
         return ;
       });
@@ -64,13 +64,13 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
         res.status(404).json({error: 'Producto no encontrado'})
         return;
       }
-      return Categorias.findByPk(req.params.idCategoria).then((cat) => {
+      return Category.findByPk(req.params.idCategoria).then((cat) => {
         if (!cat) {
 			res.status(404).json({error: 'Categoria no encontrada'})
 			return;
         }
 
-        Product.removeCategoria(cat);
+        Product.removeCategory(cat);
 		res.send(`>> Se eliminó la categoría id=${req.params.idCategoria} del Producto id=${req.params.idProducto}`);
         return ;
       });

@@ -1,10 +1,10 @@
 import React from 'react'
 
 
-export const title = function(titulo){
+export const name = function(name){
     return {
-        title: titulo, //PREGUNTAR TL
-        type: 'TITLE',
+        name: name, //PREGUNTAR TL
+        type: 'NAME',
         payload
     }
 }

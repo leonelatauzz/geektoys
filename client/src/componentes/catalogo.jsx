@@ -7,15 +7,15 @@ export default function Catalogo(props){
     return(
         <div className="card">
            {props.productos.map((p)=> <ProductCard 
-           titulo ={p.titulo}
-           descripcion={p.descripcion}
-           imagen={p.imagen}
+           name ={p.name}
+           description={p.description}
+           picture={p.picture}
            />
         )}
 
        {/*FILTRADO PARA EL CATALOGO POR CATEGORIA*/}
         <div className = 'Category' {...ProductCard.filter(producto =>
-        producto.includes(props.titulo, props.descripcion).map(productoFilter =>(<ProductCard {...productoFilter}/>)))} 
+        producto.includes(props.name, props.description).map(productoFilter =>(<ProductCard {...productoFilter}/>)))} 
         ></div>
         </div>
         
