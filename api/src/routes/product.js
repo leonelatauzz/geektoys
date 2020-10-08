@@ -79,5 +79,12 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
       res.status(404).send(err);
     });
 }) 
+server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que se resetee
+  Category.findByPk(req.params.id).then((categoria)=>{
+    categoria.destroy();
+    res.status(201).send("La categoria se elimino correctamente")
+    return;
+  })
+})
 
 module.exports = server;
