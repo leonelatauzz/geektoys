@@ -111,5 +111,12 @@ server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que s
     return;
   })
 })
+server.delete("/:id", (req,res)=>{           //Verificar Id, para que se resetee
+  Product.findByPk(req.params.id).then((producto)=>{
+    producto.destroy();
+    res.status(200).send("El producto se elimino correctamente")
+    return;
+  })
+})
 
 module.exports = server;
