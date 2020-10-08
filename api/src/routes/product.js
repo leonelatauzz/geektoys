@@ -1,6 +1,6 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
-const {Categorias} = require('../models/Categorias')
+const {Categorias} = require('../db.js')
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
@@ -9,6 +9,16 @@ server.get('/', (req, res, next) => {
 		})
 		.catch(next);
 });
+
+server.post('/category', (req, res) => {
+  Categorias.create({
+    name: req.body.name
+  }).then(function() {
+    res.status(201).send('Categoría creada correctamente');
+  })
+})
+
+
 
 server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	Product.findByPk(req.params.idProducto)
