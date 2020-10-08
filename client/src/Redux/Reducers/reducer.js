@@ -1,9 +1,9 @@
 const initialState = {
-    titulo: ''
+    name: ''
 }
 export default function(state = initialState, action){
     switch(action.type){
-        case 'TITLE': return {...state, titulo: action.title}  //PREGUNTAR AL TL
+        case 'NAME': return {...state, name: action.name}  //PREGUNTAR AL TL
 
         default: 
         return state;

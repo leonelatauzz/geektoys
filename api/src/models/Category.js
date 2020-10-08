@@ -4,7 +4,7 @@
  // la relacion belongsToMany(productos)
  module.exports = (sequelize) => {
 
-     var Categorias = sequelize.define('categorias', {
+     const Category = sequelize.define('category', {
          id:{
              type: DataTypes.INTEGER,
              autoIncrement: true,
@@ -14,12 +14,12 @@
            type: DataTypes.STRING,
            allowNull: false,
          },
-         descripcion: {
+         description: {
              type: DataTypes.STRING  //Esto no es necesario para nuestro modelo
          }
         },{});
        
-       return Categorias;
+       return Category;
      };
   
 

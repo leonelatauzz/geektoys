@@ -12,12 +12,12 @@ export default function ProductCard (props){
                           <div className="card mb-3" >
                               <div className="row no-gutters">
                                   <div className="col-md-4">
-                                      <img src={props.imagen} className="card-img" alt="..." />
+                                      <img src={props.picture} className="card-img" alt="..." />
                                   </div>
                                   <div className="col-md-8">
                                       <div className="card-body">
-                                          <h5 className="card-title">{props.titulo}</h5>
-                                            <p className="card-text">{props.descripcion}</p>
+                                          <h5 className="card-title">{props.name}</h5>
+                                            <p className="card-text">{props.description}</p>
                                           <p className="card-text"><small class="text-muted">precio: 6000</small></p>
                                           
                                           <Producto />

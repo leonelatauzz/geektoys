@@ -3,10 +3,10 @@ import {BrowserRouter} from 'react-router-dom'
 export default class Search extends React.Component{
     constructor(props){
         super(props)
-        this.state = {titulo: ""}
+        this.state = {name: ""}
     }
     onSubmit(event){ 
-        this.props.productos(this.state.titulo)
+        this.props.productos(this.state.name)
         event.preventDefault()
     }
     render(){

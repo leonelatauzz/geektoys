@@ -4,12 +4,12 @@ export default class AgregarP extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            titulo: '',
-            descripcion: '',
-            precio: '',
+            name: '',
+            description: '',
+            price: '',
             stock: '',
-            datosCategorias: [],
-            categorias: []
+            datosCategory: [],
+            categories: []
         }
         this.handlerChange = this.handlerChange.bind(this)
         this.handlerSelect = this.handlerSelect.bind(this)
@@ -23,9 +23,9 @@ export default class AgregarP extends React.Component {
 
 
     handlerSelect(event){
-         if(!(this.state.categorias.includes(event.target.value))){
+         if(!(this.state.categories.includes(event.target.value))){
               
-             this.setState = ({ categorias: this.state.categorias.push(event.target.value)})
+             this.setState = ({ categories: this.state.categories.push(event.target.value)})
          }
     }
 
@@ -42,11 +42,11 @@ export default class AgregarP extends React.Component {
                 <h3>Agregar nuevo producto</h3>
                 <form>
                     <label>Título:</label>
-                    <input name= 'titulo' value={this.state.titulo} type='text' placeholder='Título del producto...' onChange={this.handlerChange}></input>
+                    <input name= 'name' value={this.state.name} type='text' placeholder='Título del producto...' onChange={this.handlerChange}></input>
                     <label>Descripción:</label>
-                    <input name= 'descripcion' value={this.state.descripcion} type='text' placeholder='Descripción del producto...' onChange={this.handlerChange}></input>
+                    <input name= 'description' value={this.state.description} type='text' placeholder='Descripción del producto...' onChange={this.handlerChange}></input>
                     <label>Precio:</label>
-                    <input name= 'precio' value={this.state.precio} type='text' placeholder='Precio del producto...' onChange={this.handlerChange}></input>
+                    <input name= 'price' value={this.state.price} type='text' placeholder='Precio del producto...' onChange={this.handlerChange}></input>
                     <label>Stock:</label>
                     <input name= 'stock' value={this.state.stock} type='text' placeholder='Stock del producto...' onChange={this.handlerChange}></input>
                     <label>Imágen:</label>
@@ -56,7 +56,7 @@ export default class AgregarP extends React.Component {
                     </form>
                     <form>
                     <label>Selecciona una Categoria:</label>
-                    <select onChange = {this.handlerSelect}> {this.state.datosCategorias.map((cat) => <option key = {cat} value = {cat}> {cat} </option>)}
+                    <select onChange = {this.handlerSelect}> {this.state.datosCategory.map((cat) => <option key = {cat} value = {cat}> {cat} </option>)}
                     </select>
                     </form>
                         
