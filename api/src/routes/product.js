@@ -18,7 +18,21 @@ server.post('/category', (req, res) => {
   })
 })
 
-
+server.post('/', (req,res)=>{
+  Product.create({
+    nombre: req.body.titulo,
+    descripcion: req.body.descripcion,
+    precio: req.body.precio,
+    stock: req.body.stock
+  }).then((pro) => {
+    if(!pro){
+      res.status(404).json({error: 'Completa los campos requeridos'})
+      return;
+    }
+    return res.status(201).json(pro)
+  })
+ 
+})
 
 server.post('/:idProducto/category/:idCategoria', (req, res) => {
 	Product.findByPk(req.params.idProducto)

@@ -30,6 +30,7 @@ module.exports = (sequelize) => {
       primaryKey: true
     }
   });
-  
-  return Product;
-};
+    return Product;
+  };
+ 
+
