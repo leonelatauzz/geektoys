@@ -71,8 +71,29 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
         return ;
       });
     })
-
 })
+
+server.get('/categoria/:nombreCat', (req, res)=>{
+  Category.findOne({
+    where: {
+      name: req.params.nombreCat
+    },
+    include: Product
+  } ).then((cat) => {
+    if(!cat){
+      res.status(400).send('La categoria no fue encontrada')
+    }
+   
+   let resolve = cat.dataValues.products;
+   console.log(resolve);
+    
+     let obj = Object.assign({}, resolve)
+      res.json(obj);
+   
+    
+  }) 
+})
+
 server.put("/category/:id", (req,res)=>{
   const {name, description}=req.body;
   Category.findByPk(req.params.id).then((categoria)=>{
