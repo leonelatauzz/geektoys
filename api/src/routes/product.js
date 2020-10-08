@@ -112,4 +112,5 @@ server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que s
   })
 })
 
+
 module.exports = server;
