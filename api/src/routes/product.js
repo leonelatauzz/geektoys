@@ -71,6 +71,17 @@ server.put("/category/:id", (req,res)=>{
     res.status(201).send("La categoria se modifico correctamente")
   })
 })
+server.put("/:id", (req,res)=>{
+  const {name, description, price, stock}=req.body;
+  Product.findByPk(req.params.id).then((producto)=>{
+    producto.name = name;
+    producto.description = description;
+    producto.price = price;
+    producto.stock = stock;
+    producto.save();
+    res.status(201).send("El producto se modifico correctamente")
+  })
+})
 server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 	Product.findByPk(req.params.idProducto)
     .then((prod) => {
