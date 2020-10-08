@@ -60,20 +60,18 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
         res.status(404).json({error: 'Producto no encontrado'})
         return;
       }
-      return Category.findByPk(req.params.idCategoria).then((cat) => {
+      Category.findByPk(req.params.idCategoria).then((cat) => {
         if (!cat) {
-			res.status(404).json({error: 'Categoria no encontrada'})
-			return;
+          res.status(404).json({error: 'Categoria no encontrada'})
+          return;
         }
-
-        Product.addCategory(cat);
-		res.send(`>> Se agrego la categoría id=${req.params.idCategoria} al Producto id=${req.params.idProducto}`);
+        
+        cat.addProduct(prod);
+		    res.send(`>> Se agrego la categoría id=${req.params.idCategoria} al Producto id=${req.params.idProducto}`);
         return ;
       });
     })
-    .catch((err) => {
-      res.status(404).send(err);
-    });
+
 })
 server.put("/category/:id", (req,res)=>{
   const {name, description}=req.body;
@@ -102,21 +100,19 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
         res.status(404).json({error: 'Producto no encontrado'})
         return;
       }
-      return Category.findByPk(req.params.idCategoria).then((cat) => {
+      Category.findByPk(req.params.idCategoria).then((cat) => {
         if (!cat) {
-			res.status(404).json({error: 'Categoria no encontrada'})
-			return;
+          res.status(404).json({error: 'Categoria no encontrada'})
+          return;
         }
-
-        Product.removeCategory(cat);
-		res.send(`>> Se eliminó la categoría id=${req.params.idCategoria} del Producto id=${req.params.idProducto}`);
+        
+        cat.removeProduct(prod);
+		    res.send(`>> Se eliminó la categoría id=${req.params.idCategoria} al Producto id=${req.params.idProducto}`);
         return ;
       });
     })
-    .catch((err) => {
-      res.status(404).send(err);
-    });
-}) 
+
+})
 server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que se resetee
   Category.findByPk(req.params.id).then((categoria)=>{
     categoria.destroy();
