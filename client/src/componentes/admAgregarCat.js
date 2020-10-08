@@ -4,14 +4,14 @@ export default class AgregarCategorias extends React.Component{
     constructor(props) {
         super(props);
         this.state= {
-            valor: ''
+            name: ''
         }
         this.handlerChange = this.handlerChange.bind(this)
     }
 
     handlerChange(event) {
         this.setState({
-            valor: event.target.value
+            name: event.target.value
         })
     }
     render() {
