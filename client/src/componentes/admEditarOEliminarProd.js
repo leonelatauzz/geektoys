@@ -8,6 +8,7 @@ export default class EditOElim extends React.Component {
             titulo: '',
             descripcion: '',
             precio: '',
+            stock: '',
             datosCategorias: ['pepe', 'lilo', 'lepo'],
             categorias: []
         }
@@ -46,6 +47,8 @@ export default class EditOElim extends React.Component {
                         <input name= 'descripcion' value={this.state.descripcion} type='text' placeholder='Descripción del producto...' onChange={this.handlerChange}></input>
                         <label>Precio:</label>
                         <input name= 'precio' value={this.state.precio} type='text' placeholder='Precio del producto...' onChange={this.handlerChange}></input>
+                        <label>Stock:</label>
+                        <input name= 'stock' value={this.state.stock} type='text' placeholder='Stock del producto...' onChange={this.handlerChange}></input>
                         <label>Imágen:</label>
                         <form enctype="multipart/form-data" action="uploader.html" method="POST">
                             <input name="uploadedfile" type="file" />
