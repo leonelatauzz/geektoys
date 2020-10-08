@@ -16,6 +16,19 @@ server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
 		})
 		.catch(next);
 });
+server.get("/search", (req, res)=>{
+  console.log(req.query.query)
+  Product.findAll().then(products =>{
+    const result = products.filter(producto => (producto.name.includes(req.query.query)) || (producto.description.includes(req.query.query)))
+    if(result.length === 0){
+      res.status(404).send("No se encontro el producto")
+    }else{
+      let obj = Object.assign({}, result);
+      res.status(200).json(obj)
+      
+    }
+  })
+})
 server.post('/category', (req, res) => {
   Category.create({
     name: req.body.name
