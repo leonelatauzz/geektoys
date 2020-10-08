@@ -9,7 +9,13 @@ server.get('/', (req, res, next) => {
 		})
 		.catch(next);
 });
-
+server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
+	Category.findAll()
+		.then(products => {
+			res.send(products);
+		})
+		.catch(next);
+});
 server.post('/category', (req, res) => {
   Category.create({
     name: req.body.name
@@ -56,7 +62,15 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
       res.status(404).send(err);
     });
 })
-
+server.put("/category/:id", (req,res)=>{
+  const {name, description}=req.body;
+  Category.findByPk(req.params.id).then((categoria)=>{
+    categoria.name = name;
+    categoria.description = description;
+    categoria.save();
+    res.status(201).send("La categoria se modifico correctamente")
+  })
+})
 server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 	Product.findByPk(req.params.idProducto)
     .then((prod) => {
