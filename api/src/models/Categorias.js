@@ -15,14 +15,10 @@
            allowNull: false,
          },
          descripcion: {
-             type: DataTypes.STRING  
+             type: DataTypes.STRING  //Esto no es necesario para nuestro modelo
          }
         },{});
-       Categorias.associate = function(models) {
-         Categorias.belongsToMany(models.product,{
-           through: 'ProductoCategoria'
-         })
-       }
+       
        return Categorias;
      };
   
