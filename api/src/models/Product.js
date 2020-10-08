@@ -30,10 +30,6 @@ module.exports = (sequelize) => {
       primaryKey: true
     }
   });
-  // Product.associate = function(models){
-  //   Product.belongsToMany(models.Categorias,{
-  //     through: 'ProductoCategoria'
-  //   })
-  // }
+  
   return Product;
 };
