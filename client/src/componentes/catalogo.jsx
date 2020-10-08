@@ -6,7 +6,7 @@ export default function Catalogo(props){
     
     return(
         <div className="card">
-           {props.titulo.map((p)=> <ProductCard 
+           {props.productos.map((p)=> <ProductCard 
            titulo ={p.titulo}
            descripcion={p.descripcion}
            imagen={p.imagen}
