@@ -37,14 +37,12 @@ const { Category } = sequelize.models;
 // Product.hasMany(Reviews);
 
 Product.belongsToMany(Category,{
-  through: 'ProductoCategoria',
-  foreignKey: 'Product_id'
+  through: 'productocategoria'
 })
 
 
 Category.belongsToMany(Product,{
-  through: 'ProductoCategoria',
-  foreignKey: 'Category_id'
+  through: 'productocategoria'
 })
 
 
