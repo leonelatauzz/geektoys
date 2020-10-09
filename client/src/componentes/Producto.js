@@ -6,7 +6,9 @@ import ProductCard from './productCard.jsx';
 export default function Productos(props){ 
   return(
     <div>
-      { productosTest.length === 0 ? <div><span>No hay productos</span></div> : productosTest.map( productos => { return <ProductCard props={productos} />}) }
+
+
+{ /*productosTest.length === 0 ? <div><span>No hay productos</span></div> : productosTest.map( productos => { return <ProductCard props={productos} />})*/ }
     </div>
        
   )

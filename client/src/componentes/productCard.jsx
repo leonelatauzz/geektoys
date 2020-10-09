@@ -1,5 +1,4 @@
 import React from 'react';
-import Producto from './Producto.js';
 
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard (props){
@@ -18,9 +17,7 @@ export default function ProductCard (props){
                                       <div className="card-body">
                                           <h5 className="card-title">{props.name}</h5>
                                             <p className="card-text">{props.description}</p>
-                                          <p className="card-text"><small class="text-muted">precio: 6000</small></p>
-                                          
-                                          <Producto />
+                                          <p className="card-text"><small className="text-muted">precio: 6000</small></p>
                                       </div>
                                   </div>
                               </div>

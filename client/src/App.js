@@ -1,23 +1,35 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 import {BrowserRouter as  Router, Route} from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
-import pikachu from './componentes/imagen/pikachu.png'
 import Producto from './componentes/Producto'
 
-// esto es para probar la funcionalidad de catalogo routes
+import axios from 'axios'
 
-let array = [{id:1,name:"pikachu",description:"muñeco pikachu bonito",picture:pikachu}]
-let objeto = {id:1,name:"pikachu",description:"muñeco pikachu bonito",picture:pikachu}
+ function App(){
+   const [data, setData] = useState([])
 
-function App() {
+   // debutando en axios xdxd 
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios.get(
+        'http://localhost:3001/products/',
+      );
+      setData(result.data);
+    };
+    fetchData();
+  }, []);
+
   return (
     <Router>
       <div>
-      <Route 
+        <Route 
         exact path='/products'
-        render ={()=> <Catalogo productos={array}/> }
-      />
+        render ={()=> <Catalogo
+        productos={data}
+        />}
+      /> 
 
       <Route
       path ='/products/:id'
