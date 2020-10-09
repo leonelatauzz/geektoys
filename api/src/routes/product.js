@@ -72,7 +72,7 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
       });
     })
 })
-
+// FILTRANDO X CATEGORIAS
 server.get('/categoria/:nombreCat', (req, res)=>{
   Category.findOne({
     where: {
