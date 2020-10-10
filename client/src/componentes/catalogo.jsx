@@ -6,6 +6,7 @@ export default function Catalogo(props){
     return(
         
         <div className="card">
+
            {props.productos.map((p)=> <ProductCard
            key={p.id} 
            name ={p.name}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import {BrowserRouter as  Router, Route} from 'react-router-dom'
+import {BrowserRouter as  Router, Route, useHistory} from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
@@ -11,13 +11,15 @@ import axios from 'axios'
    const [dataP, setDataP] = useState([]);
    const [dataC, setDataC] = useState([]);
    const [dataSC, setDataSC] = useState([])
-   const [dataR, setDataR] = useState([])
+   const [dataR, setDataR] = useState([]);
+
 
    // debutando en axios xdxd 
-  const url = document.location.href.slice(21, document.location.href.length)
-  const getStates = (data) => {
-    console.log('holaaaaaaaaa')
-  }
+    const url = document.location.href.slice(21, document.location.href.length)
+    const getStates = (data) => {
+  
+      setDataR(data);
+    }
 
 
 
@@ -46,7 +48,6 @@ import axios from 'axios'
      makeRequests();
     
   }, []);
-
   return (
     
     <Router>
@@ -68,6 +69,14 @@ import axios from 'axios'
         exact path = '/products'
         render = {()=> <Catalogo 
         productos={dataP}
+        />}
+        
+        />
+
+        <Route 
+        exact path = '/products/search'
+        render = {()=> <Catalogo 
+        productos={Object.values(dataR)}
         />}
         
         />

@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
+import axios from 'axios';
+import {BrowserRouter as  Router, Route, useHistory} from 'react-router-dom'
 
 export default function Navbar (props){
-    const [productos, setProductos] = useState([]);
-    const [searchbar, setSearchbar] = useState({});
-    const [result, setResult] = useState([]);
+    let history = useHistory();
+    const [busq, setBusq] = useState([]);
+  
+    
     
     const handleChange = (event) => {
         window.location.replace(`http://localhost:3000/products/categoria/${event.target.value}`);
         
     }
-    const handleSubmit = (event) => {
+    const handleInputChange = (event) => {
+        setBusq(event.target.value);
+
+    }
+
+    const handleFormSubmit = (event) => {
         event.preventDefault();
-        console.log(searchbar.searchbar)
-        axios.get(`http://localhost:3001/products/search?query=${searchbar.searchbar}`)
+        
+        axios.get(`http://localhost:3001/products/search?query=${busq}`)
         .then(res=> {
-            setResult(Object.values(res.data));
+            props.getState(res.data)
 
         })
-        window.location.replace(`http://localhost:3000/products/search`);  
+        history.push("/products/search");
+        
+          
 
-        props.getState(result)
+        
     }
-    const handleInputChange = (e) => setSearchbar({
-        ...searchbar,
-        [e.target.name]: e.target.value
-      })
-
-
-        return (
+    
+    
+    return (
             <div>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="navbar-brand" href="#">Navbar</a>
@@ -55,10 +60,10 @@ export default function Navbar (props){
                     </li>
                 </ul>
                 </div>
-                <div>
-                    <input name= 'searchbar'  type='text' placeholder='Buscar producto...' onChange={handleInputChange}></input>
-                    <input type="submit" value="Buscar" onClick={handleSubmit}></input>
-                </div>
+                <form>
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar Producto..." aria-label="Search" onChange={handleInputChange}></input>
+                    <button class="btn btn-outline-success my-2 my-sm-0" onClick={handleFormSubmit}>Buscar</button>
+                </form>
                 </nav>
             </div>
         )
