@@ -9,6 +9,17 @@ server.get('/', (req, res, next) => {
 		})
 		.catch(next);
 });
+server.get('/prod/:idp', (req, res) => {
+  Product.findByPk(req.params.idp)
+  .then(prod => {
+    if(!prod) {
+      res.status(404).json({error: 'Producto no encontrado'})
+      return;
+    } else {
+      res.json(prod)
+    }
+  })
+})
 server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
 	Category.findAll()
 		.then(products => {
