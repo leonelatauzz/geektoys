@@ -6,10 +6,10 @@ import React from 'react';
 export default function Productos(props){ 
   return(
     <div>
-     <h3>{props.titulo}</h3>
-     <img>{props.imagen}</img>
-     <h4>{props.precio}</h4>
-     <h5>{props.descripcion}</h5>
+     <h3>{props.producto.name}</h3>
+     <img>{props.producto.picture}</img>
+     <h4>{props.producto.price}</h4>
+     <h5>{props.producto.description}</h5>
     </div>
        
   )
