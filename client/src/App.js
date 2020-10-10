@@ -12,9 +12,16 @@ import axios from 'axios'
    const [dataC, setDataC] = useState([]);
    const [dataSC, setDataSC] = useState([])
    const [dataR, setDataR] = useState([]);
+   const [dataS, setDataS] = useState([]);
 
 
    // debutando en axios xdxd 
+
+    const getProduct = (props) => {
+      setDataS (props)
+
+    }
+
     const url = document.location.href.slice(21, document.location.href.length)
     const getStates = (data) => {
   
@@ -62,14 +69,19 @@ import axios from 'axios'
 
         <Route 
         exact path={`/products/categoria/:nombreCat`}
-        render = {()=> <Catalogo productos={Object.values(dataSC)}/>}        
+        render = {()=> <Catalogo productos={Object.values(dataSC)}
+        product ={getProduct}
+        />}        
       /> 
 
         <Route 
         exact path = '/products'
         render = {()=> <Catalogo 
         productos={dataP}
+        product ={getProduct}
         />}
+
+
         
         />
 
@@ -77,18 +89,16 @@ import axios from 'axios'
         exact path = '/products/search'
         render = {()=> <Catalogo 
         productos={Object.values(dataR)}
+        product ={getProduct}
         />}
         
         />
-      {/* <Route
-      path ='/products/:id'
+       <Route
+      path ='/products/prod/:id'
       render = {()=> <Producto 
-        name={objeto.name}
-        description={objeto.description}
-        picture={objeto.picture}
-        price={300}
+        producto={dataS}
       />}
-      /> */}
+      />
       </div>
     </Router>
   );

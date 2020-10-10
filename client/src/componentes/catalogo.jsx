@@ -23,6 +23,7 @@ export default function Catalogo(props){
            picture={p.picture}
            price={p.price}
            stock={example(p)}
+           product={props.product}
            />
         )}
         </div>
