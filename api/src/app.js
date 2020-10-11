@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const routes = require('./routes/index.js');
+const path = require('path');
 
 require('./db.js');
 
@@ -20,6 +21,7 @@ server.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
   next();
 });
+server.use(`/uploads`, express.static(path.join(__dirname, '/routes/uploads')));
 
 server.use('/', routes);
 

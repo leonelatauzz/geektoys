@@ -1,14 +1,31 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 const {Category} = require('../db.js')
+const multer = require('multer');
+const { json } = require('express');
+const upload = multer({ dest: `${__dirname}/uploads`});
+const fs = require('fs')
 
 server.get('/', (req, res, next) => {
 	Product.findAll()
 		.then(products => {
 			res.send(products);
 		})
-		.catch(next);
+    .catch(next);
+    
 });
+
+server.get('/prueba/:id', (req, res, next) => {
+  Product.findByPk(req.params.id)
+  .then((product)=>{
+    if(!product){
+      res.status(200).send("no")
+    } else {
+      res.json(data)
+    }
+  })  
+});
+
 server.get('/prod/:idp', (req, res) => {
   Product.findByPk(req.params.idp)
   .then(prod => {
@@ -20,6 +37,7 @@ server.get('/prod/:idp', (req, res) => {
     }
   })
 })
+
 server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
 	Category.findAll()
 		.then(products => {
@@ -27,16 +45,15 @@ server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
 		})
 		.catch(next);
 });
+
 server.get("/search", (req, res)=>{
-  console.log(req.query.query)
   Product.findAll().then(products =>{
     const result = products.filter(producto => (producto.name.includes(req.query.query)) || (producto.description.includes(req.query.query)))
     if(result.length === 0){
       res.status(404).send("No se encontro el producto")
-    }else{
+    } else {
       let obj = Object.assign({}, result);
       res.status(200).json(obj)
-      
     }
   })
 })
@@ -48,18 +65,22 @@ server.post('/category', (req, res) => {
   })
 })
 
-server.post('/', (req,res)=>{
+server.post('/',upload.single('images'), (req,res)=>{
+  fs.renameSync(req.file.path, req.file.path + '.' + req.file.mimetype.split('/')[1])
+  let pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
+ let product = JSON.parse(req.body.json)
   Product.create({
-    name: req.body.name,
-    description: req.body.description,
-    price: req.body.price,
-    stock: req.body.stock
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    stock: product.stock,
+    picture: pic
   }).then((pro) => {
     if(!pro){
       res.status(404).json({error: 'Completa los campos requeridos'})
       return;
     }
-    return res.status(201).json(pro)
+    return res.status(201).json(pro.id)
   })
  
 })
@@ -83,25 +104,23 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
       });
     })
 })
+
 // FILTRANDO X CATEGORIAS
+
 server.get('/categoria/:nombreCat', (req, res)=>{
   Category.findOne({
     where: {
       name: req.params.nombreCat
     },
     include: Product
-  } ).then((cat) => {
+  })
+  .then((cat) => {
     if(!cat){
       res.status(400).send('La categoria no fue encontrada')
     }
-   
    let resolve = cat.dataValues.products;
-   console.log(resolve);
-    
-     let obj = Object.assign({}, resolve)
-      res.json(obj);
-   
-    
+   let obj = Object.assign({}, resolve)
+   res.json(obj);
   }) 
 })
 
@@ -114,6 +133,7 @@ server.put("/category/:id", (req,res)=>{
     res.status(201).send("La categoria se modifico correctamente")
   })
 })
+
 server.put("/:id", (req,res)=>{
   const {name, description, price, stock}=req.body;
   Product.findByPk(req.params.id).then((producto)=>{
@@ -125,6 +145,7 @@ server.put("/:id", (req,res)=>{
     res.status(201).send("El producto se modifico correctamente")
   })
 })
+
 server.delete('/:idProducto/category/:idCategoria', (req, res) => {
 	Product.findByPk(req.params.idProducto)
     .then((prod) => {
@@ -143,8 +164,8 @@ server.delete('/:idProducto/category/:idCategoria', (req, res) => {
         return ;
       });
     })
-
 })
+
 server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que se resetee
   Category.findByPk(req.params.id).then((categoria)=>{
     categoria.destroy();
@@ -152,6 +173,7 @@ server.delete("/category/:id", (req,res)=>{           //Verificar Id, para que s
     return;
   })
 })
+
 server.delete("/:id", (req,res)=>{           //Verificar Id, para que se resetee
   Product.findByPk(req.params.id).then((producto)=>{
     producto.destroy();

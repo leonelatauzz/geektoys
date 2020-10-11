@@ -21,9 +21,10 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     picture: {
-      type: DataTypes.BLOB,
+      type: DataTypes.STRING,
       
     },
+   
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,

@@ -28,6 +28,7 @@ export default function Navbar (props){
         })
         history.push("/products/search");
         
+
         
     }
     

@@ -1,29 +1,55 @@
-import React from 'react';
+import Axios from 'axios';
+import React, { useState } from 'react';
 
-export default class AgregarCategorias extends React.Component{
-    constructor(props) {
-        super(props);
-        this.state= {
-            name: ''
-        }
-        this.handlerChange = this.handlerChange.bind(this)
+export default function AddCategory (props){
+const [data, setData] = useState({
+    name: "",
+    description: ""
+
+})
+
+    const handlerChange = (event) =>{
+     setData({
+         ...data,
+         [event.target.name]: event.target.value
+     })
     }
 
-    handlerChange(event) {
-        this.setState({
-            name: event.target.value
+    const handleSubmit = async (e)=>{
+        const json = {
+            name: data.name,
+            description: data.description
+        }
+
+        const res = await Axios.post('http://localhost:3001/products/category',json, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+
         })
     }
-    render() {
+    
         return (
             <div>
+                <div>
+                    <h3> Categorias existentes</h3>
+                    {props.categories.map((e)=> <p>
+                        <a href={`http://localhost:3000/products/categoria/${e.name}`}>
+                            {e.name}
+                        </a> 
+                    </p>
+                    )
+                    }
+                </div>
+                
                 <form>
                     <label>Nueva categoría:</label>
-                    <input type='text' placeholder='Ingresa tu categoría...' onChange={e => this.handlerChange(e)}></input>
-                    <input type='submit' value='Enviar'></input>
+                    <input type='text' placeholder='nombre de categoria...' name='name' onChange={handlerChange}></input>
+                    <input type='text' placeholder='descripcion...'name='description' onChange={handlerChange} ></input>
+                    <input type='submit' value='Agregar' onClick={handleSubmit}></input>
                 </form>
             </div>
         )
-    }
+    
 }
 

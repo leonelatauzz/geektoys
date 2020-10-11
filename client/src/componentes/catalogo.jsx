@@ -13,8 +13,7 @@ export default function Catalogo(props){
                     
     return(
         
-        <div className="card" >
-
+        <div className="card" >            
            {props.productos.map((p)=> <ProductCard
            key={p.id}
            id={p.id} 
@@ -25,6 +24,7 @@ export default function Catalogo(props){
            stock={example(p)}
            product={props.product}
            />
+          
         )}
         </div>
         
