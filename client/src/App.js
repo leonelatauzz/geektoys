@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import {BrowserRouter as  Router, Route, useHistory} from 'react-router-dom'
+import {BrowserRouter as  Router, Route,} from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
+import AddProduct from './componentes/admAgregarProductos';
+import AddCategory from './componentes/admAgregarCat';
+import Editordelete from './componentes/admEditarOEliminarProd';
 
 import axios from 'axios'
 
@@ -94,10 +97,35 @@ import axios from 'axios'
         
         />
        <Route
-      path ='/products/prod/:id'
+       exact path ='/products/prod/:id'
       render = {()=> <Producto 
         producto={dataS}
       />}
+      />
+
+      <Route
+        exact path = '/admin/addproduct'
+        render = {()=> <AddProduct 
+          categories={dataC}
+        />
+        }
+      />
+
+      <Route
+      exact path = '/admin/addcategory'
+      render = {()=> <AddCategory
+      categories= {dataC}
+      />
+      }
+      />
+
+      <Route
+      exact path = '/admin/editordelete/:id'
+      render = {()=> <Editordelete 
+
+      /> 
+      }
+      
       />
       </div>
     </Router>

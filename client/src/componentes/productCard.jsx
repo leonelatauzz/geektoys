@@ -36,6 +36,10 @@ export default function ProductCard (props){
                                             <p className="card-text">${props.price}</p>
                                             <p className="card-text"><small className="text-muted"></small></p>
                                             <p className="card-text"><small className="text-muted">{props.stock}</small></p>
+                                            <form  action={`http://localhost:3000/admin/editordelete/${props.id}`}>
+                                                <button type="submit">Editar</button>
+                                            </form>
+                                            <button> Eliminar</button>
                                         {/*EL componente <Product /> se renderiza solo cuando vamos a la ruta del producto con su id,
                                          a traves de routing, aca no se necesita*/}  
                                       </div>

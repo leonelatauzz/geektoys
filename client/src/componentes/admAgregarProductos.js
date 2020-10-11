@@ -1,69 +1,181 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios'
+import ImageUploader from 'react-images-upload';
+import $ from 'jquery';
 
-export default class AgregarP extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            name: '',
-            description: '',
-            price: '',
-            stock: '',
-            datosCategory: [],
-            categories: []
-        }
-        this.handlerChange = this.handlerChange.bind(this)
-        this.handlerSelect = this.handlerSelect.bind(this)
-    }
+export default function AddProduct (props) {
+const [data, setData] = useState({
+    name: "",
+    description: "",
+    stock: 0,
+    price: 0,
+    idProduct: 0,
+    idCategory: 0,
+    send: false,
+    hola: false,
+    pictures: [],
+    file: null
+})
 
-    handlerChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        })
-    }
+const onDrop =(picture) =>{
+    setData({
+        ...data,
+        pictures: data.pictures.concat(picture)
+    })
+}
 
-
-    handlerSelect(event){
-         if(!(this.state.categories.includes(event.target.value))){
-              
-             this.setState = ({ categories: this.state.categories.push(event.target.value)})
-         }
-    }
+console.log(data.pictures[0])
 
 
-    componentDidMount(){
 
-    }
+
+const handlerChange = (event)=>{
+    setData({
+        ...data,
+        [event.target.name]: event.target.value
+    })
+}
+
+const handleSelectChange = (event)=> {
+
+    setData({
+        ...data,
+        idCategory: parseInt(event.target.value)
+        
+    })
     
+}
+
+ const json = JSON.stringify({
+     name: data.name,
+     description: data.description,
+     price: data.price,
+     stock: data.stock
+  });
 
 
-    render() {
+const handleForm = async(e)=> {
+    e.preventDefault()
+   
+    let dataP = new FormData();
+    let images = data.pictures[0]
+dataP.append('images', images, images.name);
+dataP.append('json', json);
+
+
+
+const res = await axios.post('http://localhost:3001/products', dataP, {
+  headers: {
+    'accept': 'application/json',
+    'Content-Type': `multipart/form-data;`,
+    
+  }
+})
+  .then((response) => {
+      console.log(response)
+    setData({
+        ...data,
+        send: true
+    })
+  }).catch((error) => {
+    //handle error
+  });
+;}
+
+
+
+
+const handleCategory = async (e)=> {
+    e.preventDefault()
+    const res = await axios.post(`http://localhost:3001/products/${data.idProduct}/category/${data.idCategory}`)
+        setData({
+            ...data,
+            hola: true 
+        })
+  
+}
+
+    
+    const handleChange =(event) =>{
+        setData({
+            ...data,
+          file: URL.createObjectURL(event.target.files[0])
+        })
+      }
+
+
+
         return (
+
             <div>
                 <h3>Agregar nuevo producto</h3>
-                <form>
-                    <label>Título:</label>
-                    <input name= 'name' value={this.state.name} type='text' placeholder='Título del producto...' onChange={this.handlerChange}></input>
-                    <label>Descripción:</label>
-                    <input name= 'description' value={this.state.description} type='text' placeholder='Descripción del producto...' onChange={this.handlerChange}></input>
-                    <label>Precio:</label>
-                    <input name= 'price' value={this.state.price} type='text' placeholder='Precio del producto...' onChange={this.handlerChange}></input>
-                    <label>Stock:</label>
-                    <input name= 'stock' value={this.state.stock} type='text' placeholder='Stock del producto...' onChange={this.handlerChange}></input>
-                    <label>Imágen:</label>
-                    <form enctype="multipart/form-data" action="uploader.html" method="POST">
-                        <input name="uploadedfile" type="file" />
-                        <input type="submit" value="Subir archivo" />
-                    </form>
-                    <form>
-                    <label>Selecciona una Categoria:</label>
-                    <select onChange = {this.handlerSelect}> {this.state.datosCategory.map((cat) => <option key = {cat} value = {cat}> {cat} </option>)}
-                    </select>
-                    </form>
-                        
-                    <input type='submit' value='Agregar'></input>
-                </form>
+                
+                <div>
+                    <input type="file" onChange={handleChange} />
+                    <img src={data.file} />
+                </div>
+                {data.send === false ?  
+                    <form method="post" action="http://localhost:3001/products" >
+                        <label>Título:</label>
+                        <input name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
+                        <label>Descripción:</label>
+                        <input name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
+                        <label>Precio:</label>
+                        <input name='price' value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
+                        <label>Stock:</label>
+                        <input name='stock' value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
+                        <ImageUploader
+                withIcon={true}
+                buttonText='Choose images'
+                onChange={onDrop}
+                imgExtension={['.jpg', '.gif', '.png', '.gif','.jpeg']}
+                maxFileSize={5242880}
+            />
+        
+
+                        <input type='submit' value='Agregar' onClick={handleForm}></input>
+                    </form> : data.hola === false ? <div>
+                        <p>
+                            Producto agregado correctamente
+                        </p>
+                        <p>
+                            ¿Deseas agregar una categoria?
+                        </p>
+                    </div  > : <div>
+                        <p>
+                            Categoria agregada correctamente
+                        </p>
+                        <p>
+                            ¿Deseas agregar otra categoria?
+                        </p>
+                    </div> }
+                
+               
+
+                    
+                    { data.send === true ?   
+                    <div>
+                        <form>
+                            <label>Selecciona una Categoria:</label>
+                            <select onChange={handleSelectChange}  >
+                                <option >Categorias</option>
+                                {props.categories.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
+                            </select>
+                            <input type='submit' onClick={handleCategory} value="agregar" />
+
+                        </form>
+                        <form  action="http://localhost:3000/admin/addproduct">
+                            <button type="submit">finalizar</button>
+                        </form>
+                    </div> : <span></span>
+                    }
+    
+
+                
             </div>
         )
-    }
-}
+    
+                }
+
+
     
