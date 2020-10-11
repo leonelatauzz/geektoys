@@ -15,6 +15,9 @@ export default function ProductCard (props){
         history.push(`/products/prod/${props.id}`);
     }
 
+    let image = `http://localhost:3001/uploads/${props.picture}`
+    console.log(props.picture)
+    
     
     
     return (
@@ -28,7 +31,8 @@ export default function ProductCard (props){
                           <div className="card mb-3" >
                               <div className="row no-gutters">
                                   <div className="col-md-4">
-                                      <img src={props.picture} className="card-img" alt="..." />
+                                      <img src={image} className="card-img" alt="..." />
+                                      
                                   </div>
                                   <div className="col-md-8">
                                       <div className="card-body">
@@ -38,6 +42,7 @@ export default function ProductCard (props){
                                             <p className="card-text"><small className="text-muted">{props.stock}</small></p>
                                             <form  action={`http://localhost:3000/admin/editordelete/${props.id}`}>
                                                 <button type="submit">Editar</button>
+                                                
                                             </form>
                                             <button> Eliminar</button>
                                         {/*EL componente <Product /> se renderiza solo cuando vamos a la ruta del producto con su id,
