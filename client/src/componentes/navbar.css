@@ -1,0 +1,71 @@
+body {
+    background-color: grey;
+}
+
+.botonete {
+    background-color: lightslategray;
+    color: lightcyan;
+    border: 2px solid black;
+    border-radius: 5px;
+    margin-left: 5px;
+    display: flex;
+    flex-flow: row wrap;
+}
+.botonete:hover {
+    background: lightskyblue;
+    color: black;
+}
+
+input[type=text] { 
+    border-top-left-radius: 0,25rem;
+    border-bottom-left-radius: 0.25rem;
+    margin-right:30px;
+    padding: 12px 20px 12px 40px;
+    display: flex;
+    flex-flow: row wrap;
+    width: 130px;
+    box-sizing: border-box;
+    border: 1px solid #bdbdbd;
+    border-radius:4px;
+    font-size: 16px;
+    background-position: 10px 10px;
+    background-repeat: no-repeat;
+    background-image: url('http://img.icons8.com/metro/26/000000/search.png');
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+
+}
+input[type=text]:focus {
+    width:100%
+}
+
+.categ {
+    background-color:lightgrey;
+    text-align: center;
+    display: inline-block;
+   
+}
+
+.lin{
+    background-color: lightgrey;
+    text-align: center;
+    display: inline-block;
+    border-radius:4px;
+}
+
+.homE{
+    background-color: lightgrey;
+    text-align: center;
+    display: inline-block;
+    border-radius:4px;
+}
+
+.navbar-logo img{
+margin-left:10px;
+padding: 10px
+}
+
+.carousel-inner img {
+    width:100%;
+    height:100%
+}
