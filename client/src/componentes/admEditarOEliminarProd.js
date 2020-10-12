@@ -136,12 +136,16 @@ export default function EditOrDelete(props) {
                     })
             })
     }
+    const starwars = (e) => {
+        e.preventDefault();
+        history.push('/products/categoria/la guerra de las galaxias')
+    }
 
     return (
         <div>
-            <div>
+            <div >
                 <form>
-                    <label>Título:</label>
+                    <label onClick={starwars}>Título:</label>
                     <input name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
                     <label>Descripción:</label>
                     <input name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>

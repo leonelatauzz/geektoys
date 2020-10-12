@@ -41,6 +41,13 @@ export default function ProductCard(props) {
                 })
         }
     }
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+        }
+        return splitStr.join(' '); 
+     }
 
     return (
         <div className="container" >
@@ -55,7 +62,7 @@ export default function ProductCard(props) {
                                     </div>
                                     <div className="col-md-8">
                                         <div className="card-body">
-                                            <h5 className="card-title" value={props.getProduct} ><a onClick={handle}  >{props.name}</a></h5>
+                                            <h5 className="card-title" value={props.getProduct} ><a onClick={handle}  >{titleCase(props.name)}</a></h5>
                                             <p className="card-text">${props.price}</p>
                                             <p className="card-text"><small className="text-muted"></small></p>
                                             <p className="card-text"><small className="text-muted">{example(props)}</small></p>

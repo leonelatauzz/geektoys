@@ -12,7 +12,7 @@ export default function Navbar(props) {
     }
 
     const handleInputChange = (event) => {
-        setBusq(event.target.value);
+        setBusq(event.target.value.toLowerCase());
     }
 
     const handleFormSubmit = (event) => {
