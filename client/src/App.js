@@ -7,6 +7,7 @@ import Navbar from './componentes/navbar'
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
+import Categoria from './componentes/Categoria'
 
 import axios from 'axios'
 
@@ -21,7 +22,8 @@ import axios from 'axios'
    // debutando en axios xdxd 
 
     const getProduct = (props) => {
-      setDataS (props)
+      setDataS(props);
+      console.log(props)
 
     }
 
@@ -97,9 +99,9 @@ import axios from 'axios'
         
         />
        <Route
-       exact path ='/products/prod/:id'
+      exact path ='/products/prod/:id'
       render = {()=> <Producto 
-        producto={dataS}
+        producto ={dataS}
       />}
       />
 
@@ -122,7 +124,16 @@ import axios from 'axios'
       <Route
       exact path = '/admin/editordelete/:id'
       render = {()=> <Editordelete 
+        producto = {dataS}
+      /> 
+      }
+      
+      />
 
+      <Route
+      exact path = '/admin/editordelete/cat/:id'
+      render = {({match})=> <Categoria 
+      id = {match.params.id}
       /> 
       }
       

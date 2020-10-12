@@ -16,6 +16,8 @@ const [data, setData] = useState({
     pictures: [],
     file: [],
     displayFile: null,
+    dispBut: false,
+    check: false
 })
 
 const onDrop =(picture) =>{
@@ -76,7 +78,8 @@ const handleCategory = async (e)=> {
     const res = await axios.post(`http://localhost:3001/products/${data.idProduct}/category/${data.idCategory}`)
         setData({
             ...data,
-            hola: true 
+            hola: true,
+            dispBut: true 
         }) 
 }
 
@@ -84,15 +87,17 @@ const handleCategory = async (e)=> {
         setData({
             ...data,
           displayFile: URL.createObjectURL(event.target.files[0]),
-          file: event.target.files[0]
+          file: event.target.files[0],
+          check: true
         })
       }
+
 
         return (
             <div>
                 <h3>Agregar nuevo producto</h3>
                 {data.send === false ?
-                    <form method="post" action="http://localhost:3001/products" >
+                    <form  >
                         <label>Título:</label>
                         <input name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
                         <label>Descripción:</label>
@@ -105,14 +110,14 @@ const handleCategory = async (e)=> {
                             <input type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
                             <img src={data.displayFile} style={{ width: "300px" }} />
                         </div>
-                        <input type='submit' value='Agregar' onClick={handleForm}></input>
+                        {data.check === true ? <input type='submit' value='Agregar' onClick={handleForm}></input> : <span></span>}
                     </form> : data.hola === false ? <div>
-                        <p>
+                        <h5>
                             Producto agregado correctamente
-                        </p>
-                        <p>
+                        </h5>
+                        <h3>
                             ¿Deseas agregar una categoria?
-                        </p>
+                        </h3>
                     </div  > : <div>
                             <p>
                                 Categoria agregada correctamente
@@ -132,9 +137,10 @@ const handleCategory = async (e)=> {
                             </select>
                             <input type='submit' onClick={handleCategory} value="agregar" />
                         </form>
-                        <form action="http://localhost:3000/admin/addproduct">
+                        {data.dispBut === true ? <form action="http://localhost:3000/admin/addproduct">
                             <button type="submit">finalizar</button>
-                        </form>
+                        </form> : <span></span>}
+                        
                     </div> : <span></span>
                 }
             </div>

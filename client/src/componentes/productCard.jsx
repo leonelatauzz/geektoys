@@ -1,22 +1,44 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom'
-
+import {useHistory} from 'react-router-dom';
+import axios from 'axios';
 import Productos from './Producto.js';
 
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard (props){
     const history = useHistory();
 
-    const funcion = props.product
+    function example(props) {
+        return props.stock == 0 ? 'Producto sin stock'
+             : props.stock == 1 ? 'Última unidad disponible'
+             : props.stock <= 5 ? props.stock + ' unidades disponibles'
+             : '';
+    }
     
 
-    const handle = ()=> {
-        funcion(props)
+    const handle = (e)=> {
+        e.preventDefault()
+        props.product(props)
         history.push(`/products/prod/${props.id}`);
     }
+    const handleEdit = (e) => {
+        e.preventDefault()
+        props.product(props)
+        history.push(`/admin/editordelete/${props.id}`);
+        
+    }
+    const handleDelete = async(e) => {
+        e.preventDefault();
+        if (window.confirm('Estas a punto de eliminar este producto! ¿Deseas continuar?')) {
+            const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
+            .then(res => {
+                alert('Producto eliminado correctamente');
+                window.location.replace('http://localhost:3000/products')
+            })
+        }
+        
+    }
+    
 
-    let image = `http://localhost:3001/uploads/${props.picture}`
-    console.log(props.picture)
     
     
     
@@ -31,20 +53,20 @@ export default function ProductCard (props){
                           <div className="card mb-3" >
                               <div className="row no-gutters">
                                   <div className="col-md-4">
-                                      <img src={image} className="card-img" alt="..." />
+                                      <img src={`http://localhost:3001/uploads/${props.picture}`} className="card-img" alt="..." />
                                       
                                   </div>
                                   <div className="col-md-8">
                                       <div className="card-body">
-                                          <h5 className="card-title" ><a onClick={handle}  >{props.name}</a></h5>
+                                          <h5 className="card-title" value={props.getProduct} ><a onClick={handle}  >{props.name}</a></h5>
                                             <p className="card-text">${props.price}</p>
                                             <p className="card-text"><small className="text-muted"></small></p>
-                                            <p className="card-text"><small className="text-muted">{props.stock}</small></p>
-                                            <form  action={`http://localhost:3000/admin/editordelete/${props.id}`}>
-                                                <button type="submit">Editar</button>
+                                            <p className="card-text"><small className="text-muted">{example(props)}</small></p>
+                                            <form>
+                                                <button onClick={handleEdit} type="submit">Editar</button>
                                                 
                                             </form>
-                                            <button> Eliminar</button>
+                                            <button onClick = {handleDelete}> Eliminar</button>
                                         {/*EL componente <Product /> se renderiza solo cuando vamos a la ruta del producto con su id,
                                          a traves de routing, aca no se necesita*/}  
                                       </div>
