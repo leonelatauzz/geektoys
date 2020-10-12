@@ -46,10 +46,10 @@ export default function Navbar (props){
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link my-1 mr-sm-2 homE" href="Home">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link my-1 mr-sm-2 homE" >Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link my-1 mr-sm-2 lin" href="Products">Productos</a>
+                        <a class="nav-link my-1 mr-sm-2 lin" href="/products">Productos</a>
                     </li>
                     <li className="nav-item dropdown">
                         <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" onChange={handleChange}>

@@ -1,7 +1,10 @@
 import Axios from 'axios';
 import React, { useState } from 'react';
+import axios from 'axios';
+import {useHistory} from 'react-router-dom';
 
 export default function AddCategory (props){
+    const history = useHistory();
 const [data, setData] = useState({
     name: "",
     description: ""
@@ -16,6 +19,7 @@ const [data, setData] = useState({
     }
 
     const handleSubmit = async (e)=>{
+        e.preventDefault();
         const json = {
             name: data.name,
             description: data.description
@@ -26,7 +30,24 @@ const [data, setData] = useState({
                 'Content-Type': 'application/json'
             }
 
+        }).then(() => {
+            alert('Categoría creada correctamente');
+            window.location.replace('http://localhost:3000/admin/addcategory')
         })
+    }
+    const handleDelete = async(e) => {
+        e.preventDefault();
+        if (window.confirm('Estas a punto de eliminar esta categoría! ¿Deseas continuar?')) {
+            const res = await axios.delete(`http://localhost:3001/products//category/${e.target.value}`)
+            .then(res => {
+                alert('Categoría eliminada correctamente');
+                window.location.replace('http://localhost:3000/admin/addcategory')
+            })
+        }
+    }
+    const handleEdit = (e) => {
+        e.preventDefault();
+        history.push(`/admin/editordelete/cat/${e.target.value}`);
     }
     
         return (
@@ -36,7 +57,9 @@ const [data, setData] = useState({
                     {props.categories.map((e)=> <p>
                         <a href={`http://localhost:3000/products/categoria/${e.name}`}>
                             {e.name}
-                        </a> 
+                        </a>
+                        <button value ={e.id} onClick={handleEdit} type="submit">Editar</button>
+                        <button value={e.id} onClick={handleDelete}>Eliminar</button> 
                     </p>
                     )
                     }

@@ -15,25 +15,13 @@ server.get('/', (req, res, next) => {
     
 });
 
-server.get('/prueba/:id', (req, res, next) => {
-  Product.findByPk(req.params.id)
-  .then((product)=>{
-    if(!product){
-      res.status(200).send("no")
+server.get('/category/cat/:id', (req, res) => {
+  Category.findByPk(req.params.id)
+  .then(cat => {
+    if(!cat) {
+      res.status(404).send('Categoría no encontrada')
     } else {
-      res.json(data)
-    }
-  })  
-});
-
-server.get('/prod/:idp', (req, res) => {
-  Product.findByPk(req.params.idp)
-  .then(prod => {
-    if(!prod) {
-      res.status(404).json({error: 'Producto no encontrado'})
-      return;
-    } else {
-      res.json(prod)
+      res.json(cat)
     }
   })
 })
@@ -59,7 +47,9 @@ server.get("/search", (req, res)=>{
 })
 server.post('/category', (req, res) => {
   Category.create({
-    name: req.body.name
+    name: req.body.name,
+    description: req.body.description
+
   }).then(function() {
     res.status(201).send('Categoría creada correctamente');
   })
@@ -134,13 +124,17 @@ server.put("/category/:id", (req,res)=>{
   })
 })
 
-server.put("/:id", (req,res)=>{
-  const {name, description, price, stock}=req.body;
+server.put("/:id", upload.single('images'), (req,res)=>{
+  fs.renameSync(req.file.path, req.file.path + '.' + req.file.mimetype.split('/')[1])
+  let pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
+  let product = JSON.parse(req.body.json)
+  const {name, description, price, stock,}=product;
   Product.findByPk(req.params.id).then((producto)=>{
     producto.name = name;
     producto.description = description;
     producto.price = price;
     producto.stock = stock;
+    producto.picture = pic
     producto.save();
     res.status(201).send("El producto se modifico correctamente")
   })
