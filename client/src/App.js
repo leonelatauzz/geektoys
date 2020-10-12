@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, } from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
+import Carousel from './componentes/Carusel'
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
@@ -60,13 +61,32 @@ function App() {
 
     <Router>
       <div>
-        <Route
-          path='/'
-          render={() => <Navbar
-            categories={dataC}
-            getState={getStates}
-          />}
+
+        <Route 
+        path='/'
+        render = {()=> <Navbar 
+        categories={dataC}
+        getState={getStates}
+        />}        
+      /> 
+        <Route 
+        exact path='/'
+        render={()=><Carousel/>}
         />
+        <Route 
+        exact path={`/products/categoria/:nombreCat`}
+        render = {()=> <Catalogo productos={Object.values(dataSC)}
+        product ={getProduct}
+        />}        
+      /> 
+
+        <Route 
+        exact path = '/products'
+        render = {()=> <Catalogo 
+        productos={dataP}
+        product ={getProduct}
+        />}
+
 
         <Route
           exact path={`/products/categoria/:nombreCat`}
