@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '.././src/componentes/navbar.css';
-import 'react-bootstrap'
+import '.././src/componentes/carusel.css'
 
 ReactDOM.render(
   <React.StrictMode>
