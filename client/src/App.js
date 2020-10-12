@@ -73,20 +73,6 @@ function App() {
         exact path='/'
         render={()=><Carousel/>}
         />
-        <Route 
-        exact path={`/products/categoria/:nombreCat`}
-        render = {()=> <Catalogo productos={Object.values(dataSC)}
-        product ={getProduct}
-        />}        
-      /> 
-
-        <Route 
-        exact path = '/products'
-        render = {()=> <Catalogo 
-        productos={dataP}
-        product ={getProduct}
-        />}
-
 
         <Route
           exact path={`/products/categoria/:nombreCat`}

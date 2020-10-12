@@ -47,8 +47,8 @@ server.get("/search", (req, res) => {
 
 server.post('/category', (req, res) => {
   Category.create({
-    name: req.body.name,
-    description: req.body.description
+    name: req.body.name.toLowerCase(),
+    description: req.body.description.toLowerCase()
   }).then(function () {
     res.status(201).send('Categoría creada correctamente');
   })
@@ -59,8 +59,8 @@ server.post('/', upload.single('images'), (req, res) => {
   let pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
   let product = JSON.parse(req.body.json)
   Product.create({
-    name: product.name,
-    description: product.description,
+    name: product.name.toLowerCase(),
+    description: product.description.toLowerCase(),
     price: product.price,
     stock: product.stock,
     picture: pic
@@ -129,8 +129,8 @@ server.get('/categoria/prod/:id', (req, res) => {
 server.put("/category/:id", (req, res) => {
   const { name, description } = req.body;
   Category.findByPk(req.params.id).then((categoria) => {
-    categoria.name = name;
-    categoria.description = description;
+    categoria.name = name.toLowerCase();
+    categoria.description = description.toLowerCase();
     categoria.save();
     res.status(201).send("La categoria se modifico correctamente")
   })
@@ -150,8 +150,8 @@ server.put("/:id", upload.single('images'), (req, res) => {
 
   const { name, description, price, stock, } = product;
   Product.findByPk(req.params.id).then((producto) => {
-    producto.name = name;
-    producto.description = description;
+    producto.name = name.toLowerCase();
+    producto.description = description.toLowerCase();
     producto.price = price;
     producto.stock = stock;
     producto.picture = pic
