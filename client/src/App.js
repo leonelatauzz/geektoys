@@ -4,6 +4,7 @@ import {BrowserRouter as  Router, Route,} from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
+import Carousel from './componentes/Carusel'
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
@@ -71,7 +72,10 @@ import axios from 'axios'
         getState={getStates}
         />}        
       /> 
-
+        <Route 
+        exact path='/'
+        render={()=><Carousel/>}
+        />
         <Route 
         exact path={`/products/categoria/:nombreCat`}
         render = {()=> <Catalogo productos={Object.values(dataSC)}
