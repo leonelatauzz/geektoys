@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
 import './App.css';
 import { BrowserRouter as Router, Route, } from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
