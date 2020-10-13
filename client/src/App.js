@@ -10,6 +10,7 @@ import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
 import Categoria from './componentes/Categoria';
 import Admin from './componentes/Admin'
+import CartasHome from './componentes/cartasdehome';
 import axios from 'axios'
 
 function App() {
@@ -74,6 +75,13 @@ function App() {
         render={()=><Carousel/>}
         />
 
+        <Route 
+        exact path='/'
+        render={()=><CartasHome productos={Object.values(dataSC)}
+            product={getProduct}
+            callback={setCatalog}/>}
+        />
+
         <Route
           exact path={`/products/categoria/:nombreCat`}
           render={() => <Catalogo productos={Object.values(dataSC)}
@@ -90,6 +98,7 @@ function App() {
             callback={setCatalog}
           />}
         />
+
 
         <Route
           exact path='/products/search'
