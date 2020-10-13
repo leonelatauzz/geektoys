@@ -59,13 +59,13 @@ export default function Navbar(props) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link my-1 mr-sm-2 lin" onClick={handleAdmin}>Dashboard Administrador</a>
+                            <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link my-1 mr-sm-2 lin" onClick={handleP}>Productos</a>
+                            <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
                         </li>
                         <li className="nav-item dropdown">
-                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" onChange={handleChange}>
+                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
                                 <option >Categorias</option>
                                 {props.categories.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
                             </select>
@@ -78,7 +78,7 @@ export default function Navbar(props) {
                 <form onSubmit={handleEnter}>
                     <div>
                         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-                        <input class="" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
+                        <input class="" name="search" type="text" maxlength="128" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
                     </div>
                 </form>
                 <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
