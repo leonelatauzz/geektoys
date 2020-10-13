@@ -4,32 +4,41 @@ import { Card } from 'react-bootstrap'
 import { Button } from 'react-bootstrap'
 import { CardDeck } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
+import stImg from './images/swCard.jpg';
+import pImg from './images/pCard.png';
+import nImg from './images/nCard.png'
 
-export default function CartitasDeHome () {
+export default function CartitasDeHome (props) {
   const history = useHistory();
 
   const starwars = (e) => {
     e.preventDefault();
-    history.push("/products/categoria/starwars")
+    history.push("/products/categoria/starwars");
+    let url = document.location.href.slice(21, document.location.href.length)
+    props.categoryCb(url)
   }
 
   const pokemon = (e) => {
     e.preventDefault();
     history.push("/products/categoria/pokemon")
+    let url = document.location.href.slice(21, document.location.href.length)
+    props.categoryCb(url)
   }
 
   const naruto = (e) => {
     e.preventDefault();
     history.push("/products/categoria/naruto")
+    let url = document.location.href.slice(21, document.location.href.length)
+    props.categoryCb(url)
   }
 
     return (
 
-<CardDeck>
-  <Card>
-    <Card.Img variant="top" src="https://http2.mlstatic.com/D_NQ_NP_784278-MLA31117947416_062019-O.jpg"  width= "400" height= "400"/>
+<CardDeck style={{marginLeft:'60px'}}>
+  <Card style={{maxWidth: '450px'}}>
+    <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "400"/>
     <Card.Body>
-      <Button variant="secondary" size="medium" as="a" href="/products/categoria/starwars" onClick={starwars} active>Conseguilo acá</Button>
+      <Button variant="secondary" size="medium" as="a"  onClick={starwars} active>Conseguilo acá</Button>
       <Card.Title>Pochoclera Star Wars</Card.Title>
       <Card.Text>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
@@ -42,10 +51,10 @@ export default function CartitasDeHome () {
       <medium className="text-muted">Precio $30000</medium>
     </Card.Footer>
   </Card>
-  <Card>
-    <Card.Img variant="top" src="https://i.imgur.com/ckho1Id.png" width= "400" height= "395"/>
+  <Card style={{maxWidth: '450px'}}>
+    <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "395"/>
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" href="/products/categoria/pokemon" onClick={pokemon} active>Conseguilo acá</Button>
+    <Button variant="secondary" size="medium" as="a" onClick={pokemon} active>Conseguilo acá</Button>
       <Card.Title>Funko Pop Pikachu 353</Card.Title>
       <Card.Text>
       Linea Pop! Games
@@ -58,10 +67,10 @@ export default function CartitasDeHome () {
     <medium className="text-muted">Precio $2000</medium>
     </Card.Footer>
   </Card>
-  <Card>
-    <Card.Img variant="top" src="https://i.imgur.com/N2hQh4j.png"  width= "400" height= "400"/>
+  <Card style={{maxWidth: '450px'}}>
+    <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "400"/>
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" href="/products/categoria/naruto" onClick={naruto} active>Conseguilo acá</Button>
+    <Button variant="secondary" size="medium" as="a"  onClick={naruto} active>Conseguilo acá</Button>
       <Card.Title>Figura Gaara mode 185</Card.Title>
       <Card.Text>
         Convertite en el mejor ninja!

@@ -31,12 +31,11 @@ export default function ProductCard(props) {
         if (window.confirm('Estas a punto de eliminar este producto! ¿Deseas continuar?')) {
             const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
                 .then(async (res) => {
+                    alert('Producto eliminado correctamente');
+                    history.push('/products')
                     await axios.get('http://localhost:3001/products/')
                         .then((res) => {
                             return props.callback(res.data)
-                        }).then(() => {
-                            alert('Producto eliminado correctamente');
-                            history.push('/products')
                         })
                 })
         }
@@ -46,10 +45,10 @@ export default function ProductCard(props) {
         <div class="container" >
             <div class="row">
                 <div class="col-md-4">
-                    <img value={props.getProduct} onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
+                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
                 </div>
                 <div class="informacion">
-                    <h5 class="card-title" value={props.getProduct} ><a onClick={handle}  >{props.name}</a></h5>
+                    <a class="card-title" onClick={handle}  >{props.name}</a>
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{example(props)}</small></p>
                 </div>

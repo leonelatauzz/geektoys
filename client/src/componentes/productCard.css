@@ -20,7 +20,11 @@
 
 .card-img{
     width: auto;
+    max-width: 400px;
     height: 300px;
+}
+.card-img:hover {
+    border: 1px solid black;
 }
 
 .informacion{
@@ -28,14 +32,14 @@
     flex-direction: column;
     height: 200px;
     width: 450px;
-    margin-left: 20px;
+    margin-left: 60px;
     margin-top: 20px;
 }
 
 .divBoton{
     display: flex;    
     margin-top: 10px;
-    margin-left: 60px;
+    margin-left: 20px;
     margin-bottom: 50px;
     height: 40px;
     width: 120px;
@@ -45,6 +49,10 @@
     font-family: 'Helvetica Neue', sans-serif;
     font-size: 30px;
     margin-top: 20px;
+    color: #0645AD;
+}
+.card-title:hover {
+    color: cornflowerblue;
 }
 
 .card-text-price{

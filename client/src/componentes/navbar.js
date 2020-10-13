@@ -8,7 +8,9 @@ export default function Navbar(props) {
     const [busq, setBusq] = useState([]);
 
     const handleChange = (event) => {
-        window.location.replace(`http://localhost:3000/products/categoria/${event.target.value}`);
+        history.push(`/products/categoria/${event.target.value}`)
+        let url = document.location.href.slice(21, document.location.href.length)
+        props.categoryCb(url)
     }
 
     const handleInputChange = (event) => {

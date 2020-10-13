@@ -24,6 +24,12 @@ function App() {
   const getProduct = (props) => {
     setDataS(props);
   }
+  const getCategories = async(props) => {
+    const res = await axios.get(`http://localhost:3001${props}`)
+    .then(res => {
+      setDataSC(res.data)
+    })
+  }
 
   const url = document.location.href.slice(21, document.location.href.length)
 
@@ -68,18 +74,23 @@ function App() {
         render = {()=> <Navbar 
         categories={dataC}
         getState={getStates}
+        categoryCb={getCategories}
         />}        
       /> 
         <Route 
         exact path='/'
-        render={()=><Carousel/>}
+        render={()=><Carousel
+        categoryCb={getCategories}
+        />}
         />
 
         <Route 
         exact path='/'
         render={()=><CartasHome productos={Object.values(dataSC)}
             product={getProduct}
-            callback={setCatalog}/>}
+            callback={setCatalog}
+            categoryCb={getCategories}
+            />}
         />
 
         <Route
@@ -106,6 +117,7 @@ function App() {
             productos={Object.values(dataR)}
             product={getProduct}
             callback={setCatalog}
+            
           />}
         />
 
@@ -120,6 +132,7 @@ function App() {
           exact path='/admin/addproduct'
           render={() => <AddProduct
             categories={dataC}
+            callback={setCatalog}
           />
           }
         />

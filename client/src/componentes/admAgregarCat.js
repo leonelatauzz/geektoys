@@ -59,8 +59,8 @@ export default function AddCategory(props) {
     return (
         <div>
             <div className="div_container">
-                <button className="my_butom" onClick={clickBtn}>Volver al dashboard</button>
-                <div className="juan1">
+                <button className="my_butom" style={{marginLeft: '710px', marginTop: '530px'}} onClick={clickBtn}>Volver al dashboard</button>
+                <div className="juan1" style={{marginLeft:'400px'}}>
                     <form className="form">
                         <h3 className="titulo">Nueva categoría:</h3>
                         <label className="label1">Nombre de categoria:</label>
@@ -69,7 +69,7 @@ export default function AddCategory(props) {
                         <label className="label1">Descripcion:</label>
                         <input className="inputs1" type='text' placeholder='descripcion...' name='description' onChange={handlerChange} ></input>
                         {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
-                        <input className="submit1" type='submit' value='Agregar' onClick={handleSubmit}></input>
+                        {data.description.length > 0 && data.name.length > 0 && <input className="submit1" type='submit' value='Agregar' onClick={handleSubmit}></input>}
                     </form>
                 </div>
             </div>
