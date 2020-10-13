@@ -1,5 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './Redux/Reducers/reducer';
 import './index.css';
 import App from './App';
 import '.././src/componentes/Producto.css'
@@ -9,12 +12,16 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '.././src/componentes/navbar.css';
 import '.././src/componentes/carusel.css'
-import '../src/componentes/forms.css'
+import '../src/componentes/forms.css';
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(
+  <Provider store={store}>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 
