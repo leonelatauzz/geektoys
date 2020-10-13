@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import '.././src/componentes/Producto.css'
+import '.././src/componentes/catalogo.css'
+import '.././src/componentes/productCard.css'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '.././src/componentes/navbar.css';

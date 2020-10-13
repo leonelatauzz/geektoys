@@ -1,0 +1,83 @@
+.containerProduct{
+    background-color: white ;
+    height: 770px;
+}
+.cardProduct{
+    background-color: white ;
+    width: 1200px;    
+    display: flex;
+    height: 500px;   
+}
+
+.imagenProduct{
+    width: 350px;
+    height: 500px;  
+    margin-left: 20px;    
+    border-radius: 10px;    
+    
+}
+
+.info{    
+    display: flex;
+    flex-direction: column;    
+    margin-left: 55px;
+    margin-top: 20px;
+    margin-bottom: 20px; 
+    border-left: 1px solid gray;    
+}
+
+.imagenContainer{
+    background-color: white;
+    margin-top: 50px;
+    display: flex;
+    width: 800px;
+    margin-left: 50px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border: 0.25px gray solid;
+    height: 550px; 
+    border-radius: 8px;
+    margin-left: 300px;
+    }
+
+.productName{
+    font-family: 'Helvetica Neue', sans-serif;    
+    line-height: 1.25;
+    margin: 0 0 10px;
+    font-size: 30px;
+    font-weight: 700;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.imagenP{
+    width: 350px;
+    height: auto;    
+    margin-left: 20px;    
+    padding: 5px;     
+}
+
+.productPrice{
+    font-family: 'Open Sans', sans-serif;
+    color: #111;
+    font-weight: lighter;
+    line-height: 32px;
+    margin: 0 0 10px;
+    font-size: 40px;
+    margin-left: 30px;
+    margin-top: 30px;    
+}
+
+.productDescription{
+    font-family: 'Helvetica Neue', sans-serif;
+    line-height: 32px;
+    text-justify: inter-word;
+    color: #111;
+    margin: 0 0 10px;
+    font-size: 22px;
+    margin-left: 30px; 
+    font-weight: 300;
+    margin-top: 30px; 
+}
+
+
+

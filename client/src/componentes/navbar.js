@@ -48,8 +48,7 @@ export default function Navbar(props) {
         history.push('/')
     }
     
-    return (
-        <div>
+    return (        
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a onClick={handleHome} class="navbar-brand">
                     <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
@@ -60,13 +59,13 @@ export default function Navbar(props) {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link my-1 mr-sm-2 lin" onClick={handleAdmin}>Dashboard Administrador</a>
+                            <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link my-1 mr-sm-2 lin" onClick={handleP}>Productos</a>
+                            <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
                         </li>
                         <li className="nav-item dropdown">
-                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" onChange={handleChange}>
+                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
                                 <option >Categorias</option>
                                 {props.categories.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
                             </select>
@@ -85,7 +84,5 @@ export default function Navbar(props) {
                 <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
             </nav>
 
-           
-        </div>
     )
 }
