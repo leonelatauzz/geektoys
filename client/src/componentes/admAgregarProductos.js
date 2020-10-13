@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
+import mImg from './images/marioPic.png';
+import Uimg from './images/up.png'
 
 export default function AddProduct(props) {
     const history = useHistory();
     const [data, setData] = useState({
         name: "",
         description: "",
-        stock: "",
-        price: "",
+        stock: 0,
+        price: 0,
         idProduct: 0,
         idCategory: 0,
         send: false,
@@ -88,13 +90,14 @@ export default function AddProduct(props) {
         e.preventDefault();
         history.push('/admin')
     }
+    
 
     return (
         <div className="imagen_fondo">
 
         <div className="div_container">
-            <button className="my_butom" onClick={handleB}>Volver al dashboard</button>
-            <div className="juan">
+            <button style={{marginLeft: '430px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>
+            <div className="juan" style={{height: '650px'}}>
 
             {data.send === false ?
                 <form className="form" >
@@ -109,12 +112,12 @@ export default function AddProduct(props) {
                     <input className="inputs" name='price' value={data.price} type='number' placeholder='Precio del producto...' onChange={handlerChange}></input>
                     <label className="label">Stock:</label>
                     <input className="inputs" name='stock' value={data.stock} type='number' placeholder='Stock del producto...' onChange={handlerChange}></input>
-                    <img className="image" src="https://i.imgur.com/hXL7pnj.png"/>
-                    <div>
+                    <img className="image" src={mImg} />
+                    <div style={{marginTop:'20px'}}>
                         <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                        <img className="img" src={data.displayFile}  />
+                        {data.check === true ? <img style={{marginRight:'300px', maxHeight:'200px', width:'auto'}} className="img" src={data.displayFile}  /> : <img style={{marginRight:'300px'}} className="img" src={Uimg} />}
                     </div>
-                    {data.check === true ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span></span>}
+                    {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span>Una imagen es requerida</span>}
                 </form> : data.hola === false ? <div>
                     <h5>
                         ¿Deseas agregar una categoria al producto?
@@ -127,7 +130,7 @@ export default function AddProduct(props) {
 
             { data.send === true ?
                 <div>
-                    <form>
+                    <form style={{marginBottom: '300px'}}>
                         <label>Selecciona una Categoria:</label>
                         <select onChange={handleSelectChange}  >
                             <option >Categorias</option>
@@ -135,9 +138,7 @@ export default function AddProduct(props) {
                         </select>
                         <input type='submit' onClick={handleCategory} value="agregar" />
                     </form>
-                    {data.dispBut === true ? <form action="http://localhost:3000/admin/addproduct">
-                        <button type="submit">finalizar</button>
-                    </form> : <span></span>}
+                    
 
                 </div> : <span></span>
             }

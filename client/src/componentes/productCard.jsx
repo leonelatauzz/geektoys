@@ -46,10 +46,10 @@ export default function ProductCard(props) {
         <div class="container" >
             <div class="row">
                 <div class="col-md-4">
-                    <img value={props.getProduct} onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
+                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
                 </div>
                 <div class="informacion">
-                    <h5 class="card-title" value={props.getProduct} ><a onClick={handle}  >{props.name}</a></h5>
+                    <a class="card-title" onClick={handle}  >{props.name}</a>
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{example(props)}</small></p>
                 </div>

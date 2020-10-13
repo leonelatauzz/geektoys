@@ -83,12 +83,11 @@ export default function EditOrDelete(props) {
                 'Content-Type': `multipart/form-data;`,
             }
         }).then(async (res) => {
+            alert('Producto editado correctamente!');
+            history.push('/products')
             await axios.get('http://localhost:3001/products/')
                 .then((res) => {
                     return props.callback(res.data);
-                }).then(() => {
-                    alert('Producto editado correctamente!');
-                    history.push('/admin')
                 })
 
         })
