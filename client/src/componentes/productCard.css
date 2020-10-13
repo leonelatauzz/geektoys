@@ -1,0 +1,61 @@
+
+.container{
+    margin-top: 15px;   
+}
+
+.row{
+    border: 0.25px gray solid;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: row;  
+}
+
+.col-md-4{
+    padding: 5px;
+    margin:  5px;
+    margin-left: 50px;
+
+}
+
+.card-img{
+    width: auto;
+    height: 300px;
+}
+
+.informacion{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 450px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.divBoton{
+    display: flex;    
+    margin-top: 10px;
+    margin-left: 60px;
+    margin-bottom: 50px;
+    height: 40px;
+    width: 120px;
+}
+
+.card-title{
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 30px;
+    margin-top: 20px;
+}
+
+.card-text-price{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 45px;
+    font-weight: 300;
+    margin-top: 30px;
+}
+
+.card-text{
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 18px;
+    margin-top: 20px;
+}
