@@ -48,8 +48,7 @@ export default function Navbar(props) {
         history.push('/')
     }
     
-    return (
-        <div>
+    return (        
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a onClick={handleHome} class="navbar-brand">
                     <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
@@ -85,7 +84,5 @@ export default function Navbar(props) {
                 <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
             </nav>
 
-           
-        </div>
     )
 }

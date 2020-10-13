@@ -9,8 +9,8 @@ export default function ProductCard(props) {
     function example(props) {
         return props.stock == 0 ? 'Producto sin stock'
             : props.stock == 1 ? 'Última unidad disponible'
-                : props.stock <= 5 ? props.stock + ' unidades disponibles'
-                    : '';
+                : props.stock <= 5 ? 'Últimas ' + props.stock + ' unidades disponibles'
+                    : props.stock + ' unidades disponibles';
     }
 
     const handle = (e) => {
@@ -41,41 +41,22 @@ export default function ProductCard(props) {
                 })
         }
     }
-    function titleCase(str) {
-        var splitStr = str.toLowerCase().split(' ');
-        for (var i = 0; i < splitStr.length; i++) {
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-        }
-        return splitStr.join(' '); 
-     }
 
     return (
-        <div className="container" >
-            <div className="row">
-                <div className="col-sm">
-                    <div className="card" >
-                        <div>
-                            <div className="card mb-3" >
-                                <div className="row no-gutters">
-                                    <div className="col-md-4">
-                                        <img src={`http://localhost:3001/uploads/${props.picture}`} className="card-img" alt="..." />
-                                    </div>
-                                    <div className="col-md-8">
-                                        <div className="card-body">
-                                            <h5 className="card-title" value={props.getProduct} ><a onClick={handle}  >{titleCase(props.name)}</a></h5>
-                                            <p className="card-text">${props.price}</p>
-                                            <p className="card-text"><small className="text-muted"></small></p>
-                                            <p className="card-text"><small className="text-muted">{example(props)}</small></p>
-                                            <form>
-                                                <button onClick={handleEdit} type="submit">Editar</button>
-                                            </form>
-                                            <button onClick={handleDelete}> Eliminar</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <div class="container" >
+            <div class="row">
+                <div class="col-md-4">
+                    <img value={props.getProduct} onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
+                </div>
+                <div class="informacion">
+                    <h5 class="card-title" value={props.getProduct} ><a onClick={handle}  >{props.name}</a></h5>
+                    <p class="card-text-price">${props.price}</p>
+                    <p class="card-text"><small className="text-muted">{example(props)}</small></p>
+                </div>
+                <div class="divBoton">
+                <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>  
+                
+                <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
                 </div>
             </div>
         </div>

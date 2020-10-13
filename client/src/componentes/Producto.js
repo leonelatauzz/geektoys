@@ -1,29 +1,31 @@
 import React from 'react';
 
-export default function Productos(props){
-  function titleCase(str) {
-    var splitStr = str.toLowerCase().split(' ');
-    for (var i = 0; i < splitStr.length; i++) {
-        splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
-    }
-    return splitStr.join(' '); 
- } 
 
- function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-  
-  return(
-    <div>
-     <h3>{titleCase(props.producto.name)}</h3>
-     <img src={`http://localhost:3001/uploads/${props.producto.picture}`} />
-     <h4>{props.producto.price}</h4>
-     <h5>{capitalizeFirstLetter(props.producto.description)}</h5>
+export default function Productos(props) {
+
+
+
+  return (
+    <div class="containerProduct">
+      <div class="cardProduct">
+        <div class="imagenContainer">
+          <div class="imagenProduct">
+            <img class="imagenP"src={`http://localhost:3001/uploads/${props.producto.picture}`} />
+          </div>
+          <div class="info">
+            <h3 class="productName">{props.producto.name}</h3>
+            <h4 class="productPrice">${props.producto.price}</h4>
+            <h5 class="productDescription">{props.producto.description}</h5>
+            <button style={{margin:"30px 0px 0px 30px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button>
+            <div id='heart' class='button'>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-       
   )
 }
-    
+
 
 
 
