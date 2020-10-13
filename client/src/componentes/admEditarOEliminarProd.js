@@ -135,51 +135,54 @@ export default function EditOrDelete(props) {
                     })
             })
     }
-    const starwars = (e) => {
-        e.preventDefault();
-        history.push('/products/categoria/la guerra de las galaxias')
-    }
+
 
     return (
-        <div>
-            <div >
-                <form>
-                    <label onClick={starwars}>Título:</label>
-                    <input name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    <label>Descripción:</label>
-                    <input name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
-                    <label>Precio:</label>
-                    <input name='price' value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
-                    <label>Stock:</label>
-                    <input name='stock' value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
-                    <div>
-                        {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ width: "300px" }} /> : <img src={data.displayFile} style={{ width: "300px" }} />}
-                        <input type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
+        <div style={{ backgroundColor: "gray", display: 'flex' }}>
+            <div className="juan" style={{padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
+                <form className="form">
+                    <h3 className="titulo" style={{ color: 'black' }}>Editar producto</h3>
+                    <label className="label" style={{ color: "black" }}>Título:</label>
+                    <input name='name' className="inputs" value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black" }}>Descripción:</label>
+                    <input name='description' className="inputs" value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black" }}>Precio:</label>
+                    <input name='price' className="inputs" value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black" }}>Stock:</label>
+                    <input name='stock' className="inputs" value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
+                    <div style={{display:'flex'}}>
+                        <div style={{ width:'200px'}}>
+                        <input style={{ color: 'black' }} className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
+                        {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px', border:'solid 1px black'}} /> : <img src={data.displayFile} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px' }} />}
+                        </div>                        
+                        <input className="submit" type='submit' value='Guardar Cambios' style={{ width: '150px', height: '50px',marginTop:'140px', marginLeft:'2px', marginRight:'150px'}} onClick={handleForm}></input>
                     </div>
-                    <input type='submit' value='Editar producto' onClick={handleForm}></input>
-                </form>
-                <div>
-                    {data.categories.length === 0 ? <h3>El producto no tiene ninguna categoría asignada</h3> : <h3> Categorias del producto:</h3>}
-                    {data.categories.map((e) => <div>
-                        <p>
-                            {e.name}
-                        </p>
-                        <button value={e.id} onClick={handleDelete}>Eliminar</button>
-                    </div>
-                    )
-                    }
-                </div>
-                <div>
-                    <form>
-                        <label>¿Deseas agregar una categoria al producto?:</label>
-                        <select onChange={handleCat}>
-                            <option >Categorias</option>
-                            {props.categorias.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
-                        </select>
-                        <input type='submit' value="agregar" onClick={handleClick} />
-                    </form>
 
-                </div>
+                </form>
+            </div>
+            <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '100px', marginTop: '30px', backgroundColor: 'white' }}>
+                <form className="form">
+                    <div>
+                        {data.categories.length === 0 ? <h3 className="titulo" style={{color:'black'}}>El producto no tiene ninguna categoría asignada</h3> : <h3 className="titulo" style={{color:'black'}}> Categorias del producto:</h3>}
+                        {data.categories.map((e) => <div>
+                            <label className="label" style={{color:'black', textTransform:'capitalize'}}>
+                                {e.name}
+                            </label>
+                    
+                            <button className="submit" value={e.id} style={{width:'40px', height:'25px', fontSize:'15px', marginLeft:'100px'}} onClick={handleDelete}>X</button>
+                        </div>
+                        )
+                        }
+                    </div>
+                    <label className="label" style={{ color: "black" }}>¿Deseas agregar una categoria al producto?:</label>
+                    <select style={{marginTop:'250px', width:'300px', marginLeft:'30px'}} onChange={handleCat}>
+                        <option >Categorias</option>
+                        {props.categorias.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
+                    </select>
+                    <input className="submit" type='submit' value="Agregar" onClick={handleClick} style={{marginRight:'220px', width: '150px', height: '50px', marginTop: '60px' }}/>
+                </form>
+
+
             </div>
 
 

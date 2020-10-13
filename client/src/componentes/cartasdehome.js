@@ -34,7 +34,7 @@ export default function CartitasDeHome (props) {
 
     return (
 
-<CardDeck style={{marginLeft:'60px'}}>
+<CardDeck style={{margin: '30px 10px 10px 10px'}}>
   <Card style={{maxWidth: '450px'}}>
     <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "400"/>
     <Card.Body>
