@@ -9,6 +9,7 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '.././src/componentes/navbar.css';
 import '.././src/componentes/carusel.css'
+import '../src/componentes/forms.css'
 
 ReactDOM.render(
   <React.StrictMode>

@@ -16,7 +16,7 @@ body {
     color: black;
 }
 
-input[type=text] { 
+.input[type=text] { 
     border-top-left-radius: 0,25rem;
     border-bottom-left-radius: 0.25rem;
     margin-right:30px;
@@ -35,7 +35,7 @@ input[type=text] {
     transition: width 0.4s ease-in-out;
 
 }
-input[type=text]:focus {
+.input[type=text]:focus {
     width:100%
 }
 
