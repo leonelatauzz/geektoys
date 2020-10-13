@@ -31,12 +31,11 @@ export default function ProductCard(props) {
         if (window.confirm('Estas a punto de eliminar este producto! ¿Deseas continuar?')) {
             const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
                 .then(async (res) => {
+                    alert('Producto eliminado correctamente');
+                    history.push('/products')
                     await axios.get('http://localhost:3001/products/')
                         .then((res) => {
                             return props.callback(res.data)
-                        }).then(() => {
-                            alert('Producto eliminado correctamente');
-                            history.push('/products')
                         })
                 })
         }

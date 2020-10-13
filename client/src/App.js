@@ -117,6 +117,7 @@ function App() {
             productos={Object.values(dataR)}
             product={getProduct}
             callback={setCatalog}
+            
           />}
         />
 
@@ -131,6 +132,7 @@ function App() {
           exact path='/admin/addproduct'
           render={() => <AddProduct
             categories={dataC}
+            callback={setCatalog}
           />
           }
         />

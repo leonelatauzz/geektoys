@@ -55,13 +55,18 @@ export default function AddProduct(props) {
                 'accept': 'application/json',
                 'Content-Type': `multipart/form-data;`,
             }
-        }).then((response) => {
+        }).then(async(response) => {
+                alert('Producto agregado correctamente')
                 setData({
                     ...data,
                     idProduct: response.data,
                     send: true
                 })
-                alert('Producto agregado correctamente')
+                await axios.get('http://localhost:3001/products/')
+                .then(res => {
+                    props.callback(res.data)
+                })
+                
             });
     }
 
