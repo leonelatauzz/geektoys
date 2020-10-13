@@ -54,13 +54,20 @@ export default function Categoria(props) {
 
     return (
         <div>
-            <form>
-                <label>Nombre:</label>
-                <input name='name' value={data.name} onChange={handleChange} type='text'></input>
-                <label>Descripción:</label>
-                <input name='description' value={data.description} onChange={handleChange} type='text'></input>
-                <button onClick={handleForm}>Editar</button>
-            </form>
-        </div>
+        <div className="div_container">
+            <div className="juan1">
+                <form className="form">
+                    <h3 className="titulo">Nueva categoría:</h3>
+                    <label className="label1">Nombre de categoria:</label>
+                    <input className="inputs1" type='text' placeholder='nombre de categoria...' name='name' onChange={handleChange}></input>
+                    {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
+                    <label className="label1">Descripcion:</label>
+                    <input className="inputs1" type='text' placeholder='descripcion...' name='description' onChange={handleChange} ></input>
+                    {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
+                    <input className="submit1" type='submit' value='Editar' onClick={handleForm}></input>
+                </form>
+            </div>
+        </div>      
+    </div>
     )
 }

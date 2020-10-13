@@ -13,14 +13,15 @@ export default function Admin() {
     }
 
     return (
-        <div>
-            <h2>Dashboard de administrador</h2>
-
-            <div>
-                <button onClick={handleP}>Agregar nuevo producto</button>
-            </div>
-            <div>
-                <button onClick={useBton}>Administrar categorías</button>
+        <div className="div_conteiner">
+            <h2 className="tittle" >Dashboard de administrador</h2>
+            <div className="admin" >
+                <div>
+                    <button className="bot" onClick={handleP}>Agregar nuevo producto</button>
+                </div>
+                <div>
+                    <button className="bot" onClick={useBton}>Administrar categorías</button>
+                </div>
             </div>
         </div>
     )

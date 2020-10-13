@@ -7,8 +7,8 @@ export default function AddProduct(props) {
     const [data, setData] = useState({
         name: "",
         description: "",
-        stock: 0,
-        price: 0,
+        stock: "",
+        price: "",
         idProduct: 0,
         idCategory: 0,
         send: false,
@@ -90,26 +90,31 @@ export default function AddProduct(props) {
     }
 
     return (
-        <div>
-            <button onClick={handleB}>Volver al dashboard</button>
+        <div className="imagen_fondo">
+
+        <div className="div_container">
+            <button className="my_butom" onClick={handleB}>Volver al dashboard</button>
+            <div className="juan">
+
             {data.send === false ?
-                <form  >
-                    <h3>Agregar nuevo producto</h3>
-                    <label>Título:</label>
-                    <input name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
-                    <label>Descripción:</label>
-                    <input name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
-                    {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
-                    <label>Precio:</label>
-                    <input name='price' value={data.price} type='number' placeholder='Precio del producto...' onChange={handlerChange}></input>
-                    <label>Stock:</label>
-                    <input name='stock' value={data.stock} type='number' placeholder='Stock del producto...' onChange={handlerChange}></input>
+                <form className="form" >
+                    <h3 className="titulo" >Agregar nuevo producto</h3>
+                    <label className="label" >Título:</label>
+                    <input  className="inputs"name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
+                    {data.name.length === 0 && <span style={{ color: 'black' }}>Este campo es requerido</span>}
+                    <label className="label" >Descripción:</label>
+                    <input className="inputs" name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
+                    {data.description.length === 0 && <span style={{ color: 'black' }}>Este campo es requerido</span>}
+                    <label className="label" >Precio:</label>
+                    <input className="inputs" name='price' value={data.price} type='number' placeholder='Precio del producto...' onChange={handlerChange}></input>
+                    <label className="label">Stock:</label>
+                    <input className="inputs" name='stock' value={data.stock} type='number' placeholder='Stock del producto...' onChange={handlerChange}></input>
+                    <img className="image" src="https://i.imgur.com/hXL7pnj.png"/>
                     <div>
-                        <input type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                        <img src={data.displayFile} style={{ width: "300px" }} />
+                        <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
+                        <img className="img" src={data.displayFile}  />
                     </div>
-                    {data.check === true ? <input type='submit' value='Agregar' onClick={handleForm}></input> : <span></span>}
+                    {data.check === true ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span></span>}
                 </form> : data.hola === false ? <div>
                     <h5>
                         ¿Deseas agregar una categoria al producto?
@@ -136,6 +141,8 @@ export default function AddProduct(props) {
 
                 </div> : <span></span>
             }
+            </div>
+        </div>
         </div>
     )
 }

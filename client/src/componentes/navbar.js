@@ -79,7 +79,7 @@ export default function Navbar(props) {
                 <form onSubmit={handleEnter}>
                     <div>
                         <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-                        <input class="" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
+                        <input className="input" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
                     </div>
                 </form>
                 <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>

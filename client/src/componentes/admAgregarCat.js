@@ -55,32 +55,42 @@ export default function AddCategory(props) {
         e.preventDefault();
         history.push('/admin')
     }
-
+    
     return (
         <div>
-            <button onClick={clickBtn}>Volver al dashboard</button>
-            <div>
-                <h3> Categorias existentes</h3>
-                {props.categories.map((e) => <p>
-                    <a href={`http://localhost:3000/products/categoria/${e.name}`}>
-                        {e.name}
-                    </a>
-                    <button value={e.id} onClick={handleEdit} type="submit">Editar</button>
-                    <button value={e.id} onClick={handleDelete}>Eliminar</button>
-                </p>
-                )
-                }
+            <div className="div_container">
+                <button className="my_butom" onClick={clickBtn}>Volver al dashboard</button>
+                <div className="juan1">
+                    <form className="form">
+                        <h3 className="titulo">Nueva categoría:</h3>
+                        <label className="label1">Nombre de categoria:</label>
+                        <input className="inputs1" type='text' placeholder='nombre de categoria...' name='name' onChange={handlerChange}></input>
+                        {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
+                        <label className="label1">Descripcion:</label>
+                        <input className="inputs1" type='text' placeholder='descripcion...' name='description' onChange={handlerChange} ></input>
+                        {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
+                        <input className="submit1" type='submit' value='Agregar' onClick={handleSubmit}></input>
+                    </form>
+                </div>
             </div>
-            <form>
-                <label>Nueva categoría:</label>
-                <input type='text' placeholder='nombre de categoria...' name='name' onChange={handlerChange}></input>
-                {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
-                <input type='text' placeholder='descripcion...' name='description' onChange={handlerChange} ></input>
-                {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
-                <input type='submit' value='Agregar' onClick={handleSubmit}></input>
-            </form>
+            <div className="categories">
+                <h3> Categorias existentes</h3>
+                <div>
+                    {props.categories.map((cat) => 
+                    <div className="div_categories">
+                        <ul className="ul">
+                            <li className="li">
+                                <a className="link" href={`http://localhost:3000/products/categoria/${cat.name}`}>{cat.name}</a>
+                                <button className="edit" value={cat.id} onClick={handleEdit} type="submit">Editar</button>
+                                <button className="delete" value={cat.id} onClick={handleDelete}>Eliminar</button>
+                            </li>
+                        </ul>
+                    </div>
+                    )
+                    }
+                </div>
+            </div>
         </div>
     )
-
 }
 
