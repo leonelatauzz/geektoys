@@ -12,6 +12,7 @@ import Editordelete from './componentes/admEditarOEliminarProd';
 import Categoria from './componentes/Categoria';
 import Admin from './componentes/Admin'
 import CartasHome from './componentes/cartasdehome';
+import SingIn from './componentes/SingIn';
 import axios from 'axios'
 
 function App() {
@@ -171,6 +172,11 @@ function App() {
         />
 
         <Route
+        exact path='/user/singin'
+        render={()=> <SingIn
+        />
+        }
+
         exact path='/admin/products'
         render={()=> <Catalogo 
           productos={dataP}
