@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getCategories, getProducts } from '../Redux/Actions/actions'
 
-export default function Navbar(props) {
+
+
+export default function Navbar() {
     let history = useHistory();
+    const dispatch = useDispatch();
+    const categoria = useSelector(state => state.categories)
     const [busq, setBusq] = useState([]);
 
-    const handleChange = (event) => {
+    
+
+    const handleChange = async(event) => {
         history.push(`/products/categoria/${event.target.value}`)
-        let url = document.location.href.slice(21, document.location.href.length)
-        props.categoryCb(url)
+        const res = await axios.get(`http://localhost:3001/products/categoria/${event.target.value}`)
+        .then(res =>{
+            console.log(res.data)
+            const resObj = Object.values(res.data)
+            dispatch(getProducts(resObj))
+        })        
     }
 
     const handleInputChange = (event) => {
@@ -21,23 +33,32 @@ export default function Navbar(props) {
         event.preventDefault();
         axios.get(`http://localhost:3001/products/search?query=${busq}`)
             .then(res => {
-                props.getState(res.data)
+                history.push("/products/search")
+                const ObjRes = Object.values(res.data)
+                dispatch(getProducts(ObjRes))
             })
-        history.push("/products/search");
+       
     }
 
-    const handleP = (e) => {
+    const handleP = async(e) => {
         e.preventDefault();
-        history.push('/products')
+        history.push('/products');
+        await axios.get('http://localhost:3001/products/')
+        .then(res => {
+            dispatch(getProducts(res.data))
+        })
+
     }
 
     const handleEnter = (e) => {
         e.preventDefault()
         axios.get(`http://localhost:3001/products/search?query=${busq}`)
             .then(res => {
-                props.getState(res.data)
+                history.push("/products/search")
+                const responseObj = Object.values(res.data)
+                dispatch(getProducts(responseObj))
             })
-        history.push("/products/search");
+        
     }
 
     const handleAdmin = (e) => {
@@ -49,6 +70,18 @@ export default function Navbar(props) {
         e.preventDefault();
         history.push('/')
     }
+   
+    useEffect(() => {
+        async function makeRequests() {
+
+            await axios.get(`http://localhost:3001/products/category`)
+                .then(res => {
+                    dispatch(getCategories(res.data))
+
+                })
+        }
+        makeRequests();
+    }, []);
 
     const singIn = (e) => {
         e.preventDefault()
@@ -73,9 +106,9 @@ export default function Navbar(props) {
                             <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
                         </li>
                         <li className="nav-item dropdown">
-                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
+                            <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias"  onChange={handleChange}>
                                 <option >Categorias</option>
-                                {props.categories.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
+                                {categoria.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
                             </select>
                         </li>
                         <li class="nav-item">
@@ -94,3 +127,5 @@ export default function Navbar(props) {
 
     )
 }
+
+

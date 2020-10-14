@@ -7,30 +7,40 @@ import { useHistory } from 'react-router-dom';
 import stImg from './images/swCard.jpg';
 import pImg from './images/pCard.png';
 import nImg from './images/nCard.png'
-
-export default function CartitasDeHome (props) {
+import { useDispatch, useSelector } from "react-redux";
+import {getProducts} from "../Redux/Actions/actions";
+import Axios from 'axios';
+export default function CartitasDeHome () {
   const history = useHistory();
-
-  const starwars = (e) => {
+  const dispatch = useDispatch();
+  const starwars = async(e) => {
     e.preventDefault();
-    history.push("/products/categoria/starwars");
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
+    const res = await Axios.get(`http://localhost:3001/products/categoria/starwars`)
+    .then(res =>{
+      history.push(`/products/categoria/starwars`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
+  }
+  const pokemon = async(e) => {
+    e.preventDefault();
+    const res = await Axios.get(`http://localhost:3001/products/categoria/pokemon`)
+    .then(res =>{
+      history.push(`/products/categoria/pokemon`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
+  }
+  const naruto = async(e) => {
+    e.preventDefault();
+    const res = await Axios.get(`http://localhost:3001/products/categoria/naruto`)
+    .then(res =>{
+      history.push(`/products/categoria/naruto`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
   }
 
-  const pokemon = (e) => {
-    e.preventDefault();
-    history.push("/products/categoria/pokemon")
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
-  }
-
-  const naruto = (e) => {
-    e.preventDefault();
-    history.push("/products/categoria/naruto")
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
-  }
 
     return (
 
@@ -38,7 +48,7 @@ export default function CartitasDeHome (props) {
   <Card style={{maxWidth: '450px'}}>
     <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "400"/>
     <Card.Body>
-      <Button variant="secondary" size="medium" as="a"  onClick={starwars} active>Conseguilo acá</Button>
+      <Button variant="secondary" size="medium" as="a" value="starwars" onClick={starwars} active>Conseguilo acá</Button>
       <Card.Title>Pochoclera Star Wars</Card.Title>
       <Card.Text>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
@@ -54,7 +64,7 @@ export default function CartitasDeHome (props) {
   <Card style={{maxWidth: '450px'}}>
     <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "395"/>
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" onClick={pokemon} active>Conseguilo acá</Button>
+    <Button variant="secondary" size="medium" as="a" value="pokemon" onClick={pokemon} active>Conseguilo acá</Button>
       <Card.Title>Funko Pop Pikachu 353</Card.Title>
       <Card.Text>
       Linea Pop! Games
@@ -70,7 +80,7 @@ export default function CartitasDeHome (props) {
   <Card style={{maxWidth: '450px'}}>
     <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "400"/>
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a"  onClick={naruto} active>Conseguilo acá</Button>
+    <Button variant="secondary" size="medium" as="a" value="naruto" onClick={naruto} active>Conseguilo acá</Button>
       <Card.Title>Figura Gaara mode 185</Card.Title>
       <Card.Text>
         Convertite en el mejor ninja!

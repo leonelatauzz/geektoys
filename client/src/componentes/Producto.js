@@ -1,8 +1,8 @@
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 
-
-export default function Productos(props) {
-
+export default function Productos() {
+const producItem = useSelector(state => state.productId);
 
 
   return (
@@ -10,16 +10,16 @@ export default function Productos(props) {
       <div class="cardProduct">
         <div class="imagenContainer">
           <div class="imagenProduct">
-            <img class="imagenP"src={`http://localhost:3001/uploads/${props.producto.picture}`} />
+            <img class="imagenP"src={`http://localhost:3001/uploads/${producItem.picture}`} />
           </div>
           <div class="info">
-            <h3 class="productName">{props.producto.name}</h3>
-            <h4 class="productPrice">${props.producto.price}</h4>
-            <h5 class="productDescription">{props.producto.description}</h5>
-            <h5 className="productDescription">{props.producto.stock}</h5>
+            <h3 class="productName">{producItem.name}</h3>
+            <h4 class="productPrice">${producItem.price}</h4>
+            <h5 class="productDescription">{producItem.description}</h5>
+
             {props.producto.stock === 0 ? 
             <button disabled="true" style={{margin:"30px 0px 0px 70px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button> : 
-            <button style={{margin:"30px 0px 0px 70px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button>
+
             }
             
             <div id='heart' class='button'>
