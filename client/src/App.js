@@ -4,16 +4,16 @@ import { BrowserRouter as Router, Route, } from 'react-router-dom'
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
-import Carousel from './componentes/Carusel'
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
 import Categoria from './componentes/Categoria';
 import Admin from './componentes/Admin'
-import CartasHome from './componentes/cartasdehome';
 import SingIn from './componentes/SingIn';
 import AdminProducto from './componentes/AdminProducto.js';
 import AdminCatalogo from './componentes/AdminCatalogo.jsx';
+import NotFound from './componentes/NotFound'
+import Home from './componentes/Home'
 
 function App() {
 
@@ -23,36 +23,38 @@ function App() {
     <Router>
       <div>
 
-        <Route 
-        path='/'
-        render = {()=> <Navbar 
+        <Route
+          path='/'
+          render={() => <Navbar
 
-        />}        
-      /> 
-        <Route 
-        exact path='/'
-        render={()=><Carousel
-        
-        />}
+          />}
         />
 
-        <Route 
-        exact path='/'
-        render={()=><CartasHome 
-            
-            />}
+        <Route
+          exact path='/'
+          render={() => <Home
+
+          />}
+        />
+
+
+        <Route
+          exact path='/products/search/notFound'
+          render={() => <NotFound
+
+          />}
         />
 
         <Route
           exact path={`/products/categoria/:nombreCat`}
-          render={() => <Catalogo 
+          render={() => <Catalogo
           />}
         />
 
         <Route
           exact path='/products'
           render={() => <Catalogo
-            
+
           />}
         />
 
@@ -60,22 +62,22 @@ function App() {
         <Route
           exact path='/products/search'
           render={() => <Catalogo
-            
-            
+
+
           />}
         />
 
         <Route
           exact path='/products/prod/:id'
           render={() => <Producto
-          
+
           />}
         />
 
         <Route
           exact path='/admin/addproduct'
           render={() => <AddProduct
-            
+
           />
           }
         />
@@ -83,7 +85,7 @@ function App() {
         <Route
           exact path='/admin/addcategory'
           render={() => <AddCategory
-            
+
           />
           }
         />
@@ -91,7 +93,7 @@ function App() {
         <Route
           exact path='/admin/editordelete/:id'
           render={() => <Editordelete
-            
+
           />
           }
         />
@@ -111,31 +113,31 @@ function App() {
         />
 
         <Route
-        exact path='/user/singin'
-        render={()=> <SingIn
+          exact path='/user/singin'
+          render={() => <SingIn
+          />
+          }
+
         />
-        }
 
-       />
-        
-      <Route
-      exact path='/products/prod/admin/:id'
-      render={() => <AdminProducto
-      />
-      }
-      />
+        <Route
+          exact path='/products/prod/admin/:id'
+          render={() => <AdminProducto
+          />
+          }
+        />
 
-<Route
-exact path='/admin/products'
-render={() => <AdminCatalogo
-/>
-}
-/>
+        <Route
+          exact path='/admin/products'
+          render={() => <AdminCatalogo
+          />
+          }
+        />
 
       </div>
     </Router>
 
-    
+
   );
 }
 

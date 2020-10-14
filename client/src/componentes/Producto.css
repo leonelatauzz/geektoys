@@ -9,18 +9,11 @@
     height: 500px;   
 }
 
-.imagenProduct{
-    width: 350px;
-    height: 500px;  
-    margin-left: 20px;    
-    border-radius: 10px;    
-    
-}
+
 
 .info{    
     display: flex;
-    flex-direction: column;    
-    margin-left: 100px;
+    flex-direction: column;
     margin-top: 20px;
     margin-bottom: 20px; 
     border-left: 1px solid gray;    
@@ -51,10 +44,11 @@
 
 .imagenP{
     margin-top: 60px;    
-    margin-left: 20px;    
+    margin-left: 60px;
+    margin-right: 60px;
     padding: 5px;
     width: auto;
-    max-width: 400px;
+    max-width: 700px;
     height: 450px;     
 }
 

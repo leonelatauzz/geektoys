@@ -38,12 +38,9 @@ server.get('/category', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
 server.get("/search", (req, res) => {
   Product.findAll().then(products => {
     const result = products.filter(producto => (producto.name.includes(req.query.query)) || (producto.description.includes(req.query.query)))
-    if (result.length === 0) {
-      res.status(404).send("No se encontro el producto")
-    } else {
       let obj = Object.assign({}, result);
       res.status(200).json(obj)
-    }
+    
   })
 })
 
