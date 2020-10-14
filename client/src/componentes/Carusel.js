@@ -4,34 +4,44 @@ import {Carousel} from 'react-bootstrap';
 import pIm from './images/pokemonPic.webp';
 import stIm from './images/starwarsPic.png';
 import nIm from './images/narutoPic.jpeg'
-
-export default function Carusel(props){
+import Axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import {getProducts} from "../Redux/Actions/actions"
+export default function Carusel(){
   const history = useHistory();
-
-  const naruto = (e) => {
+  const dispatch = useDispatch();
+  const pokemon = async(e) => {
     e.preventDefault();
-    history.push("/products/categoria/naruto")
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
+    const res = await Axios.get(`http://localhost:3001/products/categoria/pokemon`)
+    .then(res =>{
+      history.push(`/products/categoria/pokemon`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
   }
-
-  const starwars = (e) => {
+  const starwars = async(e) => {
     e.preventDefault();
-    history.push("/products/categoria/starwars");
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
+    const res = await Axios.get(`http://localhost:3001/products/categoria/starwars`)
+    .then(res =>{
+      history.push(`/products/categoria/starwars`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
   }
-
-  const pokemon = (e) => {
+  const naruto = async(e) => {
     e.preventDefault();
-    history.push("/products/categoria/pokemon")
-    let url = document.location.href.slice(21, document.location.href.length)
-    props.categoryCb(url)
+    const res = await Axios.get(`http://localhost:3001/products/categoria/naruto`)
+    .then(res =>{
+      history.push(`/products/categoria/naruto`)
+      const productDist = Object.values(res.data);
+      dispatch(getProducts(productDist))
+    })
   }
+  
   return (
     <Carousel>
     <Carousel.Item interval={1000}>
-      <img onClick={pokemon} src={pIm}  class="d-block w-100" alt="Pokemon"/>
+      <img value="pokemon" onClick={pokemon} src={pIm}  class="d-block w-100" alt="Pokemon"/>
         
       <Carousel.Caption>
         <h3>¿Querés ser un gran maestro Pokémon?</h3>
@@ -39,7 +49,7 @@ export default function Carusel(props){
       </Carousel.Caption>
     </Carousel.Item>
     <Carousel.Item interval={500}>
-    <img onClick={starwars} src={stIm} class="d-block w-100" alt="Darth Vader"/>
+    <img value="starwars" onClick={starwars} src={stIm} class="d-block w-100" alt="Darth Vader"/>
       
       <Carousel.Caption>
         <h3>¿Ser Darth Vader es tu ideal?</h3>
@@ -47,7 +57,7 @@ export default function Carusel(props){
       </Carousel.Caption>
     </Carousel.Item>
     <Carousel.Item>
-      <img onClick={naruto} src={nIm} class="d-block w-100" alt="Dios Itachi"/>  
+      <img value="naruto" onClick={naruto} src={nIm} class="d-block w-100" alt="Dios Itachi"/>  
       <Carousel.Caption>
         <h3>¿Querés ser un Ninja?</h3>
         <p>Los mejores productos de Naruto</p>

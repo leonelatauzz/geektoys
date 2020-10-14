@@ -65,3 +65,13 @@ margin-left:10px;
 padding: 10px
 }
 
+.btn3 {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    background-color: #D3D3D3;
+    border: 1px solid #D3D3D3;
+    color: #495057;
+    border-radius: 5px;
+    padding: 5px;
+}

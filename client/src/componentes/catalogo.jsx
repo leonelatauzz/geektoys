@@ -1,8 +1,11 @@
 import React from 'react';
-import ProductCard from './productCard.jsx'
+import ProductCard from './productCard.jsx';
+import { useDispatch, useSelector } from "react-redux";
 
 // llega un array en props, se recorre y se renderiza en cada card
-export default function Catalogo(props) {
+export default function Catalogo() {
+
+    const catalogo = useSelector(state => state.products)
 
     function titleCase(str) {
         var splitStr = str.toLowerCase().split(' ');
@@ -20,7 +23,7 @@ export default function Catalogo(props) {
     return (
 
         <div class="tarjeta" >
-            {props.productos.map((p) => <ProductCard
+            {catalogo.map((p) => <ProductCard
                 key={p.id}
                 id={p.id}
                 name={titleCase(p.name)}
@@ -28,8 +31,6 @@ export default function Catalogo(props) {
                 picture={p.picture}
                 price={p.price}
                 stock={p.stock}
-                product={props.product}
-                callback={props.callback}
             />
 
             )}

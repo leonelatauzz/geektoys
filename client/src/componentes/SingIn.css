@@ -1,0 +1,21 @@
+.sing_in{
+    display: flex;
+    justify-content: center;
+    color: white;
+    background-color: rgb(120, 120, 120);
+    height: 677px;
+    align-items: center;
+}
+
+.input-sing-in{
+    width: 600px;
+}
+
+
+.detail{
+    color: white;
+}
+
+.checkbox{
+    margin-left: 5px;
+}
