@@ -28,3 +28,16 @@ export const getProductCategory = function(props){
         payload: props
     }
 }
+export const getCategories = function(props){
+    return {
+        type: 'GET_CATEGORIES',
+        payload: props
+    }
+}
+export const getCategoryId = function(props){
+    return {
+        type: 'GET_CATEGORY_ID',
+        payload: props
+    }
+}
+

@@ -87,11 +87,6 @@ export default function AddProduct() {
                 dispBut: true
             })
             alert('Producto agregado a la categoría correctamente');
-            await axios.get(`http://localhost:3001/products/categoria/${data.nameCategory}`)
-            .then((res) => {
-                let dispCat = Object.values(res.data)
-                dispatch(getCategoryProduct(dispCat))
-            })
         })
         
 

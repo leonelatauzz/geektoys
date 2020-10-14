@@ -3,6 +3,7 @@ const initialState = {
     productId: null,
     categories: [],
     categoryProducts: [],
+    categoryId: null,
     productCategories: [],
     search: []
 }
@@ -16,6 +17,10 @@ export default function(state = initialState, action){
             return {...state, categoryProducts: action.payload}
         case 'GET_PRODUCT_CATEGORIES':
             return {...state, productCategories: action.payload} 
+        case 'GET_CATEGORIES':
+            return {...state, categories: action.payload}  
+        case 'GET_CATEGORY_ID':
+            return {...state, categoryId: action.payload}  
         default: 
         return state;
     }
