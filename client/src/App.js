@@ -12,6 +12,8 @@ import Categoria from './componentes/Categoria';
 import Admin from './componentes/Admin'
 import CartasHome from './componentes/cartasdehome';
 import SingIn from './componentes/SingIn';
+import AdminProducto from './componentes/AdminProducto.js';
+import AdminCatalogo from './componentes/AdminCatalogo.jsx';
 
 function App() {
 
@@ -114,14 +116,26 @@ function App() {
         />
         }
 
-        exact path='/admin/products'
-        render={()=> <Catalogo 
-          
-        />}
-        />
+       />
         
+      <Route
+      exact path='/products/prod/admin/:id'
+      render={() => <AdminProducto
+      />
+      }
+      />
+
+<Route
+exact path='/admin/products'
+render={() => <AdminCatalogo
+/>
+}
+/>
+
       </div>
     </Router>
+
+    
   );
 }
 

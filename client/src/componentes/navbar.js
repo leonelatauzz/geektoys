@@ -7,6 +7,7 @@ import { getCategories, getProducts } from '../Redux/Actions/actions'
 
 
 
+
 export default function Navbar() {
     let history = useHistory();
     const dispatch = useDispatch();
@@ -44,6 +45,7 @@ export default function Navbar() {
         history.push('/products');
         await axios.get('http://localhost:3001/products/')
         .then(res => {
+            console.log(res.data);
             dispatch(getProducts(res.data))
         })
 

@@ -59,7 +59,7 @@ server.post('/category', (req, res) => {
 server.post('/', upload.single('images'), (req, res) => {
   fs.renameSync(req.file.path, req.file.path + '.' + req.file.mimetype.split('/')[1])
   let pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
-  let product = JSON.parse(req.body.json)
+  let product = JSON.parse(req.body.json); 
   Product.create({
     name: product.name.toLowerCase(),
     description: product.description.toLowerCase(),
@@ -81,7 +81,7 @@ server.post('/:idProducto/category/:idCategoria', (req, res) => {
       if (!prod) {
         res.status(404).json({ error: 'Producto no encontrado' })
         return;
-      }
+      } 
       Category.findByPk(req.params.idCategoria).then((cat) => {
         if (!cat) {
           res.status(404).json({ error: 'Categoria no encontrada' })
