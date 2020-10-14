@@ -1,21 +1,23 @@
-import React, { Component } from 'react'
-import { Feed } from 'semantic-ui-react'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom';
 
 
-function Cart(props){
+
+export default function Cart(){
+  const productsCart= useSelector(state=> state.cart)
+  const [data, setData] = useState({
+    
+  })
+   console.log(productsCart);
   return(
-    <Feed>
-      <Feed.Event>
-        <Feed.Label image={props.img} />
-        <Feed.Content>
-          <Feed.Date content={props.name} />
-          <Feed.Summary>
-            $ {props.total} ({props.order} productos)
-          </Feed.Summary>
-        </Feed.Content>
-      </Feed.Event>
-    </Feed>
-  )
+
+<div>
+  {productsCart.map(cart => <h5>{cart.name}</h5>)}
+</div>
+
+    )
+    
 }
 
-export default Cart;

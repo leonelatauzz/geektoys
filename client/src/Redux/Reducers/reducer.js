@@ -5,7 +5,8 @@ const initialState = {
     categoryProducts: [],
     categoryId: null,
     productCategories: [],
-    search: []
+    search: [],
+    cart: []
 }
 export default function(state = initialState, action){
     switch(action.type){
@@ -21,6 +22,8 @@ export default function(state = initialState, action){
             return {...state, categories: action.payload}  
         case 'GET_CATEGORY_ID':
             return {...state, categoryId: action.payload}  
+        case 'DELIVER_TO_CART':
+            return {...state, cart: state.cart.concat(action.payload)}  
         default: 
         return state;
     }

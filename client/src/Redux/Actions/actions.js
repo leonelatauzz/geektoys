@@ -40,4 +40,10 @@ export const getCategoryId = function(props){
         payload: props
     }
 }
-
+ export const deliverToCart= function(props){
+     return {
+         type: 'DELIVER_TO_CART',
+         payload: props
+     }
+ }
+ 

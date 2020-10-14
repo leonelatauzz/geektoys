@@ -34,7 +34,6 @@ export default function Navbar() {
         axios.get(`http://localhost:3001/products/search?query=${busq}`)
             .then(res => {
                 if (Object.values(res.data).length === 0) {
-                    console.log('wiiiiiiiiii')
                     history.push('/products/search/notFound')
                 } else {
                     history.push("/products/search")
@@ -50,7 +49,7 @@ export default function Navbar() {
         history.push('/products');
         await axios.get('http://localhost:3001/products/')
             .then(res => {
-                console.log(res.data);
+                
                 dispatch(getProducts(res.data))
             })
 

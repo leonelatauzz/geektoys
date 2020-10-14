@@ -14,6 +14,7 @@ import AdminProducto from './componentes/AdminProducto.js';
 import AdminCatalogo from './componentes/AdminCatalogo.jsx';
 import NotFound from './componentes/NotFound'
 import Home from './componentes/Home'
+import Carrito from './componentes/Carrito.js';
 
 function App() {
 
@@ -130,6 +131,12 @@ function App() {
         <Route
           exact path='/admin/products'
           render={() => <AdminCatalogo
+          />
+          }
+        />
+        <Route
+          exact path='/carrito/prueba'
+          render={() => <Carrito
           />
           }
         />
