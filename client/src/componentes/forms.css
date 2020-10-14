@@ -242,3 +242,36 @@
     top: 20px;
 }
 
+.btn1 {
+    position: relative;
+    left: 700px;
+    background-color: #d31212;
+    border: #d31212 solid 3px;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn1:hover {
+    background-color: red;
+    border-color: red;
+
+}
+
+.btn2 {
+    position: relative;
+    top: 35px;
+    left: 1350px;
+    background-color: #d31212;
+    border: #d31212 solid 3px;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn2:hover {
+    background-color: red;
+    border-color: red;
+    
+}
+
+
+

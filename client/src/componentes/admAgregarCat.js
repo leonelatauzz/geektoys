@@ -2,12 +2,16 @@ import Axios from 'axios';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-
-export default function AddCategory(props) {
+import {getCategories} from '../Redux/Actions/actions';
+import { useDispatch, useSelector } from "react-redux";
+import {getCategoryId} from '../Redux/Actions/actions';
+export default function AddCategory() {
+    const dispatch = useDispatch();
+    const allCategories = useSelector(state=> state.categories)
     const history = useHistory();
     const [data, setData] = useState({
         name: "",
-        description: ""
+        description: "",
     })
 
     const handlerChange = (event) => {
@@ -29,26 +33,40 @@ export default function AddCategory(props) {
                 'Content-Type': 'application/json'
             }
 
-        }).then(() => {
-            alert('Categoría creada correctamente');
-            window.location.replace('http://localhost:3000/admin/addcategory')
+        }).then(async() => {
+            const res = await axios.get('http://localhost:3001/products/category')
+            .then(res=>{
+                alert('Categoría creada correctamente');
+                dispatch(getCategories(res.data))
+            })
         })
     }
 
     const handleDelete = async (e) => {
         e.preventDefault();
         if (window.confirm('Estas a punto de eliminar esta categoría! ¿Deseas continuar?')) {
-            const res = await axios.delete(`http://localhost:3001/products//category/${e.target.value}`)
-                .then(res => {
-                    alert('Categoría eliminada correctamente');
-                    window.location.replace('http://localhost:3000/admin/addcategory')
+            const res = await axios.delete(`http://localhost:3001/products/category/${e.target.value}`)
+                .then(async() => {
+                    const ras = await axios.get('http://localhost:3001/products/category')
+                    .then(res=>{
+                        alert('Categoría eliminada correctamente');
+                        dispatch(getCategories(res.data));
+                        history.push('/admin/addcategory')
+
+                    })                                   
                 })
         }
     }
 
-    const handleEdit = (e) => {
-        e.preventDefault();
-        history.push(`/admin/editordelete/cat/${e.target.value}`);
+    const handleEdit = async(e) => {
+        e.preventDefault();  
+        let pruebina = e.target.value.split("/");
+            const res = await axios.get(`http://localhost:3001/products/category/cat/${pruebina[1]}`)
+            .then(res=>{ 
+                dispatch(getCategoryId(res.data));
+                history.push(`/admin/editordelete/cat/${pruebina[0]}`);
+          })  
+       
     }
 
     const clickBtn = (e) => {
@@ -76,12 +94,12 @@ export default function AddCategory(props) {
             <div className="categories">
                 <h3> Categorias existentes</h3>
                 <div>
-                    {props.categories.map((cat) => 
+                    {allCategories.map((cat) => 
                     <div className="div_categories">
                         <ul className="ul">
                             <li className="li">
                                 <a className="link" href={`http://localhost:3000/products/categoria/${cat.name}`}>{cat.name}</a>
-                                <button className="edit" value={cat.id} onClick={handleEdit} type="submit">Editar</button>
+                                <button className="edit"  value={cat.name+"/"+cat.id} onClick={handleEdit} type="submit">Editar</button>
                                 <button className="delete" value={cat.id} onClick={handleDelete}>Eliminar</button>
                             </li>
                         </ul>
