@@ -82,16 +82,22 @@ export default function Navbar() {
         }
         makeRequests();
     }, []);
+
+    const singIn = (e) => {
+        e.preventDefault()
+        history.push("/user/singin")
+    }
     
-    return (        
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    return (    
+        
+            <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{backgroundColor:"red"}}>
                 <a onClick={handleHome} class="navbar-brand">
                     <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent"  >
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
                             <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
@@ -106,7 +112,7 @@ export default function Navbar() {
                             </select>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#"></a>
+                            <button className="btn3" onClick={singIn}> Registrarse</button>
                         </li>
                     </ul>
                 </div>
@@ -117,7 +123,7 @@ export default function Navbar() {
                     </div>
                 </form>
                 <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
-            </nav>
+            </nav> 
 
     )
 }

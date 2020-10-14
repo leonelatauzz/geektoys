@@ -35,7 +35,7 @@ export default function ProductCard(props) {
             const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
                 .then(async () => {
                     alert('Producto eliminado correctamente');
-                    history.push('/products')
+                    history.push('/admin/products')
                     await axios.get('http://localhost:3001/products/')
                         .then((res) => {
                             dispatch(getProducts(res.data))
@@ -43,6 +43,14 @@ export default function ProductCard(props) {
                 })
         }
     }
+
+    const dashboard = (e) => {
+        e.preventDefault()
+        history.push('/admin')
+    }
+
+    const direction =  window.location.href
+    const direction2 = "http://localhost:3000/admin/products"
 
     return (
         <div class="container" >
@@ -59,6 +67,10 @@ export default function ProductCard(props) {
                 <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>  
                 
                 <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
+        
+
+                        
+
                 </div>
             </div>
         </div>

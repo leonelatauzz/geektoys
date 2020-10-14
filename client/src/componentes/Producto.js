@@ -16,8 +16,14 @@ const producItem = useSelector(state => state.productId);
             <h3 class="productName">{producItem.name}</h3>
             <h4 class="productPrice">${producItem.price}</h4>
             <h5 class="productDescription">{producItem.description}</h5>
-            <button style={{margin:"30px 0px 0px 70px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button>
+
+            {props.producto.stock === 0 ? 
+            <button disabled="true" style={{margin:"30px 0px 0px 70px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button> : 
+
+            }
+            
             <div id='heart' class='button'>
+              {console.log(props.producto.stock)}
             </div>
           </div>
         </div>
