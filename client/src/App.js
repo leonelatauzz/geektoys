@@ -12,12 +12,8 @@ import Categoria from './componentes/Categoria';
 import Admin from './componentes/Admin'
 import CartasHome from './componentes/cartasdehome';
 import SingIn from './componentes/SingIn';
-import axios from 'axios'
 
 function App() {
-
-  // const url = document.location.href.slice(21, document.location.href.length)
-  // axios.get(`http://localhost:3001${url}`)
 
 
   return (
@@ -120,9 +116,7 @@ function App() {
 
         exact path='/admin/products'
         render={()=> <Catalogo 
-          productos={dataP}
-          product={getProduct}
-          callback={setCatalog}
+          
         />}
         />
         

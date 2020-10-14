@@ -184,37 +184,8 @@ export default function EditOrDelete() {
                     </select>
                     <input className="submit" type='submit' value="Agregar" onClick={handleClick} style={{ marginRight: '220px', width: '150px', height: '50px', marginTop: '60px' }} />
                 </form>
-
-
-      
-                       
-
-
-                    </form>
-                </div>
-                <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '100px', marginTop: '30px', backgroundColor: 'white' }}>
-                    <form className="form">
-                        <div>
-                            {data.categories.length === 0 ? <h3 className="titulo" style={{ color: 'black' }}>El producto no tiene ninguna categoría asignada</h3> : <h3 className="titulo" style={{ color: 'black' }}> Categorias del producto:</h3>}
-                            {data.categories.map((e) => <div>
-                                <label className="label" style={{ color: 'black', textTransform: 'capitalize' }}>
-                                    {e.name}
-                                </label>
-
-                                <button className="submit" value={e.id} style={{ width: '40px', height: '25px', fontSize: '15px', marginLeft: '100px' }} onClick={handleDelete}>X</button>
-                            </div>
-                            )
-                            }
-                        </div>
-                        <label className="label" style={{ color: "black" }}>¿Deseas agregar una categoria al producto?:</label>
-                        <select style={{ marginTop: '250px', width: '300px', marginLeft: '30px' }} onChange={handleCat}>
-                            <option >Categorias</option>
-                            {props.categorias.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
-                        </select>
-                        <input className="submit" type='submit' value="Agregar" onClick={handleClick} style={{ marginRight: '220px', width: '150px', height: '50px', marginTop: '60px' }} />
-                    </form>
-                </div>
             </div>
         </div>
+        
     )
 }

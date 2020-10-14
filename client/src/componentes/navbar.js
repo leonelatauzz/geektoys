@@ -13,13 +13,12 @@ export default function Navbar() {
     const categoria = useSelector(state => state.categories)
     const [busq, setBusq] = useState([]);
 
-    
+
 
     const handleChange = async(event) => {
         history.push(`/products/categoria/${event.target.value}`)
         const res = await axios.get(`http://localhost:3001/products/categoria/${event.target.value}`)
         .then(res =>{
-            console.log(res.data)
             const resObj = Object.values(res.data)
             dispatch(getProducts(resObj))
         })        
