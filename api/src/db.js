@@ -32,6 +32,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Product } = sequelize.models;
 const { Category } = sequelize.models;
+const { Users } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
