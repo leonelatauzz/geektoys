@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { getProducts } from '../Redux/Actions/actions'
+
+
 
 export default function Navbar(props) {
     let history = useHistory();
+    const dispatch = useDispatch();
     const [busq, setBusq] = useState([]);
+
+    
 
     const handleChange = (event) => {
         history.push(`/products/categoria/${event.target.value}`)
@@ -26,9 +33,14 @@ export default function Navbar(props) {
         history.push("/products/search");
     }
 
-    const handleP = (e) => {
+    const handleP = async(e) => {
         e.preventDefault();
-        history.push('/products')
+        history.push('/products');
+        await axios.get('http://localhost:3001/products/')
+        .then(res => {
+            dispatch(getProducts(res.data))
+        })
+
     }
 
     const handleEnter = (e) => {
@@ -88,3 +100,9 @@ export default function Navbar(props) {
 
     )
 }
+const mapStateToProps = state => {
+    return {
+       
+    }
+}
+

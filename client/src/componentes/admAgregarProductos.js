@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios'
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts, getCategoryProduct } from '../Redux/Actions/actions'
 import mImg from './images/marioPic.png';
 import Uimg from './images/up.png'
 
-export default function AddProduct(props) {
+export default function AddProduct() {
     const history = useHistory();
+    const dispatch = useDispatch();
+    const existingCategories = useSelector(state => state.categories)
     const [data, setData] = useState({
         name: "",
         description: "",
@@ -13,6 +17,7 @@ export default function AddProduct(props) {
         price: 0,
         idProduct: 0,
         idCategory: 0,
+        nameCategory: '',
         send: false,
         hola: false,
         pictures: [],
@@ -30,9 +35,11 @@ export default function AddProduct(props) {
     }
 
     const handleSelectChange = (event) => {
+        let catData = event.target.value.split('/')
         setData({
             ...data,
-            idCategory: parseInt(event.target.value)
+            idCategory: parseInt(catData[0]),
+            nameCategory: catData[1]
 
         })
     }
@@ -64,7 +71,7 @@ export default function AddProduct(props) {
                 })
                 await axios.get('http://localhost:3001/products/')
                 .then(res => {
-                    props.callback(res.data)
+                    dispatch(getProducts(res.data))
                 })
                 
             });
@@ -73,13 +80,21 @@ export default function AddProduct(props) {
     const handleCategory = async (e) => {
         e.preventDefault()
         const res = await axios.post(`http://localhost:3001/products/${data.idProduct}/category/${data.idCategory}`)
-        setData({
-            ...data,
-            hola: true,
-            dispBut: true
+        .then(async()=> {
+            setData({
+                ...data,
+                hola: true,
+                dispBut: true
+            })
+            alert('Producto agregado a la categoría correctamente');
+            await axios.get(`http://localhost:3001/products/categoria/${data.nameCategory}`)
+            .then((res) => {
+                let dispCat = Object.values(res.data)
+                dispatch(getCategoryProduct(dispCat))
+            })
         })
-        alert('Producto agregado a la categoría correctamente')
-        history.push('/admin/addproduct')
+        
+
     }
 
     const handleChange = (event) => {
@@ -138,7 +153,7 @@ export default function AddProduct(props) {
                         <label>Selecciona una Categoria:</label>
                         <select onChange={handleSelectChange}  >
                             <option >Categorias</option>
-                            {props.categories.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
+                            {existingCategories.map((cat) => <option key={cat.id} value={`${cat.id}/${cat.name}`} name={cat.name} > {cat.name} </option>)}
                         </select>
                         <input type='submit' onClick={handleCategory} value="agregar" />
                     </form>
