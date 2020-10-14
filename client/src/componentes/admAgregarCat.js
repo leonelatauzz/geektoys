@@ -8,7 +8,6 @@ import {getCategoryId} from '../Redux/Actions/actions';
 export default function AddCategory() {
     const dispatch = useDispatch();
     const allCategories = useSelector(state=> state.categories)
-    console.log(allCategories)
     const history = useHistory();
     const [data, setData] = useState({
         name: "",
@@ -50,8 +49,10 @@ export default function AddCategory() {
                 .then(async() => {
                     const ras = await axios.get('http://localhost:3001/products/category')
                     .then(res=>{
-                        dispatch(getCategories(res.data))
                         alert('Categoría eliminada correctamente');
+                        dispatch(getCategories(res.data));
+                        history.push('/admin/addcategory')
+
                     })                                   
                 })
         }
@@ -62,8 +63,8 @@ export default function AddCategory() {
         let pruebina = e.target.value.split("/");
             const res = await axios.get(`http://localhost:3001/products/category/cat/${pruebina[1]}`)
             .then(res=>{ 
+                dispatch(getCategoryId(res.data));
                 history.push(`/admin/editordelete/cat/${pruebina[0]}`);
-                dispatch(getCategoryId(res.data))
           })  
        
     }

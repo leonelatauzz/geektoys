@@ -8,8 +8,8 @@ export default function Categoria() {
     const dispatch = useDispatch();
     const history = useHistory();
     const [data, setData] = useState({
-        name: '',
-        description: '',
+        name: categoryEdit.name,
+        description: categoryEdit.description
         
     })
     
@@ -28,8 +28,8 @@ export default function Categoria() {
             }).then(async() => {
                 const ras = await axios.get(`http://localhost:3001/products/category`)
                 .then(res => {
-                    alert('Categoria editada correctamente');
                     dispatch(getCategories(res.data))
+                    alert('Categoria editada correctamente');
                     history.push(`/admin/addcategory`);                              
                 })
             
@@ -53,10 +53,10 @@ export default function Categoria() {
                 <form className="form">
                     <h3 className="titulo">Editar categoría:</h3>
                     <label className="label1">Nombre de categoria:</label>
-                    <input className="inputs1" type='text' placeholder='nombre de categoria...' name='name' onChange={handleChange}></input>
+                    <input value={data.name} className="inputs1" type='text' placeholder='nombre de categoria...' name='name' onChange={handleChange}></input>
                     {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
                     <label className="label1">Descripcion:</label>
-                    <input className="inputs1" type='text' placeholder='descripcion...' name='description' onChange={handleChange} ></input>
+                    <input value={data.description} className="inputs1" type='text' placeholder='descripcion...' name='description' onChange={handleChange} ></input>
                     {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
                     <input className="submit1" type='submit' value='Editar' onClick={handleForm}></input>
                 </form>
