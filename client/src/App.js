@@ -169,6 +169,15 @@ function App() {
           />
           }
         />
+
+        <Route
+        exact path='/admin/products'
+        render={()=> <Catalogo 
+          productos={dataP}
+          product={getProduct}
+          callback={setCatalog}
+        />}
+        />
         
       </div>
     </Router>

@@ -32,7 +32,7 @@ export default function ProductCard(props) {
             const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
                 .then(async (res) => {
                     alert('Producto eliminado correctamente');
-                    history.push('/products')
+                    history.push('/admin/products')
                     await axios.get('http://localhost:3001/products/')
                         .then((res) => {
                             return props.callback(res.data)
@@ -41,21 +41,36 @@ export default function ProductCard(props) {
         }
     }
 
+    const dashboard = (e) => {
+        e.preventDefault()
+        history.push('/admin')
+    }
+
+    const direction =  window.location.href
+    const direction2 = "http://localhost:3000/admin/products"
+
     return (
-        <div class="container" >
-            <div class="row">
-                <div class="col-md-4">
-                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
-                </div>
-                <div class="informacion">
-                    <a class="card-title" onClick={handle}  >{props.name}</a>
-                    <p class="card-text-price">${props.price}</p>
-                    <p class="card-text"><small className="text-muted">{example(props)}</small></p>
-                </div>
-                <div class="divBoton">
-                <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>  
-                
-                <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
+        <div>
+            {direction === direction2 ? 
+            <button className="btn1" onClick={dashboard} > Volver al Dashboard </button> : <div></div>}
+            <div class="container" >
+                <div class="row">
+                    <div class="col-md-4">
+                        <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
+                    </div>
+                    <div class="informacion">
+                        <a class="card-title" onClick={handle}  >{props.name}</a>
+                        <p class="card-text-price">${props.price}</p>
+                        <p class="card-text"><small className="text-muted">{example(props)}</small></p>
+                    </div>
+                    {direction === direction2 ?
+                        <div class="divBoton">
+                            <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>
+
+                            <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
+                        </div>
+                        : <div></div>}
+
                 </div>
             </div>
         </div>
