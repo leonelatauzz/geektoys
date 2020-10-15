@@ -5,6 +5,7 @@ const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
 const fs = require('fs')
+const { Users } = require('../db.js');
 
 
 server.get('/', (req, res, next) => {
@@ -196,4 +197,28 @@ server.delete("/:id", (req, res) => {
   })
 })
 
+// MOVER A user.js EL DELETE Y EL POST DE ABAJO
+server.post('/users', (req, res) => {
+ 
+  Users.create({
+    name: req.body.name,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password
+  }).then((user) => {
+    if (!user) {
+      res.status(404).json({ error: 'hola' })
+      return;
+    }
+    return res.status(201).json("usuario creado correctamente")
+  })
+})
+
+server.delete("users/:id", (req, res) => {          
+  Users.findByPk(req.params.id).then((usuario) => {
+    usuario.destroy();
+    res.status(200).send("El usuario se elimino correctamente")
+    return;
+  })
+})
 module.exports = server;
