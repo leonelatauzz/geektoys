@@ -8,7 +8,6 @@ const fs = require('fs')
 const { Users } = require('../db.js');
 
 
-
 server.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => {
