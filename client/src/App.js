@@ -15,6 +15,8 @@ import AdminCatalogo from './componentes/AdminCatalogo.jsx';
 import NotFound from './componentes/NotFound'
 import Home from './componentes/Home'
 import Carrito from './componentes/Carrito.js';
+import Login from './componentes/Login';
+import Footer from './componentes/Footer';
 
 function App() {
 
@@ -30,6 +32,8 @@ function App() {
 
           />}
         />
+
+       
 
         <Route
           exact path='/'
@@ -139,6 +143,20 @@ function App() {
           render={() => <Carrito
           />
           }
+        />
+
+        <Route
+        exat path = '/user/login'
+        render={() => <Login
+        />
+        }
+        />
+
+<Route
+        exact path= '/'
+        render={()=> <Footer
+        />
+        }
         />
 
       </div>

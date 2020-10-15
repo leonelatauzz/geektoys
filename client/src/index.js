@@ -14,6 +14,7 @@ import '.././src/componentes/navbar.css';
 import '.././src/componentes/carusel.css'
 import '../src/componentes/forms.css';
 import './componentes/SingIn.css'
+import './componentes/footer.css'
 
 const store = createStore(rootReducer)
 

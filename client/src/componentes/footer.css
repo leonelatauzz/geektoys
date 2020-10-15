@@ -1,0 +1,57 @@
+.footer {
+    position: absolute;
+    top: 1900px;
+    background-color: #232F3E ;
+    width: 100%;
+    height: 250px;
+}
+
+.footer_div_container {
+    display: flex;
+    padding: 30px;
+    justify-content: space-between;
+    color: white;
+}
+
+.company {
+    margin-left: 60px;
+    width: 40%;
+    margin-right:20px ;
+    font-size: 17px;
+}
+
+.products {
+    margin-right:60px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.contact {
+    margin-right:60px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.links {
+    margin-right:60px ;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lista {
+    list-style: none;
+    font-size: 17px;
+    
+}
+
+.titulo_link {
+    margin-left: 8px;
+}
+
+.titulo_contact {
+    margin-right: 0px;
+}
+

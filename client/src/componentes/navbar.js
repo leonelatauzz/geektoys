@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCategories, getProducts } from '../Redux/Actions/actions'
+import image from './images/carrito.png'
+
 
 
 
@@ -93,6 +95,11 @@ export default function Navbar() {
         history.push("/user/singin")
     }
 
+    const logIn = (E) => {
+        E.preventDefault()
+        history.push('/user/login')
+    }
+
     return (
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ backgroundColor: "red" }}>
@@ -116,18 +123,24 @@ export default function Navbar() {
                             {categoria.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
                         </select>
                     </li>
-                    <li class="nav-item">
-                        <button className="btn3" onClick={singIn}> Registrarse</button>
+                    <li >
+                        <form onSubmit={handleEnter}>
+                            <div>
+                                <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+                                <input className="input" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
+                            </div>
+                        </form>
+                    </li>
+                    <li>
+                        <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
                     </li>
                 </ul>
-            </div>
-            <form onSubmit={handleEnter}>
-                <div>
-                    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-                    <input className="input" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
+                <div >
+                <button className="btn3" style={{marginRight: "20px"}} onClick={singIn}> Registrarse</button>
+                <button className="btn3" style={{marginRight: "30px"}}  onClick={logIn}>Ingresar </button>
+                <img src={image} style={{width:"40px", height:"40px"}}/>
                 </div>
-            </form>
-            <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
+            </div>
         </nav>
 
     )
