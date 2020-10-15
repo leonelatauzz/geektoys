@@ -1,19 +1,35 @@
 .sing_in{
     display: flex;
     justify-content: center;
-    color: white;
-    background-color: rgb(120, 120, 120);
-    height: 677px;
+    align-content: center;
+    color: rgb(2, 2, 2);
+    border-radius: 15px;
+    border: solid 1px;
+    border-color: #E0050D;
+    background-color:(216, 216, 216,7);
+    height: 600px;
+    width: 550px;
+    margin-left: 32%;
+    margin-top: 30px;
     align-items: center;
+}
+h1{
+    text-align: center;
+    padding-bottom: 40px;
+    font-size: 40px;
 }
 
 .input-sing-in{
     width: 600px;
 }
-
+.form-control{
+    background-color: #FFFAFA;
+    border-color: #FFFAFA;
+    border-bottom-color: #969696;
+}
 
 .detail{
-    color: white;
+    color: black;
 }
 
 .checkbox{

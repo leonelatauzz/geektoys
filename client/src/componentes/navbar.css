@@ -7,7 +7,8 @@ body {
     color: lightcyan;
     border: 2px solid black;
     border-radius: 5px;
-    margin-left: 5px;
+    margin-top: 8px;
+    margin-left: 15px;
     display: flex;
     flex-flow: row wrap;
 }
@@ -19,11 +20,11 @@ body {
 .input[type=text] { 
     border-top-left-radius: 0,25rem;
     border-bottom-left-radius: 0.25rem;
-    margin-right:30px;
+    margin-left:10px;
     padding: 12px 20px 12px 40px;
     display: flex;
     flex-flow: row wrap;
-    width: 130px;
+    width: 150px;
     box-sizing: border-box;
     border: 1px solid #bdbdbd;
     border-radius:4px;
@@ -75,3 +76,5 @@ padding: 10px
     border-radius: 5px;
     padding: 5px;
 }
+
+
