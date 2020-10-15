@@ -7,7 +7,6 @@ const upload = multer({ dest: `${__dirname}/uploads` });
 const fs = require('fs')
 
 
-
 server.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => {

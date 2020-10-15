@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    const lineaOrden = sequelize.define('lineaOrden', {
+    const lineOrder = sequelize.define('lineOrder', {
         price: {
             type: DataTypes.FLOAT,
             allowNull: false
@@ -11,5 +11,5 @@ module.exports = (sequelize) => {
             allowNull: false
           }          
     });
-    return lineaOrden;
+    return lineOrder;
 };
