@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
             type: DataTypes.FLOAT,
             allowNull: false
           },
-          stock: {
+        amount: {
             type: DataTypes.INTEGER,
             allowNull: false
           }          

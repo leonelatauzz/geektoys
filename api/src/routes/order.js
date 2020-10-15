@@ -1,5 +1,6 @@
 const server = require('express').Router();
-const { Order } = require('../db.js')
+const { UPSERT } = require('sequelize/types/lib/query-types');
+const { Order, User } = require('../db.js')
 
 
 server.get('/', (req, res) => {
@@ -12,16 +13,15 @@ server.get('/', (req, res) => {
 
   server.get("/search", (req, res) => {
     Order.findAll().then(orders => {
-      const result = orders.filter(order => (order.name.includes(req.query)))
+      const result = orders.filter(order => (order.state.includes(req.query)))
       if (result.length === 0) {
         res.status(404).send("No se encontro la orden")
       } else {
         let obj = Object.assign({}, result);
         res.status(200).json(obj)
-      }
-    })
-  })
-
+      };
+    });
+  });
 
 
   server.get('/:id', (req, res) => {
@@ -31,9 +31,11 @@ server.get('/', (req, res) => {
           res.status(404).send('Orden no encontrada')
         } else {
           res.json(orden)
-        }
-      })
-  })
+        };
+      });
+  });
+
+
 // Falta por probar :D!
   server.put('/:id', (req,res) => {
     const { state } = req.body;
@@ -47,6 +49,20 @@ server.get('/', (req, res) => {
       };
     });
   });
+
+
+  server.post('/', (req, res) => {
+    Order.create({
+      state: req.body.state   
+    } 
+    ).then((order) => {
+      if (!order) {
+        res.status(404).json({ error: 'No se puede crear la orden' })
+        return;
+      }
+      return res.status(201).json(order)
+    })
+  })
 
 
   ///orders/:id
