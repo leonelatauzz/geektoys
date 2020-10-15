@@ -1,18 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, getProducts } from '../Redux/Actions/actions'
-import eHeart from './images/emp.png';
-import fHeart from './images/cl.png'
 
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard(props) {
     const history = useHistory();
     const dispatch = useDispatch();
-    const [data, setData] = useState({
-        fav: false
-    });
 
     function setStock(props) {
         return props.stock == 0 ? 'Producto sin stock'
@@ -23,27 +18,39 @@ export default function ProductCard(props) {
 
     const handle = (e) => {
         e.preventDefault()
-        history.push(`/products/prod/${props.id}`);
+        history.push(`/products/prod/admin/${props.id}`);
         dispatch(getAProduct(props))
     }
 
-    const handleEH = (e) => {
-        e.preventDefault();
-        setData({
-            ...data,
-            fav: true
-        })
-    }   
+    const handleEdit = (e) => {
+        e.preventDefault()
+        history.push(`/admin/editordelete/${props.id}`);
+        dispatch(getAProduct(props))
 
-    const handleFH = (e) => {
-        e.preventDefault();
-        setData({
-            ...data,
-            fav: false
-        })
     }
-    
 
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        if (window.confirm('Estas a punto de eliminar este producto! ¿Deseas continuar?')) {
+            const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
+                .then(async () => {
+                    alert('Producto eliminado correctamente');
+                    history.push('/admin/products')
+                    await axios.get('http://localhost:3001/products/')
+                        .then((res) => {
+                            dispatch(getProducts(res.data))
+                        })
+                })
+        }
+    }
+
+    const dashboard = (e) => {
+        e.preventDefault()
+        history.push('/admin')
+    }
+
+    const direction =  window.location.href
+    const direction2 = "http://localhost:3000/admin/products"
 
     return (
         <div class="container" >
@@ -57,8 +64,10 @@ export default function ProductCard(props) {
                     <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
                 </div>
                 <div class="divBoton">
-                {data.fav === false ? <img onClick={handleEH} class='emptyLike' src={eHeart}/> : <img onClick={handleFH} class='fullLike' src={fHeart}/>}
+                <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>  
                 
+                <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
+        
 
                         
 

@@ -8,23 +8,42 @@
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
     border-radius: 8px;
     display: flex; 
-    flex-direction: row;  
+    flex-direction: row;
+    background-color: white;  
 }
 
 .col-md-4{
     padding: 5px;
     margin:  5px;
-    margin-left: 50px;
+    margin-left: 30px;
+    margin-right: 30px;
+
 
 }
 
 .card-img{
     width: auto;
-    max-width: 400px;
+    max-width: 300px;
     height: 300px;
 }
 .card-img:hover {
     border: 1px solid black;
+}
+.emptyLike {
+    height: 30px;
+    margin: 20px 0px 0px 70px;
+}
+.emptyLike:hover {
+    height: 33px;
+}
+.fullLike {
+    height: 32px;
+    margin: 20px 0px 0px 70px;
+
+}
+.fullLike:hover {
+    height: 35px;
+
 }
 
 .informacion{
@@ -39,10 +58,10 @@
 .divBoton{
     display: flex;    
     margin-top: 10px;
-    margin-left: 20px;
     margin-bottom: 50px;
     height: 40px;
     width: 120px;
+    margin-left: 20px;
 }
 
 .card-title{
