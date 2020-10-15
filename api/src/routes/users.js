@@ -7,12 +7,10 @@ server.get('/', (req, res) => {
       .then(users => {
         res.send(users);
       })
-
   });
 
-  server.post('/users', (req, res) => {
- 
-    Users.create({
+  server.post('/', (req, res) => {
+    User.create({
       name: req.body.name,
       lastname: req.body.lastname,
       email: req.body.email,
@@ -26,8 +24,8 @@ server.get('/', (req, res) => {
     })
   })
   
-  server.delete("users/:id", (req, res) => {          
-    Users.findByPk(req.params.id).then((usuario) => {
+  server.delete("/:id", (req, res) => {          
+    User.findByPk(req.params.id).then((usuario) => {
       usuario.destroy();
       res.status(200).send("El usuario se elimino correctamente")
       return;
