@@ -13,8 +13,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '.././src/componentes/navbar.css';
 import '.././src/componentes/carusel.css'
 import '../src/componentes/forms.css';
-import './componentes/SingIn.css'
-import './componentes/footer.css'
+import './componentes/SingIn.css';
+import './componentes/footer.css';
+import './componentes/tablaOrden.css';
 
 const store = createStore(rootReducer)
 
