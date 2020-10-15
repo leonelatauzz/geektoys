@@ -32,6 +32,16 @@ server.get('/', (req, res) => {
     })
   })
 
+ // Falta por probar :D!
+
+  server.delete("/:idUser/cart", (req, res) => {          
+    Product.findByPk(req.params.idUser).then((cart) => {
+      cart.destroy();
+      res.status(200).send("el carrito se vació correctamente")
+      return;
+    })
+  })
+  
 
   module.exports = server;
 
