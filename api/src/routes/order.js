@@ -1,6 +1,5 @@
 const server = require('express').Router();
-const { UPSERT } = require('sequelize/types/lib/query-types');
-const { Order, User } = require('../db.js')
+const { Order, User, Product } = require('../db.js')
 
 
 server.get('/', (req, res) => {
@@ -53,7 +52,8 @@ server.get('/', (req, res) => {
 
   server.post('/', (req, res) => {
     Order.create({
-      state: req.body.state   
+      state: req.body.state,
+      userId: req.body.userId  
     } 
     ).then((order) => {
       if (!order) {
@@ -64,8 +64,6 @@ server.get('/', (req, res) => {
     })
   })
 
-
-  ///orders/:id
 
 
 /*   server.put("/category/:id", (req, res) => {

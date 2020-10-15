@@ -14,12 +14,15 @@ server.post('/:idUser/cart' , (req,res) => {
           res.status(404).json({ error: 'No se encontro un producto con este ID' });
           return;
         }else{
-          order.addProduct(producto);
+          order.addProduct(producto,{through: {price: req.body.price , amount: req.body.amount}});
+          res.send("Exito");
         }
       })
     }
   })
 });
+
+//{price: req.body.price , amount: req.body.amount}
 
 server.get('/', (req, res) => {
     User.findAll()
