@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { User, Product, Order } = require('../db.js');
 
+
 server.post('/:idUser/cart' , (req,res) => {
   Order.findByPk(req.body.idOrder)
   .then(order => {
@@ -30,6 +31,16 @@ server.get('/', (req, res) => {
         res.send(users);
       })
   });
+    // GET /users/:id/orders
+    server.get("/:id/orders", (req,res)=>{
+      User.findAll({
+        where:{
+          id: req.params.id
+        },
+        include: Order
+      })
+      
+    })
 
   server.post('/', (req, res) => {
     User.create({
@@ -54,6 +65,16 @@ server.get('/', (req, res) => {
     })
   })
 
+ // Falta por probar :D!
+
+  server.delete("/:idUser/cart", (req, res) => {          
+    Product.findByPk(req.params.idUser).then((cart) => {
+      cart.destroy();
+      res.status(200).send("el carrito se vació correctamente")
+      return;
+    })
+  })
+  
 
 
 

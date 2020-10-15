@@ -10,6 +10,7 @@ server.get('/', (req, res) => {
 
   });
 
+
   server.get("/search", (req, res) => {
     Order.findAll().then(orders => {
       const result = orders.filter(order => (order.state.includes(req.query)))
@@ -21,7 +22,6 @@ server.get('/', (req, res) => {
       };
     });
   });
-
 
   server.get('/:id', (req, res) => {
     Order.findByPk(req.params.id)
@@ -35,7 +35,9 @@ server.get('/', (req, res) => {
   });
 
 
+
 // Falta por probar :D!
+
   server.put('/:id', (req,res) => {
     const { state } = req.body;
     Order.findByPk(req.params.id).then((order) => {
