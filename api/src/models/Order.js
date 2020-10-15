@@ -2,10 +2,10 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     const Order = sequelize.define('order', {
-        status:{
+        state:{
             type: DataTypes.STRING,
             allowNull: false
         }
-    });
+    })
     return Order;
 };

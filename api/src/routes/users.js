@@ -1,6 +1,29 @@
 const server = require('express').Router();
-const { User, Order } = require('../db.js')
+const { User, Product, Order } = require('../db.js');
 
+
+server.post('/:idUser/cart' , (req,res) => {
+  Order.findByPk(req.body.idOrder)
+  .then(order => {
+    if(!order){
+      res.status(404).json({ error: 'No se encontro orden con este ID' })
+      return;
+    }else{
+      Product.findByPk(req.body.idProduct)
+      .then(producto => {
+        if(!producto){
+          res.status(404).json({ error: 'No se encontro un producto con este ID' });
+          return;
+        }else{
+          order.addProduct(producto,{through: {price: req.body.price , amount: req.body.amount}});
+          res.send("Exito");
+        }
+      })
+    }
+  })
+});
+
+//{price: req.body.price , amount: req.body.amount}
 
 server.get('/', (req, res) => {
     User.findAll()
@@ -30,7 +53,7 @@ server.get('/', (req, res) => {
         res.status(404).json({ error: 'hola' })
         return;
       }
-      return res.status(201).json("usuario creado correctamente")
+      return res.status(201).json(user);
     })
   })
   
@@ -52,6 +75,8 @@ server.get('/', (req, res) => {
     })
   })
   
+
+
 
   module.exports = server;
 
