@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { User } = require('../db.js')
+const { User, Order } = require('../db.js')
 
 
 server.get('/', (req, res) => {
@@ -8,6 +8,16 @@ server.get('/', (req, res) => {
         res.send(users);
       })
   });
+    // GET /users/:id/orders
+    server.get("/:id/orders", (req,res)=>{
+      User.findAll({
+        where:{
+          id: req.params.id
+        },
+        include: Order
+      })
+      
+    })
 
   server.post('/', (req, res) => {
     User.create({
