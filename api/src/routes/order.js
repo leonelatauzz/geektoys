@@ -34,6 +34,32 @@ server.get('/', (req, res) => {
         }
       })
   })
+// Falta por probar :D!
+  server.put('/:id', (req,res) => {
+    const { state } = req.body;
+    Order.findByPk(req.params.id).then((order) => {
+      if (!orden) {
+        res.status(404).send('Orden no encontrada');
+      } else {
+        order.status = state;
+        order.save();
+        res.status(201).send("La orden se modifico correctamente");
+      };
+    });
+  });
 
+
+  ///orders/:id
+
+
+/*   server.put("/category/:id", (req, res) => {
+    const { name, description } = req.body;
+    Category.findByPk(req.params.id).then((categoria) => {
+      categoria.name = name.toLowerCase();
+      categoria.description = description.toLowerCase();
+      categoria.save();
+      res.status(201).send("La categoria se modifico correctamente")
+    })
+  }) */
 
   module.exports = server;
