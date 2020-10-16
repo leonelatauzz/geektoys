@@ -55,6 +55,12 @@ server.get('/', (req, res) => {
     }).then((user) => {
       if (!user) {
         res.status(404).json({ error: 'no se pudo crear el usuario' })
+      } else {
+        res.status(200).send("Usuario creado correctamente")
+      }
+    })
+  }) 
+  
 
 server.put("/:idUser/cart", (req, res) => {
 
