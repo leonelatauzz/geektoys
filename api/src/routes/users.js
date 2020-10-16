@@ -17,6 +17,7 @@ server.get('/login', (req, res) => {
 })
 
 
+
 server.post('/:idUser/cart', (req, res) => {
   Order.findByPk(req.body.idOrder)
     .then(order => {
@@ -40,6 +41,7 @@ server.post('/:idUser/cart', (req, res) => {
 
 
 
+
 server.put("/:idUser/cart", (req, res) => {
   cart.findOne({
     where: {
@@ -50,6 +52,7 @@ server.put("/:idUser/cart", (req, res) => {
     ca.update({amount: req.body.amount});
     res.json(ca)
   })
+
 })
 
 
@@ -112,6 +115,7 @@ server.delete('/:idUser/cart', (req, res) => {
       });
     })
 })
+
 
 
 
