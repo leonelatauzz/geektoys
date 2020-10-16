@@ -60,7 +60,22 @@ server.get('/', (req, res) => {
     })
   })
 
-
+  server.get('/cart/:id', (req, res) => {
+    Order.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: Product
+    })
+      .then((order) => {
+        if (!order) {
+          res.status(400).send('La orden no fue encontrada')
+        }
+        let resolve = order.dataValues.products;
+        let obj = Object.assign({}, resolve)
+        res.json(obj);
+      })
+  })
 
 /*   server.put("/category/:id", (req, res) => {
     const { name, description } = req.body;

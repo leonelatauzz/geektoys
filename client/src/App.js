@@ -17,6 +17,7 @@ import Home from './componentes/Home'
 import Carrito from './componentes/Carrito.js';
 import Login from './componentes/Login';
 import Footer from './componentes/Footer';
+import TablaOrder from './componentes/tablaOrden.js';
 
 function App() {
 
@@ -155,6 +156,12 @@ function App() {
         <Route
         exact path= '/'
         render={()=> <Footer
+        />
+        }
+        />
+         <Route
+        exact path= '/admin/orderlist'
+        render = {() => <TablaOrder
         />
         }
         />

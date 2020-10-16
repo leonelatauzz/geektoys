@@ -10,11 +10,13 @@ import './componentes/css/catalogo.css'
 import './componentes/css/productCard.css'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './componentes/css/navbar.css';
-import './componentes/css/carusel.css'
-import './componentes/css/forms.css';
-import './componentes/css/SingIn.css'
-import './componentes/css/footer.css'
+import './componentes/navbar.css';
+import './componentes/carusel.css'
+import './componentes/forms.css';
+import './componentes/SingIn.css';
+import './componentes/footer.css';
+import './componentes/tablaOrden.css';
+
 
 const store = createStore(rootReducer)
 

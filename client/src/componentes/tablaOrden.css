@@ -1,0 +1,75 @@
+.containerTabla{
+   
+
+}
+
+.tablaO{
+   border: 1px solid red;
+   border-radius: 10px;
+   width: 40vw;
+   margin: auto;
+}
+
+.headerTabla{
+   display: flex;
+   width: 40vw;
+   justify-content: space-around;
+   
+  
+}
+
+.headerI{
+    border-right: 1px solid black;
+    width: 10vw;
+    
+  
+}
+
+.headerII{
+   
+    width: 10vw;
+    
+}
+
+.headerIII{
+    border-left: 1px solid black;
+    width: 10vw;
+    
+}
+
+
+
+.headerT{
+  text-align: center;
+  margin-top: 5px;
+}
+
+.bodyTabla{
+  
+}
+
+.lineaI{
+   display: flex;
+   border-top: 1px solid black;
+   justify-content: space-around;
+   width: 40vw;
+}
+
+.bodyI{
+    border-right: 1px solid black;
+    width: 10vw;
+}
+
+.bodyII{
+    width: 10vw;
+}
+
+.bodyIII{
+    border-left: 1px solid black;
+    width: 10vw;
+}
+
+.pI{
+    text-align: center;
+  margin-top: 5px; 
+}

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCategories, getProducts } from '../Redux/Actions/actions';
 import axios from 'axios';
 
+
 export default function Admin() {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -27,6 +28,11 @@ export default function Admin() {
         history.push('/admin/addcategory')
     }
 
+    const btnOrders = (e) => {
+        e.preventDefault();
+        history.push('/admin/orderlist')
+    }
+
    
 
     
@@ -42,6 +48,9 @@ export default function Admin() {
                 </div>
                 <div>
                     <button className="bot" onClick={btnProducts}> Productos</button>
+                </div>
+                <div>
+                    <button className="bot" onClick={btnOrders}> Tabla de Ordenes</button>
                 </div>
             </div>
         </div>
