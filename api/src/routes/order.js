@@ -54,7 +54,7 @@ server.get('/', (req, res) => {
 
   server.post('/', (req, res) => {
     Order.create({
-      state: req.body.state,
+      state:  'carrito',
       userId: req.body.userId  
     } 
     ).then((order) => {
@@ -66,10 +66,10 @@ server.get('/', (req, res) => {
     })
   })
 
-  server.get('/cart/:id', (req, res) => {
+  server.get('/cart/:orderId', (req, res) => {
     Order.findOne({
       where: {
-        id: req.params.id
+        id: req.params.orderId
       },
       include: Product
     })
