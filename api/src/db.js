@@ -59,7 +59,7 @@ Product.belongsToMany(Order,{  through: cart});
 
 
 
-Order.belongsTo(User, {
+User.hasMany(Order, {
   foreignKey: 'userId'
 });
 
