@@ -1,4 +1,5 @@
 const server = require('express').Router();
+const { default: Cart } = require('../../../client/src/componentes/Carrito.js');
 const { User, Product, Order } = require('../db.js');
 
 
@@ -23,23 +24,25 @@ server.post('/:idUser/cart' , (req,res) => {
   })
 });
 
-//{price: req.body.price , amount: req.body.amount}
-
 server.get('/', (req, res) => {
     User.findAll()
       .then(users => {
         res.send(users);
       })
   });
-    // GET /users/:id/orders
+
     server.get("/:id/orders", (req,res)=>{
-      User.findAll({
-        where:{
-          id: req.params.id
-        },
-        include: Order
+      Order.findAll({
+        where: {
+          userId: req.params.id
+        }
+      }).then((orden)=>{
+        if(!orden){
+          res.status(404).send("orden no encontrada")
+        } else {
+          res.status(200).send(orden)
+        }
       })
-      
     })
 
   server.post('/', (req, res) => {
@@ -50,10 +53,10 @@ server.get('/', (req, res) => {
       password: req.body.password
     }).then((user) => {
       if (!user) {
-        res.status(404).json({ error: 'hola' })
+        res.status(404).json({ error: 'no se pudo crear el usuario' })
         return;
       }
-      return res.status(201).json(user);
+      return res.status(201).json("usuario creado correctamente");
     })
   })
   
@@ -64,18 +67,6 @@ server.get('/', (req, res) => {
       return;
     })
   })
-
- // Falta por probar :D!
-
-  server.delete("/:idUser/cart", (req, res) => {          
-    Product.findByPk(req.params.idUser).then((cart) => {
-      cart.destroy();
-      res.status(200).send("el carrito se vació correctamente")
-      return;
-    })
-  })
-  
-
 
 
   module.exports = server;

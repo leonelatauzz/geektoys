@@ -5,16 +5,16 @@ import { createStore } from 'redux';
 import rootReducer from './Redux/Reducers/reducer';
 import './index.css';
 import App from './App';
-import '.././src/componentes/Producto.css'
-import '.././src/componentes/catalogo.css'
-import '.././src/componentes/productCard.css'
+import './componentes/css/Producto.css'
+import './componentes/css/catalogo.css'
+import './componentes/css/productCard.css'
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '.././src/componentes/navbar.css';
-import '.././src/componentes/carusel.css'
-import '../src/componentes/forms.css';
-import './componentes/SingIn.css'
-import './componentes/footer.css'
+import './componentes/css/navbar.css';
+import './componentes/css/carusel.css'
+import './componentes/css/forms.css';
+import './componentes/css/SingIn.css'
+import './componentes/css/footer.css'
 
 const store = createStore(rootReducer)
 

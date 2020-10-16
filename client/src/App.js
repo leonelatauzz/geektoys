@@ -152,11 +152,17 @@ function App() {
         }
         />
 
-<Route
+        <Route
         exact path= '/'
         render={()=> <Footer
         />
         }
+        />
+
+        <Route
+        exact path= '/user/:id/carrito'
+        render={()=> <Carrito 
+        /> }
         />
 
       </div>
