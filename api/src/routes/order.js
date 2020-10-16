@@ -46,10 +46,10 @@ server.get('/', (req, res) => {
   });
 
 
-  server.post('/', (req, res) => {
+  server.post('/:userId', (req, res) => {
     Order.create({
       state:  'carrito',
-      userId: req.body.userId  
+      userId: req.params.userId  
     } 
     ).then((order) => {
       if (!order) {

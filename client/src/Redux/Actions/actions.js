@@ -46,4 +46,16 @@ export const getCategoryId = function(props){
          payload: props
      }
  }
- 
+ export const getUserInfo = function(props){
+     return{
+         type: 'GET_USER_INFO',
+         payload: props
+     }
+ }
+ export const getActiveOrder = function(props){
+    return{
+        type: 'GET_ACTIVE_ORDER',
+        payload: props
+    }
+}
+
