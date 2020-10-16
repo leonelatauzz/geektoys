@@ -2,6 +2,7 @@ const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
 
 
+
 server.post('/:idUser/cart', (req, res) => {
   Order.findByPk(req.body.idOrder)
     .then(order => {
@@ -23,12 +24,45 @@ server.post('/:idUser/cart', (req, res) => {
     })
 });
 
+
+server.get('/', (req, res) => {
+    User.findAll()
+      .then(users => {
+        res.send(users);
+      })
+  });
+
+    server.get("/:id/orders", (req,res)=>{
+      Order.findAll({
+        where: {
+          userId: req.params.id
+        }
+      }).then((orden)=>{
+        if(!orden){
+          res.status(404).send("orden no encontrada")
+        } else {
+          res.status(200).send(orden)
+        }
+      })
+    })
+
+  server.post('/', (req, res) => {
+    User.create({
+      name: req.body.name,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password
+    }).then((user) => {
+      if (!user) {
+        res.status(404).json({ error: 'no se pudo crear el usuario' })
+
 server.put("/:idUser/cart", (req, res) => {
 
   Order.findByPk(req.body.idOrder)
     .then(order => {
       if (!order) {
         res.status(404).json({ error: 'No se encontro orden con este ID' })
+
         return;
       } else {
         cart.findOne({
@@ -95,6 +129,7 @@ server.delete("/:idUser/cart", (req, res) => {
     return;
   })
 })
+
 
 
 

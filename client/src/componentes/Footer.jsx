@@ -1,4 +1,7 @@
 import React from 'react'
+import phone from './images/Phone.png'
+import home from './images/homes.png'
+import email from './images/email.png'
 
 export default function Footer() {
 
@@ -13,7 +16,7 @@ export default function Footer() {
                     <h5 className="tituloo"> Products </h5>
                     <ul>
                         <li className="lista">
-                            <a> Muñecos </a>
+                            <a > Muñecos </a>
                         </li>
                         <li className="lista">
                             <a> Collecionables </a>
@@ -44,19 +47,21 @@ export default function Footer() {
                     <h5 className="titulo_contact"> Contact </h5>
                     <ul>
                         <li className="lista">
-                            <img src="" />
+                            <img style={{width:"30px",marginRight:"4px"}} src={home} />
                             <label>
                                 <a>Calle falsa123</a>
                             </label>
                         </li>
                         <li className="lista">
-                            <img src="" />
+                            <a>
+                            <img style={{width:"30px",marginRight:"4px"}} src={email} />
                             <label>
                                 <a>g9@gmail.com</a>
                             </label>
+                            </a>
                         </li>
                         <li className="lista">
-                            <img src="" />
+                            <img style={{width:"30px",marginRight:"2px"}} src={phone} />
                             <label > +54 1234567890</label>
                         </li>
                     </ul>

@@ -95,9 +95,14 @@ export default function Navbar() {
         history.push("/user/singin")
     }
 
-    const logIn = (E) => {
-        E.preventDefault()
+    const logIn = (e) => {
+        e.preventDefault()
         history.push('/user/login')
+    }
+
+    const carrito = (e)=>{
+        e.preventDefault()
+        history.push(`/user/id/carrito`)
     }
 
     return (
@@ -138,7 +143,7 @@ export default function Navbar() {
                 <div >
                 <button className="btn3" style={{marginRight: "20px"}} onClick={singIn}> Registrarse</button>
                 <button className="btn3" style={{marginRight: "30px"}}  onClick={logIn}>Ingresar </button>
-                <img src={image} style={{width:"40px", height:"40px"}}/>
+                <img onClick={carrito} src={image} style={{width:"40px", height:"40px"}}/>
                 </div>
             </div>
         </nav>

@@ -7,9 +7,7 @@ server.get('/', (req, res) => {
       .then(orders => {
         res.send(orders);
       })
-
   });
-
 
   server.get("/search", (req, res) => {
     Order.findAll().then(orders => {
@@ -34,17 +32,13 @@ server.get('/', (req, res) => {
       });
   });
 
-
-
-// Falta por probar :D!
-
   server.put('/:id', (req,res) => {
     const { state } = req.body;
     Order.findByPk(req.params.id).then((order) => {
-      if (!orden) {
+      if (!order) {
         res.status(404).send('Orden no encontrada');
       } else {
-        order.status = state;
+        order.state = state;
         order.save();
         res.status(201).send("La orden se modifico correctamente");
       };

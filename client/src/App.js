@@ -153,7 +153,7 @@ function App() {
         }
         />
 
-<Route
+        <Route
         exact path= '/'
         render={()=> <Footer
         />
@@ -164,6 +164,12 @@ function App() {
         render = {() => <TablaOrder
         />
         }
+        />
+
+        <Route
+        exact path= '/user/:id/carrito'
+        render={()=> <Carrito 
+        /> }
         />
 
       </div>
