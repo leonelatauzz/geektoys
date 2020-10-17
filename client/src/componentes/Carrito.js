@@ -15,7 +15,7 @@ export default function Cart() {
               <img style={{ width: "190px", height: "170px", marginLeft: "25px", marginTop: "15px" }} src="" />
               <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "space-evenly", width: "40%", position: "relative", left: "20px", padding: "10px" }}>
                 <div>
-                  <p style={{ fontSize: "21px" }}> hola </p>
+                  <p style={{ fontSize: "21px" }}> holaaaaaa </p>
                 </div>
                 <div >
                   <small style={{ position: "relative", bottom: "20px" }}>Disponible</small>

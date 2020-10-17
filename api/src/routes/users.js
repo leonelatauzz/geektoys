@@ -40,7 +40,42 @@ server.post('/:idUser/cart', (req, res) => {
 });
 
 
+server.get('/', (req, res) => {
+    User.findAll()
+      .then(users => {
+        res.send(users);
+      })
+  });
 
+    server.get("/:id/orders", (req,res)=>{
+      Order.findAll({
+        where: {
+          userId: req.params.id
+        }
+      }).then((orden)=>{
+        if(!orden){
+          res.status(404).send("orden no encontrada")
+        } else {
+          res.status(200).send(orden)
+        }
+      })
+    })
+    
+  server.post('/', (req, res) => {
+    User.create({
+      name: req.body.name,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password
+    }).then((user) => {
+      if (!user) {
+        res.status(404).json({ error: 'no se pudo crear el usuario' })
+      } else {
+        res.status(200).send("Usuario creado correctamente")
+      }
+    })
+  }) 
+  
 
 server.put("/:idUser/cart", (req, res) => {
   cart.findOne({
