@@ -1,7 +1,7 @@
 import React from 'react'
-import phone from './images/Phone.png'
-import home from './images/homes.png'
-import email from './images/email.png'
+import phone from './images/whatsapp.png'
+import home from './images/home.png'
+import email from './images/google-plus.png'
 import {useHistory} from 'react-router-dom'
 
 export default function Footer() {
@@ -62,28 +62,27 @@ export default function Footer() {
                     <h5 className="titulo_contact"> Contact </h5>
                     <ul>
                         <li className="lista">
-                            <img style={{width:"30px",marginRight:"4px"}} src={home} />
+                            <img style={{width:"30px",margin:"7px"}} src={home} />
                             <label>
                                 <a>Calle falsa123</a>
                             </label>
                         </li>
                         <li className="lista">
                             <a>
-                            <img style={{width:"30px",marginRight:"4px"}} src={email} />
+                            <img style={{width:"30px",margin:"7px"}} src={email} />
                             <label>
                                 <a>g9@gmail.com</a>
                             </label>
                             </a>
                         </li>
                         <li className="lista">
-                            <img style={{width:"30px",marginRight:"2px"}} src={phone} />
+                            <img style={{width:"23px",margin:"7px"}} src={phone} />
                             <label > +54 1234567890</label>
                         </li>
                     </ul>
                 </div>
             </div>
-            <div style={{ width: "100%", height: "2px", border: "white solid 1px", position: "relative" }}></div>
-            <span style={{color:"white"}}>© 1999-2020, todos los derechos reservados ,inc o sus filiales</span>
+            <span style={{color:"black", marginLeft: "87px"}}>© 1999-2020, todos los derechos reservados ,inc o sus filiales</span>
         </div>
     )
 }
