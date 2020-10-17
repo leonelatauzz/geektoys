@@ -1,0 +1,24 @@
+.div_container_desplegable{
+    width: 100%;
+    margin-top: 30px;
+}
+
+.div_desplegable {
+    border-right: 1px solid grey;
+}
+
+.display_options {
+    position: relative;
+    left: 370px;
+    bottom: 257px;
+    border: black solid 1px;
+    width: 100%;
+    height: 200px;
+}
+
+.barra_estados {
+    background-color: red;
+    width: 100%;
+    height: 15%;
+
+}

@@ -50,6 +50,7 @@ export default function Cart() {
                 <div>
                   <button onClick={upAmount}>+</button>
                   <button onClick={downAmount}>-</button>
+
                 </div>
               </div>
               <p style={{ position: "relative", bottom: "50px" }}> <a> Eliminar producto del carrito </a></p>
