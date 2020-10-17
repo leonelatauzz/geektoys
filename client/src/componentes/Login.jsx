@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
-
+import Swal from 'sweetalert2'
 
 export default function Login() {
     const dispatch = useDispatch();
@@ -26,6 +26,18 @@ export default function Login() {
     }
 
     const handleLogIn = async (e) => {
+        Swal.fire({
+            title: 'Usuario logueado correctamente',
+            width: 600,
+            padding: '3em',
+            background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+            backdrop: `
+              rgba(0,0,123,0.4)
+              url("https://sweetalert2.github.io/images/nyan-cat.gif")
+              left top
+              no-repeat
+            `
+          })
         e.preventDefault();
         let json = {
             email: data.email,
