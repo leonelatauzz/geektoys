@@ -59,6 +59,10 @@ export default function Login() {
     return (
         <div className="sing_in" >
             <form className="form-sing-in">
+            <div class="Titulo-Ingresar">
+                <h2>Ingresar</h2>
+                <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>                 
+                </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
                     <input type="email" name="email" onChange={inputChange} class="form-control" id="exampleInputEmail1" style={{ width: "350px" }} aria-describedby="emailHelp" placeholder="Enter email" />

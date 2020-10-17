@@ -10,7 +10,7 @@
     display: flex;
     padding: 30px;
     justify-content: space-between;
-    color: white;
+    color: black;
 }
 
 .company {
@@ -55,10 +55,10 @@
     margin-right: 0px;
 }
 .links_categories{
-    color: white;
+    color:black;
 }
 .links_categories:hover{
     text-decoration: underline;
-    color: white;
+    color: black;
 }
 

@@ -157,6 +157,10 @@ export default function Registro() {
     return (
         <div className="sing_in">
             <form className="form-sing-in">
+                <div class="Titulo">
+                <h2>Regístrate</h2>
+                <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>                 
+                </div>
                 <div class="form-group">
                     <label >Name</label>
                     <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresar nombre" />
@@ -181,7 +185,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <div>
                         <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "white", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px",boxShadow:"none",textDecoration:"none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px",boxShadow:"none",textDecoration:"none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
                             <Modal
                                 size="sm"
                                 show={smShow}

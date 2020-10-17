@@ -30,7 +30,7 @@ function App() {
 
   return (
     <Router>
-      <Switch>
+    
 
         <Route
           path='/'
@@ -167,7 +167,7 @@ function App() {
 
         
 
-      </Switch>
+      
     </Router>
 
 
