@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
+import { Row, Col, Button } from 'react-bootstrap';
 
 export default function Cart() {
   const loggedIn = useSelector(state => state.loggedIn);
@@ -13,9 +14,9 @@ export default function Cart() {
   });
   useEffect(() => {
     setData({
-        ...data,
-        products: dbCart
-      })
+      ...data,
+      products: dbCart
+    })
 
   }, []);
 
@@ -24,51 +25,61 @@ export default function Cart() {
   }
 
   const downAmount = (e) => {
-    
+
   }
 
   return (
-
     <div>
-      <h1 > Mis productos</h1>
-      <div >
-        {data.products.map(product => <div style={{ width: "65%", height: "210px", backgroundColor: "#F5F5F5", boxShadow: "10px 10px 5px 0px rgba(0,0,0,0.35)", borderRadius: "12px" }} >
-          <div  >
-          </div>
-          <div style={{ display: "flex", width: "70%", }}>
-            <img style={{ width: "190px", height: "170px", marginLeft: "25px", marginTop: "15px" }} src={`http://localhost:3001/uploads/${product.picture}`} />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "space-evenly", width: "40%", position: "relative", left: "20px", padding: "10px" }}>
-              <div>
-                <p style={{ fontSize: "21px" }}> {product.name} </p>
-              </div>
-              <div >
-                <small style={{ position: "relative", bottom: "20px" }}>{product.stock > 0 ? 'disponible' : 'Producto sin stock'}</small>
-              </div>
-              <p style={{ position: "relative", bottom: "20px" }}>Cantidad a comprar:</p>
-              <div style={{ display: 'flex' }}>
-                {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
-                <div>
-                  <button onClick={upAmount}>+</button>
-                  <button onClick={downAmount}>-</button>
-
+      <h1 style={{ margin: '20px' }}>Mis productos</h1>
+      <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
+        {data.products.map(product =>
+          <div className='contenedor' style={{ display: "flex" }}>
+            <Col sm={8}>
+              <div style={{ display: "flex" }}>
+                <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${product.picture}`} />
+                <div style={{ display: "flex", flexDirection: "column", margin: '30px' }}>
+                  <h3 style={{ marginBottom: '15px' }}> {product.name} </h3>
+                  <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
+                  <p>Cantidad a comprar:</p>
+                  <div style={{ display: 'flex' }}>
+                    {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
+                    <div>
+                      <button onClick={upAmount}>+</button>
+                      <button onClick={downAmount}>-</button>
+                    </div>
+                  </div>
+                  <p> <a> Eliminar producto del carrito </a></p>
                 </div>
               </div>
-              <p style={{ position: "relative", bottom: "50px" }}> <a> Eliminar producto del carrito </a></p>
-            </div>
-            <div style={{ width: "300px" }}>
-              <span style={{ fontSize: "20px", position: "relative", left: "280px", top: "14px" }}> Precio del producto: hola </span>
-              <label style={{ position: "relative", left: "280.5px", top: "30px", fontSize: "20px" }}> Incluir a la compra: </label>
-              <input style={{ position: "relative", top: "31.5px", left: "290px" }} type="checkbox" />
-            </div>
+            </Col>
+            <Col sm={4}>
+              <div style={{ display: "flex" }}>
+                <div style={{ display: "flex", flexDirection: "column", margin: '30px', marginTop: '70px' }}>
+                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: #</h5>
+                  <div>
+                    <input type="checkbox" id='comprar' />
+                    <label for='comprar' style={{ marginLeft: '10px' }}> Incluir a la compra</label>
+                  </div>
+                </div>
+              </div>
+            </Col>
+            <div style={{ borderBottom: "black solid 1px", position: "absolute", left: "250px", width: "900px" }}></div>
           </div>
-        </div>)}
+        )}
+      </Row>
 
-        <div style={{ borderBottom: "black solid 1px", position: "relative", left: "250px", width: "720px" }}></div>
-      </div>
-      <div>
-        <span style={{ position: "relative", left: "730px", fontSize: "30px" }}> Subtotal: hola</span>
-      </div>
+      <Row style={{ border: "none", boxShadow: "none" }}>
+        <Col sm={6}>
+          <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+            <h3>Subtotal: #</h3>
+          </div>
+        </Col>
+        <Col sm={6}>
+          <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+            <Button variant="danger">Comprar</Button>{' '}
+          </div>
+        </Col>
+      </Row>
     </div>
   )
 }
-
