@@ -56,21 +56,16 @@ export default function ProductCard(props) {
         <div class="container" >
             <div class="row">
                 <div class="col-md-4">
-                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
+                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" role="button" tabindex="0" alt="..." />
                 </div>
                 <div class="informacion">
-                    <a class="card-title" onClick={handle}  >{props.name}</a>
+                    <a class="card-title" role="button" tabindex="0" onClick={handle}  >{props.name}</a>
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
                 </div>
-                <div class="divBoton">
-                <button type="button" class="btn btn-outline-success" onClick={handleEdit}>Editar</button>  
-                
-                <button type="button" onClick={handleDelete} class="btn btn-outline-danger">Eliminar</button>
-        
-
-                        
-
+                <div class="divBoton">   
+                <button type="button" class="btn btn-outline-success" style={{marginRight: "7px"}} onClick={handleEdit} >Editar</button>  
+                <button type="button" onClick={handleDelete} class="btn btn-outline-danger" >Eliminar</button>
                 </div>
             </div>
         </div>

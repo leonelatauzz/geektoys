@@ -13,7 +13,7 @@
     justify-content: center;
     align-items: center ;
     height: 676px;
-    background-color: lightslategrey;
+    background-color: black;
 }
 
 .juan{
@@ -27,7 +27,7 @@
     height: 500px;
     width: 600px;
     margin-left: 30p;
-    border: black 1px solid;
+    border: whitesmoke 1px solid;
     border-radius: 15px;
     color:white
 }
@@ -35,7 +35,7 @@
 .form{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    align-content: space-between;
     padding: 20px;
 }
 
@@ -55,13 +55,8 @@
 }
 
 .inputs{
-    border: black 2px solid;
-    border-bottom-left-radius: 0.25rem;
-    margin-right:30px;
-    width: inherit;
-    box-sizing: border-box;
-    border-radius:4px;
-    font-size: 16px;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 
 .file {
@@ -70,11 +65,16 @@
     text-decoration: none;
 }
 
-.img{
+.imgDisp{
     width: 200px;
-    position: relative;
-    left: 300px;
-    bottom: 17px;
+    left: 55%;
+    bottom: 17px;  
+}
+
+.imgCarga{
+    width: 200px;
+    left: 55%;
+    bottom: 17px;  
 }
 
 .submit{
@@ -104,7 +104,7 @@
 .juan1{
     position: relative;
     display: flex;
-    border: black solid 1px;
+    border: whitesmoke 1px;
     border-radius: 15px ;
     color: white;
     height: 450px;
@@ -136,7 +136,7 @@
 
 
 .inputs1 {
-    border: black 2px solid;
+    border: whitesmoke 2px solid;
     border-bottom-left-radius: 0.25rem;
     margin-right:30px;
     box-sizing: border-box;
@@ -147,7 +147,7 @@
     position: absolute;
     top: 180px;
     left: 1000px;
-    border: 1px black solid;
+    border: 1px whitesmoke;
     padding: 20px;
     border-radius: 15px;
     color: white;
@@ -173,7 +173,7 @@
 }
 
 .link:hover {
-    color: black;
+    color: whitesmoke;
 }
 
 .edit {
@@ -208,7 +208,7 @@
     display: flex;
     flex-direction: column;
     color: white;
-    background-color: lightslategray;
+    background-color: black;
     align-items: center;
     position: relative;
     height: 675px;
@@ -229,8 +229,15 @@
     border-radius: 5px;
     color: white;
     position: relative;
+    display: flex;
+    justify-content: space-between;
     top: 20px;
+        margin-top: .5em;
+        margin-bottom: .5em;
+        margin-left: 1em;
+        margin-right: .5em;
 }
+
 
 .bot:hover{
     background-color: red;

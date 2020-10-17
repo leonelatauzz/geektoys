@@ -118,10 +118,10 @@ export default function AddProduct() {
                     <h3 className="titulo" >Agregar nuevo producto</h3>
                     <label className="label" >Título:</label>
                     <input  className="inputs"name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    {data.name.length === 0 && <span style={{ color: 'black' }}>Este campo es requerido</span>}
+                    {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
                     <label className="label" >Descripción:</label>
                     <input className="inputs" name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
-                    {data.description.length === 0 && <span style={{ color: 'black' }}>Este campo es requerido</span>}
+                    {data.description.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
                     <label className="label" >Precio:</label>
                     <input className="inputs" name='price' value={data.price} type='number' placeholder='Precio del producto...' onChange={handlerChange}></input>
                     <label className="label">Stock:</label>
@@ -129,9 +129,9 @@ export default function AddProduct() {
                     <img className="image" src={mImg} style={{width:'500px' , height:'auto', marginBottom:'100px'}}/>
                     <div style={{marginTop:'20px'}}>
                         <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                        {data.check === true ? <img style={{marginRight:'300px', maxHeight:'200px', width:'auto'}} className="img" src={data.displayFile}  /> : <img style={{marginRight:'100px', marginLeft:'100px', height:'auto', width:'150px'}} className="img" src={Uimg} />}
+                        {data.check === true ? <img  className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
                     </div>
-                    {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span>Una imagen es requerida</span>}
+                    {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span>Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
                     <h5>
                         ¿Deseas agregar una categoria al producto?

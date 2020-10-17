@@ -121,7 +121,7 @@ export default function Navbar() {
 
     return (
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ backgroundColor: "red" }}>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
             <a onClick={handleHome} class="navbar-brand">
                 <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
             </a>
@@ -154,11 +154,12 @@ export default function Navbar() {
                         <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
                     </li>
                 </ul>
-                <div >
-                    {loggedIn === false ? <div> <button className="btn3" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
-                        <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar </button></div> : <button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button>}
-
-                    <img onClick={carrito} src={image} style={{ width: "40px", height: "40px" }} />
+                <div style={{display: "flex", justifyContent: "flex-end", alignItems: "stretch"}}>
+                {loggedIn === false ? <div> <button className="btn3" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
+                    <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar </button></div> : <button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button>}
+                    <div style={{display: "flex", justifyContent: "flex-end"}}>
+                    <img onClick={carrito} src={image} style={{ width: "40px", height: "40px"}} role="button" tabindex="0"/>
+                    </div>
                 </div>
             </div>
         </nav>
