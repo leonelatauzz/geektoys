@@ -134,20 +134,20 @@ server.post('/', (req, res) => {
 
 
 
-server.delete('/:idUser/cart', (req, res) => {
-  Product.findByPk(req.body.idProducto)
+server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
+  Product.findByPk(req.params.idProducto)
     .then((prod) => {
       if (!prod) {
         res.status(404).json({ error: 'Producto no encontrado' })
         return;
       }
-      Order.findByPk(req.body.idOrder).then((orden) => {
+      Order.findByPk(req.params.idOrder).then((orden) => {
         if (!orden) {
           res.status(404).json({ error: 'Orden no encontrada' })
           return;
         }
         orden.removeProduct(prod);
-        res.send(`>> Se eliminó la categoría id=${req.body.idOrder} al Producto id=${req.body.idProducto}`);
+        res.send(`>> Se eliminó la categoría id=${req.params.idOrder} al Producto id=${req.params.idProducto}`);
         return;
       });
     })

@@ -102,7 +102,7 @@ export default function Navbar() {
     const carrito = async (e) => {
         e.preventDefault()
         if (loggedIn === false) {
-            history.push(`/user/guest/carrito`)
+            history.push(`/guest/carrito`)
         } else if (loggedIn === true) {
             const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
                 .then(resp => {

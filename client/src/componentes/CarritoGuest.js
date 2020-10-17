@@ -22,17 +22,13 @@ export default function Cart() {
 
   }, []);
 
-  const upAmount = (e) => {
-
-  }
-
-  const downAmount = (e) => {
-
+  const handDel = (e) => {
+    
   }
 
   return (
     <div>
-      <h1 style={{ margin:'20px'}}>Mis productos</h1>
+      <h1 style={{ margin: '20px' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
         {data.products.map(product =>
           <div className='contenedor' style={{ display: "flex" }}>
@@ -42,27 +38,18 @@ export default function Cart() {
                 <div style={{ display: "flex", flexDirection: "column", margin: '30px' }}>
                   <h3 style={{ marginBottom: '15px' }}> {product.name} </h3>
                   <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
-                  <p>Cantidad a comprar:</p>
                   <div style={{ display: 'flex' }}>
-                  {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
-                <div>
-                  <button onClick={upAmount}>+</button>
-                  <button onClick={downAmount}>-</button>
-                </div>
+                    {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
                   </div>
-                  <p> <a> Eliminar producto del carrito </a></p>
                 </div>
               </div>
             </Col>
             <Col sm={4}>
               <div style={{ display: "flex" }}>
                 <div style={{ display: "flex", flexDirection: "column", margin: '30px', marginTop: '70px' }}>
-                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: #</h5>
-                  <div>
-                    <input type="checkbox" id='comprar' />
-                    <label for='comprar' style={{ marginLeft: '10px' }}> Incluir a la compra</label>
-                  </div>
+                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: ${product.price}</h5>
                 </div>
+                <button value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button>
               </div>
             </Col>
             <div style={{ borderBottom: "black solid 1px", position: "absolute", left: "250px", width: "900px" }}></div>
@@ -86,7 +73,7 @@ export default function Cart() {
   )
 }
 
-/* 
+/*
 
               <div style={{ display: 'flex' }}>
                 {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
