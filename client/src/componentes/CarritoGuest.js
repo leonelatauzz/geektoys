@@ -5,16 +5,17 @@ import axios from 'axios'
 
 export default function Cart() {
   const loggedIn = useSelector(state => state.loggedIn);
-  const dbCart = useSelector(state => state.dbCart)
+  const cart = useSelector(state => state.cart)
   const userData = useSelector(state => state.userId);
   const activeOrder = useSelector(state => state.activeOrder);
   const [data, setData] = useState({
     products: []
   });
   useEffect(() => {
-    setData({
+
+      setData({
         ...data,
-        products: dbCart
+        products: cart
       })
 
   }, []);
@@ -46,11 +47,6 @@ export default function Cart() {
               </div>
               <p style={{ position: "relative", bottom: "20px" }}>Cantidad a comprar:</p>
               <div style={{ display: 'flex' }}>
-                {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
-                <div>
-                  <button onClick={upAmount}>+</button>
-                  <button onClick={downAmount}>-</button>
-                </div>
               </div>
               <p style={{ position: "relative", bottom: "50px" }}> <a> Eliminar producto del carrito </a></p>
             </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-import { BrowserRouter as Router, Route, } from 'react-router-dom'
+import { BrowserRouter as Router, Route, } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
 import Navbar from './componentes/navbar'
@@ -18,9 +19,10 @@ import Carrito from './componentes/Carrito.js';
 import Login from './componentes/Login';
 import Footer from './componentes/Footer';
 import TablaOrder from './componentes/tablaOrden.js';
+import CarritoGuest from './componentes/CarritoGuest'
 
 function App() {
-
+  
 
   return (
 
@@ -140,8 +142,8 @@ function App() {
           }
         />
         <Route
-          exact path='/carrito/prueba'
-          render={() => <Carrito
+          exact path='/user/guest/carrito'
+          render={() => <CarritoGuest
           />
           }
         />

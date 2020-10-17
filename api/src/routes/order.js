@@ -32,9 +32,9 @@ server.get('/', (req, res) => {
       });
   });
 
-  server.put('/:id', (req,res) => {
+  server.put('/:orderId', (req,res) => {
     const { state } = req.body;
-    Order.findByPk(req.params.id).then((order) => {
+    Order.findByPk(req.params.orderId).then((order) => {
       if (!order) {
         res.status(404).send('Orden no encontrada');
       } else {

@@ -58,4 +58,23 @@ export const getCategoryId = function(props){
         payload: props
     }
 }
+export const logIn = function(){
+    return{
+        type: 'LOGIN'
+        
+    }
+}
+export const logOut = function(){
+    return{
+        type: 'LOGOUT'
+        
+    }
+}
+export const getDbCart = function(props){
+    return{
+        type: 'GET_DB_CART',
+        payload: props
+    }
+}
+
 

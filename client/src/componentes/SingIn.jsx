@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import {getUserInfo, getActiveOrder} from '../Redux/Actions/actions'
+import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
 export default function Registro() {
     let history = useHistory();
     const dispatch = useDispatch();
@@ -126,11 +126,13 @@ export default function Registro() {
             if(typeof(resp.data)==="string"){
                 alert("Ya existe un usuario con este email")
             }
-            // console.log(resp.data)
             dispatch(getUserInfo(resp.data))
+            dispatch(logIn())
             const ras = await axios.post(`http://localhost:3001/order/${resp.data.id}`)
             .then(orden => {
-                dispatch(getActiveOrder(orden.data))
+                let ord = [];
+                ord.push(orden.data)
+                dispatch(getActiveOrder(ord))
             })
             alert("Usuario registrado exitosamente")
              history.push(`/user/${resp.data.id}`)
