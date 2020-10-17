@@ -54,4 +54,11 @@
 .titulo_contact {
     margin-right: 0px;
 }
+.links_categories{
+    color: white;
+}
+.links_categories:hover{
+    text-decoration: underline;
+    color: white;
+}
 
