@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axios from 'axios'
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
+import { Modal, Button } from 'react-bootstrap'
+
 export default function Registro() {
     let history = useHistory();
     const dispatch = useDispatch();
@@ -15,84 +17,34 @@ export default function Registro() {
         check: false
     })
 
+    const [lgShow, setLgShow] = useState(false);
+    const [smShow, setSmShow] = useState(false);
+
     const [errors, setErrors] = useState({
         emailError: "",
-        passwordError: "",
+        passwordError: true,
         nameError:"",
         lastnameError: ""
     })
 
-    const inputsChange_name = (e) => {
-        if(/[$%&|{}.,()+-<>#]/.test(data.name)) {
-            setErrors({
-                ...errors,
-                nameError: "no se aceptan caracteres especiales"
+    const check = (e) => {
+        if (e.target.checked === true) {
+            setData({
+                ...data,
+                check: true
             })
         } else {
-            setErrors({
-                ...errors,
-                nameError: ""
+            setData({
+                ...data,
+                check: false
             })
         }
-        setData({
-            ...data,
-            name: e.target.value
-        })
     }
 
-    const inputsChange_lastName = (e) => {
-        if(/[$%&|{}.,()+-<>#]/.test(data.lastName)) {
-            setErrors({
-                ...errors,
-                lastnameError: "no se aceptan caracteres especiales"
-            })
-        } else {
-            setErrors({
-                ...errors,
-                lastnameError: ""
-            })
-        }
+    const inputsChange = (e) => {
         setData({
             ...data,
-            lastName: e.target.value
-        })
-    }
-
-
-    const inputsChange_email = (e) => {
-        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(data.email)) {
-            setErrors({
-                ...errors,
-                emailError: "El email ingresado no es valido",
-
-            })
-        } else {
-            setErrors({
-                ...errors,
-                emailError: "",
-            })
-        }
-        setData({
-            ...data,
-            email: e.target.value
-        })
-    }
-
-    const inputsChange_password = (e) => {
-        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
-            setErrors({
-                ...errors,
-                passwordError: "Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero",
-            })
-        } else {
-            setErrors({
-                ...errors,
-                passwordError: ""
-            })
-        }
-        setData({
-            ...data,
-            password: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -109,6 +61,68 @@ export default function Registro() {
             })
         }
     }, [data.name, data.lastName, data.email, data.password, data.check, errors.emailError, errors.passwordError, errors.nameError,errors.lastnameError])
+    
+    useEffect(() => {
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
+            setErrors({
+                ...errors,
+                passwordError: true
+            })
+        }
+        if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
+            setErrors({
+                ...errors,
+                passwordError: false
+            })
+        }
+    }, [data.password])
+
+    useEffect(() => {
+        if (!/\S+@\S+\.\S+/.test(data.email)) {
+            setErrors({
+                ...errors,
+                emailError: "El email ingresado no es valido",
+
+            })
+        }
+        if (/\S+@\S+\.\S+/.test(data.email)) {
+            setErrors({
+                ...errors,
+                emailError: "",
+            })
+        }
+    }, [data.email])
+
+    useEffect(() => {
+        if (/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.lastName)) {
+            setErrors({
+                ...errors,
+                lastnameError: "no se aceptan caracteres especiales"
+            })
+        }
+        if (!/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.lastName)) {
+            setErrors({
+                ...errors,
+                lastnameError: ""
+            })
+        }
+    }, [data.lastName])
+
+    useEffect(() => {
+        if (/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.name)) {
+            setErrors({
+                ...errors,
+                nameError: "no se aceptan caracteres especiales"
+            })
+        }
+        if (!/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.name)) {
+            setErrors({
+                ...errors,
+                nameError: ""
+            })
+        }
+    }, [data.name])
+
     const handleRegister = async(e)=>{
         e.preventDefault();
         let json ={
@@ -139,52 +153,77 @@ export default function Registro() {
         })
 
     }
-    const check = (e) => {
-        if (e.target.checked === true) {
-            setData({
-                ...data,
-                check: true
-            })
-        } else {
-            setData({
-                ...data,
-                check: false
-            })
-        }
-    }
 
     return (
-
-
-
         <div className="sing_in">
             <form className="form-sing-in">
                 <div class="form-group">
                     <label >Name</label>
-                    <input name="name" onChange={inputsChange_name} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresar nombre" />
+                    <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresar nombre" />
                     <small className="detail">{errors.nameError}</small>
                 </div>
                 <div class="form-group">
                     <label >Lastname</label>
-                    <input name="lastName" onChange={inputsChange_lastName} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresa apellido" />
-                    <small className="detail">{errors.lastnameError}</small>               
+                    <input name="lastName" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresa apellido" />
+                    <small className="detail">{errors.lastnameError}</small>
                 </div>
                 <div class="form-group">
                     <label >Email address</label>
-                    <input name="email" onChange={inputsChange_email} type="email" class="form-control" style={{ color: "black", width: "450px" }} aria-describedby="emailHelp" placeholder="Enter email" />
-                    <small id="emailHelp" class="detail" >{errors.emailError}</small>
+                    <input name="email" onChange={inputsChange} type="email" class="form-control" style={{ color: "black", width: "450px" }} aria-describedby="emailHelp" placeholder="Enter email" />
+                    {data.email.length > 0 ? <small id="emailHelp" class="detail" >{errors.emailError}</small> : <div></div>}
                 </div>
                 <div class="form-group">
                     <label >Password</label>
-                    <input name="password" onChange={inputsChange_password} type="password" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Password" />
-                    <small className="detail">{errors.passwordError}</small>
+                    <input name="password" onChange={inputsChange} type="password" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Password" />
+                    {errors.passwordError === true ? <small className="detail">Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
                 </div>
                 <div>
                     <input type="checkbox" onChange={check} />
-                    <label className="checkbox" >  Acepto los <a href="http://google.com" style={{color:"black"}}> terminos y condiciones</a> </label>
+                    <div>
+                        <>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "white", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px",boxShadow:"none",textDecoration:"none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Modal
+                                size="sm"
+                                show={smShow}
+                                onHide={() => setSmShow(false)}
+                                aria-labelledby="example-modal-sizes-title-sm"
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="example-modal-sizes-title-sm">
+                                        Small Modal
+                            </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>...</Modal.Body>
+                            </Modal>
+                            <Modal
+                                size="lg"
+                                show={lgShow}
+                                onHide={() => setLgShow(false)}
+                                aria-labelledby="example-modal-sizes-title-lg"
+                            >
+                                <Modal.Header closeButton>
+                                    <Modal.Title id="example-modal-sizes-title-lg">
+                                        Terminos de condiciones
+                                    </Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    Los Términos y Condiciones así como la Política de Privacidad y/o informaciones sobre el Sitio se considerarán de aplicación para todo Usuario del
+                                    Sitio desde el primer momento en que acceda al mismo. Los presentes términos y condiciones tienen carácter obligatorio y vinculante. Se aplican a
+                                    todas las compras y actividades realizadas en el Sitio. Si el Usuario no acepta en forma total los presentes Términos y Condiciones y la Política
+                                    de Privacidad, le rogamos que no avance en el acceso y visita de nuestro Sitio. En caso de avanzar en la visita a nuestro Sitio, se entenderá que
+                                    el Usuario aceptó sin reservas los presentes Términos y Condiciones y la Política de Privacidad, aceptando recibir mails periódicos con la
+                                    información que el Sitio determine. Los Términos y Condiciones y la Política de Privacidad podrán ser modificados en todo o en parte en cualquier
+                                    momento y a exclusivo criterio de GEEKTOYS S.A.; dichos cambios e implementaciones tendrán vigencia a partir del momento mismo en que sean publicados
+                                    o insertados en el Sitio o desde que sean notificados al Usuario por cualquier medio, lo que ocurra primero. Por lo expuesto, le sugerimos que los
+                                    visite periódicamente. Las violaciones a los Términos y Condiciones generarán el derecho en favor del titular del Sitio a suspender o terminar la
+                                    prestación del servicio al Usuario que las haya realizado, por acción u omisión. El Sitio se preocupa por la protección de datos de carácter
+                                    personal de los Usuarios, de acuerdo a los lineamientos expuestos en nuestra Política de Privacidad.
+                                </Modal.Body>
+                            </Modal>
+                        </>
+                    </div>
                 </div>
                 <button onClick={handleRegister} disabled={errors.errores} requiered type="submit" class="btn btn-primary">Registrar</button>
-
             </form>
         </div>
     )

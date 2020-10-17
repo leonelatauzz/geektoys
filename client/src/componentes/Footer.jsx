@@ -2,30 +2,45 @@ import React from 'react'
 import phone from './images/Phone.png'
 import home from './images/homes.png'
 import email from './images/email.png'
+import {useHistory} from 'react-router-dom'
 
 export default function Footer() {
+    const history = useHistory()
+
+
+    const toCategorie = (e) => {
+        e.preventDefault()
+        history.push(`/products/categoria/${e.target.name}`)
+    }
+
+    const acount = (e) => {
+        e.preventDefault()
+        history.push("/user/login")
+    }
 
     return (
         <div className="footer">
             <div className="footer_div_container">
                 <div className="company">
                     <h5> Company name </h5>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo doloribus quisquam quis dicta ea laudantium itaque dolore quasi enim, atque rem magnam modi similique ipsum amet deserunt odio perferendis totam?</p>
+                    <p> Nos esforzamos por tener un impacto positivo en los clientes, empleados, pequeñas empresas, la economía y las comunidades. 
+                        La comunidad geek son constructores inteligentes y apasionados con diferentes orígenes y objetivos, que comparten el deseo 
+                        común de estar siempre aprendiendo e inventando en nombre de nuestros clientes.</p>
                 </div>
                 <div className="products">
                     <h5 className="tituloo"> Products </h5>
                     <ul>
                         <li className="lista">
-                            <a > Muñecos </a>
+                            <a onClick={toCategorie} name="muñecos" className="links_categories" > Muñecos </a>
                         </li>
                         <li className="lista">
-                            <a> Collecionables </a>
+                            <a onClick={toCategorie} name="collecionables" className="links_categories" >  Collecionables </a>
                         </li>
                         <li className="lista">
-                            <a> Articulos varios </a>
+                            <a onClick={toCategorie} name="articulos varios" className="links_categories" >  Articulos varios </a>
                         </li>
                         <li className="lista">
-                            <a> Tazas </a>
+                            <a onClick={toCategorie} name="tazas" className="links_categories" > Tazas </a>
                         </li>
                     </ul>
                 </div>
@@ -33,10 +48,10 @@ export default function Footer() {
                     <h5 className="titulo_link"> Links </h5>
                     <ul>
                         <li className="lista">
-                            <a>Mi cuenta</a>
+                            <a onClick={acount} className="links_categories">Mi cuenta</a>
                         </li>
                         <li className="lista">
-                            <a>Valoranos</a>
+                            <a >Valoranos</a>
                         </li>
                         <li className="lista">
                             <a>Ayuda</a>

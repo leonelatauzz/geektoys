@@ -273,5 +273,13 @@
     
 }
 
+.links_terminos {
+    color: black;
+    text-decoration: underline;
+}
+
+.links_terminos:hover {
+    color: black;
+}
 
 
