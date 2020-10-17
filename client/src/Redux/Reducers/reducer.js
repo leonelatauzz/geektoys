@@ -6,25 +6,40 @@ const initialState = {
     categoryId: null,
     productCategories: [],
     search: [],
-    cart: []
+    cart: [],
+    userId: null,
+    activeOrder: null,
+    loggedIn: false,
+    dbCart: []
 }
-export default function(state = initialState, action){
-    switch(action.type){
+export default function (state = initialState, action) {
+    switch (action.type) {
         case 'GET_PRODUCTS':
-            return {...state, products: action.payload}
+            return { ...state, products: action.payload }
         case 'GET_A_PRODUCT':
-            return {...state, productId: action.payload}
+            return { ...state, productId: action.payload }
         case 'GET_CATEGORY_PRODUCTS':
-            return {...state, categoryProducts: action.payload}
+            return { ...state, categoryProducts: action.payload }
         case 'GET_PRODUCT_CATEGORIES':
-            return {...state, productCategories: action.payload} 
+            return { ...state, productCategories: action.payload }
         case 'GET_CATEGORIES':
-            return {...state, categories: action.payload}  
+            return { ...state, categories: action.payload }
         case 'GET_CATEGORY_ID':
-            return {...state, categoryId: action.payload}  
+            return { ...state, categoryId: action.payload }
         case 'DELIVER_TO_CART':
-            return {...state, cart: state.cart.concat(action.payload)}  
-        default: 
-        return state;
+            return { ...state, cart: state.cart.concat(action.payload)}
+        case 'GET_USER_INFO':
+            return { ...state, userId: action.payload }
+        case 'GET_ACTIVE_ORDER':
+            return { ...state, activeOrder: action.payload }
+        case 'LOGIN':
+            return { ...state, loggedIn: true }
+        case 'LOGOUT':
+            return { ...state, loggedIn: false }
+        case 'GET_DB_CART':
+            return { ...state, dbCart: action.payload }
+
+        default:
+            return state;
     }
 }

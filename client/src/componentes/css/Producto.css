@@ -9,7 +9,19 @@
     height: 500px;   
 }
 
+.counter {
+    width: 50px;
+    height: 30px;
+    font-size: 20px;
+    margin-top: 35px;
 
+}
+
+.contCount{
+    display: flex;
+    width: 20vw;
+    justify-content: space-around;
+}
 
 .info{    
     display: flex;
@@ -78,7 +90,7 @@
 .fav{
     height: 30px;
     width: 30px;
-    margin: 32px 0px 0px 40px;
+    margin: 32px 0px 0px 70px;
 
 }
 
@@ -90,7 +102,7 @@
 .fullFav{
     height: 32px;
     width: 30px;
-    margin: 32px 0px 0px 40px;
+    margin: 32px 0px 0px 70px;
 }
 
 .fullFav:hover{

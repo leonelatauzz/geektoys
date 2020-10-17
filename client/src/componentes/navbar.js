@@ -3,18 +3,17 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getCategories, getProducts } from '../Redux/Actions/actions'
+import { getCategories, getProducts, getDbCart } from '../Redux/Actions/actions'
 import image from './images/carrito.png'
 
-
-
-
-
 export default function Navbar() {
+    const loggedIn = useSelector(state => state.loggedIn)
+    const userData = useSelector(state => state.userId)
     let history = useHistory();
     const dispatch = useDispatch();
     const categoria = useSelector(state => state.categories)
     const [busq, setBusq] = useState([]);
+    const activeOrder = useSelector(state => state.activeOrder);
 
 
 
@@ -51,7 +50,7 @@ export default function Navbar() {
         history.push('/products');
         await axios.get('http://localhost:3001/products/')
             .then(res => {
-                
+
                 dispatch(getProducts(res.data))
             })
 
@@ -100,9 +99,24 @@ export default function Navbar() {
         history.push('/user/login')
     }
 
-    const carrito = (e)=>{
+    const carrito = async (e) => {
         e.preventDefault()
-        history.push(`/user/id/carrito`)
+        if (loggedIn === false) {
+            history.push(`/user/guest/carrito`)
+        } else if (loggedIn === true) {
+            const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                .then(resp => {
+                    let products = Object.values(resp.data)
+                    dispatch(getDbCart(products))
+                    history.push(`/user/${userData.id}/carrito`)
+                })
+        }
+
+
+    }
+    const goDashboard = (e) => {
+        e.preventDefault();
+        history.push(`/user/${userData.id}`)
     }
 
     return (
@@ -141,9 +155,10 @@ export default function Navbar() {
                     </li>
                 </ul>
                 <div >
-                <button className="btn3" style={{marginRight: "20px"}} onClick={singIn}> Registrarse</button>
-                <button className="btn3" style={{marginRight: "30px"}}  onClick={logIn}>Ingresar </button>
-                <img onClick={carrito} src={image} style={{width:"40px", height:"40px"}}/>
+                    {loggedIn === false ? <div> <button className="btn3" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
+                        <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar </button></div> : <button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button>}
+
+                    <img onClick={carrito} src={image} style={{ width: "40px", height: "40px" }} />
                 </div>
             </div>
         </nav>

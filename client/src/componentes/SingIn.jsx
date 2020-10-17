@@ -1,7 +1,12 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-
+import axios from 'axios'
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux";
+import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
 export default function Registro() {
+    let history = useHistory();
+    const dispatch = useDispatch();
     const [data, setData] = useState({
         name: "",
         lastName: "",
@@ -55,7 +60,7 @@ export default function Registro() {
 
 
     const inputsChange_email = (e) => {
-        if (!/\S+@\S+\.\S+/.test(data.email)) {
+        if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(data.email)) {
             setErrors({
                 ...errors,
                 emailError: "El email ingresado no es valido",
@@ -104,7 +109,36 @@ export default function Registro() {
             })
         }
     }, [data.name, data.lastName, data.email, data.password, data.check, errors.emailError, errors.passwordError, errors.nameError,errors.lastnameError])
+    const handleRegister = async(e)=>{
+        e.preventDefault();
+        let json ={
+            name: data.name,
+            lastname: data.lastName,
+            email: data.email,
+            password: data.password
+        }
+        const res = await axios.post('http://localhost:3001/user', json, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
 
+        }).then(async(resp) =>{
+            if(typeof(resp.data)==="string"){
+                alert("Ya existe un usuario con este email")
+            }
+            dispatch(getUserInfo(resp.data))
+            dispatch(logIn())
+            const ras = await axios.post(`http://localhost:3001/order/${resp.data.id}`)
+            .then(orden => {
+                let ord = [];
+                ord.push(orden.data)
+                dispatch(getActiveOrder(ord))
+            })
+            alert("Usuario registrado exitosamente")
+             history.push(`/user/${resp.data.id}`)
+        })
+
+    }
     const check = (e) => {
         if (e.target.checked === true) {
             setData({
@@ -149,7 +183,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <label className="checkbox" >  Acepto los <a href="http://google.com" style={{color:"black"}}> terminos y condiciones</a> </label>
                 </div>
-                <button disabled={errors.errores} requiered type="submit" class="btn btn-primary">Registrar</button>
+                <button onClick={handleRegister} disabled={errors.errores} requiered type="submit" class="btn btn-primary">Registrar</button>
 
             </form>
         </div>

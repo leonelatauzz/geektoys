@@ -1,7 +1,8 @@
 const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
 
-server.get('/login', (req, res) => {
+server.post('/login', (req, res) => {
+  console.log(req.body)
   User.findOne({
     where: {
       email: req.body.email,
@@ -109,24 +110,25 @@ server.get("/:id/orders", (req, res) => {
 })
 
 server.post('/', (req, res) => {
-  User.create({
-    name: req.body.name,
-    lastname: req.body.lastname,
-    email: req.body.email,
-    password: req.body.password
-  }).then((user) => {
-    if (!user) {
-      res.status(404).json({ error: 'hola' })
-      return;
-    }
-    return res.status(201).json(user);
-  })
-})
-server.delete("/:id", (req, res) => {
-  User.findByPk(req.params.id).then((usuario) => {
-    usuario.destroy();
-    res.status(200).send("El usuario se elimino correctamente")
-    return;
+  User.findOne({
+    where:{
+      email: req.body.email
+  }}).then(user =>{
+    if(user){
+      res.send("El usuario ya esta registrado")
+    }else{
+    User.create({
+      name: req.body.name,
+      lastname: req.body.lastname,
+      email: req.body.email,
+      password: req.body.password
+    }).then((usuario) => {
+      if (!usuario) {
+        res.status(404).json({ error: 'hola' })
+        return;
+      }
+      return res.status(201).json(usuario);
+    })}
   })
 })
 

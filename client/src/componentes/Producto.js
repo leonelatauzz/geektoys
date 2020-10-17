@@ -4,14 +4,19 @@ import eHeart from './images/emp.png';
 import fHeart from './images/cl.png';
 import {deliverToCart} from '../Redux/Actions/actions';
 import { useHistory } from 'react-router-dom';
+import axios from 'axios'
 
 
 export default function Productos() {
 const history= useHistory();
 const producItem = useSelector(state => state.productId);
+const loggedIn = useSelector(state => state.loggedIn);
+const userData = useSelector(state => state.userId);
+const activeOrder = useSelector(state => state.activeOrder);
 const dispatch= useDispatch();
 const [data, setData] = useState({
-  fav: false
+  fav: false,
+  amount: 1
 });
 
 const handleEH = (e) => {
@@ -32,10 +37,39 @@ const handleFH = (e) => {
 
 const sendProduct= (e) =>{
   e.preventDefault();
-  history.push('/carrito/prueba')
+  alert('Producto agregado al carrito exitosamente!')
   dispatch(deliverToCart(producItem))
 }
 
+const addRelation = async(e) => {
+  e.preventDefault();
+  let json = {
+    idOrder: activeOrder[0].id,
+    idProduct: producItem.id,
+    price: producItem.price,
+    amount: parseInt(data.amount)
+  }
+  const res = await axios.post(`http://localhost:3001/user/${userData.id}/cart`, json, {
+    headers: {
+        'Content-Type': 'application/json'
+    }
+  }).then(resp => {
+    if(resp.data === 'Exito') {
+      alert('Producto agregado al carrito exitosamente!')
+    }
+  })
+
+}
+
+const handleAmount =(e) => {
+  if(e.target.value > producItem.stock) {
+    alert(`Este producto solo tiene ${producItem.stock} unidades disponibles`)
+  }
+  setData({
+    ...data,
+    amount: e.target.value
+  })
+}
 
   return (
     <div class="containerProduct">
@@ -49,13 +83,16 @@ const sendProduct= (e) =>{
             
             <div class= 'corazon' >
             {producItem.stock === 0 ? 
-            <div style={{border: '1px solid black', borderRadius:'5px', margin:"30px 0px 0px 70px"}}><span style={{padding: '5px'}}>Este producto no tiene stock</span></div> : <button disabled="true" style={{margin:"30px 0px 0px 70px", width: "100px"}} type="button" class="btn btn-primary">Comprar</button> 
+            <div style={{border: '1px solid black', borderRadius:'5px', margin:"30px 0px 0px 70px"}}><span style={{padding: '5px'}}>Este producto no tiene stock</span></div> : <span></span> 
 
             }
             
             {data.fav === false ? <img onClick={handleEH} class='fav' src={eHeart}/> : <img onClick={handleFH} class='fullFav' src={fHeart}/>}
             </div>
-            <button style={{width: '150px', margin: '20px 0px 0px 52px'  }} type="button" class="btn btn-success" onClick={sendProduct}>Agregar al Carrito</button>
+            <div class='contCount'>
+            {loggedIn === false ? <button style={{width: '150px', margin: '20px 0px 0px 52px'  }} type="button" class="btn btn-success" onClick={sendProduct}>Agregar al Carrito</button> : <button style={{width: '150px', margin: '20px 0px 0px 52px'  }} type="button" class="btn btn-success" onClick={addRelation}>Agregar al Carrito</button>}
+            {loggedIn === false ? <span></span> : <input class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
+            </div>
             </div>
           </div>
         </div>
