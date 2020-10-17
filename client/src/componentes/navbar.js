@@ -145,7 +145,7 @@ export default function Navbar() {
                     <li >
                         <form onSubmit={handleEnter}>
                             <div>
-                                <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+                              
                                 <input className="input" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
                             </div>
                         </form>

@@ -109,7 +109,6 @@ export default function AddProduct() {
 
     return (
         <div className="imagen_fondo">
-
         <div className="div_container" >
         <button style={{marginLeft: '950px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>            
             <div className="juan" style={{height: '650px'}}>            
@@ -131,7 +130,7 @@ export default function AddProduct() {
                         <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
                         {data.check === true ? <img  className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
                     </div>
-                    {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span>Se requieren todos los campos</span>}
+                    {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
                     <h5>
                         ¿Deseas agregar una categoria al producto?

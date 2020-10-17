@@ -66,7 +66,8 @@
 }
 
 .imgDisp{
-    width: 200px;
+
+    width: 35%;
     left: 55%;
     bottom: 17px;  
 }
@@ -74,7 +75,14 @@
 .imgCarga{
     width: 200px;
     left: 55%;
-    bottom: 17px;  
+    bottom: 17px; 
+}
+
+.text{
+    position: relative;
+    text-align:left;
+    text-justify: initial;
+    bottom: 30px;
 }
 
 .submit{

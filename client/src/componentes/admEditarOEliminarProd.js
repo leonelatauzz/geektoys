@@ -141,7 +141,7 @@ export default function EditOrDelete() {
     }
 
     return (
-        <div style={{ backgroundColor: "black", display: 'flex' }}>
+        <div class="col-3 col-s-12" style={{ backgroundColor: "black", display: 'flex' }}>
             <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
                 <form className="form" >
                     <h3 className="titulo" style={{ color: 'black', border: "grey solid 3px" }}>Editar producto</h3>
