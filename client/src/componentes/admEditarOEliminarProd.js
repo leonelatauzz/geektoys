@@ -141,18 +141,18 @@ export default function EditOrDelete() {
     }
 
     return (
-        <div style={{ backgroundColor: "gray", display: 'flex' }}>
+        <div style={{ backgroundColor: "black", display: 'flex' }}>
             <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
-                <form className="form">
-                    <h3 className="titulo" style={{ color: 'black' }}>Editar producto</h3>
-                    <label className="label" style={{ color: "black" }}>Título:</label>
-                    <input name='name' className="inputs" value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black" }}>Descripción:</label>
-                    <input name='description' className="inputs" value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black" }}>Precio:</label>
-                    <input name='price' className="inputs" value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black" }}>Stock:</label>
-                    <input name='stock' className="inputs" value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
+                <form className="form" >
+                    <h3 className="titulo" style={{ color: 'black', border: "grey solid 3px" }}>Editar producto</h3>
+                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Título:</label>
+                    <input name='name' className="h6" value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Descripción:</label>
+                    <input name='description' className="h6" value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Precio:</label>
+                    <input name='price' className="h6" value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
+                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px"  }}>Stock:</label>
+                    <input name='stock' className="h6" value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
                     <div style={{ display: 'flex' }}>
                         <div style={{ width: '200px' }}>
                             <input style={{ color: 'black' }} className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />

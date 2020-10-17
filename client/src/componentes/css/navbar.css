@@ -11,6 +11,12 @@ body {
     margin-left: 15px;
     display: flex;
     flex-flow: row wrap;
+    text-align: center;
+    padding-left: 10px;
+    padding-top: 5px;
+    width: 70px;
+    height: 40px;
+    
 }
 .botonete:hover {
     background: lightskyblue;
@@ -44,7 +50,13 @@ body {
     background-color:lightgrey;
     text-align: center;
     display: inline-block;
-   
+    border-radius:4px;
+    height: 40px;
+}
+
+.categ:hover {
+    background: lightskyblue;
+    color: black;
 }
 
 .lin{
@@ -54,12 +66,24 @@ body {
     border-radius:4px;
 }
 
+.lin:hover {
+    background: lightskyblue;
+    color: black;
+}
+
+
 .homE{
     background-color: lightgrey;
     text-align: center;
     display: inline-block;
     border-radius:4px;
 }
+
+.homE:hover {
+    background: lightskyblue;
+    color: black;
+}
+
 
 .navbar-logo img{
 margin-left:10px;
@@ -77,4 +101,8 @@ padding: 10px
     padding: 5px;
 }
 
+.btn3:hover {
+    background: lightskyblue;
+    color: black;
+}
 
