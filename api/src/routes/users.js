@@ -1,6 +1,21 @@
 const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
 
+server.get('/login', (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+      password: req.body.password
+    }, include: Order
+  }).then(user => {
+    if(!user) {
+      res.status(404).json({ error: 'Usuario no registrado' })
+        return;
+    }
+    res.json(user)
+  })
+})
+
 
 
 server.post('/:idUser/cart', (req, res) => {
@@ -63,27 +78,16 @@ server.get('/', (req, res) => {
   
 
 server.put("/:idUser/cart", (req, res) => {
+  cart.findOne({
+    where: {
+      orderId: req.body.orderId,
+      productId: req.body.productId
+    }
+  }).then(ca => {
+    ca.update({amount: req.body.amount});
+    res.json(ca)
+  })
 
-  Order.findByPk(req.body.idOrder)
-    .then(order => {
-      if (!order) {
-        res.status(404).json({ error: 'No se encontro orden con este ID' })
-
-        return;
-      } else {
-        cart.findOne({
-          where:{
-            productId: req.body.idProduct
-          }
-        }).then(carrito=>{
-          // console.log(carrito.dataValues.amount)
-          // console.log(req.body.amount)
-          carrito.amount = req.body.amount;
-          carrito.save();
-          res.json("Cantidad modificada correctamente")
-        })
-      }
-    })
 })
 
 
@@ -126,14 +130,25 @@ server.delete("/:id", (req, res) => {
   })
 })
 
-// Falta por probar :D!
 
-server.delete("/:idUser/cart", (req, res) => {
-  Product.findByPk(req.params.idUser).then((cart) => {
-    cart.destroy();
-    res.status(200).send("el carrito se vació correctamente")
-    return;
-  })
+
+server.delete('/:idUser/cart', (req, res) => {
+  Product.findByPk(req.body.idProducto)
+    .then((prod) => {
+      if (!prod) {
+        res.status(404).json({ error: 'Producto no encontrado' })
+        return;
+      }
+      Order.findByPk(req.body.idOrder).then((orden) => {
+        if (!orden) {
+          res.status(404).json({ error: 'Orden no encontrada' })
+          return;
+        }
+        orden.removeProduct(prod);
+        res.send(`>> Se eliminó la categoría id=${req.body.idOrder} al Producto id=${req.body.idProducto}`);
+        return;
+      });
+    })
 })
 
 
@@ -143,79 +158,3 @@ server.delete("/:idUser/cart", (req, res) => {
 module.exports = server;
 
 
-  // app.use(bodyParser.urlencoded({extended: false}));
-// app.use(bodyParser.json());
-// let usuario={
-//     nombre: '',
-//     apellido: '',
-// };
-// let respuesta ={
-//     error: false,
-//     codigo: 200,
-//     mensaje:''
-// };
-
-// server.get('/', (req,res)=>{
-//     respuesta = {
-//         error: true,
-//         codigo: 200,
-//         mensaje: 'Punto de inicio'
-//     };
-//     res.send(respuesta);
-// });
-// server.get('/usuario', (req,res)=>{
-//     respuesta = {
-//         error: false,
-//         codigo: 200,
-//         mensaje:''
-//     };
-//     if(usuario.nombre === '' || usuario.apellido === ''){
-//         respuesta = {
-//             error: true,
-//             codigo: 501,
-//             mensaje: 'El usuario no ha sido creado'
-//         };
-//     }
-//     else{
-//         respuesta = {
-//             error: false,
-//             codigo: 200,
-//             mensaje: 'respuesta del usuario',
-//             respuesta: usuario
-//         };
-//     }
-//     res.send(respuesta)
-// })
-
-/*CREACION DE USUARIO*/
-// server.post('/usuario', (req, res)=>{
-//     if(!req.body.nombre || !req.body.apellido){
-//         respuesta = {
-//             error: true,
-//             codigo: 502,
-//             mensaje: 'El campo nombre y apellido son requeridos'
-//         };
-//     }else {
-//         if(usuario.nombre !== '' || usuario.apellido !== ''){
-//             respuesta ={
-//                 error: true,
-//                 codigo: 503,
-//                 mensaje: 'El usuario fue creado previamente'
-//             };
-//         } else{
-//             usuario = {
-//                 nombre: req.body.nombre,
-//                 apellido: req.body.apellido
-//             };
-//             respuesta = {
-//                 error: false,
-//                 codigo: 200,
-//                 mensaje: 'Usuario creado',
-//                 respuesta: usuario
-//             };
-//         }
-//     }
-//     res.send(respuesta);
-// });
-
-/*FLASHADA MIA */
