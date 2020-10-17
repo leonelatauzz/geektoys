@@ -18,6 +18,8 @@ import Carrito from './componentes/Carrito.js';
 import Login from './componentes/Login';
 import Footer from './componentes/Footer';
 import TablaOrder from './componentes/tablaOrden.js';
+import Order from './componentes/Order.jsx'
+import DetalleOrder from './componentes/DetalleOrder';
 
 function App() {
 
@@ -171,6 +173,18 @@ function App() {
         render={()=> <Carrito 
         /> }
         />
+
+        <Route
+        exact path= '/user/:id/order'
+        render={()=> <Order
+        />}
+        />
+
+          <Route
+          exact path='/user/:idUser/order/:idOrder'
+          render={()=> <DetalleOrder
+          /> }
+          />
 
       </div>
     </Router>

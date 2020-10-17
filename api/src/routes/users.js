@@ -45,7 +45,7 @@ server.get('/', (req, res) => {
         }
       })
     })
-
+    
   server.post('/', (req, res) => {
     User.create({
       name: req.body.name,
