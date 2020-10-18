@@ -3,12 +3,12 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, getActiveOrder, logIn } from '../Redux/Actions/actions'
+import { getUserInfo, getActiveOrder, logIn, getDbCart } from '../Redux/Actions/actions'
 import { Modal, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2'
 
 export default function Registro() {
-    const userData = useSelector(state => state.userId);
+    const cart = useSelector(state => state.cart)
     let history = useHistory();
     const dispatch = useDispatch();
     const [data, setData] = useState({
@@ -143,25 +143,60 @@ export default function Registro() {
                 alert("Ya existe un usuario con este email")
             }
             const ras = await axios.post(`http://localhost:3001/order/${ris.data.id}`)
-                .then(resp => {
+                .then(async(resp) => {
                     let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
                     dispatch(logIn())
                     dispatch(getUserInfo(resp.data));
                     dispatch(getActiveOrder(activeOrder))
+                    if (cart.length > 0) {
+                        cart.map(async (item) => {
+                            let json = {
+                                idOrder: activeOrder[0].id,
+                                idProduct: item.id,
+                                price: item.price,
+                                amount: 1
+                            }
+                            const res = await axios.post(`http://localhost:3001/user/${resp.data.id}/cart`, json, {
+                                headers: {
+                                    'Content-Type': 'application/json'
+                                }
+                            })
+                        })
+                        const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                            .then(resp => {
+                                let products = Object.values(resp.data)
+                                dispatch(getDbCart(products))
+                                Swal.fire({
+                                    title: 'Usuario registrado correctamente',
+                                    width: 600,
+                                    padding: '3em',
+                                    background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                                    backdrop: `
+                                          rgba(0,0,123,0.4)
+                                          url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                                          left top
+                                          no-repeat
+                                        `
+                                })
+                                history.push(`/user/${resp.data.id}/order`)
+                            })
+                    } else {
+                        Swal.fire({
+                            title: 'Usuario registrado correctamente',
+                            width: 600,
+                            padding: '3em',
+                            background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                            backdrop: `
+                                  rgba(0,0,123,0.4)
+                                  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                                  left top
+                                  no-repeat
+                                `
+                        })
+                        history.push(`/user/${resp.data.id}/order`)
+                    }
                 })
-            Swal.fire({
-                title: 'Usuario registrado correctamente',
-                width: 600,
-                padding: '3em',
-                background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
-                backdrop: `
-                      rgba(0,0,123,0.4)
-                      url("https://sweetalert2.github.io/images/nyan-cat.gif")
-                      left top
-                      no-repeat
-                    `
-            })
-            history.push(`/user/${ris.data.id}/order`)
+            
         })
 
     }

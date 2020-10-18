@@ -2,11 +2,11 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
+import { getUserInfo, getActiveOrder, logIn, getDbCart } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2'
 
 export default function Login() {
-    const userData = useSelector(state => state.userId);
+    const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
     const [data, setData] = useState({
         email: "",
@@ -36,7 +36,10 @@ export default function Login() {
             headers: {
                 'Content-Type': 'application/json'
             }
-        }).then(resp => {
+        }).then(async(resp) => {
+            if (typeof (resp.data) === "string") {
+                alert("Los datos ingresados no son correctos, intenta de nuevo porfavor")
+            } else {
             let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
             dispatch(logIn())
             dispatch(getUserInfo(resp.data));
@@ -52,17 +55,40 @@ export default function Login() {
                   left top
                   no-repeat
                 `
-              })
-            history.push(`/user/${resp.data.id}/order`)
+            })
+            if (cart.length > 0) {
+                cart.map(async (item) => {
+                    let json = {
+                        idOrder: activeOrder[0].id,
+                        idProduct: item.id,
+                        price: item.price,
+                        amount: 1
+                    }
+                    const res = await axios.post(`http://localhost:3001/user/${resp.data.id}/cart`, json, {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                })
+                const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                    .then(resp => {
+                        let products = Object.values(resp.data)
+                        dispatch(getDbCart(products))
+                        history.push(`/user/${resp.data.id}/order`)
+                    })
+            } else {
+                history.push(`/user/${resp.data.id}/order`)
+            }
+        }
         })
     }
 
     return (
         <div className="sing_in" >
             <form className="form-sing-in">
-            <div class="Titulo-Ingresar">
-                <h2>Ingresar</h2>
-                <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>                 
+                <div class="Titulo-Ingresar">
+                    <h2>Ingresar</h2>
+                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
