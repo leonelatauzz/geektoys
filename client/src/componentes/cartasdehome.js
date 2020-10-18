@@ -49,8 +49,8 @@ export default function CartitasDeHome () {
     <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "400"/>
     <Card.Body>
       <Button variant="secondary" size="medium" as="a" value="starwars" onClick={starwars} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Pochoclera Star Wars</span></Card.Title>
-      <Card.Text>
+      <Card.Title><span role="button" tabindex="0" style={{fontFamily:'Malgun Gothic', fontWeight:'bold'}}>Pochoclera Star Wars</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic'}}>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
       En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars. Sentirás la potencia del lado oscuro, cada vez que uses esta pochoclera divertida y finamente diseñada, para disfrutar los pochoclos frescos, dulces o salados, mientras ves tu película favorita de Star Wars o también solo para exhibir.
       La tapa funciona como bowl contenedor de pochoclos!
@@ -66,7 +66,7 @@ export default function CartitasDeHome () {
     <Card.Body>
     <Button variant="secondary" size="medium" as="a" value="pokemon" onClick={pokemon} active>Conseguilo acá</Button>
       <Card.Title><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
-      <Card.Text>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
       Linea Pop! Games
       Producto Original Funko
       Nuevo y en su Embalaje Original
