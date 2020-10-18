@@ -46,11 +46,11 @@ export default function CartitasDeHome () {
 
 <CardDeck style={{margin: '30px 10px 10px 10px'}}>
   <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "400"/>
+    <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "450"/>
     <Card.Body>
       <Button variant="secondary" size="medium" as="a" value="starwars" onClick={starwars} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0" style={{fontFamily:'Malgun Gothic', fontWeight:'bold'}}>Pochoclera Star Wars</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic'}}>
+      <Card.Title><span role="button" tabindex="0">Pochoclera Star Wars</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
       En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars. Sentirás la potencia del lado oscuro, cada vez que uses esta pochoclera divertida y finamente diseñada, para disfrutar los pochoclos frescos, dulces o salados, mientras ves tu película favorita de Star Wars o también solo para exhibir.
       La tapa funciona como bowl contenedor de pochoclos!
@@ -62,7 +62,7 @@ export default function CartitasDeHome () {
     </Card.Footer>
   </Card>
   <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "395"/>
+    <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "450"/>
     <Card.Body>
     <Button variant="secondary" size="medium" as="a" value="pokemon" onClick={pokemon} active>Conseguilo acá</Button>
       <Card.Title><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
@@ -78,11 +78,11 @@ export default function CartitasDeHome () {
     </Card.Footer>
   </Card>
   <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "400"/>
+    <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "450"/>
     <Card.Body>
     <Button variant="secondary" size="medium" as="a" value="naruto" onClick={naruto} active>Conseguilo acá</Button>
       <Card.Title><span role="button" tabindex="0">Figura Gaara mode 185</span></Card.Title>
-      <Card.Text>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
         Convertite en el mejor ninja!
         ¡Una colección de figuras única e irrepetible!
         Completa esta impresionante colección de figuras exclusivas en la que se encuentran todos los personajes clave de la popular serie animada. Desde los miembros del equipo 7 hasta las bestias con cola, pasando por los principales aliados de Naruto y los miembros de Akatsuki, entre muchos otros.
