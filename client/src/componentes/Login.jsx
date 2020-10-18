@@ -6,6 +6,7 @@ import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
 
 
 export default function Login() {
+    const userData = useSelector(state => state.userId);
     const dispatch = useDispatch();
     const [data, setData] = useState({
         email: "",
@@ -40,7 +41,7 @@ export default function Login() {
             dispatch(logIn())
             dispatch(getUserInfo(resp.data));
             dispatch(getActiveOrder(activeOrder))
-            history.push('/')
+            history.push(`/user/${resp.data.id}/order`)
         })
     }
 

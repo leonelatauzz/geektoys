@@ -1,8 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import axios from 'axios';
 
 export default function TablaOrden(){
-let ordenes= [{id:5, state:'completado', userId:2}, {id:4, state:'completado', userId:3}, {id:3, state:'completado', userId:4}];
+  
+  const [data, setData] = useState({
+    orders: []
+  });
+
+  useEffect(() => {
+    async function makeRequests() {
+
+        await axios.get(`http://localhost:3001/order`)
+            .then(res => {              
+              setData({
+                ...data,
+                orders: res.data
+              })
+            })
+    }
+    makeRequests();
+}, []);
+
+
 return(
 
   <div class= 'containerTabla' >
@@ -16,7 +36,7 @@ return(
            </div>
 
            <div class = 'bodyTabla'>
-              { ordenes.map(ord => <div class= 'lineaI' > 
+              { data.orders.map(ord => <div class= 'lineaI' > 
 
                   <div class = 'bodyI' > <p class = 'pI' >{ord.id}</p> </div> 
                   <div class = 'bodyII' > <p class = 'pI' >{ord.state}</p> </div>

@@ -44,9 +44,9 @@ export default function Cart() {
 
       <Row style={{ border: "none", boxShadow: "none" }}>
         <Col sm={6}>
-          <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+          {/* <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
             <h3>Subtotal: ${suma}</h3>
-          </div>
+          </div> */}
         </Col>
         <Col sm={6}>
           <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>

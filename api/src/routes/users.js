@@ -9,9 +9,9 @@ server.post('/login', (req, res) => {
       password: req.body.password
     }, include: Order
   }).then(user => {
-    if(!user) {
+    if (!user) {
       res.status(404).json({ error: 'Usuario no registrado' })
-        return;
+      return;
     }
     res.json(user)
   })
@@ -42,41 +42,51 @@ server.post('/:idUser/cart', (req, res) => {
 
 
 server.get('/', (req, res) => {
-    User.findAll()
-      .then(users => {
-        res.send(users);
-      })
-  });
+  User.findAll()
+    .then(users => {
+      res.send(users);
+    })
+});
 
-    server.get("/:id/orders", (req,res)=>{
-      Order.findAll({
-        where: {
-          userId: req.params.id
-        }
-      }).then((orden)=>{
-        if(!orden){
-          res.status(404).send("orden no encontrada")
+server.get("/:id/orders", (req, res) => {
+  Order.findAll({
+    where: {
+      userId: req.params.id
+    }
+  }).then((orden) => {
+    if (!orden) {
+      res.status(404).send("orden no encontrada")
+    } else {
+      res.status(200).send(orden)
+    }
+  })
+})
+
+server.post('/', (req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email
+    }
+  }).then(us => {
+    if (us) {
+      res.send('Usuario ya existe')
+    } else {
+      User.create({
+        name: req.body.name,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
+      }).then((user) => {
+        if (!user) {
+          res.status(404).json({ error: 'no se pudo crear el usuario' })
         } else {
-          res.status(200).send(orden)
+          res.status(200).json(user)
         }
       })
-    })
-    
-  server.post('/', (req, res) => {
-    User.create({
-      name: req.body.name,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      password: req.body.password
-    }).then((user) => {
-      if (!user) {
-        res.status(404).json({ error: 'no se pudo crear el usuario' })
-      } else {
-        res.status(200).send("Usuario creado correctamente")
-      }
-    })
-  }) 
-  
+    }
+  })
+})
+
 
 server.put("/:idUser/cart", (req, res) => {
   cart.findOne({
@@ -85,7 +95,7 @@ server.put("/:idUser/cart", (req, res) => {
       productId: req.body.productId
     }
   }).then(ca => {
-    ca.update({amount: req.body.amount});
+    ca.update({ amount: req.body.amount });
     res.json(ca)
   })
 
@@ -111,24 +121,26 @@ server.get("/:id/orders", (req, res) => {
 
 server.post('/', (req, res) => {
   User.findOne({
-    where:{
+    where: {
       email: req.body.email
-  }}).then(user =>{
-    if(user){
+    }
+  }).then(user => {
+    if (user) {
       res.send("El usuario ya esta registrado")
-    }else{
-    User.create({
-      name: req.body.name,
-      lastname: req.body.lastname,
-      email: req.body.email,
-      password: req.body.password
-    }).then((usuario) => {
-      if (!usuario) {
-        res.status(404).json({ error: 'hola' })
-        return;
-      }
-      return res.status(201).json(usuario);
-    })}
+    } else {
+      User.create({
+        name: req.body.name,
+        lastname: req.body.lastname,
+        email: req.body.email,
+        password: req.body.password
+      }).then((usuario) => {
+        if (!usuario) {
+          res.status(404).json({ error: 'hola' })
+          return;
+        }
+        return res.status(201).json(usuario);
+      })
+    }
   })
 })
 

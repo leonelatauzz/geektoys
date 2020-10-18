@@ -3,8 +3,9 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getCategories, getProducts, getDbCart } from '../Redux/Actions/actions'
+import { getCategories, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder } from '../Redux/Actions/actions'
 import image from './images/carrito.png'
+
 
 export default function Navbar() {
     const loggedIn = useSelector(state => state.loggedIn)
@@ -119,6 +120,16 @@ export default function Navbar() {
         history.push(`/user/${userData.id}`)
     }
 
+    const salir = (e) => {
+        e.preventDefault();
+        dispatch(logOut())
+        dispatch(getUserInfo([]))
+        dispatch(getActiveOrder([]))
+        history.push('/')
+    }
+
+
+
     return (
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
@@ -130,9 +141,9 @@ export default function Navbar() {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent"  >
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
+                   {/*  <li class="nav-item">
                         <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
-                    </li>
+                    </li> */}
                     <li class="nav-item">
                         <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
                     </li>
@@ -156,7 +167,7 @@ export default function Navbar() {
                 </ul>
                 <div style={{display: "flex", justifyContent: "flex-end", alignItems: "stretch"}}>
                 {loggedIn === false ? <div> <button className="btn3" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
-                    <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar </button></div> : <button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button>}
+                    <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{display:'flex'}}><button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="btn3" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
                     <div style={{display: "flex", justifyContent: "flex-end"}}>
                     <img onClick={carrito} src={image} style={{ width: "40px", height: "40px"}} role="button" tabindex="0"/>
                     </div>
