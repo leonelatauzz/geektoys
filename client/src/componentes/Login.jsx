@@ -27,18 +27,6 @@ export default function Login() {
     }
 
     const handleLogIn = async (e) => {
-        Swal.fire({
-            title: 'Usuario logueado correctamente',
-            width: 600,
-            padding: '3em',
-            background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
-            backdrop: `
-              rgba(0,0,123,0.4)
-              url("https://sweetalert2.github.io/images/nyan-cat.gif")
-              left top
-              no-repeat
-            `
-          })
         e.preventDefault();
         let json = {
             email: data.email,
@@ -53,6 +41,18 @@ export default function Login() {
             dispatch(logIn())
             dispatch(getUserInfo(resp.data));
             dispatch(getActiveOrder(activeOrder))
+            Swal.fire({
+                title: 'Usuario logueado correctamente',
+                width: 600,
+                padding: '3em',
+                background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                backdrop: `
+                  rgba(0,0,123,0.4)
+                  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                  left top
+                  no-repeat
+                `
+              })
             history.push(`/user/${resp.data.id}/order`)
         })
     }

@@ -117,7 +117,7 @@ export default function Navbar() {
     }
     const goDashboard = (e) => {
         e.preventDefault();
-        history.push(`/user/${userData.id}`)
+        history.push(`/user/${userData.id}/order`)
     }
 
     const salir = (e) => {
