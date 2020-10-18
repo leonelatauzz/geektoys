@@ -1,9 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
 import { Accordion, Card, Button, Row, Col, Nav, Table } from 'react-bootstrap'
+import axios from 'axios';
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
+
 
 export default function Order() {
-
-
+    let fecha;
+    const userData = useSelector(state => state.userId);
+    console.log(userData.orders)
     return (
         <div>
             <Row style={{ margin: "30px", height: "600px", border: "none", boxShadow: "none" }}>
@@ -41,7 +46,7 @@ export default function Order() {
                 </Col>
                 <Col sm={9}>
                     <div>
-
+                        <h1>Mis ordenes</h1>
                         <Nav fill variant="tabs" defaultActiveKey="/home">
                             <Nav.Item>
                                 <Nav.Link eventKey="link-1">Carrito</Nav.Link>
@@ -56,35 +61,23 @@ export default function Order() {
                                 <Nav.Link eventKey="link-4">Cancelado</Nav.Link>
                             </Nav.Item>
                         </Nav>
-                        <Row style={{marginTop:"10px"}}>
+                        <Row style={{ marginTop: "10px" }}>
                             <Table striped bordered hover size="sm" >
                                 <thead>
                                     <tr>
                                         <th># Orden</th>
-                                        <th>Fecha</th>
-                                        <th>Precio final</th>
-                                        <th>Detalle</th>
+                                        <th>Fecha</th>                                   
+                                        <th>Estado</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>10/10/2020</td>
-                                        <td>$4000000</td>
-                                        <td><a href="http://localhost:3000/user/1/order/1">Ir a detalle de orden</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>5/10/2020</td>
-                                        <td>$40000</td>
-                                        <td>Ir a detalle de orden</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>2/10/2020</td>
-                                        <td>$7000</td>
-                                        <td>Ir a detalle de orden</td>
-                                    </tr>
+                                    {userData.orders.map(order =>                                                                       
+                                        <tr>                                            
+                                            <td>{order.id}</td>
+                                            <td >{ fecha = order.createdAt.split('T')[0]}</td>
+                                            <td>{order.state}</td>
+                                        </tr>
+                                    )}
                                 </tbody>
                             </Table>
                         </Row>

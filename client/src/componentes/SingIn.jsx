@@ -7,6 +7,7 @@ import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
 import { Modal, Button } from 'react-bootstrap'
 
 export default function Registro() {
+    const userData = useSelector(state => state.userId);
     let history = useHistory();
     const dispatch = useDispatch();
     const [data, setData] = useState({
@@ -136,7 +137,7 @@ export default function Registro() {
                 'Content-Type': 'application/json'
             }
 
-        }).then(async(resp) =>{
+        }).then(async(resp) =>{            
             if(typeof(resp.data)==="string"){
                 alert("Ya existe un usuario con este email")
             }
@@ -149,7 +150,7 @@ export default function Registro() {
                 dispatch(getActiveOrder(ord))
             })
             alert("Usuario registrado exitosamente")
-             history.push(`/user/${resp.data.id}`)
+            history.push(`/user/${resp.data.id}/order`)
         })
 
     }

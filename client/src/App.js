@@ -124,7 +124,7 @@ function App() {
         />
 
         <Route
-          exact path='/user/guest/carrito'
+          exact path='/guest/carrito'
           render={() => <CarritoGuest
           />}
         />

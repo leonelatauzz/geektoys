@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
+import {removeFromCart} from '../Redux/Actions/actions'
 
 
 export default function Cart() {
@@ -10,6 +11,8 @@ export default function Cart() {
   const cart = useSelector(state => state.cart)
   const userData = useSelector(state => state.userId);
   const activeOrder = useSelector(state => state.activeOrder);
+  const dispatch = useDispatch();
+  const history = useHistory();
   const [data, setData] = useState({
     products: []
   });
@@ -22,17 +25,21 @@ export default function Cart() {
 
   }, []);
 
-  const upAmount = (e) => {
 
+  const handleRegister = (e) =>{
+    e.preventDefault();
+    history.push('/user/singin')
   }
 
-  const downAmount = (e) => {
 
+  const handleLogin = (e) =>{
+    e.preventDefault();
+    history.push('/user/login')
   }
 
   return (
     <div>
-      <h1 style={{ margin:'20px'}}>Mis productos</h1>
+      <h1 style={{ margin: '20px' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
         {data.products.map(product =>
           <div className='contenedor' style={{ display: "flex" }}>
@@ -42,27 +49,16 @@ export default function Cart() {
                 <div style={{ display: "flex", flexDirection: "column", margin: '30px' }}>
                   <h3 style={{ marginBottom: '15px' }}> {product.name} </h3>
                   <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
-                  <p>Cantidad a comprar:</p>
+                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: ${product.price}</h5>
                   <div style={{ display: 'flex' }}>
-                  {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
-                <div>
-                  <button onClick={upAmount}>+</button>
-                  <button onClick={downAmount}>-</button>
-                </div>
+                    {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
                   </div>
-                  <p> <a> Eliminar producto del carrito </a></p>
                 </div>
               </div>
             </Col>
             <Col sm={4}>
-              <div style={{ display: "flex" }}>
-                <div style={{ display: "flex", flexDirection: "column", margin: '30px', marginTop: '70px' }}>
-                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: #</h5>
-                  <div>
-                    <input type="checkbox" id='comprar' />
-                    <label for='comprar' style={{ marginLeft: '10px' }}> Incluir a la compra</label>
-                  </div>
-                </div>
+              <div style={{ display: "flex" }}>               
+                {/* <button style={{width: '100px', height:'40px', margin:'100px 0px 0px 210px'}} value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar</button> */}
               </div>
             </Col>
             <div style={{ borderBottom: "black solid 1px", position: "absolute", left: "250px", width: "900px" }}></div>
@@ -72,13 +68,14 @@ export default function Cart() {
 
       <Row style={{ border: "none", boxShadow: "none" }}>
         <Col sm={6}>
-          <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+{/*           <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
             <h3>Subtotal: #</h3>
-          </div>
+          </div> */}
         </Col>
         <Col sm={6}>
           <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
-            <Button variant="danger">Comprar</Button>{' '}
+            <Button onClick={handleRegister} style={{marginRight: '10px'}} variant="info">Registrarse</Button>
+            <Button onClick={handleLogin} variant="info">Ingresar</Button>
           </div>
         </Col>
       </Row>
@@ -86,7 +83,7 @@ export default function Cart() {
   )
 }
 
-/* 
+/*
 
               <div style={{ display: 'flex' }}>
                 {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
