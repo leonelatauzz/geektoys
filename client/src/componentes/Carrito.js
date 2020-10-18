@@ -30,7 +30,9 @@ export default function Cart() {
     <div>
       <h1 style={{ margin: '20px' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
-        {dbCart.map(p => <CardCarrito
+        {dbCart.length === 0 ? <div class='nfContainer' style={{ width: '40vw', border: '0.5px solid black', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '80px', borderRadius: '5px' }}>
+          <h4 style={{ textAlign: 'center' }}>Tu carrito esta vacío!</h4>
+        </div> : dbCart.map(p => <CardCarrito
           key={p.id}
           id={p.id}
           name={titleCase(p.name)}
@@ -49,9 +51,9 @@ export default function Cart() {
           </div> */}
         </Col>
         <Col sm={6}>
-          <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+          {dbCart.length === 0 ? <span></span> : <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
             <Button variant="danger">Comprar</Button>{' '}
-          </div>
+          </div> }
         </Col>
       </Row>
     </div>

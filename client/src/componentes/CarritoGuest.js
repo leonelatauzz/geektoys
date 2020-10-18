@@ -41,7 +41,9 @@ export default function Cart() {
     <div>
       <h1 style={{ margin: '20px' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
-        {data.products.map(product =>
+        {data.products.length === 0 ? <div class='nfContainer' style={{ width: '40vw', border: '0.5px solid black', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '80px', borderRadius: '5px' }}>
+          <h4 style={{ textAlign: 'center' }}>Tu carrito esta vacío!</h4>
+        </div> : data.products.map(product =>
           <div className='contenedor' style={{ display: "flex" }}>
             <Col sm={8}>
               <div style={{ display: "flex" }}>
@@ -66,7 +68,7 @@ export default function Cart() {
         )}
       </Row>
 
-      <Row style={{ border: "none", boxShadow: "none" }}>
+      <Row style={{ border: "none", boxShadow: "none", marginTop: '40px' }}>
         <Col sm={6}>
 {/*           <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
             <h3>Subtotal: #</h3>

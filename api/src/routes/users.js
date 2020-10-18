@@ -9,7 +9,7 @@ server.post('/login', (req, res) => {
     }, include: Order
   }).then(user => {
     if (!user) {
-      res.status(404).json({ error: 'Usuario no registrado' })
+      res.send('Datos incorrectos')
       return;
     }
     res.json(user)

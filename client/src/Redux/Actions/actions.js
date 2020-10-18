@@ -76,5 +76,11 @@ export const getDbCart = function(props){
         payload: props
     }
 }
+export const resetCart = function(){
+    return{
+        type: 'RESET_CART',
+    }
+}
+
 
 

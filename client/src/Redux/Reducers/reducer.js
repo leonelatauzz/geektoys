@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
         case 'GET_CATEGORY_ID':
             return { ...state, categoryId: action.payload }
         case 'DELIVER_TO_CART':
-            return { ...state, cart: state.cart.concat(action.payload)}
+            return { ...state, cart: state.cart.concat(action.payload) }
         case 'GET_USER_INFO':
             return { ...state, userId: action.payload }
         case 'GET_ACTIVE_ORDER':
@@ -38,6 +38,8 @@ export default function (state = initialState, action) {
             return { ...state, loggedIn: false }
         case 'GET_DB_CART':
             return { ...state, dbCart: action.payload }
+        case 'RESET_CART':
+            return { ...state, cart: [] }
 
         default:
             return state;

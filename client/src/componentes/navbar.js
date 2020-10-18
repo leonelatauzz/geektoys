@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getCategories, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder } from '../Redux/Actions/actions'
+import { getCategories, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
 import image from './images/carrito.png'
 
 
@@ -61,9 +61,13 @@ export default function Navbar() {
         e.preventDefault()
         axios.get(`http://localhost:3001/products/search?query=${busq}`)
             .then(res => {
-                history.push("/products/search")
-                const responseObj = Object.values(res.data)
-                dispatch(getProducts(responseObj))
+                if (Object.values(res.data).length === 0) {
+                    history.push('/products/search/notFound')
+                } else {
+                    history.push("/products/search")
+                    const ObjRes = Object.values(res.data)
+                    dispatch(getProducts(ObjRes))
+                }
             })
 
     }
@@ -125,6 +129,7 @@ export default function Navbar() {
         dispatch(logOut())
         dispatch(getUserInfo([]))
         dispatch(getActiveOrder([]))
+        dispatch(resetCart())
         history.push('/')
     }
 

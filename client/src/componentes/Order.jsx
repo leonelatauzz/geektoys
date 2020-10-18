@@ -8,7 +8,6 @@ import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 export default function Order() {
     let fecha;
     const userData = useSelector(state => state.userId);
-    console.log(userData.orders)
     return (
         <div>
             <Row style={{ margin: "30px", height: "600px", border: "none", boxShadow: "none" }}>
@@ -16,6 +15,7 @@ export default function Order() {
                     <div className="div_desplegable">
                         <Accordion defaultActiveKey="0">
                             <Card>
+                                <h4 style={{margin: ' 5px 0px 0px 20px'}}>{userData.name} {userData.lastname}</h4>
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0" >
                                         <span> Compras </span>
