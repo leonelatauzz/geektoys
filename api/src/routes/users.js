@@ -2,7 +2,6 @@ const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
 
 server.post('/login', (req, res) => {
-  console.log(req.body)
   User.findOne({
     where: {
       email: req.body.email,

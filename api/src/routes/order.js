@@ -56,7 +56,17 @@ server.get('/', (req, res) => {
         res.status(404).json({ error: 'No se puede crear la orden' })
         return;
       }
-      return res.status(201).json(order)
+      User.findOne({
+        where: {
+          id: req.params.userId
+        }, include: Order
+      }).then(user => {
+        if (!user) {
+          res.status(404).json({ error: 'Usuario no registrado' })
+          return;
+        }
+        res.json(user)
+      })
     })
   })
 

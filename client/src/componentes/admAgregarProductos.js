@@ -128,7 +128,7 @@ export default function AddProduct() {
                     <img className="image" src={mImg} style={{width:'500px' , height:'auto', marginBottom:'100px'}}/>
                     <div style={{marginTop:'20px'}}>
                         <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                        {data.check === true ? <img  className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
+                        {data.check === true ? <img style={{maxHeight: '200px', width:'auto'}} className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
                     </div>
                     {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>

@@ -3,8 +3,9 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import {getUserInfo, getActiveOrder, logIn} from '../Redux/Actions/actions'
-import { Modal, Button } from 'react-bootstrap'
+import { getUserInfo, getActiveOrder, logIn } from '../Redux/Actions/actions'
+import { Modal, Button } from 'react-bootstrap';
+import Swal from 'sweetalert2'
 
 export default function Registro() {
     const userData = useSelector(state => state.userId);
@@ -24,7 +25,7 @@ export default function Registro() {
     const [errors, setErrors] = useState({
         emailError: "",
         passwordError: true,
-        nameError:"",
+        nameError: "",
         lastnameError: ""
     })
 
@@ -61,8 +62,8 @@ export default function Registro() {
                 errores: true
             })
         }
-    }, [data.name, data.lastName, data.email, data.password, data.check, errors.emailError, errors.passwordError, errors.nameError,errors.lastnameError])
-    
+    }, [data.name, data.lastName, data.email, data.password, data.check, errors.emailError, errors.passwordError, errors.nameError, errors.lastnameError])
+
     useEffect(() => {
         if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
             setErrors({
@@ -124,9 +125,9 @@ export default function Registro() {
         }
     }, [data.name])
 
-    const handleRegister = async(e)=>{
+    const handleRegister = async (e) => {
         e.preventDefault();
-        let json ={
+        let json = {
             name: data.name,
             lastname: data.lastName,
             email: data.email,
@@ -137,20 +138,30 @@ export default function Registro() {
                 'Content-Type': 'application/json'
             }
 
-        }).then(async(resp) =>{            
-            if(typeof(resp.data)==="string"){
+        }).then(async (ris) => {
+            if (typeof (ris.data) === "string") {
                 alert("Ya existe un usuario con este email")
             }
-            dispatch(getUserInfo(resp.data))
-            dispatch(logIn())
-            const ras = await axios.post(`http://localhost:3001/order/${resp.data.id}`)
-            .then(orden => {
-                let ord = [];
-                ord.push(orden.data)
-                dispatch(getActiveOrder(ord))
+            const ras = await axios.post(`http://localhost:3001/order/${ris.data.id}`)
+                .then(resp => {
+                    let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
+                    dispatch(logIn())
+                    dispatch(getUserInfo(resp.data));
+                    dispatch(getActiveOrder(activeOrder))
+                })
+            Swal.fire({
+                title: 'Usuario registrado correctamente',
+                width: 600,
+                padding: '3em',
+                background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                backdrop: `
+                      rgba(0,0,123,0.4)
+                      url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                      left top
+                      no-repeat
+                    `
             })
-            alert("Usuario registrado exitosamente")
-            history.push(`/user/${resp.data.id}/order`)
+            history.push(`/user/${ris.data.id}/order`)
         })
 
     }
@@ -159,8 +170,8 @@ export default function Registro() {
         <div className="sing_in">
             <form className="form-sing-in">
                 <div class="Titulo">
-                <h2>Regístrate</h2>
-                <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>                 
+                    <h2>Regístrate</h2>
+                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>
                 </div>
                 <div class="form-group">
                     <label >Name</label>
@@ -186,7 +197,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <div>
                         <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px",boxShadow:"none",textDecoration:"none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
                             <Modal
                                 size="sm"
                                 show={smShow}
