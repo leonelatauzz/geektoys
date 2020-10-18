@@ -4,11 +4,12 @@
     align-content: center;
     color: rgb(2, 2, 2);
     border-radius: 15px;
-    background-color:rgb(214, 214, 214);
+    background-color:#8D99AE;
     height: 600px;
     width: 550px;
     margin-left: 32%;
     margin-top: 30px;
+    margin-bottom: 30px;
     align-items: center;
 }
 .Titulo-Ingresar{
@@ -32,14 +33,14 @@
 }
 
 .form-control{
-    background-color:rgb(214, 214, 214);
-    border-color:rgb(214, 214, 214);
+    background-color:#8D99AE;
+    border-color:#8D99AE;
     border-bottom-color: rgb(255, 255, 255);
 }
 .form-group{
 
-    background-color:rgb(214, 214, 214);
-    border-color:rgb(214, 214, 214);
+    background-color:#8D99AE;
+    border-color:#8D99AE;
     border-bottom-color: rgb(255, 255, 255);
 }
 

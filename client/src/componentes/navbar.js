@@ -137,7 +137,7 @@ export default function Navbar() {
 
     return (
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
+        <nav class="navbar navbar-expand-lg navbar-light" style={{ display: "flex", alignItems: "stretch", backgroundColor:"#EDF2F4"}}>
             <a onClick={handleHome} class="navbar-brand">
                 <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
             </a>

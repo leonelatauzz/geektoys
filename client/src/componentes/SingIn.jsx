@@ -232,7 +232,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <div>
                         <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "#8D99AE", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
                             <Modal
                                 size="sm"
                                 show={smShow}
