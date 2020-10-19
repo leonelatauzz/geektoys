@@ -46,7 +46,7 @@ export default function ProductCard(props) {
 
 
     return (
-        <div class="container" >
+        <div class="container">
             <div class="row">
                 <div class="col-md-4">
                     <img role="button" tabindex="0" onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
