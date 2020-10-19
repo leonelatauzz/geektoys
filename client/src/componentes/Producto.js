@@ -81,9 +81,9 @@ const handleAmount =(e) => {
             <h4 class="productPrice">${producItem.price}</h4>
             <h5 class="productDescription">{producItem.description}</h5>
             
-            <div class= 'corazon' >
+            <div class= 'corazon'  >
             {producItem.stock === 0 ? 
-            <div style={{border: '1px solid black', borderRadius:'5px', margin:"30px 0px 0px 70px"}}><span style={{padding: '5px'}}>Este producto no tiene stock</span></div> : <span></span> 
+            <div style={{border: '1px solid black', borderRadius:'5px', margin:"30px 0px 0px 70px"}} role="button" tabindex="0"><span style={{padding: '5px'}}>Este producto no tiene stock</span></div> : <span></span> 
 
             }
             

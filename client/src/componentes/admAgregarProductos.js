@@ -132,13 +132,13 @@ export default function AddProduct() {
                     </div>
                     {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
-                    <h5>
+                    <h3 className= "label">
                         ¿Deseas agregar una categoria al producto?
-                        </h5>
+                        </h3>
                 </div  > : <div>
-                        <h5>
+                        <h3 className= "label">
                             ¿Deseas agregar otra categoria al producto?
-                        </h5>
+                        </h3>
                     </div>}
 
             { data.send === true ?
