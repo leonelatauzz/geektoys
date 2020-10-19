@@ -102,6 +102,7 @@ export default function AddCategory() {
         e.preventDefault();
         history.push('/admin')
     }
+
     
     return (
         <div>

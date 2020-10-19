@@ -179,7 +179,7 @@ export default function Registro() {
                                     title: 'Usuario registrado correctamente',
                                     width: 600,
                                     padding: '3em',
-                                    background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                                    background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
                                     backdrop: `
                                           rgba(0,0,123,0.4)
                                           url("https://sweetalert2.github.io/images/nyan-cat.gif")
@@ -194,7 +194,7 @@ export default function Registro() {
                             title: 'Usuario registrado correctamente',
                             width: 600,
                             padding: '3em',
-                            background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                            background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
                             backdrop: `
                                   rgba(0,0,123,0.4)
                                   url("https://sweetalert2.github.io/images/nyan-cat.gif")
@@ -210,12 +210,18 @@ export default function Registro() {
 
     }
 
+    const handleHome = (e) => {
+        e.preventDefault();
+        history.push('/')
+    }
+
+
     return (
         <div className="sing_in">
             <form className="form-sing-in">
                 <div class="Titulo">
                     <h2>Regístrate</h2>
-                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>
+                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""  role="button" tabindex="0" onClick={handleHome}></img>
                 </div>
                 <div class="form-group">
                     <label >Name</label>

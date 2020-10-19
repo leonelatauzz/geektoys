@@ -54,7 +54,7 @@ export default function Login() {
                 title: 'Usuario logueado correctamente',
                 width: 600,
                 padding: '3em',
-                background: 'url("https://i.imgur.com/rU0G3W0.jpeg")',
+                background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
                 backdrop: `
                   rgba(0,0,123,0.4)
                   url("https://sweetalert2.github.io/images/nyan-cat.gif")
@@ -88,13 +88,18 @@ export default function Login() {
         }
         })
     }
+    
+    const handleHome = (e) => {
+        e.preventDefault();
+        history.push('/')
+    }
 
     return (
         <div className="sing_in" >
             <form className="form-sing-in">
                 <div class="Titulo-Ingresar">
                     <h2>Ingresar</h2>
-                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""></img>
+                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""  role="button" tabindex="0" onClick={handleHome}></img>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
@@ -108,9 +113,9 @@ export default function Login() {
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                 </div>
-                <button type="submit" style={{ marginTop: "12px", height: "35px" }} class="btn btn-primary" onClick={handleLogIn}>Iniciar sesion</button>
+                <button type="submit" style={{ marginTop: "12px", height: "35px" }} class="btn btn-primary" className="btn3" onClick={handleLogIn}>Iniciar sesion</button>
                 <h5 style={{ marginLeft: "55px", marginTop: "10px" }}>¿Eres nuevo en Geek Toys? </h5>
-                <button style={{ marginLeft: "100px", width: "150px", marginTop: "5px" }} onClick={registrar} > Crear cuenta   </button>
+                <button className="btn3" style={{ marginLeft: "100px", width: "150px", marginTop: "5px" }} onClick={registrar} > Crear cuenta</button>
             </form>
             <div>
             </div>

@@ -174,7 +174,7 @@ export default function EditOrDelete() {
     }
 
     return (
-        <div class="col-3 col-s-12" style={{ backgroundColor: "black", display: 'flex' }}>
+        <div class="col-3 col-s-12" style={{ backgroundColor: "#2B2D42", display: 'flex' }}>
             <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
                 <form className="form" >
                     <h3 className="titulo" style={{ color: 'black', border: "grey solid 3px" }}>Editar producto</h3>
@@ -189,7 +189,7 @@ export default function EditOrDelete() {
                     <div style={{ display: 'flex' }}>
                         <div style={{ width: '200px' }}>
                             <input style={{ color: 'black' }} className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px', border: 'solid 1px black' }} /> : <img src={data.displayFile} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px' }} />}
+                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '200px', maxWidth: "200px", marginTop: '30px', border: 'solid 1px black' }} /> : <img src={data.displayFile} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px' }} />}
                         </div>
                         <input className="submit" type='submit' value='Guardar Cambios' style={{ width: '150px', height: '50px', marginTop: '140px', marginLeft: '2px', marginRight: '150px' }} onClick={handleForm}></input>
                     </div>
@@ -210,7 +210,7 @@ export default function EditOrDelete() {
                         )
                         }
                     </div>
-                    <label className="label" style={{ color: "black" }}>¿Deseas agregar una categoria al producto?:</label>
+                    <label className="label">¿Deseas agregar una categoria al producto?:</label>
                     <select style={{ marginTop: '250px', width: '300px', marginLeft: '30px' }} onChange={handleCat}>
                         <option >Categorias</option>
                         {existingCategories.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}

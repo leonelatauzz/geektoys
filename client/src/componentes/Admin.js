@@ -33,7 +33,10 @@ export default function Admin() {
         history.push('/admin/orderlist')
     }
 
-   
+    const handleHome = (e) => {
+        e.preventDefault();
+        history.push('/')
+    }
 
     
     return (
@@ -52,6 +55,10 @@ export default function Admin() {
                 <div>
                     <button className="bot" onClick={btnOrders}> Tabla de Ordenes</button>
                 </div>
+                <div>
+                    <button className="Home" onClick={handleHome}> Home</button>
+                </div>
+
             </div>
         </div>
     )

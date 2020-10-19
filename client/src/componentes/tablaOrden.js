@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 export default function TablaOrden(){
+  const history = useHistory();
   
   const [data, setData] = useState({
     orders: []
@@ -22,10 +24,15 @@ export default function TablaOrden(){
     makeRequests();
 }, []);
 
+const handleB = (e) => {
+  e.preventDefault();
+  history.push('/admin')
+}
 
 return(
 
   <div class= 'containerTabla' >
+            <button style={{marginLeft: '950px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>   
        <div class = 'tablaO' >
            <div class = 'headerTabla'>
 
