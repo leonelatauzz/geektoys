@@ -44,10 +44,10 @@ export default function Cart() {
   return (
     <div>
       <Nat/>
-      <h1 style={{ margin: '20px' }}>Mis productos</h1>
+      <h1 style={{ margin: '20px' ,color: '#8D99AE' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
-        {data.products.length === 0 ? <div class='nfContainer' style={{ width: '40vw', border: '0.5px solid black', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '80px', borderRadius: '5px' }}>
-          <h4 style={{ textAlign: 'center' }}>Tu carrito esta vacío!</h4>
+        {data.products.length === 0 ? <div class='nfContainer' style={{ position: "absolute", width: '40vw', border: '0.5px solid black', boxShadow: '10px 15px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '50px', borderRadius: '5px' }}>
+          <h4 style={{ textAlign: 'center', top:"300px" }}>Tu carrito esta vacío!</h4>
         </div> : data.products.map(product =>
           <div className='contenedor' style={{ display: "flex" }}>
             <Col sm={8}>
@@ -86,8 +86,8 @@ export default function Cart() {
         <Col sm={6}>
           <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
           
-            <Button onClick={handleRegister} style={{marginRight: '10px'}} variant="info">Registrarse</Button>
-            <Button onClick={handleLogin} variant="info">Ingresar</Button>
+            <Button onClick={handleRegister} className="Register" style={{marginRight: '10px'}} variant="info">Registrarse</Button>
+            <Button onClick={handleLogin} variant="info" className="Register" style={{marginRight: '10px'}}>Ingresar</Button>
             
           </div>
         </Col>

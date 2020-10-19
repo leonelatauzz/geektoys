@@ -52,12 +52,12 @@ export default function ProductCard(props) {
                     <img role="button" tabindex="0" onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" alt="..." />
                 </div>
                 <div class="informacion">
-                    <a class="card-title" role="button" tabindex="0" onClick={handle}  >{props.name}</a>
+                    <a class="card-title" role="button" tabindex="-1" onClick={handle}  >{props.name}</a>
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
                 </div>
                 <div>
-                <div class="divBoton" >
+                <div class="divBoton" style={{cursor: 'pointer'}} >
                 {data.fav === false ? <img onClick={handleEH} class='emptyLike'  src={eHeart}/> : <img onClick={handleFH} class='fullLike' src={fHeart}/>}
                 <span role="button" tabindex="0"></span>
                 </div>

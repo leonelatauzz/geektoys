@@ -50,6 +50,7 @@ export default function CardCarrito(props) {
             orderId: activeOrder[0].id,
             productId: parseInt(targetInfo[0]),
             amount: parseInt(targetInfo[1]) - 1
+            
         }
         const ros = await axios.put(`http://localhost:3001/user/${userData.id}/cart`, dataP, {
             headers: {
@@ -68,6 +69,11 @@ export default function CardCarrito(props) {
                 })
 
         })
+
+        if(dataP.amount <= 0) {
+            return
+        }
+
     }
 
     const handDel = async(e) => {
@@ -96,8 +102,8 @@ export default function CardCarrito(props) {
                             <p>{props.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
                             <p>Cantidad a comprar:</p>
                             <div style={{ display: 'flex' }}>
-                                {loggedIn === false ? <span></span> : <p id='comprar'>{data.amount}</p>}
-                                <div>
+                                {loggedIn === false ? <p id='comprar'>{data.amount}</p> : <p id='comprar'>{data.amount}</p>}
+                                <div className= "union">
                                     <button for='comprar' value={props.id + '/' + props.cart.amount} onClick={upAmount}>+</button>
                                     <button for='comprar' value={props.id + '/' + props.cart.amount} onClick={downAmount}>-</button>
                                 </div>

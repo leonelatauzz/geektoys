@@ -114,7 +114,7 @@ export default function EditOrDelete() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Eliminar'
           }).then( async(result) => {
             if (result.isConfirmed) {
                 const res = await axios.delete(`http://localhost:3001/products/${data.idProduct}/category/${valor}`)
@@ -176,6 +176,7 @@ export default function EditOrDelete() {
     return (
         <div class="col-3 col-s-12" style={{ backgroundColor: "#2B2D42", display: 'flex' }}>
             <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
+            <button className="btn6" onClick={products}>Volver a productos</button>
                 <form className="form" >
                     <h3 className="titulo" style={{ color: 'black', border: "grey solid 3px" }}>Editar producto</h3>
                     <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Título:</label>
@@ -211,12 +212,15 @@ export default function EditOrDelete() {
                         }
                     </div>
                     <label className="label">¿Deseas agregar una categoria al producto?:</label>
-                    <select style={{ marginTop: '250px', width: '300px', marginLeft: '30px' }} onChange={handleCat}>
-                        <option >Categorias</option>
+                    <select  onChange={handleCat}>
+                        <option className= 'Edit-Cat-Adm' >Categorias</option>
                         {existingCategories.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
                     </select>
-                    <input className="submit" type='submit' value="Agregar" onClick={handleClick} style={{ marginRight: '220px', width: '150px', height: '50px', marginTop: '60px' }} />
+                    <div className= 'Adm-agre'>
+                    <input className="submit" type='submit' value="Agregar" onClick={handleClick}  />
+                    </div>
                 </form>
+                
             </div>
         </div>
         

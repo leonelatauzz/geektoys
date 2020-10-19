@@ -1,9 +1,20 @@
 import React from 'react'
 import './colaboradores.css'
+import { useHistory } from 'react-router-dom'
+
 export default function Colaboradores(){
+
+    let history = useHistory();
+
+    const handleHome = (e) => {
+        e.preventDefault();
+        history.push('/')
+    }
     return(
         <div className = "JC">
+            <img src="https://i.imgur.com/QUOAdAS.png" width="300" height="100" alt=""  style={{cursor: 'pointer'}} onClick={handleHome}></img>
             <h1>Desarrolladores del G9</h1>
+            
             {/*SEPARADOR DE INTEGRANTES*/}
             <div className = "Ima">
             <img src= "https://i.imgur.com/RlEnYrF.jpg" alt="Lisette :)"/>

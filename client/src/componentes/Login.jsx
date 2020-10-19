@@ -99,7 +99,7 @@ export default function Login() {
             <form className="form-sing-in">
                 <div class="Titulo-Ingresar">
                     <h2>Ingresar</h2>
-                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""  role="button" tabindex="0" onClick={handleHome}></img>
+                    <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{cursor: 'pointer'}} onClick={handleHome}></img>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
