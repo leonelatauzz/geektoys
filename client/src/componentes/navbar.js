@@ -24,6 +24,7 @@ export default function Navbar() {
             .then(res => {
                 const resObj = Object.values(res.data)
                 dispatch(getProducts(resObj))
+                
             })
     }
 
@@ -137,7 +138,7 @@ export default function Navbar() {
 
     return (
 
-        <nav class="navbar navbar-expand-lg navbar-light" style={{ display: "flex", alignItems: "stretch", backgroundColor:"#EDF2F4"}}>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
             <a onClick={handleHome} class="navbar-brand">
                 <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
             </a>
@@ -153,10 +154,12 @@ export default function Navbar() {
                         <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
                     </li>
                     <li className="nav-item dropdown">
+                        
                         <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
-                            <option >Categorias</option>
+                        <option selected="true" disabled="disabled">Categorias</option>
                             {categoria.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
                         </select>
+                        
                     </li>
                     <li >
                         <form onSubmit={handleEnter}>
@@ -179,8 +182,6 @@ export default function Navbar() {
                 </div>
             </div>
         </nav>
-
     )
 }
-
 
