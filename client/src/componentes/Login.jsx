@@ -38,7 +38,13 @@ export default function Login() {
             }
         }).then(async(resp) => {
             if (typeof (resp.data) === "string") {
-                alert("Los datos ingresados no son correctos, intenta de nuevo porfavor")
+                Swal.fire({
+                    position: 'top',
+                    icon: 'warning',
+                    title: 'Usuario y/o contraseña son incorrectos',
+                    showConfirmButton: false,
+                    timer: 1700
+                  })
             } else {
             let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
             dispatch(logIn())

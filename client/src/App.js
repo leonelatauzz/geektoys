@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
-import Navbar from './componentes/navbar'
+
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
@@ -17,25 +17,20 @@ import NotFound from './componentes/NotFound'
 import Home from './componentes/Home'
 import Carrito from './componentes/Carrito.js';
 import Login from './componentes/Login';
-import Footer from './componentes/Footer';
+
 import TablaOrder from './componentes/tablaOrden.js';
 import CarritoGuest from './componentes/CarritoGuest'
 import Order from './componentes/Order.jsx'
 import DetalleOrder from './componentes/DetalleOrder';
 import Colaboradores from './componentes/colaboradores'
 
+
 function App() {
 
 
   return (
     <Router>
-    
 
-        <Route
-          path='/'
-          render={() => <Navbar
-          />}
-        />
 
         <Route
           exact path='/'
@@ -135,12 +130,6 @@ function App() {
         />
 
         <Route
-          exact path='/'
-          render={() => <Footer
-          />}
-        />
-
-        <Route
           exact path='/admin/orderlist'
           render={() => <TablaOrder
           />}
@@ -169,6 +158,8 @@ function App() {
           />}
          />
         
+
+
 
       
     </Router>

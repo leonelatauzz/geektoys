@@ -3,6 +3,8 @@ import { useParams, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import {getCategories} from "../Redux/Actions/actions"
+import Swal from 'sweetalert2'
+
 export default function Categoria() {
     const categoryEdit = useSelector(state => state.categoryId);
     const dispatch = useDispatch();
@@ -29,10 +31,15 @@ export default function Categoria() {
                 const ras = await axios.get(`http://localhost:3001/products/category`)
                 .then(res => {
                     dispatch(getCategories(res.data))
-                    alert('Categoria editada correctamente');
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'categoria editada correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
                     history.push(`/admin/addcategory`);                              
                 })
-            
             })
         }
        
