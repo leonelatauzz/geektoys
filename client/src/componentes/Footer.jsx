@@ -56,6 +56,9 @@ export default function Footer() {
                         <li className="lista">
                             <a>Ayuda</a>
                         </li>
+                        <li className="lista">
+                            <a href="http://localhost:3000/colaboradores">Desarrolladores</a>
+                        </li>
                     </ul>
                 </div>
                 <div className="contact">
