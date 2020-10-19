@@ -221,7 +221,7 @@ export default function Registro() {
             <form className="form-sing-in">
                 <div class="Titulo">
                     <h2>Regístrate</h2>
-                    <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt=""  role="button" tabindex="0" onClick={handleHome}></img>
+                    <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt=""  style={{cursor: 'pointer'}} onClick={handleHome}></img>
                 </div>
                 <div class="form-group">
                     <label >Name</label>
@@ -247,7 +247,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <div>
                         <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "#8D99AE", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
                             <Modal
                                 size="sm"
                                 show={smShow}
@@ -289,7 +289,7 @@ export default function Registro() {
                         </>
                     </div>
                 </div>
-                <button onClick={handleRegister} disabled={errors.errores} type="submit" class="btn btn-primary">Registrar</button>
+                <button onClick={handleRegister} disabled={errors.errores}  type="submit" class="btn btn-primary" className="btn3" role="button" tabindex="0">Registrar</button>
             </form>
         </div>
     )

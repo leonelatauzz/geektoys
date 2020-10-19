@@ -140,7 +140,7 @@ export default function Navbar() {
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
             <a onClick={handleHome} class="navbar-brand">
-                <img src="https://i.imgur.com/byHLoDk.gif" width="160" height="50" alt="" />
+                <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{cursor: 'pointer'}} />
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>

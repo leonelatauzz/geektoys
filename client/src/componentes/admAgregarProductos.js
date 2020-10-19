@@ -145,19 +145,19 @@ export default function AddProduct() {
                     </div>
                     {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
-                    <h3 className= "label">
+                    <div className= "label">
                         ¿Deseas agregar una categoria al producto?
-                        </h3>
+                        </div>
                 </div  > : <div>
-                        <h3 className= "label">
+                        <div className= "label">
                             ¿Deseas agregar otra categoria al producto?
-                        </h3>
+                        </div>
                     </div>}
 
             { data.send === true ?
                 <div>
                     <form style={{marginBottom: '300px'}}>
-                        <label>Selecciona una Categoria:</label>
+                        <label className= "label">Selecciona una Categoria:</label>
                         <select onChange={handleSelectChange}  >
                             <option >Categorias</option>
                             {existingCategories.map((cat) => <option key={cat.id} value={`${cat.id}/${cat.name}`} name={cat.name} > {cat.name} </option>)}

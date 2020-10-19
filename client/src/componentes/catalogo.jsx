@@ -34,7 +34,7 @@ export default function Catalogo() {
           description = element.description
       }
       if(parametro.nombreCat === undefined){
-          description = "aqui estan todos nuestros productos"
+          description = "Aquí estan todos nuestros productos"
       }    
   });
 
@@ -43,7 +43,7 @@ export default function Catalogo() {
 
             <Nat/>
 
-           {description ? <h1 className="titulo_catalogo" style={{color:"black", maxWidth:"40%",margin:"auto",backgroundColor:"white",textAlign:"center",border:"white solid 1px",borderRadius:"20px",marginTop:"15px"}}>{description}</h1> : <div></div>}
+           {description ? <h1 className="titulo_catalogo" style={{fontFamily:'Malgun Gothic', color:"#2B2D42", maxWidth:"35%",margin:"auto",backgroundColor:"#EDF2F4",textAlign:"center",border:"white solid 1px",borderRadius:"25px",marginTop:"25px"}}>{description}</h1> : <div></div>}
         <div class="tarjeta" >
             {catalogo.map((p) => <ProductCard
                 key={p.id}

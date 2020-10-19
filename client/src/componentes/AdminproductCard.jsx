@@ -39,7 +39,7 @@ export default function ProductCard(props) {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: 'Eliminar'
           }).then( async(result) => {
             if (result.isConfirmed) {
                 const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
@@ -83,9 +83,11 @@ export default function ProductCard(props) {
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
                 </div>
-                <div class="divBoton">   
+                <div class="divBoton"> 
+
                 <button type="button" class="btn btn-outline-success" style={{marginRight: "7px"}} onClick={handleEdit} >Editar</button>  
                 <button type="button" onClick={handleDelete} class="btn btn-outline-danger" >Eliminar</button>
+                <button className="btn5" onClick={dashboard}>Volver al dashboard</button>
                 </div>
             </div>
         </div>

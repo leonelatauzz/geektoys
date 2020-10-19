@@ -88,7 +88,7 @@
 }
 
 .fav{
-    height: 30px;
+    height: 32px;
     width: 30px;
     margin: 32px 0px 0px 70px;
 
@@ -112,7 +112,94 @@
 
 .corazon{
     display: flex;
+    margin-top: 10px;
+    margin-bottom: 50px;
+    height: 40px;
+    width: 120px;
+    margin-left: 20px;
 
 }
 
+.btn4 {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    background-color: #D3D3D3;
+    border: 1px solid #D3D3D3;
+    color: #495057;
+    border-radius: 5px;
+    padding: 5px;
+}
 
+.btn4:hover {
+    background: #8D99AE;
+    color: black;
+}
+
+.btn5 {
+    background-color: #D90429;
+    border :black solid 3px;
+    border-radius: 5px;
+    color: whitesmoke;
+    position: absolute;
+    display: flex;
+    align-items:flex-start;
+    left: 5px;
+    top: 5px;
+    padding: 5px;
+}
+
+.btn5:hover {
+    background: #8D99AE;
+    color: black;
+}
+
+
+.Contadorsin {
+    display: flex;
+    align-items: flex-start;
+    max-width: 20px;
+    margin-left:10px;
+    margin-top: 0px;
+    margin-right:10px;
+}
+
+.Letrita{
+    color: #EDF2F4;
+}
+
+.btn6 {
+    position: initial;
+    left: 10px;
+    top: 5px;
+    background-color: #D3D3D3;
+    border: 1px solid #D90429;
+    color: #495057;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items:flex-start;
+}
+
+.btn6:hover {
+    background: #8D99AE;
+    color: black;
+}
+
+.union {
+    display: flex;
+    align-items: stretch;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: .5em;
+}
+
+.carritoVacio{
+    display: flex;
+    text-align: center;
+    margin-top: .5em;
+    margin-bottom: .5em;
+    margin-left: 1em;
+    margin-right: .5em;
+}
