@@ -34,7 +34,7 @@ export default function ProductCard(props) {
         e.preventDefault();
         Swal.fire({
             title: '¿Estas seguro?',
-            text: "No hay vuelta atras¡¡",
+            text: "No hay vuelta atras!!",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

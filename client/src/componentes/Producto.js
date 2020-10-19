@@ -92,8 +92,8 @@ const handleHome = (e) => {
   history.push('/products')
 }
   return (
-    <div class="containerProduct">
-      <div class="cardProduct">
+    <div class="containerProduct"  style={{backgroundColor:"#2B2D42"}}>
+      <div class="cardProduct" style={{backgroundColor:"#2B2D42"}}>
         <div class="imagenContainer">
           <img class="imagenP" width="160" height="50" src={`http://localhost:3001/uploads/${producItem.picture}`}  />
           <div class="info">
