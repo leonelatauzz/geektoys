@@ -1,0 +1,24 @@
+.JC h1{
+    text-align: center;
+    display: block;
+    color: #EF233C;
+    margin: auto;
+    font-Family: 'Malgun Gothic';
+    font-size: 50px;
+    margin-bottom: 50px;
+}
+.Ima{
+    display:flex;
+    margin-bottom: 20px;
+
+}
+.Diseño{
+    display: flex;
+   font-size: 50px;
+   color: white;
+   margin-left:15px;
+   margin-top: 0px;
+   flex-direction: column;
+   font-Family: 'Malgun Gothic';
+}
+

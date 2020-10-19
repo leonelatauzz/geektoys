@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, getProducts } from '../Redux/Actions/actions'
+import Swal from 'sweetalert2'
 
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard(props) {
@@ -31,18 +32,37 @@ export default function ProductCard(props) {
 
     const handleDelete = async (e) => {
         e.preventDefault();
-        if (window.confirm('Estas a punto de eliminar este producto! ¿Deseas continuar?')) {
-            const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No hay vuelta atras¡¡",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then( async(result) => {
+            if (result.isConfirmed) {
+                const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
                 .then(async () => {
-                    alert('Producto eliminado correctamente');
                     history.push('/admin/products')
                     await axios.get('http://localhost:3001/products/')
                         .then((res) => {
                             dispatch(getProducts(res.data))
                         })
                 })
-        }
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Producto elimiano correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
+           
+          })
     }
+ 
+
 
     const dashboard = (e) => {
         e.preventDefault()

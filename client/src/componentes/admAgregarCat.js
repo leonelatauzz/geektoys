@@ -5,6 +5,9 @@ import { useHistory } from 'react-router-dom';
 import {getCategories} from '../Redux/Actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 import {getCategoryId} from '../Redux/Actions/actions';
+import Swal from 'sweetalert2'
+
+
 export default function AddCategory() {
     const dispatch = useDispatch();
     const allCategories = useSelector(state=> state.categories)
@@ -27,36 +30,63 @@ export default function AddCategory() {
             name: data.name,
             description: data.description
         }
-
         const res = await Axios.post('http://localhost:3001/products/category', json, {
             headers: {
                 'Content-Type': 'application/json'
             }
-
         }).then(async() => {
             const res = await axios.get('http://localhost:3001/products/category')
             .then(res=>{
-                alert('Categoría creada correctamente');
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Categoria agregada correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })                            
                 dispatch(getCategories(res.data))
             })
         })
     }
 
     const handleDelete = async (e) => {
+        const valor = e.target.value
         e.preventDefault();
-        if (window.confirm('Estas a punto de eliminar esta categoría! ¿Deseas continuar?')) {
-            const res = await axios.delete(`http://localhost:3001/products/category/${e.target.value}`)
-                .then(async() => {
-                    const ras = await axios.get('http://localhost:3001/products/category')
-                    .then(res=>{
-                        alert('Categoría eliminada correctamente');
-                        dispatch(getCategories(res.data));
-                        history.push('/admin/addcategory')
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No habra vuelta atras",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar'
+          }).then(async(result) => {
+              if(result.isConfirmed){
 
-                    })                                   
-                })
-        }
+                  const res = await axios.delete(`http://localhost:3001/products/category/${valor}`)
+                  .then(async() => {
+                      const ras = await axios.get('http://localhost:3001/products/category')
+                      .then(res=>{
+                          dispatch(getCategories(res.data));
+                          history.push('/admin/addcategory')
+                      })       
+                      Swal.fire({
+                          position: 'center',
+                          icon: 'success',
+                          title: 'Categoria eliminada correctamente',
+                          showConfirmButton: false,
+                          timer: 1500
+                        })                            
+                  })
+              }
+    
+          })
     }
+
+
+    
+
+    
 
     const handleEdit = async(e) => {
         e.preventDefault();  
@@ -66,7 +96,6 @@ export default function AddCategory() {
                 dispatch(getCategoryId(res.data));
                 history.push(`/admin/editordelete/cat/${pruebina[0]}`);
           })  
-       
     }
 
     const clickBtn = (e) => {
@@ -112,4 +141,3 @@ export default function AddCategory() {
         </div>
     )
 }
-

@@ -17,6 +17,7 @@ export default function Registro() {
         email: "",
         password: "",
         check: false
+        
     })
 
     const [lgShow, setLgShow] = useState(false);
@@ -26,7 +27,8 @@ export default function Registro() {
         emailError: "",
         passwordError: true,
         nameError: "",
-        lastnameError: ""
+        lastnameError: "",
+        errores:true
     })
 
     const check = (e) => {
@@ -96,6 +98,7 @@ export default function Registro() {
     }, [data.email])
 
     useEffect(() => {
+        console.log("hola")
         if (/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.lastName)) {
             setErrors({
                 ...errors,
@@ -140,7 +143,13 @@ export default function Registro() {
 
         }).then(async (ris) => {
             if (typeof (ris.data) === "string") {
-                alert("Ya existe un usuario con este email")
+                Swal.fire({
+                    position: 'top',
+                    icon: 'warning',
+                    title: 'Email ya registrado',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
             }
             const ras = await axios.post(`http://localhost:3001/order/${ris.data.id}`)
                 .then(async(resp) => {
@@ -238,7 +247,7 @@ export default function Registro() {
                     <input type="checkbox" onChange={check} />
                     <div>
                         <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "#8D99AE", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "rgb(214, 214, 214)", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
                             <Modal
                                 size="sm"
                                 show={smShow}
@@ -280,7 +289,7 @@ export default function Registro() {
                         </>
                     </div>
                 </div>
-                <button onClick={handleRegister} disabled={errors.errores} requiered type="submit" class="btn btn-primary" className="btn3">Registrar</button>
+                <button onClick={handleRegister} disabled={errors.errores} type="submit" class="btn btn-primary">Registrar</button>
             </form>
         </div>
     )

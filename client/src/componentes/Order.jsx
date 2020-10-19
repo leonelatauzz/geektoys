@@ -3,6 +3,8 @@ import { Accordion, Card, Button, Row, Col, Nav, Table } from 'react-bootstrap'
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
+import Nat from './navbar'
+import Footer from './Footer'
 
 
 export default function Order() {
@@ -10,6 +12,7 @@ export default function Order() {
     const userData = useSelector(state => state.userId);
     return (
         <div>
+            <Nat/>
             <Row style={{ margin: "30px", height: "600px", border: "none", boxShadow: "none" }}>
                 <Col sm={3}>
                     <div className="div_desplegable">
@@ -84,6 +87,7 @@ export default function Order() {
                     </div>
                 </Col>
             </Row>
+            <Footer/>
         </div>
     )
 }

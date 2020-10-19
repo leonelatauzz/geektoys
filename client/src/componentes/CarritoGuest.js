@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
 import {removeFromCart} from '../Redux/Actions/actions'
+import Nat from './navbar'
+import Footer from './Footer'
 
 
 export default function Cart() {
@@ -14,7 +16,8 @@ export default function Cart() {
   const dispatch = useDispatch();
   const history = useHistory();
   const [data, setData] = useState({
-    products: []
+    products: [],
+
   });
   useEffect(() => {
 
@@ -24,6 +27,7 @@ export default function Cart() {
     })
 
   }, []);
+
 
 
   const handleRegister = (e) =>{
@@ -39,6 +43,7 @@ export default function Cart() {
 
   return (
     <div>
+      <Nat/>
       <h1 style={{ margin: '20px' }}>Mis productos</h1>
       <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
         {data.products.length === 0 ? <div class='nfContainer' style={{ width: '40vw', border: '0.5px solid black', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '80px', borderRadius: '5px' }}>
@@ -51,6 +56,7 @@ export default function Cart() {
                 <div style={{ display: "flex", flexDirection: "column", margin: '30px' }}>
                   <h3 style={{ marginBottom: '15px' }}> {product.name} </h3>
                   <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
+                  {console.log(product.stock)}
                   <h5 style={{ marginBottom: '15px' }}> Precio del producto: ${product.price}</h5>
                   <div style={{ display: 'flex' }}>
                     {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
@@ -64,8 +70,11 @@ export default function Cart() {
               </div>
             </Col>
             <div style={{ borderBottom: "black solid 1px", position: "absolute", left: "250px", width: "900px" }}></div>
+            
           </div>
+          
         )}
+      
       </Row>
 
       <Row style={{ border: "none", boxShadow: "none", marginTop: '40px' }}>
@@ -76,11 +85,14 @@ export default function Cart() {
         </Col>
         <Col sm={6}>
           <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
+          
             <Button onClick={handleRegister} style={{marginRight: '10px'}} variant="info">Registrarse</Button>
             <Button onClick={handleLogin} variant="info">Ingresar</Button>
+            
           </div>
         </Col>
       </Row>
+      <Footer/>
     </div>
   )
 }

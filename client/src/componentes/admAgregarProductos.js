@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts, getCategoryProduct } from '../Redux/Actions/actions'
 import mImg from './images/marioPic.png';
 import Uimg from './images/up.png'
+import Swal from 'sweetalert2'
 
 export default function AddProduct() {
     const history = useHistory();
@@ -63,7 +64,13 @@ export default function AddProduct() {
                 'Content-Type': `multipart/form-data;`,
             }
         }).then(async(response) => {
-                alert('Producto agregado correctamente')
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Producto agregado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+              })                            
                 setData({
                     ...data,
                     idProduct: response.data,
@@ -86,7 +93,13 @@ export default function AddProduct() {
                 hola: true,
                 dispBut: true
             })
-            alert('Producto agregado a la categoría correctamente');
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Categoria agregada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+              })                            
         })
         
 
@@ -160,6 +173,4 @@ export default function AddProduct() {
         </div>
     )
 }
-
-
 

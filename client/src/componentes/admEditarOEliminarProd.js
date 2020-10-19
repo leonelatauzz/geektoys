@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getProductCategory, getProducts } from '../Redux/Actions/actions'
+import Swal from 'sweetalert2'
 
 export default function EditOrDelete() {
     let json;
@@ -86,8 +87,14 @@ export default function EditOrDelete() {
                 'Content-Type': `multipart/form-data;`,
             }
         }).then(async (res) => {
-            alert('Producto editado correctamente!');
-            history.push('/products')
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Producto editado correctamente',
+                showConfirmButton: false,
+                timer: 1500
+              })                            
+            history.push('/admin/products')
             await axios.get('http://localhost:3001/products/')
                 .then((res) => {
                     dispatch(getProducts(res.data))
@@ -98,21 +105,41 @@ export default function EditOrDelete() {
     }
 
     const handleDelete = async (e) => {
-
+        const valor = e.target.value
         e.preventDefault();
-        if (window.confirm('Estas a punto de quitar este producto de la categoría! ¿Deseas continuar?')) {
-            const res = await axios.delete(`http://localhost:3001/products/${data.idProduct}/category/${e.target.value}`)
-                .then(async (res) => {
-                    alert('El producto ya no pertenece a la categoría!');
-                    await axios.get(`http://localhost:3001/products/categoria/prod/${data.idProduct}`)
-                        .then((res) => {
-                            let pCategories = Object.values(res.data)
-                            dispatch(getProductCategory(pCategories))
-                        })
-
-                })
-        }
+        Swal.fire({
+            title: 'Estas seguro',
+            text: "No hay vuelta atras",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+          }).then( async(result) => {
+            if (result.isConfirmed) {
+                const res = await axios.delete(`http://localhost:3001/products/${data.idProduct}/category/${valor}`)
+                    .then(async (res) => {
+                        await axios.get(`http://localhost:3001/products/categoria/prod/${data.idProduct}`)
+                            .then((res) => {
+                                let pCategories = Object.values(res.data)
+                                dispatch(getProductCategory(pCategories))
+                            })
+    
+                    })
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Categoria eliminada del producto',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+            }
+          })
     }
+
+ 
+ 
+
     const handleCat = (e) => {
         setData({
             ...data,
@@ -124,7 +151,13 @@ export default function EditOrDelete() {
         e.preventDefault()
         const res = await axios.post(`http://localhost:3001/products/${data.idProduct}/category/${data.idCategory}`)
             .then(async () => {
-                alert('El producto ahora pertenece a la categoría!');
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'categoria agregada correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
                 await axios.get(`http://localhost:3001/products/categoria/prod/${data.idProduct}`)
                     .then(res => {
                         let pCategories = Object.values(res.data)
