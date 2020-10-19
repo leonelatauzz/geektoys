@@ -22,7 +22,7 @@ import TablaOrder from './componentes/tablaOrden.js';
 import CarritoGuest from './componentes/CarritoGuest'
 import Order from './componentes/Order.jsx'
 import DetalleOrder from './componentes/DetalleOrder';
-
+import Colaboradores from './componentes/colaboradores'
 
 
 function App() {
@@ -56,7 +56,7 @@ function App() {
           render={() => <Catalogo
           />}
         />
-
+       
         <Route
           exact path='/products/search'
           render={() => <Catalogo
@@ -152,6 +152,15 @@ function App() {
           render={() => <DetalleOrder
           />}
         />
+         <Route
+          exact path='/colaboradores'
+          render = {() => <Colaboradores
+          />}
+         />
+        
+
+
+
       
     </Router>
 
