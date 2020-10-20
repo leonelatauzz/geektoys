@@ -1,11 +1,17 @@
 const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
+const hash = require('pbkdf2')
+
+
 
 server.post('/login', (req, res) => {
+  const contra = req.body.password
+  const key = hash.pbkdf2Sync(contra, 'salt', 100000, 64, 'sha512');
+  const password = key.toString('hex')
   User.findOne({
     where: {
       email: req.body.email,
-      password: req.body.password
+      password: password
     }, include: Order
   }).then(user => {
     if (!user) {
@@ -62,6 +68,9 @@ server.get("/:id/orders", (req, res) => {
 })
 
 server.post('/', (req, res) => {
+  const contra = req.body.password
+  const key = hash.pbkdf2Sync(contra, 'salt', 100000, 64, 'sha512');
+  const password = key.toString('hex')
   User.findOne({
     where: {
       email: req.body.email
@@ -74,7 +83,7 @@ server.post('/', (req, res) => {
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password
+        password: password
       }).then((user) => {
         if (!user) {
           res.status(404).json({ error: 'no se pudo crear el usuario' })
@@ -117,32 +126,6 @@ server.get("/:id/orders", (req, res) => {
   })
 
 })
-
-server.post('/', (req, res) => {
-  User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then(user => {
-    if (user) {
-      res.send("El usuario ya esta registrado")
-    } else {
-      User.create({
-        name: req.body.name,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password
-      }).then((usuario) => {
-        if (!usuario) {
-          res.status(404).json({ error: 'hola' })
-          return;
-        }
-        return res.status(201).json(usuario);
-      })
-    }
-  })
-})
-
 
 
 server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
