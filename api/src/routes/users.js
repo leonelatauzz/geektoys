@@ -1,21 +1,26 @@
 const server = require('express').Router();
 const { User, Product, Order, cart } = require('../db.js');
 const hash = require('pbkdf2')
+const crypto = require('crypto')
 
 
 
 server.post('/login', (req, res) => {
-  const contra = req.body.password
-  const key = hash.pbkdf2Sync(contra, 'salt', 100000, 64, 'sha512');
-  const password = key.toString('hex')
   User.findOne({
     where: {
       email: req.body.email,
-      password: password
     }, include: Order
   }).then(user => {
     if (!user) {
       res.send('Datos incorrectos')
+      return;
+    }
+    let userSalt = user.dataValues.salt
+    const contra = req.body.password
+    const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
+    const password = key.toString('hex')
+    if(password !== user.dataValues.password) {
+      res.send("Datos incorrectos")
       return;
     }
     res.json(user)
@@ -68,9 +73,11 @@ server.get("/:id/orders", (req, res) => {
 })
 
 server.post('/', (req, res) => {
+  const salt = crypto.randomBytes(32).toString('hex')
   const contra = req.body.password
-  const key = hash.pbkdf2Sync(contra, 'salt', 100000, 64, 'sha512');
+  const key = hash.pbkdf2Sync(contra, salt, 100000, 64, 'sha512');
   const password = key.toString('hex')
+  console.log(salt)
   User.findOne({
     where: {
       email: req.body.email
@@ -83,7 +90,10 @@ server.post('/', (req, res) => {
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: password
+        password: password,
+        role: "user",
+        salt: salt,
+        state: "alta"
       }).then((user) => {
         if (!user) {
           res.status(404).json({ error: 'no se pudo crear el usuario' })
@@ -146,6 +156,8 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
       });
     })
 })
+
+server.put('/user/')
 
 
 
