@@ -5,10 +5,15 @@ import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
 import CardCarrito from './cardCarrito'
 import Nat from './navbar'
-import Footer from './Footer'
+import Footer from './Footer';
+import {getAdress} from '../Redux/Actions/actions'
 
 export default function Cart() {
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const userData = useSelector(state => state.userId)
   const dbCart = useSelector(state => state.dbCart)
+  const activeOrder = useSelector(state => state.activeOrder)
   let suma = 0;
   dbCart.forEach(element => {
     suma = suma + (element.cart.price * element.cart.amount)
@@ -31,6 +36,11 @@ export default function Cart() {
 
   function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
+  const handleBuy = async(e) => {
+    e.preventDefault();
+    history.push(`/checkout/${activeOrder[0].id}/${userData.id}`)
   }
 
   return (
@@ -63,7 +73,7 @@ export default function Cart() {
         <Col sm={6}>
         {dbCart.length === 0 ? <div></div> : <h4 style={{position:"relative",top:"50px",right:"557px"}}></h4>}
           {dbCart.length === 0 ? <span></span> : <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
-            <Button className='Register'>Comprar</Button>{' '}
+            <Button className='Register' onClick={handleBuy}>Comprar</Button>{' '}
           </div> }
         </Col>
       </Row>

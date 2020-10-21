@@ -35,6 +35,7 @@ const { Category } = sequelize.models;
 const { User } = sequelize.models;
 const { Order } = sequelize.models;
 const { Review } = sequelize.models;
+const { Adress } = sequelize.models;
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
@@ -67,7 +68,15 @@ Product.hasMany(Review, {
 });
 
 Review.belongsTo(User, {
-  foreignKey: 'UserId'
+  foreignKey: 'userId'
+})
+
+User.hasMany(Adress, {
+  foreignKey: 'userId'
+});
+
+Order.belongsTo(Adress, {
+  foreignKey: 'adressId'
 })
 
 module.exports = {

@@ -10,7 +10,10 @@ const initialState = {
     userId: null,
     activeOrder: null,
     loggedIn: false,
-    dbCart: []
+    dbCart: [],
+    adresses: [],
+    adressId: null,
+    purchaseData: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -40,6 +43,13 @@ export default function (state = initialState, action) {
             return { ...state, dbCart: action.payload }
         case 'RESET_CART':
             return { ...state, cart: [] }
+        case 'GET_ADRESS':
+            return { ...state, adresses: action.payload }
+        case 'GET_A':
+            return { ...state, adressId: action.payload }
+        case 'GET_PURCHASE_DATA':
+            return { ...state, purchaseData: action.payload }
+
 
         default:
             return state;
