@@ -19,7 +19,7 @@ server.post('/login', (req, res) => {
     const contra = req.body.password
     const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
     const password = key.toString('hex')
-    if(password !== user.dataValues.password) {
+    if (password !== user.dataValues.password) {
       res.send("Datos incorrectos")
       return;
     }
@@ -106,23 +106,21 @@ server.post('/', (req, res) => {
 })
 
 
-server.post('/:id/passwordReset',(req,res) =>{
-  const contrasena = req.body.password;
-  const salt = crypto.randomBytes(32).toString('hex')
-  const key = hash.pbkdf2Sync(contrasena, salt, 100000, 64, 'sha512');
-  const passNuevo = key.toString('hex');
-  User.findOne({
-    where:{
-      email: req.body.email
-    }
-  }).then(user =>{
-    if(!user){
-      res.status(404).json({ error: 'no se encontro usuario con este email' })
-    }else{      
-      user.update({password: passNuevo})
-      res.status(200).send('Contraseña modificada correctamente')
-    }
-  })
+server.post('/:id/passwordReset', (req, res) => {
+  User.findByPk(req.params.id)
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ error: 'no se encontro usuario con este email' })
+      } else {
+        const contrasena = req.body.password;
+        const salt = user.dataValues.salt;
+        const key = hash.pbkdf2Sync(contrasena, salt, 100000, 64, 'sha512');
+        const passNuevo = key.toString('hex');
+
+        user.update({ password: passNuevo })
+        res.status(200).send('Contraseña modificada correctamente')
+      }
+    })
 })
 
 
