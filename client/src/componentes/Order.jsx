@@ -1,31 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { Accordion, Card, Button, Row, Col, Nav, Table } from 'react-bootstrap'
+import { Accordion, Card, Button, Row, Col } from 'react-bootstrap'
 import axios from 'axios';
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
+import { BrowserRouter as Router, Route, useHistory, useParams } from 'react-router-dom'
 import Nat from './navbar'
 import Footer from './Footer'
+import { useSelector } from "react-redux";
 
 
 export default function Order() {
-    let fecha;
-    const userData = useSelector(state => state.userId);
+    const userData = useSelector(state => state.userId);     
+    const history = useHistory();
+    const params = useParams();
+
+
+    const handleClick = (e) =>{        
+        if(e.target.value === 'ordenes'){
+            history.push(`/user/${params.id}/order/${userData.name}/orderUser`)
+        }
+        if(e.target.value === 'seguridad'){
+            history.push(`/user/${params.id}/order/${userData.name}/segurity`)
+
+        }
+        if(e.target.value === 'privacidad'){
+            history.push(`/user/${params.id}/privacity`)
+        }
+
+        
+    }
+
+
     return (
         <div>
-            <Nat/>
-            <Row style={{ margin: "30px", height: "600px", border: "none", boxShadow: "none" }}>
-                <Col sm={3}>
-                    <div className="div_desplegable">
+            <Nat />
+            <div style={{marginTop:'30px', textAlign: 'center', color: 'white' }}>
+                <h3>Bienvenido: {userData.name} {userData.lastname}</h3>
+            </div>
+
+            <Row style={{ margin: "30px" }}>                
+                
+                <div style={{ display: 'flex', margin: 'auto', marginTop: '30px', marginBottom: '30px' }}>
+                    
+                    <div>
+                        <Card style={{ width: '15rem' }}>
+                            <Card.Img variant="top" src="https://i.imgur.com/qlmpxcd.png" />
+                            <Card.Body>
+                                <Card.Title style={{color:'red'}}>Ordenes</Card.Title>
+                                <Card.Text>
+                                    Verifica el estado de tus órdenes.
+    </Card.Text>
+                                <Button onClick= {handleClick} value="ordenes" variant="danger">Ver más</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                    <div style={{ marginLeft: '50px' }}>
+                        <Card style={{ width: '15rem' }}>
+                            <Card.Img variant="top" src="https://i.imgur.com/du1UGbF.jpg" />
+                            <Card.Body>
+                                <Card.Title style={{color:'red'}}>Privacidad</Card.Title>
+                                <Card.Text>
+                                    Detalles de mi información personal.
+    </Card.Text>
+                                <Button onClick= {handleClick} value="privacidad" variant="danger">Ver más</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                    <div style={{ marginLeft: '50px' }}>
+                        <Card style={{ width: '15rem' }}>
+                            <Card.Img variant="top" src="https://i.imgur.com/n12K3dz.jpg" />
+                            <Card.Body>
+                                <Card.Title style={{color:'red'}}>Seguridad</Card.Title>
+                                <Card.Text>
+                                    Actualiza tus datos personales.
+    </Card.Text>
+                                <Button onClick= {handleClick} value="seguridad" variant="danger">Ver más</Button>
+                            </Card.Body>
+                        </Card>
+                    </div>
+                </div>
+            </Row>
+            <Footer />
+        </div>
+    )
+}
+
+/*
+<Col sm={3}>
+                    <div className="div_desplegable" style={{display:'flex' ,margin:'20px'}}>
                         <Accordion defaultActiveKey="0">
+                        <h4 style={{margin: ' 5px 0px 20px 20px'}}>{userData.name} {userData.lastname}</h4>
                             <Card>
-                                <h4 style={{margin: ' 5px 0px 0px 20px'}}>{userData.name} {userData.lastname}</h4>
+
                                 <Card.Header>
                                     <Accordion.Toggle as={Button} variant="link" eventKey="0" >
                                         <span> Compras </span>
                                     </Accordion.Toggle>
                                 </Card.Header>
                                 <Accordion.Collapse eventKey="0">
-                                    <Card.Body> Compras </Card.Body>
+                                    <Card.Body> Ordenes </Card.Body>
                                 </Accordion.Collapse>
                                 <Accordion.Collapse eventKey="0">
                                     <Card.Body> Preguntas </Card.Body>
@@ -48,46 +119,5 @@ export default function Order() {
                     </div>
                 </Col>
                 <Col sm={9}>
-                    <div>
-                        <h1>Mis ordenes</h1>
-                        <Nav fill variant="tabs" defaultActiveKey="/home">
-                            <Nav.Item>
-                                <Nav.Link eventKey="link-1">Carrito</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="link-2">En proceso</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="link-3">Completado</Nav.Link>
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="link-4">Cancelado</Nav.Link>
-                            </Nav.Item>
-                        </Nav>
-                        <Row style={{ marginTop: "10px" }}>
-                            <Table striped bordered hover size="sm" >
-                                <thead>
-                                    <tr>
-                                        <th># Orden</th>
-                                        <th>Fecha</th>                                   
-                                        <th>Estado</th> 
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {userData.orders.map(order =>                                                                       
-                                        <tr>                                            
-                                            <td>{order.id}</td>
-                                            <td >{ fecha = order.createdAt.split('T')[0]}</td>
-                                            <td>{order.state}</td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </Table>
-                        </Row>
-                    </div>
-                </Col>
-            </Row>
-            <Footer/>
-        </div>
-    )
-}
+
+                </Col> */

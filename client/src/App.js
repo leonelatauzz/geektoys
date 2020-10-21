@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
+import OrderUser from './componentes/OrderUser';
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
@@ -16,6 +17,7 @@ import NotFound from './componentes/NotFound'
 import Home from './componentes/Home'
 import Carrito from './componentes/Carrito.js';
 import Login from './componentes/Login';
+import ResetPass from './componentes/ResetPass'
 import TablaOrder from './componentes/tablaOrden.js';
 import CarritoGuest from './componentes/CarritoGuest'
 import Order from './componentes/Order.jsx'
@@ -25,6 +27,8 @@ import ResumenCompra from './componentes/ResumenCompra';
 import AgregarDireccion from './componentes/AgregarDireccion';
 import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
+import SeguridadUser from './componentes/SeguridadUser'
+
 
 
 function App() {
@@ -108,6 +112,12 @@ function App() {
       />
 
       <Route
+        exact path='/user/:id/passwordReset'
+        render={() => <ResetPass
+        />}
+      />
+
+      <Route
         exact path='/products/prod/admin/:id'
         render={() => <AdminProducto
         />}
@@ -155,8 +165,8 @@ function App() {
         />}
       />
       <Route
-        exact path='/colaboradores'
-        render={() => <Colaboradores
+        exact path='/user/:id/order/:nombre/orderUser'
+        render={() => <OrderUser
         />}
       />
 
@@ -183,6 +193,19 @@ function App() {
         render={() => <AprovedPurchase
         />}
       />
+
+      <Route
+        exact path='/colaboradores'
+        render={() => <Colaboradores
+        />}
+      />
+          <Route
+        exact path='/user/:id/order/:nombre/segurity'
+        render={() => <SeguridadUser
+        />}
+      />
+
+
 
 
     </Router>

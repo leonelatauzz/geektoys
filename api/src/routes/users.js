@@ -1,15 +1,27 @@
 const server = require('express').Router();
 const { User, Product, Order, cart, Adress } = require('../db.js');
+const hash = require('pbkdf2')
+const crypto = require('crypto')
+
+
+
 
 server.post('/login', (req, res) => {
   User.findOne({
     where: {
       email: req.body.email,
-      password: req.body.password
     }, include: Order
   }).then(user => {
     if (!user) {
       res.send('Datos incorrectos')
+      return;
+    }
+    let userSalt = user.dataValues.salt
+    const contra = req.body.password
+    const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
+    const password = key.toString('hex')
+    if (password !== user.dataValues.password) {
+      res.send("Datos incorrectos")
       return;
     }
     res.json(user)
@@ -74,6 +86,11 @@ server.get("/:id/orders", (req, res) => {
 })
 
 server.post('/', (req, res) => {
+  const salt = crypto.randomBytes(32).toString('hex')
+  const contra = req.body.password
+  const key = hash.pbkdf2Sync(contra, salt, 100000, 64, 'sha512');
+  const password = key.toString('hex')
+  console.log(salt)
   User.findOne({
     where: {
       email: req.body.email
@@ -86,7 +103,10 @@ server.post('/', (req, res) => {
         name: req.body.name,
         lastname: req.body.lastname,
         email: req.body.email,
-        password: req.body.password
+        password: password,
+        role: "user",
+        salt: salt,
+        state: "alta"
       }).then((user) => {
         if (!user) {
           res.status(404).json({ error: 'no se pudo crear el usuario' })
@@ -97,6 +117,25 @@ server.post('/', (req, res) => {
     }
   })
 })
+
+
+server.post('/:id/passwordReset', (req, res) => {
+  User.findByPk(req.params.id)
+    .then(user => {
+      if (!user) {
+        res.status(404).json({ error: 'no se encontro usuario con este email' })
+      } else {
+        const contrasena = req.body.password;
+        const salt = user.dataValues.salt;
+        const key = hash.pbkdf2Sync(contrasena, salt, 100000, 64, 'sha512');
+        const passNuevo = key.toString('hex');
+
+        user.update({ password: passNuevo })
+        res.status(200).send('Contraseña modificada correctamente')
+      }
+    })
+})
+
 
 
 server.put("/:idUser/cart", (req, res) => {
@@ -130,32 +169,6 @@ server.get("/:id/orders", (req, res) => {
 
 })
 
-server.post('/', (req, res) => {
-  User.findOne({
-    where: {
-      email: req.body.email
-    }
-  }).then(user => {
-    if (user) {
-      res.send("El usuario ya esta registrado")
-    } else {
-      User.create({
-        name: req.body.name,
-        lastname: req.body.lastname,
-        email: req.body.email,
-        password: req.body.password
-      }).then((usuario) => {
-        if (!usuario) {
-          res.status(404).json({ error: 'hola' })
-          return;
-        }
-        return res.status(201).json(usuario);
-      })
-    }
-  })
-})
-
-
 
 server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
   Product.findByPk(req.params.idProducto)
@@ -175,6 +188,7 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
       });
     })
 })
+
 
 server.post('/newAdress/:userId', (req, res) => {
   console.log(req.body)
@@ -243,6 +257,7 @@ server.put('/editAdress/:userId/:adressId', (req, res) => {
       res.send('Exito')
   })
 })
+
 
 server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
   Adress.findOne({
