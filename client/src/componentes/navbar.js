@@ -120,8 +120,14 @@ export default function Navbar() {
 
 
     }
-    const goDashboard = (e) => {
+    const goDashboard = async(e) => {
         e.preventDefault();
+        const res = await axios.get(`http://localhost:3001/user/orders/${userData.id}`)
+        .then(resp => {
+            let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
+            dispatch(getUserInfo(resp.data));
+            dispatch(getActiveOrder(activeOrder))
+        })
         history.push(`/user/${userData.id}/order`)
     }
 

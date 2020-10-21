@@ -81,6 +81,26 @@ export const resetCart = function(){
         type: 'RESET_CART',
     }
 }
+export const getAdress = function(props){
+    return{
+        type: 'GET_ADRESS',
+        payload: props
+    }
+}
+export const getA = function(props){
+    return{
+        type: 'GET_A',
+        payload: props
+    }
+}
+export const getPurchaseData = function(props){
+    return{
+        type: 'GET_PURCHASE_DATA',
+        payload: props
+    }
+}
+
+
 
 
 

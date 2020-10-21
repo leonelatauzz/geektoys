@@ -1,7 +1,8 @@
 const server = require('express').Router();
-const { User, Product, Order, cart } = require('../db.js');
+const { User, Product, Order, cart, Adress } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto')
+
 
 
 
@@ -27,7 +28,19 @@ server.post('/login', (req, res) => {
   })
 })
 
-
+server.get('/orders/:userId', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.userId
+    }, include: Order
+  }).then(user => {
+    if (!user) {
+      res.send('Datos incorrectos')
+      return;
+    }
+    res.json(user)
+  })
+})
 
 server.post('/:idUser/cart', (req, res) => {
   Order.findByPk(req.body.idOrder)
@@ -176,9 +189,89 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
     })
 })
 
-server.put('/user/')
+
+server.post('/newAdress/:userId', (req, res) => {
+  console.log(req.body)
+  Adress.create({
+    firstLine: req.body.firstLine,
+    secondLine: req.body.secondLine,
+    province: req.body.province,
+    district: req.body.district,
+    postalCode: req.body.postalCode,
+    userId: req.params.userId
+  }).then(user => {
+    User.findOne({
+      where: {
+        id: req.params.userId
+      }, include: Adress
+    }).then(user => {
+      if (!user) {
+        res.send('Datos incorrectos')
+        return;
+      }
+      res.json(user)
+    })
+  })
+})
+
+server.get('/adress/:userId', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.userId
+    }, include: Adress
+  }).then(user => {
+    if (!user) {
+      res.send('Datos incorrectos')
+      return;
+    }
+    res.json(user)
+  })
+})
+
+server.get('/adress/edit/:adressId', (req, res) => {
+  Adress.findOne({
+    where: {
+      id: req.params.adressId
+    }
+  }).then(adress => {
+    if(!adress) {
+      res.status(404).send('Dirección no encontrada')
+      return;
+    }
+    res.json(adress)
+  })
+})
+
+server.put('/editAdress/:userId/:adressId', (req, res) => {
+  Adress.findOne({
+    where: {
+      id: req.params.adressId
+    }
+  }).then(adress => {
+    adress.firstLine = req.body.firstLine,
+      adress.secondLine = req.body.secondLine,
+      adress.province = req.body.province,
+      adress.district = req.body.district,
+      adress.postalCode = req.body.postalCode,
+      adress.save();
+      res.send('Exito')
+  })
+})
 
 
+server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
+  Adress.findOne({
+    where: {
+      id: req.params.adressId
+    }
+  }).then(adress => {
+    if(!adress) {
+      res.status(404).send('Dirección no encontrada')
+    }
+    adress.destroy();
+    res.send('Dirección eliminada')
+  })
+})
 
 
 

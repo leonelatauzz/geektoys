@@ -22,7 +22,11 @@ import TablaOrder from './componentes/tablaOrden.js';
 import CarritoGuest from './componentes/CarritoGuest'
 import Order from './componentes/Order.jsx'
 import DetalleOrder from './componentes/DetalleOrder';
-import Colaboradores from './componentes/colaboradores'
+import Colaboradores from './componentes/colaboradores';
+import ResumenCompra from './componentes/ResumenCompra';
+import AgregarDireccion from './componentes/AgregarDireccion';
+import EditarDireccion from './componentes/EditarDireccion';
+import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
 
 
@@ -156,28 +160,50 @@ function App() {
       />
 
       <Route
+        exact path='/user/:idUser/order/:idOrder'
+        render={() => <DetalleOrder
+        />}
+      />
+      <Route
         exact path='/user/:id/order/:nombre/orderUser'
         render={() => <OrderUser
         />}
       />
 
       <Route
-        exact path='/user/:id/order/:nombre/segurity'
-        render={() => <SeguridadUser
+        exact path='/checkout/:idOrden/:idUsuario'
+        render={() => <ResumenCompra
         />}
       />
 
       <Route
-        exact path='/user/:idUser/order/:idOrder'
-        render={() => <DetalleOrder
+        exact path='/checkout/:idOrden/:idUsuario/newAdress'
+        render={() => <AgregarDireccion
         />}
       />
+
+      <Route
+        exact path='/checkout/:idOrden/:idUsuario/editAdress'
+        render={() => <EditarDireccion
+        />}
+      />
+
+      <Route
+        exact path='/aproved/:idOrden/:idUsuario'
+        render={() => <AprovedPurchase
+        />}
+      />
+
       <Route
         exact path='/colaboradores'
         render={() => <Colaboradores
         />}
       />
-
+          <Route
+        exact path='/user/:id/order/:nombre/segurity'
+        render={() => <SeguridadUser
+        />}
+      />
 
 
 

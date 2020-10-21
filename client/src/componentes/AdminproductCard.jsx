@@ -53,7 +53,7 @@ export default function ProductCard(props) {
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
-                    title: 'Producto elimiano correctamente',
+                    title: 'Producto eliminado correctamente',
                     showConfirmButton: false,
                     timer: 1500
                   })
