@@ -16,6 +16,7 @@ import './componentes/css/forms.css';
 import './componentes/css/SingIn.css';
 import './componentes/css/footer.css';
 import './componentes/tablaOrden.css';
+import './componentes/css/review.css'
 import './componentes/css/order.css';
 import './componentes/css/ResumenCompra.css';
 import './componentes/css/EditarDireccion.css';

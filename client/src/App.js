@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
+import Review from './componentes/Review'
 import OrderUser from './componentes/OrderUser';
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
@@ -36,8 +37,6 @@ function App() {
 
   return (
     <Router>
-
-
       <Route
         exact path='/'
         render={() => <Home
@@ -204,10 +203,11 @@ function App() {
         render={() => <SeguridadUser
         />}
       />
-
-
-
-
+   <Route
+          exact path='/products/prod/:id'
+          render={() => <Review
+          />}
+        />
     </Router>
 
 
