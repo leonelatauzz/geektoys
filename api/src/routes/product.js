@@ -1,6 +1,7 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 const { Category } = require('../db.js')
+const { Review } = require('../db.js')
 const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
@@ -192,5 +193,25 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
+
+// Reviews
+
+server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
+  Review.findAll()
+    .then(calif => {
+      res.send(calif);
+    })
+    .catch(next);
+});
+
+
+server.post('/:id/review', (req, res) => {
+  Review.create({
+          rating: req.body.rating,
+          description: req.body.description
+        }).then(function () {
+          res.status(201).send('Review creada correctamente');
+        })
+      });
 
 module.exports = server;
