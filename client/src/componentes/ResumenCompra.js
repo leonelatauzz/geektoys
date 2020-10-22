@@ -32,6 +32,7 @@ export default function ResumenCompra() {
         cardCcv: ''
     });
     let json;
+    let nOrden = activeOrder[0].id
     let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
     let suma = 0
     dbCart.forEach(element => {
@@ -206,7 +207,7 @@ export default function ResumenCompra() {
                             adress: data.selectedAdress,
                             deliveryMethod: data.dMethod,
                             user: userData,
-                            order: activeOrder[0].id,
+                            order: nOrden,
                             total: suma
                         }
                         dispatch(getPurchaseData(pData))
@@ -225,6 +226,7 @@ export default function ResumenCompra() {
 
     }
 
+    
     return (
         <div>
             <SimpleNavbar />
@@ -300,13 +302,13 @@ export default function ResumenCompra() {
                             <h2>Resumen de tu compra</h2>
                             <div class='mRC'>
                                 {dbCart.map(item =>
-                                    <p class='mItemRC'><a href={`/products/prod/${item.id}`}>{titleCase(item.name)}</a> ({item.cart.amount}) -- ${(item.cart.price) * (item.cart.amount)}</p>
+                                    <p class='mItemRC'>{titleCase(item.name)} ({item.cart.amount}) -- ${(item.cart.price) * (item.cart.amount)}</p>
                                 )}
                                 <h5 class='mItemRC'>Total: {suma}</h5>
                             </div>
                             {data.forward === true &&
                                 <div class='adressRC' style={{ marginTop: '3vh' }} onClick={payment}>
-                                    <p class='pRC'>Seleccionar pago</p>
+                                    <p class='pRC'>Realizar pago</p>
                                 </div>
                             }
                         </div>
