@@ -3,16 +3,21 @@ import { Nav, Table, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { getPurchaseData, getOrderProducts, getA} from '../Redux/Actions/actions'
+import Nat from './navbar';
+import { getPurchaseData, getOrderProducts, getA } from '../Redux/Actions/actions'
 
 export default function OrderUser() {
+    const [data, setData] = useState({
+        all: false,
+        pagadas: false,
+        entregadas: false,
+        canceladas: false
+    });
     const dispatch = useDispatch();
     let history = useHistory();
+    const activeOrder = useSelector(state => state.activeOrder)
     const userData = useSelector(state => state.userId);
-    let orders = userData.orders.filter(item => item.state !== 'carrito')
-    let fecha;
-
-    const getOrderData = async(e) => {
+    const getOrderData = async (e) => {
         e.preventDefault();
         var orderId = e.target.value
         const rous = await axios.get(`http://localhost:3001/order/${orderId}`)
@@ -20,64 +25,131 @@ export default function OrderUser() {
                 console.log('2')
                 dispatch(getPurchaseData(resp.data));
                 const rid = await axios.get(`http://localhost:3001/order/cart/${orderId}`)
-                    .then(async(repo) => {
+                    .then(async (repo) => {
                         console.log('3')
                         let products = Object.values(repo.data)
                         dispatch(getOrderProducts(products))
                         if (resp.data.deliveryMethod === 'sucursal') {
                             history.push(`/user/${userData.id}/selectedOrder/${orderId}`)
-                        } else if(resp.data.deliveryMethod === 'adress') {
+                        } else if (resp.data.deliveryMethod === 'adress') {
                             const reis = await axios.get(`http://localhost:3001/user/adress/edit/${resp.data.adressId}`)
-                            .then(dat => {
-                                console.log('4')
-                                dispatch(getA(dat.data));
-                                history.push(`/user/${userData.id}/selectedOrder/${orderId}`)
-                            })
+                                .then(dat => {
+                                    console.log('4')
+                                    dispatch(getA(dat.data));
+                                    history.push(`/user/${userData.id}/selectedOrder/${orderId}`)
+                                })
                         }
                     })
             })
     }
 
+    const handleFF = (e) => {
+        e.preventDefault();
+        setData({
+            ...data,
+            all: true,
+            pagadas: false,
+            entregadas: false,
+            canceladas: true
+        })
+    }
+    const handlePP = (e) => {
+        e.preventDefault();
+        setData({
+            ...data,
+            all: true,
+            pagadas: true,
+            entregadas: false,
+            canceladas: false
+        })
+    }
+    const handleDD = (e) => {
+        e.preventDefault();
+
+        setData({
+            ...data,
+            all: true,
+            pagadas: false,
+            entregadas: true,
+            canceladas: false
+        })
+    }
+    const handleAA = (e) => {
+        e.preventDefault();
+
+        setData({
+            ...data,
+            all: false,
+            pagadas: false,
+            entregadas: false,
+            canceladas: false
+        })
+    }
+
     return (
         <div>
-            <h1>Mis ordenes</h1>
-            <Nav fill variant="tabs" defaultActiveKey="/home">
-                <Nav.Item>
-                    <Nav.Link eventKey="link-1">Carrito</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-2">En proceso</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-3">Completado</Nav.Link>
-                </Nav.Item>
-                <Nav.Item>
-                    <Nav.Link eventKey="link-4">Cancelado</Nav.Link>
-                </Nav.Item>
-            </Nav>
-            <Row style={{ marginTop: "10px" }}>
-                <Table striped bordered hover size="sm" class='tabla100' >
-                    <thead class='head100'>
-                        <tr class='he100'>
-                            <th class='tit100'># Orden</th>
-                            <th class='tit100'>Fecha</th>
-                            <th class='tit100'>Estado</th>
-                            <th class='tit100'>Revisar Orden</th>
-                        </tr>
-                    </thead>
-                    <tbody class='body100'>
-                        {orders.map(order =>
-                        
-                            <tr class='bo100'>
-                                <td class='te100'>{order.id}</td>
-                                <td class='te100'>{fecha = order.createdAt.split('T')[0]}</td>
-                                <td class='te100'>{order.state}</td>
-                                <button value={order.id} onClick={getOrderData}>prueba</button>
-                            </tr>
+            <Nat />
+            <div class='container100'>
+                <div class='le100'>
+                    <h1 class='h1100'>Mis ordenes</h1>
+                    <div class='RC1_100'>
+                        <div onClick={handleAA} class='filter100' >
+                            <h4 class='pRC100'>Todas</h4>
+                        </div>
+                        <div onClick={handlePP} class='filter100' >
+                            <h4 class='pRC100'>Pagadas</h4>
+                        </div>
+                        <div onClick={handleDD} class='filter100' >
+                            <h4 class='pRC100'>Entregadas</h4>
+                        </div>
+                        <div onClick={handleFF} class='filter100' >
+                            <h4 class='pRC100'>Canceladas</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class='tabla100'>
+                    <div class='head100'>
+                        <div class='tit100'><h5># Orden</h5></div>
+                        <div class='tit100'><h5>Fecha</h5></div>
+                        <div class='tit100'><h5>Estado</h5></div>
+                    </div>
+                    <div class='body100'>
+                        {userData.orders.map(order =>
+
+                            <div>
+                                {data.all === false && order.state !== 'carrito' &&
+                                    <div class='bd100'>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
+                                        <div class='te100'><h6>{order.state}</h6></div>
+                                    </div>
+                                }
+                                {data.pagadas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'cancelada' &&
+                                    <div class='bd100'>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
+                                        <div class='te100'><h6>{order.state}</h6></div>
+                                    </div>
+                                }
+                                {data.entregadas === true && order.state !== 'carrito' && order.state !== 'pagada' && order.state !== 'cancelada' &&
+                                    <div class='bd100'>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
+                                        <div class='te100'><h6>{order.state}</h6></div>
+                                    </div>
+                                }
+                                {data.canceladas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'pagada' &&
+                                    <div class='bd100'>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
+                                        <div class='te100'><h6>{order.state}</h6></div>
+                                    </div>
+                                }
+                            </div>
                         )}
-                    </tbody>
-                </Table>
-            </Row>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
