@@ -1,73 +1,70 @@
-import React from 'react'
-import { Accordion, Card, Button, Row, Col, Nav, Table } from 'react-bootstrap'
-
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 
 export default function DetalleOrder() {
+    const orderData = useSelector(state => state.purchaseData)
+    const purchaseProducts = useSelector(state => state.purchaseProducts)
+    const adressId = useSelector(state => state.adressId);
+    const userData = useSelector(state => state.userId)
+    const [data, setData] = useState({
+
+    });
+    let suma = 0
+    purchaseProducts.forEach(element => {
+        suma = suma + (element.cart.price * element.cart.amount)
+    });
+
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        }
+        return splitStr.join(' ');
+    }
+
 
     return (
         <div>
-            <h1 style={{marginTop:"50px"}}> Orden</h1>
-            <div style={{margin:"0px 40px 0px 40px"}}>
-                <Row>
-                    <Col>
-                        <div  >
-                            <div style={{display:"flex"}} >
-                                <img style={{ width: "190px", height: "170px", margin:"20px" }} src="" />
-                                <div style={{display:"flex",flexDirection:"column",margin:"20px",marginTop:"30px"}} >
-                                    <div style={{paddingBottom:"20px"}}>
-                                        <h3 > Pikachu </h3>
-                                    </div>
-                                    <div >
-                                        <h6 >Altura 19cm ancho 20cm</h6>
-                                    </div>
-                                    <h5 >Cantidad comprada: 3</h5>
-                                    <h5 > <a> Precio por unidad: $3000 </a></h5>
-                                </div>
-                                <div >
-                                    <p></p>
-                                </div>
+            <div class='card99'>
+                <div class='top99'>
+                    <h3 class='titu99'>Orden #{orderData.id} - {orderData.state}</h3>
+                    <h5>{orderData.updatedAt.split('T')[0]}</h5>
+                </div>
+                <div class='bot99'>
+                    <div class='dIz99'>
+                        <h6>Nombre:</h6>
+                        <h4 class='titu99'>{userData.name}</h4>
+                        <h4 class='titu99'>{userData.lastname}</h4>
+                        <h6>Método de entrega:</h6>
+                        {orderData.deliveryMethod === 'sucursal' ?
+                            <div>
+                                <h4 class='titu99'>Retiro en sucursal</h4>
+                                <h5>Calle falsa123</h5>
+                                <h5>Microcentro - Capital Federal</h5>
+                            </div> :
+                            <div>
+                                <h4 class='titu99'>Delivery a</h4>
+                                <h4 class='titu99'>{adressId.firstLine}</h4>
+                                <h5>{adressId.secondLine} - {adressId.postalCode}</h5>
+                                <h5>{adressId.district} - {adressId.province}</h5>
                             </div>
-                        </div>
-                    </Col>
-                    <Col xs={4}>
-                        <div style={{display:"flex",flexDirection:"column",marginTop:"25px"}}>
-
-                        <h4> Precio total de la compra: $3000 </h4>
-                        <h4>Fecha de compra: 16/10/2010</h4>
-                        </div>
-                    </Col>
-                </Row>
+                        }
+                        <h6>Total:</h6>
+                        <h4 class='titu99'>${suma}</h4>
+                    </div>
+                    <div class='dDer99'>
+                        <h6>Productos:</h6>
+                        {purchaseProducts.map(item =>
+                            <div>
+                                <h4 class='titu99'>{titleCase(item.name)}</h4>
+                                {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
+                                <h5>${(item.cart.price) * (item.cart.amount)}</h5>
+                                <button>Agregar opinion</button>
+                            </div>
+                        )}
+                    </div>
+                </div>
             </div>
         </div>
     )
 }
-
-
-{/* <div>
-<h1>Orden</h1>
-<div >
-    <div style={{ width: "65%", height: "210px", backgroundColor: "#F5F5F5", boxShadow: "10px 10px 5px 0px rgba(0,0,0,0.35)", borderRadius: "12px" }} >
-        <div  >
-        </div>
-        <div style={{ display: "flex", width: "70%", }}>
-            <img style={{ width: "190px", height: "170px", marginLeft: "25px", marginTop: "15px" }} src="" />
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", justifyContent: "space-evenly", width: "40%", position: "relative", left: "20px", padding: "10px" }}>
-                <div>
-                    <h3 style={{ fontSize: "21px" }}> pikachu </h3>
-                </div>
-                <div >
-                    <small style={{ position: "relative", bottom: "20px" }}>altura 19cm ancho 20cm</small>
-                </div>
-                <p style={{ position: "relative", bottom: "20px" }}>Cantidad comprada: 3</p>
-                <p style={{ position: "relative", bottom: "50px" }}> <a> Precio por unidad: $3000 </a></p>
-            </div>
-            <div style={{ width: "300px" }}>
-                <p></p>
-            </div>
-        </div>
-    </div>
-    <div style={{ borderBottom: "black solid 1px", position: "relative", left: "250px", width: "720px" }}></div>
-</div>
-<span> Precio total de a compra: $3000 </span>
-<span>Fecha de compra: 16/10/2010</span>
-</div> */}

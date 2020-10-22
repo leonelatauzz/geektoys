@@ -20,7 +20,8 @@ import './componentes/css/order.css';
 import './componentes/css/ResumenCompra.css';
 import './componentes/css/EditarDireccion.css';
 import './componentes/css/Payment.css';
-import './componentes/css/AprovedPurchase.css'
+import './componentes/css/AprovedPurchase.css';
+import './componentes/css/OrderUser.css'
 
 
 const store = createStore(rootReducer)
