@@ -13,7 +13,8 @@ const initialState = {
     dbCart: [],
     adresses: [],
     adressId: null,
-    purchaseData: null
+    purchaseData: null,
+    purchaseProducts: []
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -49,6 +50,8 @@ export default function (state = initialState, action) {
             return { ...state, adressId: action.payload }
         case 'GET_PURCHASE_DATA':
             return { ...state, purchaseData: action.payload }
+        case 'GET_ORDER_PRODUCTS':
+            return { ...state, purchaseProducts: action.payload }
 
 
         default:

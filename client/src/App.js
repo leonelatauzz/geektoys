@@ -159,7 +159,7 @@ function App() {
       />
 
       <Route
-        exact path='/user/:idUser/order/:idOrder'
+        exact path='/user/:idUser/selectedOrder/:idOrder'
         render={() => <DetalleOrder
         />}
       />

@@ -99,6 +99,13 @@ export const getPurchaseData = function(props){
         payload: props
     }
 }
+export const getOrderProducts = function(props){
+    return{
+        type: 'GET_ORDER_PRODUCTS',
+        payload: props
+    }
+}
+
 
 
 
