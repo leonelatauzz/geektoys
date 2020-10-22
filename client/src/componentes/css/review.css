@@ -1,0 +1,12 @@
+.review{
+   height: 200px;
+   width: 95%;
+   padding: 20px;
+   border-radius: 10px;
+   background-color: white;
+   margin:40px; 
+   color: black;
+}
+.review h1{
+   font-size: 30px;
+}

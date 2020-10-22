@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Catalogo from './componentes/catalogo'
 import Producto from './componentes/Producto'
-
+import Review from './componentes/Review'
 import AddProduct from './componentes/admAgregarProductos';
 import AddCategory from './componentes/admAgregarCat';
 import Editordelete from './componentes/admEditarOEliminarProd';
@@ -157,6 +157,11 @@ function App() {
           render = {() => <Colaboradores
           />}
          />
+         <Route
+          exact path='/products/prod/:id'
+          render={() => <Review
+          />}
+        />
         
 
 

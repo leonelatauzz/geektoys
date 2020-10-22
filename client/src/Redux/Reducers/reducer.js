@@ -10,7 +10,8 @@ const initialState = {
     userId: null,
     activeOrder: null,
     loggedIn: false,
-    dbCart: []
+    dbCart: [],
+    
 }
 export default function (state = initialState, action) {
     switch (action.type) {
