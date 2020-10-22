@@ -29,6 +29,7 @@ import AgregarDireccion from './componentes/AgregarDireccion';
 import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
+import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 
 
 
@@ -198,16 +199,22 @@ function App() {
         render={() => <Colaboradores
         />}
       />
-          <Route
+      <Route
         exact path='/user/:id/order/:nombre/segurity'
         render={() => <SeguridadUser
         />}
       />
-   <Route
-          exact path='/products/prod/:id'
-          render={() => <Review
-          />}
-        />
+      <Route
+        exact path='/products/prod/:id'
+        render={() => <Review
+        />}
+      />
+
+      <Route
+        exact path='/admin/selectedOrder/:idOrden'
+        render={() => <AdminDetalleOrder
+        />}
+      />
     </Router>
 
 

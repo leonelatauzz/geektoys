@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
-import Nat from './navbar';
+import Axios from 'axios';
+import Swal from 'sweetalert2';
+import { useHistory } from 'react-router-dom';
 
-export default function DetalleOrder() {
+export default function AdminDetalleOrder() {
+    const history = useHistory();
     const orderData = useSelector(state => state.purchaseData)
     const purchaseProducts = useSelector(state => state.purchaseProducts)
     const adressId = useSelector(state => state.adressId);
-    const userData = useSelector(state => state.userId)
     const [data, setData] = useState({
 
     });
@@ -23,10 +25,62 @@ export default function DetalleOrder() {
         return splitStr.join(' ');
     }
 
+    const delivered = async (e) => {
+        e.preventDefault();
+        let json = {
+            state: 'entregada'
+        }
+        const res = await Axios.put(`http://localhost:3001/order/${orderData.id}`, json, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(() => {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Orden editada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+            })
+            history.push('/admin/orderlist')
+        })
+    }
+
+    const canceled = async (e) => {
+        e.preventDefault();
+        Swal.fire({
+            title: '¿Estas seguro?',
+            text: "No hay vuelta atras!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Cancelar Orden'
+        }).then(async (alert) => {
+            if (alert.isConfirmed === true) {
+                let json = {
+                    state: 'cancelada'
+                }
+                const res = await Axios.put(`http://localhost:3001/order/${orderData.id}`, json, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(() => {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Orden cancelada correctamente',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    history.push('/admin/orderlist')
+                })
+            }
+        })
+    }
 
     return (
         <div>
-            <Nat />
             <div class='card99' style={{ margin: 'auto', marginTop: '15vh' }}>
                 <div class='top99'>
                     <h3 class='titu99'>Orden #{orderData.id} - {orderData.state}</h3>
@@ -34,9 +88,8 @@ export default function DetalleOrder() {
                 </div>
                 <div class='bot99'>
                     <div class='dIz99'>
-                        <h6>Nombre:</h6>
-                        <h4 class='titu99'>{userData.name}</h4>
-                        <h4 class='titu99'>{userData.lastname}</h4>
+                        <h6># Usuario:</h6>
+                        <h4 class='titu99'>{orderData.userId}</h4>
                         <h6>Método de entrega:</h6>
                         {orderData.deliveryMethod === 'sucursal' ?
                             <div>
@@ -61,7 +114,12 @@ export default function DetalleOrder() {
                                 <h4 class='titu99'>{titleCase(item.name)}</h4>
                                 {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
                                 <h5>${(item.cart.price) * (item.cart.amount)}</h5>
-                                <button class='DO101'>Agregar opinion</button>
+                                {orderData.state === 'pagada' &&
+                                    <div>
+                                        <button class='DO101' onClick={delivered}>Orden entregada</button>
+                                        <button class='DO101' onClick={canceled}>Cancelar orden</button>
+                                    </div>
+                                }
                             </div>
                         )}
                     </div>
