@@ -30,9 +30,9 @@ export default function SimpleNavbar() {
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", justifyContent: 'space-between', borderBottom: '1px black solid', backgroundColor: 'red' }}>
             <a onClick={handleHome} class="navbar-brand">
-                <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{ cursor: 'pointer' }} />
+                <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{ cursor: 'pointer' }} />
             </a>
-            <button onClick={goDashboard} class="smButtRC" style={{ marginRight: "30px", height:'5vh' }} >Mi Usuario</button>
+            <button onClick={goDashboard} class="smButtRC" class='nav-link' >Mi Usuario</button>
         </nav>
     )
 }

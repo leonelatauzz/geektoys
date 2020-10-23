@@ -44,29 +44,25 @@ export default function CartitasDeHome () {
 
     return (
 
-<CardDeck style={{margin: '30px 10px 10px 10px'}}>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "450"/>
+<CardDeck style={{width: '90vw', margin: 'auto', marginTop: '5vh', display: 'flex', justifyContent: 'space-around'}}>
+  <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
+    <Card.Img onClick={starwars} style={{padding:'20px'}} variant="top" src={stImg} />
     <Card.Body>
-      <Button variant="secondary" size="medium" as="a" value="starwars" onClick={starwars} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Pochoclera Star Wars</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
+      <Card.Title style={{color: '#D90429'}}><h2 role="button" tabindex="0">Pochoclera Star Wars</h2></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
-      En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars. Sentirás la potencia del lado oscuro, cada vez que uses esta pochoclera divertida y finamente diseñada, para disfrutar los pochoclos frescos, dulces o salados, mientras ves tu película favorita de Star Wars o también solo para exhibir.
-      La tapa funciona como bowl contenedor de pochoclos!
-      Funciona utilizando aire caliente. Acabado: gris, con escamas metálicas.
+      En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars.
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <medium className="text-muted">Precio $30000</medium>
+      <h3 style={{color: '#D90429'}}>$30000</h3>
     </Card.Footer>
   </Card>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "450"/>
+  <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
+    <Card.Img onClick={pokemon} style={{padding:'20px'}} variant="top" src={pImg} />
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" value="pokemon" onClick={pokemon} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
+      <Card.Title style={{marginTop: '30px', color: '#D90429'}}><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
       Linea Pop! Games
       Producto Original Funko
       Nuevo y en su Embalaje Original
@@ -74,24 +70,21 @@ export default function CartitasDeHome () {
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <medium className="text-muted">Precio $2000</medium>
+    <h3 style={{color: '#D90429'}}>$2000</h3>
     </Card.Footer>
   </Card>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "450"/>
+  <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
+    <Card.Img onClick={naruto} style={{padding:'20px'}} variant="top" src={nImg} />
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" value="naruto" onClick={naruto} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Figura Gaara mode 185</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
+      <Card.Title style={{marginTop: '25px', color: '#D90429'}}><span role="button" tabindex="0">Figura Kakashi Coleccionable</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
         Convertite en el mejor ninja!
         ¡Una colección de figuras única e irrepetible!
         Completa esta impresionante colección de figuras exclusivas en la que se encuentran todos los personajes clave de la popular serie animada. Desde los miembros del equipo 7 hasta las bestias con cola, pasando por los principales aliados de Naruto y los miembros de Akatsuki, entre muchos otros.
-        Las figuras se han reproducido con todo detalle, respetando los rasgos, vestuario y complementos originales de cada personaje.
-        ¡Un póster central en cada entre
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <medium className="text-muted">Precio $1500</medium>
+    <h3 style={{color: '#D90429'}}>$1500</h3>
     </Card.Footer>
   </Card>
 </CardDeck>
