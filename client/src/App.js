@@ -33,6 +33,7 @@ import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 
 
 
+
 function App() {
 
 
@@ -214,7 +215,7 @@ function App() {
         exact path='/admin/selectedOrder/:idOrden'
         render={() => <AdminDetalleOrder
         />}
-      />
+      />      
     </Router>
 
 

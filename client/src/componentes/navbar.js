@@ -140,30 +140,33 @@ export default function Navbar() {
         history.push('/')
     }
 
-
+    function titleCase(str) {
+        var splitStr = str.toLowerCase().split(' ');
+        for (var i = 0; i < splitStr.length; i++) {
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
+        }
+        return splitStr.join(' ');
+    }
 
     return (
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
             <a onClick={handleHome} class="navbar-brand">
-                <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{cursor: 'pointer'}} />
+                <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{cursor: 'pointer'}} />
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent"  >
                 <ul class="navbar-nav mr-auto">
                    {/*  <li class="nav-item">
                         <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
                     </li> */}
                     <li class="nav-item">
-                        <a class="nav-link my-1 mr-sm-2 lin" href="Productos" onClick={handleP}>Productos</a>
+                        <button class="nav-link" style={{color: '#D90429', marginLeft: '2vw'}} href="Productos" onClick={handleP}>Productos</button>
                     </li>
-                    <li className="nav-item dropdown">
+                    <li className="nav-item">
                         
-                        <select class="custom-select my-1 mr-sm-2 categ" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
-                        <option selected="true" disabled="disabled">Categorias</option>
-                            {categoria.map(cat => <option value={cat.name} key={cat.id}>{cat.name}</option>)}
+                        <select class="custom-select" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
+                        <option class='opt102' selected="true" disabled="disabled">Categorias</option>
+                            {categoria.map(cat => <option class='opt102' value={cat.name} key={cat.id}>{titleCase(cat.name)}</option>)}
                         </select>
                         
                     </li>
@@ -171,19 +174,19 @@ export default function Navbar() {
                         <form onSubmit={handleEnter}>
                             <div>
                               
-                                <input className="input" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
+                                <input className="input102" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
                             </div>
                         </form>
                     </li>
                     <li>
-                        <button id='searchB' class="botonete" onClick={handleFormSubmit}>Buscar</button>
+                        <button id='searchB' class="nav-link" style={{color: '#D90429', borderLeft: '0px white', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px', boxShadow: '3px 0px 5px 2px rgba(0,0,0,0.29)', marginTop: '1vh'}} onClick={handleFormSubmit}>Buscar</button>
                     </li>
                 </ul>
-                <div style={{display: "flex", justifyContent: "flex-end", alignItems: "stretch"}}>
-                {loggedIn === false ? <div> <button className="btn3" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
-                    <button className="btn3" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{display:'flex'}}><button onClick={goDashboard} className="btn3" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="btn3" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
+                <div style={{display: "flex"}}>
+                {loggedIn === false ? <div style={{display: "flex"}}> <button className="nav-link" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
+                    <button className="nav-link" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{display:'flex'}}><button onClick={goDashboard} className="nav-link" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="nav-link" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
                     <div style={{display: "flex", justifyContent: "flex-end"}}>
-                    <img onClick={carrito} src={image} style={{ width: "40px", height: "40px"}} role="button" tabindex="0"/>
+                    <img onClick={carrito} src={image} style={{ width: "40px", height: "4vh"}} role="button" tabindex="0"/>
                     </div>
                 </div>
             </div>
