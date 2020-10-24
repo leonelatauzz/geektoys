@@ -38,6 +38,11 @@ export default function Admin() {
         history.push('/')
     }
 
+    const btnAdmin = (e) => {
+        e.preventDefault();
+        history.push('/admin/promote')
+    }
+
     
     return (
         <div className="div_conteiner">
@@ -57,6 +62,10 @@ export default function Admin() {
                 </div>
                 <div>
                     <button className="Home" onClick={handleHome}> Home</button>
+                </div>
+
+                <div>
+                    <button className="bot" onClick={btnAdmin}> Add Admin </button>
                 </div>
 
             </div>
