@@ -37,6 +37,8 @@
     width: 10vw;
     height: 5vh;
     cursor: pointer;
+    color:  #D90429;
+    font-size: 19px;
 }
 .pRC {
     height: 3vh;
