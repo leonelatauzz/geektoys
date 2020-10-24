@@ -30,7 +30,7 @@ import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
-
+import UseraAdmin from './componentes/useraAdmin';
 
 
 
@@ -215,7 +215,18 @@ function App() {
         exact path='/admin/selectedOrder/:idOrden'
         render={() => <AdminDetalleOrder
         />}
-      />      
+ 
+      />
+    
+
+    <Route
+    exact path= '/admin/promote'
+    render={() => <UseraAdmin
+    />}
+    />
+
+            
+
     </Router>
 
 
