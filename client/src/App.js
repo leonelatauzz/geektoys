@@ -33,6 +33,7 @@ import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
 
 
+
 function App() {
 
 
@@ -214,6 +215,7 @@ function App() {
         exact path='/admin/selectedOrder/:idOrden'
         render={() => <AdminDetalleOrder
         />}
+ 
       />
     
 
@@ -222,6 +224,9 @@ function App() {
     render={() => <UseraAdmin
     />}
     />
+
+            
+
     </Router>
 
 

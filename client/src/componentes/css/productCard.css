@@ -3,28 +3,27 @@
     margin-top: 15px;   
 }
 
+
 .row{
     border: 0.25px gray solid;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
     border-radius: 8px;
     display: flex; 
-    flex-direction: row;
-    background-color: white;  
+    flex-direction: column;
+    background-color: white;
+    max-width: 25vw;  
 }
 
 .col-md-4{
-    padding: 5px;
-    margin:  5px;
-    margin-left: 30px;
-    margin-right: 30px;
-
-
+    width: 40vw;
+    margin: auto;
 }
 
 .card-img{
     width: auto;
     max-width: 300px;
     height: 300px;
+    margin: auto;
 }
 .card-img:hover {
     border: 1px solid black;
