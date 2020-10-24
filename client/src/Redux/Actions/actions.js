@@ -105,6 +105,13 @@ export const getOrderProducts = function(props){
         payload: props
     }
 }
+export const getReviewProducts = function(props){
+    return{
+        type: 'GET_REVIEW_PRODUCTS',
+        payload: props
+    }
+}
+
 
 
 
