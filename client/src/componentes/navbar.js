@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getCategories, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
-import image from './images/carrito.png'
+import image from './images/carrito.png';
+import Swal from 'sweetalert2';
 
 
 export default function Navbar() {
@@ -138,6 +139,18 @@ export default function Navbar() {
         dispatch(getActiveOrder([]))
         dispatch(resetCart())
         history.push('/')
+        Swal.fire({
+            title: 'Usuario Desloguedo, ¡Nos vemos pronto!',
+            width: 600,
+            padding: '3em',
+            background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
+            backdrop: `
+          rgba(0,0,123,0.4)
+          url("https://sweetalert2.github.io/images/nyan-cat.gif")
+          left top
+          no-repeat
+        `
+        })
     }
 
     function titleCase(str) {
