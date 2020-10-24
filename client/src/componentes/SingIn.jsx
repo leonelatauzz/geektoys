@@ -220,29 +220,29 @@ export default function Registro() {
     return (
         <div>
             <SuperSimpleNavbar />
-            <div className="sing_in" style={{ height: '70vh' }}>
+            <div className="sing_in" style={{ height: '75vh' }}>
                 <form className="form-sing-in">
                     <div class="Titulo-Ingresar">
                         <h2>Regístrate</h2>
                     </div>
                     <div class="form-group">
                         <label >Nombre</label>
-                        <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Ingresa tu nombre..." />
+                        <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu nombre..." />
                         <small className="detail">{errors.nameError}</small>
                     </div>
                     <div class="form-group">
                         <label >Apellido</label>
-                        <input name="lastName" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Ingresa tu apellido..." />
+                        <input name="lastName" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu apellido..." />
                         <small className="detail">{errors.lastnameError}</small>
                     </div>
                     <div class="form-group">
                         <label >Email</label>
-                        <input name="email" onChange={inputsChange} type="email" class="form-control" style={{ color: "black", width: "450px" }} aria-describedby="emailHelp" placeholder="Ingresa tu email..." />
+                        <input name="email" onChange={inputsChange} type="email" class="form-control" style={{ color: "black", width: "24vw" }} aria-describedby="emailHelp" placeholder="Ingresa tu email..." />
                         {data.email.length > 0 ? <small id="emailHelp" class="detail" >{errors.emailError}</small> : <div></div>}
                     </div>
                     <div class="form-group">
                         <label >Contraseña</label>
-                        <input name="password" onChange={inputsChange} type="password" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Ingresa tu contraseña..." />
+                        <input name="password" onChange={inputsChange} type="password" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu contraseña..." />
                         {errors.passwordError === true ? <small className="detail">Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
                     </div>
                     <div>
