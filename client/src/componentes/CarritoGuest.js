@@ -41,6 +41,15 @@ export default function Cart() {
     history.push('/user/login')
   }
 
+  const handDel = (e) => {
+    e.preventDefault();
+    dispatch(removeFromCart(e.target.value))
+    setData({
+      ...data,
+      products: data.products.filter(item => item.id != e.target.value)
+    })
+  }
+
   return (
     <div>
       <Nat />
@@ -65,7 +74,7 @@ export default function Cart() {
               </div>
               <div style={{ margin: '8.3vh 1vw 0 0' }}>
                 {/* <h5 style={{ marginBottom: '15px' }}> Precio: ${product.price}</h5> */}
-                {/* <button value={props.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button> */}
+                <button value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button>
               </div>
             </div>
 

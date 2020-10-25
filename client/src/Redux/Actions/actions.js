@@ -112,6 +112,15 @@ export const getReviewProducts = function(props){
     }
 }
 
+export const removeFromCart = function(props){
+    return{
+        type: 'REMOVE_FROM_CART',
+        payload: props
+    }
+}
+
+
+
 
 
 
