@@ -2,11 +2,48 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto')
+const passport= require('passport')
+const Strategy = require('passport-local').Strategy
+
+
+passport.use(new Strategy(
+  function(username, password, done) {
+    const contra = password
+    User.findOne({
+      where : {
+        email: username
+      }
+    })
+      .then((user) => {
+        if(!user) {
+          return done(null, false);
+        }
+        let userSalt = user.dataValues.salt
+        const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
+        const password = key.toString('hex')
+        if(user.dataValues.password !== password) {
+          return done(null, false);
+        }
+        return done(null, user);
+      })
+    .catch(err => {
+      return done(err);
+    })
+  }));
+
+  function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  }
 
 
 
-
-server.post('/login', (req, res) => {
+server.post('/login',
+passport.authenticate('local', { successRedirect: 'http://localhost:3000/' }),
+(req, res) => {
   User.findOne({
     where: {
       email: req.body.email,
@@ -28,7 +65,9 @@ server.post('/login', (req, res) => {
   })
 })
 
-server.get('/orders/:userId', (req, res) => {
+server.get('/orders/:userId',
+isAuthenticated, 
+(req, res) => {
   User.findOne({
     where: {
       id: req.params.userId
@@ -42,7 +81,9 @@ server.get('/orders/:userId', (req, res) => {
   })
 })
 
-server.post('/:idUser/cart', (req, res) => {
+server.post('/:idUser/cart',
+isAuthenticated
+, (req, res) => {
   Order.findByPk(req.body.idOrder)
     .then(order => {
       if (!order) {
@@ -87,9 +128,10 @@ server.get("/:id/orders", (req, res) => {
 
 server.post('/', (req, res) => {
   const salt = crypto.randomBytes(32).toString('hex')
-  const contra = req.body.password  
+  const contra = req.body.password
   const key = hash.pbkdf2Sync(contra, salt, 100000, 64, 'sha512');
   const password = key.toString('hex')
+  console.log(salt)
   User.findOne({
     where: {
       email: req.body.email
@@ -118,7 +160,9 @@ server.post('/', (req, res) => {
 })
 
 
-server.post('/:id/passwordReset', (req, res) => {
+server.post('/:id/passwordReset',
+isAuthenticated
+, (req, res) => {
   User.findByPk(req.params.id)
     .then(user => {
       if (!user) {
@@ -137,7 +181,9 @@ server.post('/:id/passwordReset', (req, res) => {
 
 
 
-server.put("/:idUser/cart", (req, res) => {
+server.put("/:idUser/cart",
+isAuthenticated
+, (req, res) => {
   cart.findOne({
     where: {
       orderId: req.body.orderId,
@@ -168,19 +214,13 @@ server.get('/', (req, res) => {
       res.send(users);
     })
 });
-// GET /users/:id/orders
-server.get("/:id/orders", (req, res) => {
-  User.findAll({
-    where: {
-      id: req.params.id
-    },
-    include: Order
-  })
-
-})
 
 
-server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
+
+
+server.delete('/:idUser/cart/:idProducto/:idOrder',
+isAuthenticated
+, (req, res) => {
   Product.findByPk(req.params.idProducto)
     .then((prod) => {
       if (!prod) {
@@ -200,7 +240,9 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
 })
 
 
-server.post('/newAdress/:userId', (req, res) => {
+server.post('/newAdress/:userId',
+isAuthenticated
+, (req, res) => {
   console.log(req.body)
   Adress.create({
     firstLine: req.body.firstLine,
@@ -238,7 +280,9 @@ server.get('/adress/:userId', (req, res) => {
   })
 })
 
-server.get('/adress/edit/:adressId', (req, res) => {
+server.get('/adress/edit/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -252,7 +296,9 @@ server.get('/adress/edit/:adressId', (req, res) => {
   })
 })
 
-server.put('/editAdress/:userId/:adressId', (req, res) => {
+server.put('/editAdress/:userId/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -269,7 +315,9 @@ server.put('/editAdress/:userId/:adressId', (req, res) => {
 })
 
 
-server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
+server.delete('/deleteAdress/:userId/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -283,7 +331,9 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
   })
 })
 
-server.put('/:userId/Promote', (req, res) => {
+server.put('/:userId/Promote',
+isAuthenticated
+, (req, res) => {
   User.findOne({
     where: {
       id: req.params.userId
@@ -299,7 +349,9 @@ server.put('/:userId/Promote', (req, res) => {
   })
 })
 
-server.put('/:userId/Despromote', (req, res) => {
+server.put('/:userId/Despromote',
+isAuthenticated
+, (req, res) => {
   User.findOne({
     where: {
       id: req.params.userId

@@ -99,20 +99,20 @@ export default function Login() {
         <div>
             <SuperSimpleNavbar />
             <div className="sing_in" >
-                <form className="form-sing-in">
+                <form className="form-sing-in" action="http://localhost:3001/user/login" method="post">
                     <div class="Titulo-Ingresar">
                         <h2>Ingresar</h2>
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email</label>
-                        <input type="email" name="email" onChange={inputChange} class="form-control" id="exampleInputEmail1" style={{ width: "350px" }} aria-describedby="emailHelp" placeholder="Ingresa tu email..." />
+                        <input type="email" name="username" onChange={inputChange} class="form-control" id="exampleInputEmail1" style={{ width: "350px" }} aria-describedby="emailHelp" placeholder="Ingresa tu email..." />
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Contraseña</label>
                         <input type="password" name="password" onChange={inputChange} class="form-control" id="exampleInputPassword1" style={{ width: "350px" }} placeholder="Ingresa tu contraseña..." />
                     </div>
                     <div class='btns104'>
-                        <button class='DO101' style={{ width: '10vw', marginBottom: '3vh' }} type="submit" onClick={handleLogIn}>Iniciar sesion</button>
+                        <button class='DO101' style={{ width: '10vw', marginBottom: '3vh' }} type="submit" onSubmit={handleLogIn}>Iniciar sesion</button>
                         <p style={{marginTop: '2vh', margin: '0', textAlign: 'center'}}>¿No estás registrado?</p>
                         <button class='DO101' style={{ width: '10vw', margin: '0' }} onClick={registrar}> Crear cuenta</button>
                     </div>

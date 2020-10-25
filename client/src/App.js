@@ -34,10 +34,7 @@ import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
 
 
-
-
 function App() {
-
 
   return (
     <Router>
