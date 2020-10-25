@@ -1,14 +1,25 @@
 import React, { useEffect, useState } from 'react';
+
+import { useDispatch, useSelector } from "react-redux";
+import Review from "./Review.js"
+import Swal from 'sweetalert2'
+import { useHistory } from 'react-router-dom';
+import { getAProduct } from '../Redux/Actions/actions.js';
+import Axios from 'axios';
+
 import { useSelector } from "react-redux";
 import Nat from './navbar';
 
 export default function DetalleOrder() {
+    const history= useHistory();
+    const idProduct = useSelector(state=>state.productId)
     const orderData = useSelector(state => state.purchaseData)
     const purchaseProducts = useSelector(state => state.purchaseProducts)
     const adressId = useSelector(state => state.adressId);
     const userData = useSelector(state => state.userId)
+    const dispatch = useDispatch();
     const [data, setData] = useState({
-
+      
     });
     let suma = 0
     purchaseProducts.forEach(element => {
@@ -22,9 +33,14 @@ export default function DetalleOrder() {
         }
         return splitStr.join(' ');
     }
-
-
+    const handleButtonClick = async(e) => {
+        dispatch(getAProduct(e.target.value))
+        history.push(`/review`);
+    }
     return (
+
+
+
         <div>
             <Nat />
             <div class='card99' style={{ margin: 'auto', marginTop: '15vh' }}>
@@ -61,12 +77,19 @@ export default function DetalleOrder() {
                                 <h4 class='titu99'>{titleCase(item.name)}</h4>
                                 {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
                                 <h5>${(item.cart.price) * (item.cart.amount)}</h5>
-                                <button class='DO101'>Agregar opinion</button>
+                                <button value={item.id} onClick={handleButtonClick}>Agrega tu Opinion</button>        
+
+                              
+
                             </div>
                         )}
                     </div>
+                   
                 </div>
+                
             </div>
+           
+           
         </div>
     )
 }
