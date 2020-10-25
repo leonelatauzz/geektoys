@@ -151,6 +151,17 @@ server.put("/:idUser/cart", (req, res) => {
 
 })
 
+server.get('/:idUser',(req,res)=>{
+  User.findByPk(req.params.idUser)
+  .then(user=>{
+    if(!user){
+      res.send("usuario no encontrado")
+    } else {
+      res.status(200).send(user)
+    }
+  })
+})
+
 
 server.get('/', (req, res) => {
   User.findAll()
