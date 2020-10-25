@@ -215,5 +215,33 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
+// Reviews
 
+server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
+  Review.findAll()
+    .then(calif => {
+      res.send(calif);
+    })
+    .catch(next);
+});
+
+
+server.post('/:id/review', (req, res) => {
+  Review.create({
+          rating: req.body.rating,
+          description: req.body.description
+        }).then(function () {
+          res.status(201).send('Review creada correctamente');
+        })
+      });
+
+      server.delete("/:id/review", (req, res) => {          
+        Product.findByPk(req.params.id).then((producto) => {
+              producto.destroy();
+              res.status(200).send("La Review se elimino correctamente")
+              return;
+            })
+          })
+
+ master
 module.exports = server;
