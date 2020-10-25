@@ -237,4 +237,12 @@ server.post('/:id/review', (req, res) => {
         })
       });
 
+      server.delete("/:id/review", (req, res) => {          
+        Product.findByPk(req.params.id).then((producto) => {
+              producto.destroy();
+              res.status(200).send("La Review se elimino correctamente")
+              return;
+            })
+          })
+
 module.exports = server;
