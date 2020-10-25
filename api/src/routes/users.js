@@ -306,6 +306,33 @@ server.put('/:userId/Despromote', (req, res) => {
 })
 
 
+server.put('/:iduser/baja',(req,res)=>{
+  User.findByPk(req.params.iduser)
+  .then(user=>{
+    if(!user){
+      res.status(404).send("no se encontro usuario")
+    }  else {
+      user.state = "Baja"
+      user.save()
+      res.status(201).send(user)
+    }
+  })
+})
+
+server.put('/:idAdress/adress/baja',(req,res)=>{
+  Adress.findByPk(req.params.idAdress)
+  .then(adress=>{
+    if(!adress){
+      res.status(404).send("no se encontro la direccion")
+    }  else {
+      adress.state = "Baja"
+      adress.save()
+      res.status(201).send(adress)
+    }
+  })
+})
+
+
 module.exports = server;
 
 

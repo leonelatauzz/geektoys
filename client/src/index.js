@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import {store} from './Redux/Store/store';
 import rootReducer from './Redux/Reducers/reducer';
 import './index.css';
 import App from './App';
@@ -22,14 +22,17 @@ import './componentes/css/EditarDireccion.css';
 import './componentes/css/Payment.css';
 import './componentes/css/AprovedPurchase.css';
 import './componentes/css/OrderUser.css'
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor} from './Redux/Store/store'
 
 
-const store = createStore(rootReducer)
 
 ReactDOM.render(
   <Provider store={store}>
   <React.StrictMode>
+  <PersistGate loading={null} persistor={persistor}> 
     <App />
+    </PersistGate>
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')
