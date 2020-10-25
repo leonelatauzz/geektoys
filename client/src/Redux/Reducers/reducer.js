@@ -14,7 +14,8 @@ const initialState = {
     adresses: [],
     adressId: null,
     purchaseData: null,
-    purchaseProducts: []
+    purchaseProducts: [],
+    review: []
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -52,8 +53,8 @@ export default function (state = initialState, action) {
             return { ...state, purchaseData: action.payload }
         case 'GET_ORDER_PRODUCTS':
             return { ...state, purchaseProducts: action.payload }
-
-
+        case 'GET_REVIEW_PRODUCTS':
+            return { ...state, review: action.payload }
         default:
             return state;
     }

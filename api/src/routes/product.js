@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 const { Category } = require('../db.js')
-const { Review } = require('../db.js')
 const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
@@ -216,7 +215,6 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
-
 // Reviews
 
 server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
@@ -245,4 +243,5 @@ server.post('/:id/review', (req, res) => {
             })
           })
 
+ master
 module.exports = server;

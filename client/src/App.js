@@ -29,8 +29,10 @@ import AgregarDireccion from './componentes/AgregarDireccion';
 import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
+import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
+
 
 
 
@@ -205,6 +207,14 @@ function App() {
         render={() => <SeguridadUser
         />}
       />
+
+ 
+       <Route
+        exact path='/review'
+        render={() => <Review
+        />}
+      />
+
       <Route
         exact path='/products/prod/:id'
         render={() => <Review
@@ -226,6 +236,7 @@ function App() {
     />
 
             
+
 
     </Router>
 
