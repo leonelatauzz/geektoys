@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, getActiveOrder, logIn, getDbCart } from '../Redux/Actions/actions'
+import { getUserInfo, getActiveOrder, logIn, getDbCart, resetCart } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2';
 import SuperSimpleNavbar from './SuperSimpleNavbar'
 
@@ -81,6 +81,7 @@ export default function Login() {
                         .then(resp => {
                             let products = Object.values(resp.data)
                             dispatch(getDbCart(products))
+                            dispatch(resetCart())
                             history.push(`/user/${resp.data.id}/order`)
                         })
                 } else {

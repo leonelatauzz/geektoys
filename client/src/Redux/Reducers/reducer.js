@@ -55,6 +55,9 @@ export default function (state = initialState, action) {
             return { ...state, purchaseProducts: action.payload }
         case 'GET_REVIEW_PRODUCTS':
             return { ...state, review: action.payload }
+        case 'REMOVE_FROM_CART':
+            return { ...state, cart: state.cart.filter(item => item.id != action.payload) }
+
         default:
             return state;
     }
