@@ -1,7 +1,6 @@
 const server = require('express').Router();
 const { Product } = require('../db.js');
 const { Category } = require('../db.js')
-const { Review } = require('../db.js')
 const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
@@ -135,6 +134,29 @@ server.put("/category/:id", (req, res) => {
   })
 })
 
+server.put('/:id/review/:idReview', (req,res) => {
+  const {rating,description} = req.body;
+    Product.findByPk(req.params.id)
+    .then(product =>{
+      if(!product){
+        res.status(404).send('Producto no encontrado');
+      }else{
+        Review.findByPk(req.params.idReview)
+        .then(review => {
+          if(!review){
+            res.status(404).send('Review no encontrada');
+          }else{        
+          review.rating = rating;
+          review.description = description;
+          review.save();
+          res.status(201).send('La review fue modificada correctamente');
+          }
+        })
+      }
+    })
+})
+
+
 server.put("/:id", upload.single('images'), (req, res) => {
   let pic;
   let product;
@@ -193,25 +215,5 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
-
-// Reviews
-
-server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
-  Review.findAll()
-    .then(calif => {
-      res.send(calif);
-    })
-    .catch(next);
-});
-
-
-server.post('/:id/review', (req, res) => {
-  Review.create({
-          rating: req.body.rating,
-          description: req.body.description
-        }).then(function () {
-          res.status(201).send('Review creada correctamente');
-        })
-      });
 
 module.exports = server;

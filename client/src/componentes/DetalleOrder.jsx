@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
+
 import { useDispatch, useSelector } from "react-redux";
 import Review from "./Review.js"
 import Swal from 'sweetalert2'
 import { useHistory } from 'react-router-dom';
 import { getAProduct } from '../Redux/Actions/actions.js';
 import Axios from 'axios';
+
+import { useSelector } from "react-redux";
+import Nat from './navbar';
+
 export default function DetalleOrder() {
     const history= useHistory();
     const idProduct = useSelector(state=>state.productId)
@@ -33,8 +38,12 @@ export default function DetalleOrder() {
         history.push(`/review`);
     }
     return (
-        <div class='total'>
-            <div class='card99'>
+
+
+
+        <div>
+            <Nat />
+            <div class='card99' style={{ margin: 'auto', marginTop: '15vh' }}>
                 <div class='top99'>
                     <h3 class='titu99'>Orden #{orderData.id} - {orderData.state}</h3>
                     <h5>{orderData.updatedAt.split('T')[0]}</h5>
@@ -69,6 +78,9 @@ export default function DetalleOrder() {
                                 {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
                                 <h5>${(item.cart.price) * (item.cart.amount)}</h5>
                                 <button value={item.id} onClick={handleButtonClick}>Agrega tu Opinion</button>        
+
+                              
+
                             </div>
                         )}
                     </div>

@@ -253,20 +253,20 @@ export default function ResumenCompra() {
                                 {data.adresses.length === 0 ?
                                     <h4>No tienes direcciones guardadas</h4> :
                                     data.adresses.map(item =>
-                                        <div class='aRCCard'>
+                                        <div class='aRCCard' style={{marginBottom: '3vh'}}>
                                             <div class='liRc'>
                                                 <h4>{item.firstLine}</h4>
                                                 <p>{item.secondLine} - {item.postalCode}</p>
                                                 <p>{item.district} - {item.province}</p>
-                                                <button class='smButtRC' value={item.id} onClick={editA}>Editar</button>
-                                                <button class='smButtRC' value={item.id} onClick={deleteA}>Eliminar</button>
+                                                <button style={{margin: '1vh'}} class='DO101' value={item.id} onClick={editA}>Editar</button>
+                                                <button style={{margin: '1vh'}} class='DO101' value={item.id} onClick={deleteA}>Eliminar</button>
                                             </div>
-                                            <button class='slButtRC' value={item.id} onClick={selectA}>Seleccionar Dirección</button>
+                                            <button style={{margin: '1vh'}} class='DO101' value={item.id} onClick={selectA}>Seleccionar Dirección</button>
                                         </div>
                                     )
                                 }
-                                <button class='fBRC' onClick={addA}>Agregar nueva dirección</button>
-                                <button class='fBRC' onClick={resetOptions}>Elegir otro método de entrega</button>
+                                <button style={{margin: '1vh'}} class='DO101' onClick={addA}>Agregar nueva dirección</button>
+                                <button style={{margin: '1vh'}} class='DO101' onClick={resetOptions}>Elegir otro método de entrega</button>
                             </div>
                         }
                         {data.sA === true &&
@@ -277,8 +277,8 @@ export default function ResumenCompra() {
                                         <h4>{data.selectedAdress.firstLine}</h4>
                                         <p>{data.selectedAdress.secondLine} - {data.selectedAdress.postalCode}</p>
                                         <p>{data.selectedAdress.district} - {data.selectedAdress.province}</p>
-                                        <button class='fBRC' onClick={hideOptionsA}>Elegir otra dirección</button>
-                                        <button class='fBRC' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button style={{margin: '1vh'}} class='DO101' onClick={hideOptionsA}>Elegir otra dirección</button>
+                                        <button style={{margin: '1vh'}} class='DO101' onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +291,7 @@ export default function ResumenCompra() {
                                         <h4>Calle falsa123</h4>
                                         <p>Microcentro - Capital Federal</p>
                                         <p>Lunes a Viernes, 9:00 a 18:00</p>
-                                        <button class='fBRC' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button style={{margin: '1vh'}} class='DO101' onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@ export default function ResumenCompra() {
                     </div>
                     <div class='rigthD'>
                         <div class='RC2'>
-                            <h2>Resumen de tu compra</h2>
+                            <h2 style={{color: '#D90429'}}>Resumen de tu compra</h2>
                             <div class='mRC'>
                                 {dbCart.map(item =>
                                     <p class='mItemRC'>{titleCase(item.name)} ({item.cart.amount}) -- ${(item.cart.price) * (item.cart.amount)}</p>

@@ -273,6 +273,37 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
   })
 })
 
+server.put('/:userId/Promote', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.userId
+    }
+  }).then (users => {
+    if(!users) {
+      res.status(404).send('Usuario No Encontrado')
+    }
+  
+    users.role = 'Admin',
+    users.save();
+    res.send(users)
+  })
+})
+
+server.put('/:userId/Despromote', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.userId
+    }
+  }).then (users => {
+    if(!users) {
+      res.status(404).send('Usuario No Encontrado')
+    }
+  
+    users.role = 'User',
+    users.save();
+    res.send(users)
+  })
+})
 
 
 module.exports = server;

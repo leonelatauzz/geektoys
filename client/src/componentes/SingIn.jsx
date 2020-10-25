@@ -5,7 +5,8 @@ import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, getActiveOrder, logIn, getDbCart } from '../Redux/Actions/actions'
 import { Modal, Button } from 'react-bootstrap';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import SuperSimpleNavbar from './SuperSimpleNavbar'
 
 export default function Registro() {
     const cart = useSelector(state => state.cart)
@@ -17,7 +18,7 @@ export default function Registro() {
         email: "",
         password: "",
         check: false
-        
+
     })
 
     const [lgShow, setLgShow] = useState(false);
@@ -28,7 +29,7 @@ export default function Registro() {
         passwordError: true,
         nameError: "",
         lastnameError: "",
-        errores:true
+        errores: true
     })
 
     const check = (e) => {
@@ -149,10 +150,10 @@ export default function Registro() {
                     title: 'Email ya registrado',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                })
             }
             const ras = await axios.post(`http://localhost:3001/order/${ris.data.id}`)
-                .then(async(resp) => {
+                .then(async (resp) => {
                     let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
                     dispatch(logIn())
                     dispatch(getUserInfo(resp.data));
@@ -205,100 +206,98 @@ export default function Registro() {
                         history.push(`/user/${resp.data.id}/order`)
                     }
                 })
-            
+
         })
 
     }
 
-    const handleHome = (e) => {
-        e.preventDefault();
-        history.push('/')
-    }
+   const handleLogIn = (e) => {
+       e.preventDefault();
+       history.push('/user/login')
+   }
 
 
     return (
-        <div className="sing_in">
-            <form className="form-sing-in">
-                <div class="Titulo">
-                    <h2>Regístrate</h2>
-                    <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt=""  style={{cursor: 'pointer'}} onClick={handleHome}></img>
-                </div>
-                <div class="form-group">
-                    <label >Name</label>
-                    <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresar nombre" />
-                    <small className="detail">{errors.nameError}</small>
-                </div>
-                <div class="form-group">
-                    <label >Lastname</label>
-                    <input name="lastName" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "450px" }} placeholder="ingresa apellido" />
-                    <small className="detail">{errors.lastnameError}</small>
-                </div>
-                <div class="form-group">
-                    <label >Email address</label>
-                    <input name="email" onChange={inputsChange} type="email" class="form-control" style={{ color: "black", width: "450px" }} aria-describedby="emailHelp" placeholder="Enter email" />
-                    {data.email.length > 0 ? <small id="emailHelp" class="detail" >{errors.emailError}</small> : <div></div>}
-                </div>
-                <div class="form-group">
-                    <label >Password</label>
-                    <input name="password" onChange={inputsChange} type="password" class="form-control" style={{ color: "black", width: "450px" }} placeholder="Password" />
-                    {errors.passwordError === true ? <small className="detail">Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
-                </div>
-                <div>
-                    <input type="checkbox" onChange={check} />
-                    <div>
-                        <>
-                            <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "#8D99AE", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
-                            <Modal
-                                size="sm"
-                                show={smShow}
-                                onHide={() => setSmShow(false)}
-                                aria-labelledby="example-modal-sizes-title-sm"
-                            >
-                                <Modal.Header closeButton>
-                                    <Modal.Title id="example-modal-sizes-title-sm">
-                                        Small Modal
-                            </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>...</Modal.Body>
-                            </Modal>
-                            <Modal
-                                size="lg"
-                                show={lgShow}
-                                onHide={() => setLgShow(false)}
-                                aria-labelledby="example-modal-sizes-title-lg"
-                            >
-                                <Modal.Header closeButton>
-                                    <Modal.Title id="example-modal-sizes-title-lg">
-                                        Terminos de condiciones
-                                    </Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    Los Términos y Condiciones así como la Política de Privacidad y/o informaciones sobre el Sitio se considerarán de aplicación para todo Usuario del
-                                    Sitio desde el primer momento en que acceda al mismo. Los presentes términos y condiciones tienen carácter obligatorio y vinculante. Se aplican a
-                                    todas las compras y actividades realizadas en el Sitio. Si el Usuario no acepta en forma total los presentes Términos y Condiciones y la Política
-                                    de Privacidad, le rogamos que no avance en el acceso y visita de nuestro Sitio. En caso de avanzar en la visita a nuestro Sitio, se entenderá que
-                                    el Usuario aceptó sin reservas los presentes Términos y Condiciones y la Política de Privacidad, aceptando recibir mails periódicos con la
-                                    información que el Sitio determine. Los Términos y Condiciones y la Política de Privacidad podrán ser modificados en todo o en parte en cualquier
-                                    momento y a exclusivo criterio de GEEKTOYS S.A.; dichos cambios e implementaciones tendrán vigencia a partir del momento mismo en que sean publicados
-                                    o insertados en el Sitio o desde que sean notificados al Usuario por cualquier medio, lo que ocurra primero. Por lo expuesto, le sugerimos que los
-                                    visite periódicamente. Las violaciones a los Términos y Condiciones generarán el derecho en favor del titular del Sitio a suspender o terminar la
-                                    prestación del servicio al Usuario que las haya realizado, por acción u omisión. El Sitio se preocupa por la protección de datos de carácter
-                                    personal de los Usuarios, de acuerdo a los lineamientos expuestos en nuestra Política de Privacidad.
-                                </Modal.Body>
-                            </Modal>
-                        </>
+        <div>
+            <SuperSimpleNavbar />
+            <div className="sing_in" style={{ height: '75vh' }}>
+                <form className="form-sing-in">
+                    <div class="Titulo-Ingresar">
+                        <h2>Regístrate</h2>
                     </div>
-                </div>
-                <button onClick={handleRegister} disabled={errors.errores}  type="submit" class="btn btn-primary" className="btn3" role="button" tabindex="0">Registrar</button>
-            </form>
+                    <div class="form-group">
+                        <label >Nombre</label>
+                        <input name="name" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu nombre..." />
+                        <small className="detail">{errors.nameError}</small>
+                    </div>
+                    <div class="form-group">
+                        <label >Apellido</label>
+                        <input name="lastName" onChange={inputsChange} type="text" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu apellido..." />
+                        <small className="detail">{errors.lastnameError}</small>
+                    </div>
+                    <div class="form-group">
+                        <label >Email</label>
+                        <input name="email" onChange={inputsChange} type="email" class="form-control" style={{ color: "black", width: "24vw" }} aria-describedby="emailHelp" placeholder="Ingresa tu email..." />
+                        {data.email.length > 0 ? <small id="emailHelp" class="detail" >{errors.emailError}</small> : <div></div>}
+                    </div>
+                    <div class="form-group">
+                        <label >Contraseña</label>
+                        <input name="password" onChange={inputsChange} type="password" class="form-control" style={{ color: "black", width: "24vw" }} placeholder="Ingresa tu contraseña..." />
+                        {errors.passwordError === true ? <small className="detail">Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
+                    </div>
+                    <div>
+                        <input type="checkbox" onChange={check} />
+                        <div>
+                            <>
+                                <Button onClick={() => setLgShow(true)} style={{ backgroundColor: "white", width: "250px", padding: "0px", color: "black", border: "none", position: "relative", bottom: "27px", left: "18px", boxShadow: "none", textDecoration: "none" }}>Acepto los <a className="links_terminos">terminos y condiciones</a></Button>
+                                <Modal
+                                    size="sm"
+                                    show={smShow}
+                                    onHide={() => setSmShow(false)}
+                                    aria-labelledby="example-modal-sizes-title-sm"
+                                >
+                                    <Modal.Header closeButton>
+                                        <Modal.Title id="example-modal-sizes-title-sm">
+                                            Small Modal
+                            </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>...</Modal.Body>
+                                </Modal>
+                                <Modal
+                                    size="lg"
+                                    show={lgShow}
+                                    onHide={() => setLgShow(false)}
+                                    aria-labelledby="example-modal-sizes-title-lg"
+                                >
+                                    <Modal.Header closeButton>
+                                        <Modal.Title id="example-modal-sizes-title-lg">
+                                            Terminos de condiciones
+                                    </Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        Los Términos y Condiciones así como la Política de Privacidad y/o informaciones sobre el Sitio se considerarán de aplicación para todo Usuario del
+                                        Sitio desde el primer momento en que acceda al mismo. Los presentes términos y condiciones tienen carácter obligatorio y vinculante. Se aplican a
+                                        todas las compras y actividades realizadas en el Sitio. Si el Usuario no acepta en forma total los presentes Términos y Condiciones y la Política
+                                        de Privacidad, le rogamos que no avance en el acceso y visita de nuestro Sitio. En caso de avanzar en la visita a nuestro Sitio, se entenderá que
+                                        el Usuario aceptó sin reservas los presentes Términos y Condiciones y la Política de Privacidad, aceptando recibir mails periódicos con la
+                                        información que el Sitio determine. Los Términos y Condiciones y la Política de Privacidad podrán ser modificados en todo o en parte en cualquier
+                                        momento y a exclusivo criterio de GEEKTOYS S.A.; dichos cambios e implementaciones tendrán vigencia a partir del momento mismo en que sean publicados
+                                        o insertados en el Sitio o desde que sean notificados al Usuario por cualquier medio, lo que ocurra primero. Por lo expuesto, le sugerimos que los
+                                        visite periódicamente. Las violaciones a los Términos y Condiciones generarán el derecho en favor del titular del Sitio a suspender o terminar la
+                                        prestación del servicio al Usuario que las haya realizado, por acción u omisión. El Sitio se preocupa por la protección de datos de carácter
+                                        personal de los Usuarios, de acuerdo a los lineamientos expuestos en nuestra Política de Privacidad.
+                                </Modal.Body>
+                                </Modal>
+                            </>
+                        </div>
+                    </div>
+                    <div class='btns104'>
+                        <button disabled={errors.errores} class='DO101' style={{width: '10vw', marginBottom: '2vh', marginTop: '0' }} onClick={handleRegister}> Crear cuenta</button>
+                        <p style={{ marginTop: '2vh', margin: '0', textAlign: 'center' }}>¿Ya tienes una cuenta?</p>
+                        <button class='DO101' style={{  width: '10vw', margin: '0' }} type="submit" onClick={handleLogIn}>Iniciar sesion</button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
-
-
-{/* <div class="alert alert-success" role="alert">
-  <h4 class="alert-heading">Well done!</h4>
-  <p>Aww yeah, you successfully read this important alert message. This example text is going to run a bit longer so that you can see how spacing within an alert works with this kind of content.</p>
-  <hr>
-  <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and tidy.</p>
-</div> */}
