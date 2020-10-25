@@ -7,7 +7,6 @@ import { useHistory } from 'react-router-dom';
 import { getAProduct } from '../Redux/Actions/actions.js';
 import Axios from 'axios';
 
-import { useSelector } from "react-redux";
 import Nat from './navbar';
 
 export default function DetalleOrder() {
