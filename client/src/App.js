@@ -31,10 +31,11 @@ import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 
-
-
 function App() {
+// const guardado = window.localStorage
 
+// guardado.setItem("hola", "chau")
+//   console.log(hola)
 
   return (
     <Router>

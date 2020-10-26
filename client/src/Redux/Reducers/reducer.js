@@ -1,3 +1,4 @@
+import localStorage from 'local-storage'
 const initialState = {
     products: [],
     productId: null,
@@ -36,8 +37,13 @@ export default function (state = initialState, action) {
             return { ...state, userId: action.payload }
         case 'GET_ACTIVE_ORDER':
             return { ...state, activeOrder: action.payload }
-        case 'LOGIN':
-            return { ...state, loggedIn: true }
+            case 'LOGIN':
+                // localStorage.setItem('datos', JSON.stringify(user))
+                // console.log(localStorage.getItem("datos"))
+        return { ...state,
+             loggedIn: true 
+            
+            }
         case 'LOGOUT':
             return { ...state, loggedIn: false }
         case 'GET_DB_CART':

@@ -2,32 +2,63 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto')
+const passport = require('passport')
+const Strategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken');
+
+
+passport.use(new Strategy((username, password, done) =>{
+  const contra = password
+  User.findOne({
+  where:{
+  email: username
+}
+})
+.then((user)=>{
+  if(!user){
+    return done(null, false);
+  }
+let userSalt = user.dataValues.salt
+const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64,'sha512');
+const password = key.toString("hex")
+if(user.dataValues.password !== password){
+  return done(null, false);
+}
+return done(null, user);
+})
+.catch(err =>{
+  return done(err);
+})
+}));
 
 
 
-
-server.post('/login', (req, res) => {
+server.post('/login',passport.authenticate('local',{successRedirect:'http://localhost:3000/guest/carrito'}),(req, res) => {
   User.findOne({
     where: {
       email: req.body.email,
     }, include: Order
   }).then(user => {
     if (!user) {
-      res.send('Datos incorrectos')
+      res.json({mensaje: 'Datos incorrectos'})
       return;
+      
     }
-    let userSalt = user.dataValues.salt
+    else{
+      let userSalt = user.dataValues.salt
     const contra = req.body.password
     const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
     const password = key.toString('hex')
-    if (password !== user.dataValues.password) {
+    if(password !== user.dataValues.password) {
       res.send("Datos incorrectos")
       return;
     }
     res.json(user)
-  })
+  
+  }
 })
-
+})
 server.get('/orders/:userId', (req, res) => {
   User.findOne({
     where: {
@@ -268,12 +299,12 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
     if(!adress) {
       res.status(404).send('Dirección no encontrada')
     }
-    adress.destroy();
+    adress.destroy()
     res.send('Dirección eliminada')
   })
 })
 
-
+  
 
 module.exports = server;
 

@@ -1,15 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo, getActiveOrder, logIn, getDbCart } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2'
+import {useCookies} from 'react-cookie';
 
 export default function Login() {
+    const {user, setUser} = useState({});
+
     const cart = useSelector(state => state.cart)
     const dispatch = useDispatch();
     const [data, setData] = useState({
-        email: "",
+        username: "",
         password: ""
     })
     const history = useHistory();
@@ -29,7 +32,7 @@ export default function Login() {
     const handleLogIn = async (e) => {
         e.preventDefault();
         let json = {
-            email: data.email,
+            username: data.username,
             password: data.password
         }
         const res = await axios.post(`http://localhost:3001/user/login`, json, {
@@ -88,6 +91,7 @@ export default function Login() {
         }
         })
     }
+
     
     const handleHome = (e) => {
         e.preventDefault();
@@ -95,15 +99,18 @@ export default function Login() {
     }
 
     return (
+        
+             
+    
         <div className="sing_in" >
-            <form className="form-sing-in">
+            <form className="form-sing-in" action='http://localhost:3001/user/login' method='post' onSubmit={() =>localStorage.setItem('datos', JSON.stringify(data))} >
                 <div class="Titulo-Ingresar">
                     <h2>Ingresar</h2>
                     <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{cursor: 'pointer'}} onClick={handleHome}></img>
                 </div>
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email</label>
-                    <input type="email" name="email" onChange={inputChange} class="form-control" id="exampleInputEmail1" style={{ width: "350px" }} aria-describedby="emailHelp" placeholder="Enter email" />
+                    <input type="email" name="username" onChange={inputChange} class="form-control" id="exampleInputEmail1" style={{ width: "350px" }} aria-describedby="emailHelp" placeholder="Enter email" />
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
@@ -113,12 +120,11 @@ export default function Login() {
                     <input type="checkbox" class="form-check-input" id="exampleCheck1" />
                     <label class="form-check-label" for="exampleCheck1">Remember Me</label>
                 </div>
-                <button type="submit" style={{ marginTop: "12px", height: "35px" }} class="btn btn-primary" className="btn3" onClick={handleLogIn}>Iniciar sesion</button>
+                <button type="submit" style={{ marginTop: "12px", height: "35px" }} class="btn btn-primary" className="btn3">Iniciar sesion</button>
                 <h5 style={{ marginLeft: "55px", marginTop: "10px" }}>¿Eres nuevo en Geek Toys? </h5>
                 <button className="btn3" style={{ marginLeft: "100px", width: "150px", marginTop: "5px" }} onClick={registrar} > Crear cuenta</button>
             </form>
-            <div>
-            </div>
         </div>
+    
     )
 }
