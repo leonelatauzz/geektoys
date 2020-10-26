@@ -1,5 +1,5 @@
 const server = require('express').Router();
-const { User, Product, Order, cart, Adress } = require('../db.js');
+const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto')
 
@@ -191,7 +191,6 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
 
 
 server.post('/newAdress/:userId', (req, res) => {
-  console.log(req.body)
   Adress.create({
     firstLine: req.body.firstLine,
     secondLine: req.body.secondLine,
@@ -234,7 +233,7 @@ server.get('/adress/edit/:adressId', (req, res) => {
       id: req.params.adressId
     }
   }).then(adress => {
-    if(!adress) {
+    if (!adress) {
       res.status(404).send('Dirección no encontrada')
       return;
     }
@@ -254,7 +253,7 @@ server.put('/editAdress/:userId/:adressId', (req, res) => {
       adress.district = req.body.district,
       adress.postalCode = req.body.postalCode,
       adress.save();
-      res.send('Exito')
+    res.send('Exito')
   })
 })
 
@@ -265,7 +264,7 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
       id: req.params.adressId
     }
   }).then(adress => {
-    if(!adress) {
+    if (!adress) {
       res.status(404).send('Dirección no encontrada')
     }
     adress.destroy();
@@ -278,13 +277,13 @@ server.put('/:userId/Promote', (req, res) => {
     where: {
       id: req.params.userId
     }
-  }).then (users => {
-    if(!users) {
+  }).then(users => {
+    if (!users) {
       res.status(404).send('Usuario No Encontrado')
     }
-  
+
     users.role = 'Admin',
-    users.save();
+      users.save();
     res.send(users)
   })
 })
@@ -294,43 +293,73 @@ server.put('/:userId/Despromote', (req, res) => {
     where: {
       id: req.params.userId
     }
-  }).then (users => {
-    if(!users) {
+  }).then(users => {
+    if (!users) {
       res.status(404).send('Usuario No Encontrado')
     }
-  
+
     users.role = 'User',
-    users.save();
+      users.save();
     res.send(users)
   })
 })
 
 
-server.put('/:iduser/baja',(req,res)=>{
+server.put('/:iduser/baja', (req, res) => {
   User.findByPk(req.params.iduser)
+    .then(user => {
+      if (!user) {
+        res.status(404).send("no se encontro usuario")
+      } else {
+        user.state = "Baja"
+        user.save()
+        res.status(201).send(user)
+      }
+    })
+})
+
+server.put('/:idAdress/adress/baja', (req, res) => {
+  Adress.findByPk(req.params.idAdress)
+    .then(adress => {
+      if (!adress) {
+        res.status(404).send("no se encontro la direccion")
+      } else {
+        adress.state = "Baja"
+        adress.save()
+        res.status(201).send(adress)
+      }
+    })
+})
+
+server.get('/baja',(req,res)=>{
+  UserDisabled.findAll()
   .then(user=>{
-    if(!user){
-      res.status(404).send("no se encontro usuario")
-    }  else {
-      user.state = "Baja"
-      user.save()
-      res.status(201).send(user)
-    }
+    res.status(200).send(user)
   })
 })
 
-server.put('/:idAdress/adress/baja',(req,res)=>{
-  Adress.findByPk(req.params.idAdress)
-  .then(adress=>{
-    if(!adress){
-      res.status(404).send("no se encontro la direccion")
-    }  else {
-      adress.state = "Baja"
-      adress.save()
-      res.status(201).send(adress)
-    }
+server.post('/:userId/motivo/baja', (req, res) => {
+  UserDisabled.create({
+    message: req.body.message,
+    valoration: req.body.valoration,
+    userId: req.params.userId
+  }).then(user => {
+    User.findOne({
+      where: {
+        id: req.params.userId
+      }, include: UserDisabled
+    }).then(user => {
+      if (!user) {
+        res.send('Datos incorrectos')
+        return;
+      }
+      res.json(user)
+    })
   })
 })
+
+
+
 
 
 module.exports = server;
