@@ -32,7 +32,7 @@ import SeguridadUser from './componentes/SeguridadUser'
 import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
-
+import ProductReviews from './componentes/ProductReviews'
 
 
 
@@ -216,12 +216,6 @@ function App() {
       />
 
       <Route
-        exact path='/products/prod/:id'
-        render={() => <Review
-        />}
-      />
-
-      <Route
         exact path='/admin/selectedOrder/:idOrden'
         render={() => <AdminDetalleOrder
         />}
@@ -232,6 +226,12 @@ function App() {
     <Route
     exact path= '/admin/promote'
     render={() => <UseraAdmin
+    />}
+    />
+
+<Route
+    exact path= '/products/prod/:id'
+    render={() => <ProductReviews
     />}
     />
 
