@@ -64,11 +64,11 @@ export default function Order() {
 
 
                     <Card style={{ width: '15rem', marginLeft: '50px' }}>
-                        <Card.Img variant="top" src="https://i.imgur.com/n12K3dz.jpg" />
+                        <Card.Img variant="top" src="https://i.imgur.com/du1UGbF.jpg" />
                         <Card.Body>
                             <Card.Title style={{ color: 'red' }}>Seguridad</Card.Title>
                             <Card.Text>
-                                Actualiza tus datos personales.
+                            Detalles de mi información personal.
     </Card.Text>
                             <button onClick={handleClick} class='tbe100' value="seguridad" >Ver más</button>
                         </Card.Body>
