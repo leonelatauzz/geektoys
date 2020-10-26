@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getCategories, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
+import { getCategories, getToken, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
 import image from './images/carrito.png';
 import Swal from 'sweetalert2';
 
 
 export default function Navbar() {
     const loggedIn = useSelector(state => state.loggedIn)
+    const token = useSelector(state => state.token)
     const userData = useSelector(state => state.userId)
     let history = useHistory();
     const dispatch = useDispatch();
@@ -25,7 +26,7 @@ export default function Navbar() {
             .then(res => {
                 const resObj = Object.values(res.data)
                 dispatch(getProducts(resObj))
-                
+
             })
     }
 
@@ -121,19 +122,23 @@ export default function Navbar() {
 
 
     }
-    const goDashboard = async(e) => {
+    const goDashboard = async (e) => {
         e.preventDefault();
-        const res = await axios.get(`http://localhost:3001/user/orders/${userData.id}`)
-        .then(resp => {
-            let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
-            dispatch(getUserInfo(resp.data));
-            dispatch(getActiveOrder(activeOrder))
+        const res = await axios.get(`http://localhost:3001/user/orders/getOrders`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(respo => {
+            let activeOrder = respo.data.orders.filter(ord => ord.state === "carrito")
+            dispatch(getUserInfo(respo.data));
+            dispatch(getActiveOrder(activeOrder));
         })
         history.push(`/user/${userData.id}/order`)
     }
 
     const salir = (e) => {
         e.preventDefault();
+        dispatch(getToken(null))
         dispatch(logOut())
         dispatch(getUserInfo([]))
         dispatch(getActiveOrder([]))
@@ -163,43 +168,43 @@ export default function Navbar() {
 
     return (
 
-        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch"}}>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", alignItems: "stretch" }}>
             <a onClick={handleHome} class="navbar-brand">
-                <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{cursor: 'pointer'}} />
+                <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{ cursor: 'pointer' }} />
             </a>
             <div class="collapse navbar-collapse" id="navbarSupportedContent"  >
                 <ul class="navbar-nav mr-auto">
-                   {/*  <li class="nav-item">
+                    {/*  <li class="nav-item">
                         <a class="nav-link my-1 mr-sm-2 homE" href="Dashboard Admin" onClick={handleAdmin}>Dashboard Admin</a>
                     </li> */}
                     <li class="nav-item">
-                        <button class="nav-link" style={{color: '#D90429', marginLeft: '2vw'}} href="Productos" onClick={handleP}>Productos</button>
+                        <button class="nav-link" style={{ color: '#D90429', marginLeft: '2vw' }} href="Productos" onClick={handleP}>Productos</button>
                     </li>
                     <li className="nav-item">
-                        
+
                         <select class="custom-select" id="inlineFormCustomSelectPref" href="Categorias" onChange={handleChange}>
-                        <option class='opt102' selected="true" disabled="disabled">Categorias</option>
+                            <option class='opt102' selected="true" disabled="disabled">Categorias</option>
                             {categoria.map(cat => <option class='opt102' value={cat.name} key={cat.id}>{titleCase(cat.name)}</option>)}
                         </select>
-                        
+
                     </li>
                     <li >
                         <form onSubmit={handleEnter}>
                             <div>
-                              
+
                                 <input className="input102" name="search" type="text" placeholder="Tu producto..." aria-label="Search" onChange={handleInputChange}></input>
                             </div>
                         </form>
                     </li>
                     <li>
-                        <button id='searchB' class="nav-link" style={{color: '#D90429', borderLeft: '0px white', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px', boxShadow: '3px 0px 5px 2px rgba(0,0,0,0.29)', marginTop: '1vh'}} onClick={handleFormSubmit}>Buscar</button>
+                        <button id='searchB' class="nav-link" style={{ color: '#D90429', borderLeft: '0px white', borderTopLeftRadius: '0px', borderBottomLeftRadius: '0px', boxShadow: '3px 0px 5px 2px rgba(0,0,0,0.29)', marginTop: '1vh' }} onClick={handleFormSubmit}>Buscar</button>
                     </li>
                 </ul>
-                <div style={{display: "flex"}}>
-                {loggedIn === false ? <div style={{display: "flex"}}> <button className="nav-link" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
-                    <button className="nav-link" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{display:'flex'}}><button onClick={goDashboard} className="nav-link" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="nav-link" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
-                    <div style={{display: "flex", justifyContent: "flex-end"}}>
-                    <img onClick={carrito} src={image} style={{ width: "40px", height: "4vh"}} role="button" tabindex="0"/>
+                <div style={{ display: "flex" }}>
+                    {loggedIn === false ? <div style={{ display: "flex" }}> <button className="nav-link" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
+                        <button className="nav-link" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{ display: 'flex' }}><button onClick={goDashboard} className="nav-link" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="nav-link" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
+                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                        <img onClick={carrito} src={image} style={{ width: "40px", height: "4vh" }} role="button" tabindex="0" />
                     </div>
                 </div>
             </div>

@@ -15,7 +15,8 @@ const initialState = {
     adressId: null,
     purchaseData: null,
     purchaseProducts: [],
-    review: []
+    review: [],
+    token: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -57,7 +58,8 @@ export default function (state = initialState, action) {
             return { ...state, review: action.payload }
         case 'REMOVE_FROM_CART':
             return { ...state, cart: state.cart.filter(item => item.id != action.payload) }
-
+        case 'GET_TOKEN':
+            return { ...state, token: action.payload }
         default:
             return state;
     }

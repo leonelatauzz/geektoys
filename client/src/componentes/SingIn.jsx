@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, getActiveOrder, logIn, getDbCart, resetCart } from '../Redux/Actions/actions'
+import { getUserInfo, getActiveOrder, logIn, getDbCart, resetCart, getToken } from '../Redux/Actions/actions'
 import { Modal, Button } from 'react-bootstrap';
 import Swal from 'sweetalert2';
 import SuperSimpleNavbar from './SuperSimpleNavbar'
@@ -152,70 +152,77 @@ export default function Registro() {
                     timer: 1500
                 })
             }
-            const ras = await axios.post(`http://localhost:3001/order/${ris.data.id}`)
-                .then(async (resp) => {
-                    let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
-                    dispatch(logIn())
-                    dispatch(getUserInfo(resp.data));
-                    dispatch(getActiveOrder(activeOrder))
-                    if (cart.length > 0) {
-                        cart.map(async (item) => {
-                            let json = {
-                                idOrder: activeOrder[0].id,
-                                idProduct: item.id,
-                                price: item.price,
-                                amount: 1
-                            }
-                            const res = await axios.post(`http://localhost:3001/user/${resp.data.id}/cart`, json, {
-                                headers: {
-                                    'Content-Type': 'application/json'
+            dispatch(getToken(ris.data.accessToken))
+            const res = await axios.get(`http://localhost:3001/user/orders/getOrders`, {
+                headers: {
+                    'Authorization': `Bearer ${ris.data.accessToken}`
+                }
+            }).then(async(respo) => {
+                const ras = await axios.post(`http://localhost:3001/order/${respo.data.id}`)
+                    .then(async (respi) => {
+                        let activeOrder = respi.data.orders.filter(ord => ord.state === "carrito")
+                        dispatch(logIn())
+                        dispatch(getUserInfo(respi.data));
+                        dispatch(getActiveOrder(activeOrder))
+                        if (cart.length > 0) {
+                            cart.map(async (item) => {
+                                let json = {
+                                    idOrder: activeOrder[0].id,
+                                    idProduct: item.id,
+                                    price: item.price,
+                                    amount: 1
                                 }
-                            })
-                        })
-                        const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
-                            .then(resp => {
-                                let products = Object.values(resp.data)
-                                dispatch(getDbCart(products))
-                                Swal.fire({
-                                    title: 'Usuario registrado correctamente',
-                                    width: 600,
-                                    padding: '3em',
-                                    background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
-                                    backdrop: `
-                                          rgba(0,0,123,0.4)
-                                          url("https://sweetalert2.github.io/images/nyan-cat.gif")
-                                          left top
-                                          no-repeat
-                                        `
+                                const res = await axios.post(`http://localhost:3001/user/${respi.data.id}/cart`, json, {
+                                    headers: {
+                                        'Content-Type': 'application/json'
+                                    }
                                 })
-                                dispatch(resetCart())
-                                history.push(`/user/${resp.data.id}/order`)
                             })
-                    } else {
-                        Swal.fire({
-                            title: 'Usuario registrado correctamente',
-                            width: 600,
-                            padding: '3em',
-                            background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
-                            backdrop: `
-                                  rgba(0,0,123,0.4)
-                                  url("https://sweetalert2.github.io/images/nyan-cat.gif")
-                                  left top
-                                  no-repeat
-                                `
-                        })
-                        history.push(`/user/${resp.data.id}/order`)
-                    }
-                })
+                            const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                                .then(respe => {
+                                    let products = Object.values(respe.data)
+                                    dispatch(getDbCart(products))
+                                    Swal.fire({
+                                        title: 'Usuario registrado correctamente',
+                                        width: 600,
+                                        padding: '3em',
+                                        background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
+                                        backdrop: `
+                                                          rgba(0,0,123,0.4)
+                                                          url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                                                          left top
+                                                          no-repeat
+                                                        `
+                                    })
+                                    dispatch(resetCart())
+                                    history.push(`/user/${respi.data.id}/order`)
+                                })
+                        } else {
+                            Swal.fire({
+                                title: 'Usuario registrado correctamente',
+                                width: 600,
+                                padding: '3em',
+                                background: 'url("https://i.imgur.com/4rsKgF2.jpg")',
+                                backdrop: `
+                                                  rgba(0,0,123,0.4)
+                                                  url("https://sweetalert2.github.io/images/nyan-cat.gif")
+                                                  left top
+                                                  no-repeat
+                                                `
+                            })
+                            history.push(`/user/${respi.data.id}/order`)
+                        }
+                    })
 
+            })
         })
 
     }
 
-   const handleLogIn = (e) => {
-       e.preventDefault();
-       history.push('/user/login')
-   }
+    const handleLogIn = (e) => {
+        e.preventDefault();
+        history.push('/user/login')
+    }
 
 
     return (
@@ -293,9 +300,9 @@ export default function Registro() {
                         </div>
                     </div>
                     <div class='btns104'>
-                        <button disabled={errors.errores} class='DO101' style={{width: '10vw', marginBottom: '2vh', marginTop: '0' }} onClick={handleRegister}> Crear cuenta</button>
+                        <button disabled={errors.errores} class='DO101' style={{ width: '10vw', marginBottom: '2vh', marginTop: '0' }} onClick={handleRegister}> Crear cuenta</button>
                         <p style={{ marginTop: '2vh', margin: '0', textAlign: 'center' }}>¿Ya tienes una cuenta?</p>
-                        <button class='DO101' style={{  width: '10vw', margin: '0' }} type="submit" onClick={handleLogIn}>Iniciar sesion</button>
+                        <button class='DO101' style={{ width: '10vw', margin: '0' }} type="submit" onClick={handleLogIn}>Iniciar sesion</button>
                     </div>
                 </form>
             </div>

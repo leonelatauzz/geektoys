@@ -73,7 +73,7 @@ export default function Order() {
                             <button onClick={handleClick} class='tbe100' value="seguridad" >Ver más</button>
                         </Card.Body>
                     </Card>
-                   {/*  <div style={{ width: '18rem', marginLeft:'100px', marginTop:'120px'}}>
+                    {/*  <div style={{ width: '18rem', marginLeft:'100px', marginTop:'120px'}}>
                     <Card.Img variant="top" src={pokemon} />
                 </div> */}
                 </div>
