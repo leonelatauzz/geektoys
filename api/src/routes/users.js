@@ -89,8 +89,7 @@ server.post('/', (req, res) => {
   const salt = crypto.randomBytes(32).toString('hex')
   const contra = req.body.password
   const key = hash.pbkdf2Sync(contra, salt, 100000, 64, 'sha512');
-  const password = key.toString('hex')
-  console.log(salt)
+  const password = key.toString('hex')  
   User.findOne({
     where: {
       email: req.body.email
