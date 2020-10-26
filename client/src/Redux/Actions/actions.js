@@ -124,7 +124,12 @@ export const getToken = function(props){
         payload: props
     }
 }
-
+export const getPID = function(props){
+    return{
+        type: 'GET_PID',
+        payload: props
+    }
+}
 
 
 

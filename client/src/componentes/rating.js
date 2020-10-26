@@ -15,7 +15,6 @@ export default function StarRating(){
                   name='rating' 
                   value={ratingValue} 
                   onClick={()=>setRating(ratingValue+1)}
-                  
                   />
                   <FaStar 
                   className='star' 

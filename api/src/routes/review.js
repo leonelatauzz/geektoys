@@ -1,20 +1,39 @@
 const server = require('express').Router();
-const { Review } = require('../db.js');
+const { Review, Product } = require('../db.js');
 
-server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
+server.get('/', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
     Review.findAll()
       .then(calif => {
         res.send(calif);
       })
       .catch(next);
   });
+  server.get('/reviews/:productid', (req, res) => {
+    Product.findOne({
+      where: {
+        id: req.params.productid
+      },
+      include: Review
+    })
+      .then((prod) => {
+        if (!prod) {
+          res.status(400).send('El producto no fue encontrado')
+        }
+        let resolve = prod.dataValues.reviews;
+        let obj = Object.assign({}, resolve)
+        res.json(obj);
+      })
+  })
+  
   
   server.post("/:id/review", (req, res) => {
       Review.create({
           rating: req.body.rating,
           description: req.body.description,
-        }).then(function () {
-          res.status(201).send('Review creada correctamente');
+          productId:req.body.productId,
+          userId: req.body.userId
+        }).then(function (review) {
+          res.status(201).json(review);
         })
       .catch((error) => res.status(204).send(error));
   });
