@@ -118,6 +118,13 @@ export const removeFromCart = function(props){
         payload: props
     }
 }
+export const getToken = function(props){
+    return{
+        type: 'GET_TOKEN',
+        payload: props
+    }
+}
+
 
 
 
