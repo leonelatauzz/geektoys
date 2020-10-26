@@ -38,11 +38,14 @@ server.get('/', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
       .catch((error) => res.status(204).send(error));
   });
 
-  server.delete("/:id/review", (req, res) => {          
-    Product.findByPk(req.params.id).then((producto) => {
-          producto.destroy();
+  server.delete("/:id/review/:idReview", (req, res) => {          
+    Product.findByPk(req.params.id).then(() => {
+         Review.findByPk(req.params.idReview).then((review) => {
+          review.destroy();
           res.status(200).send("La Review se elimino correctamente")
           return;
+         })
+ 
         })
       })
       server.put('/:id/review/:idReview', (req,res) => {
