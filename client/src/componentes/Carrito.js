@@ -64,7 +64,7 @@ export default function Cart() {
         />)}
       </Row>
 
-      <Row style={{ border: "none", boxShadow: "none", background: '#2B2D42'}}>
+      <Row style={{ border: "none", boxShadow: "none"}}>
         <Col sm={6}>
           <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
             <h3 className= 'Letrita'>Subtotal: ${suma}</h3>

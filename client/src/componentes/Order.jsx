@@ -32,23 +32,23 @@ export default function Order() {
     return (
         <div>
             <Nat />
-            <div style={{marginTop:'30px', textAlign: 'center', color: 'white' }}>
+            <div style={{marginTop:'30px', textAlign: 'center', color: 'black' }}>
                 <h3>Bienvenido: {userData.name} {userData.lastname}</h3>
             </div>
 
-            <Row style={{ margin: "30px" }}>                
+            <div style={{display:'flex', flexFlow: 'row wrap', marginLeft:'650px'}}>                
                 
-                <div style={{ display: 'flex', margin: 'auto', marginTop: '30px', marginBottom: '30px' }}>
+                <div style={{display:'flex', flexDirection:'row', alignItems:'center'}}>
                     
                     <div>
-                        <Card style={{ width: '15rem' }}>
+                        <Card style={{display:'flex', alignItems:'center', width: '15rem' }}>
                             <Card.Img variant="top" src="https://i.imgur.com/qlmpxcd.png" />
-                            <Card.Body>
-                                <Card.Title style={{color:'red'}}>Ordenes</Card.Title>
-                                <Card.Text>
+                            <Card.Body >
+                                <Card.Title style={{color:'red', textAlign:'center', margin:'1rem', padding:'1rem'}}>Ordenes</Card.Title>
+                                <Card.Text style={{textAlign:'center', margin:'1rem', padding:'1rem'}}>
                                     Verifica el estado de tus órdenes.
     </Card.Text>
-                                <Button onClick= {handleClick} value="ordenes" variant="danger">Ver más</Button>
+                                <Button style={{marginLeft: '60px'}} onClick= {handleClick} value="ordenes" variant="danger">Ver más</Button>
                             </Card.Body>
                         </Card>
                     </div>
@@ -56,28 +56,28 @@ export default function Order() {
                         <Card style={{ width: '15rem' }}>
                             <Card.Img variant="top" src="https://i.imgur.com/du1UGbF.jpg" />
                             <Card.Body>
-                                <Card.Title style={{color:'red'}}>Privacidad</Card.Title>
-                                <Card.Text>
+                                <Card.Title style={{color:'red', textAlign:'center', margin:'1rem', padding:'1rem'}}>Privacidad</Card.Title>
+                                <Card.Text style={{textAlign:'center', margin:'1rem', padding:'1rem'}}>
                                     Detalles de mi información personal.
     </Card.Text>
-                                <Button onClick= {handleClick} value="privacidad" variant="danger">Ver más</Button>
+                                <Button style={{marginLeft: '60px'}} onClick= {handleClick} value="privacidad" variant="danger">Ver más</Button>
                             </Card.Body>
                         </Card>
                     </div>
                     <div style={{ marginLeft: '50px' }}>
                         <Card style={{ width: '15rem' }}>
                             <Card.Img variant="top" src="https://i.imgur.com/n12K3dz.jpg" />
-                            <Card.Body>
-                                <Card.Title style={{color:'red'}}>Seguridad</Card.Title>
-                                <Card.Text>
+                            <Card.Body >
+                                <Card.Title style={{color:'red', textAlign:'center', margin:'1rem', padding:'1rem'}}>Seguridad</Card.Title>
+                                <Card.Text style={{textAlign:'center', margin:'1rem', padding:'1rem'}}>
                                     Actualiza tus datos personales.
     </Card.Text>
-                                <Button onClick= {handleClick} value="seguridad" variant="danger">Ver más</Button>
+                                <Button style={{marginLeft: '60px'}} onClick= {handleClick} value="seguridad" variant="danger">Ver más</Button>
                             </Card.Body>
                         </Card>
                     </div>
                 </div>
-            </Row>
+            </div>
             <Footer />
         </div>
     )

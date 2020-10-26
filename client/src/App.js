@@ -31,6 +31,7 @@ import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
+import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
 
 
 
@@ -123,6 +124,11 @@ function App() {
         render={() => <AdminProducto
         />}
       />
+      <Route
+    exact path= '/admin/products'
+    render={() => <SuperSimpleNavbarAd
+    />}
+    />    
 
       <Route
         exact path='/admin/products'
@@ -224,8 +230,6 @@ function App() {
     render={() => <UseraAdmin
     />}
     />
-
-            
 
     </Router>
 

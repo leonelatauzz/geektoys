@@ -7,6 +7,7 @@ import mImg from './images/marioPic.png';
 import Uimg from './images/up.png'
 import Swal from 'sweetalert2'
 
+
 export default function AddProduct() {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -129,7 +130,7 @@ export default function AddProduct() {
                 <form className="form" >
                     <h3 className="titulo" >Agregar nuevo producto</h3>
                     <label className="label" >Título:</label>
-                    <input  className="inputs"name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
+                    <input  className="inputs" name='name' value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
                     {data.name.length === 0 && <span style={{ color: 'red' }}>Este campo es requerido</span>}
                     <label className="label" >Descripción:</label>
                     <input className="inputs" name='description' value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
@@ -139,30 +140,30 @@ export default function AddProduct() {
                     <label className="label">Stock:</label>
                     <input className="inputs" name='stock' value={data.stock} type='number' placeholder='Stock del producto...' onChange={handlerChange}></input>
                     <img className="image" src={mImg} style={{width:'500px' , height:'auto', marginBottom:'100px'}}/>
-                    <div style={{marginTop:'20px'}}>
-                        <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                        {data.check === true ? <img style={{maxHeight: '200px', width:'auto'}} className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
+                    <div>
+                        <input className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" style={{display:'flex', flexDirection:''}}/>
+                        {data.check === true ? <img  className="imgCarga" src={data.displayFile}  /> : <img className="imgDisp" src={Uimg} />}
                     </div>
                     {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
-                    <div className= "label">
+                    <div className= "labelin">
                         ¿Deseas agregar una categoria al producto?
                         </div>
                 </div  > : <div>
-                        <div className= "label">
+                        <div className= "labelin">
                             ¿Deseas agregar otra categoria al producto?
                         </div>
                     </div>}
 
             { data.send === true ?
                 <div>
-                    <form style={{marginBottom: '300px'}}>
-                        <label className= "label">Selecciona una Categoria:</label>
+                    <form className='Form_cat_admin'>
+                        <label className= "textin">Selecciona una Categoria:</label>
                         <select onChange={handleSelectChange}  >
-                            <option >Categorias</option>
+                            <option style={{borderRadius:'15px', border:'black 1px'}}>Categorias</option>
                             {existingCategories.map((cat) => <option key={cat.id} value={`${cat.id}/${cat.name}`} name={cat.name} > {cat.name} </option>)}
                         </select>
-                        <input type='submit' onClick={handleCategory} value="agregar" />
+                        <input type='submit' onClick={handleCategory} value="Agregar" />
                     </form>
                     
 
