@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -15,6 +15,13 @@ export default function ResetPass() {
     const [data, setState] = useState({
         password: ''
     })
+
+    const [errors, setErrors] = useState({
+        passwordError: true,
+        errores: true
+    })
+
+
 
     const handleChange = (e) => {
         setState({
@@ -45,16 +52,48 @@ export default function ResetPass() {
         })
     }
 
+    useEffect(()=>{
+        if(data.password.length > 1 && errors.passwordError === false){
+            setErrors({
+                ...errors,
+                errores: false
+            })
+        }else{
+            setErrors({
+                ...errors,
+                errores: true
+        
+            })
+        }
+    },[data.password,errors.passwordError])
+
+    useEffect(() => {
+        if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
+            setErrors({
+                ...errors,
+                passwordError: true
+            })
+        }
+        if (/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(data.password)) {
+            setErrors({
+                ...errors,
+                passwordError: false
+            })
+        }
+    }, [data.password])
+
+
     return (
         <div>
             <Form>
             <Form.Group controlId="formBasicEmail">
-                    <Form.Label column sm="10">Restablecer contraseña</Form.Label>
+                    <Form.Label column sm="10" style={{fontSize:'22px'}}>Restablecer contraseña</Form.Label>
                     <Col sm="10">
                         <Form.Control onChange={handleChange} type="password" placeholder="Contraseña nueva" />
+                        {errors.passwordError === true ? <small className="detail" style={{fontSize:'15px', color: 'red'}}>Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
                     </Col>
                 </Form.Group>
-                <button onClick={handlSubmit} style={{margin: 'auto', marginLeft:'25px'}} class='tbe100'>Cambiar</button>{' '}
+                <button disabled={errors.errores} onClick={handlSubmit} style={{margin: 'auto', marginLeft:'25px'}} class='tbe100'>Cambiar</button>
             </Form>
         </div>
     )

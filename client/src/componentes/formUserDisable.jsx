@@ -7,11 +7,14 @@ export default function formUserDisable() {
         <div>
             <Form>
                 <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Cuéntanos tu experiencia o razón para desactivar la cuenta:</Form.Label>
-                    <Form.Control type="motivo" placeholder="Motivo" />
+                    <Form.Label style={{fontSize:'22px'}}>Cuéntanos tu experiencia o razón para desactivar la cuenta:</Form.Label>
+                    <div>
+                    <textarea style={{width:'600px', height:'100px'}} placeholder="Motivo"></textarea>
+                    </div>
+                    
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
-                    <Form.Label>Califica tu experiencia</Form.Label>
+                    <Form.Label style={{fontSize:'22px'}}>Califica tu experiencia</Form.Label>
                     <Form.Control style={{ marginLeft: '50px', width: '100px', height:'40px' }} as="select" className="mr-sm-2" id="inlineFormCustomSelect" custom>
                         <option value="1">5</option>
                         <option value="2">4</option>
