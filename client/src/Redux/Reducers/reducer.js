@@ -16,7 +16,8 @@ const initialState = {
     purchaseData: null,
     purchaseProducts: [],
     review: [],
-    token: null
+    token: null,
+    idP: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -60,6 +61,8 @@ export default function (state = initialState, action) {
             return { ...state, cart: state.cart.filter(item => item.id != action.payload) }
         case 'GET_TOKEN':
             return { ...state, token: action.payload }
+        case 'GET_PID':
+            return{...state, idP: action.payload}
         default:
             return state;
     }

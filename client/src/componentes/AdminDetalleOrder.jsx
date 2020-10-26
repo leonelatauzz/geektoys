@@ -114,14 +114,14 @@ export default function AdminDetalleOrder() {
                                 <h4 class='titu99'>{titleCase(item.name)}</h4>
                                 {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
                                 <h5>${(item.cart.price) * (item.cart.amount)}</h5>
-                                {orderData.state === 'pagada' &&
-                                    <div>
-                                        <button class='DO101' onClick={delivered}>Orden entregada</button>
-                                        <button class='DO101' onClick={canceled}>Cancelar orden</button>
-                                    </div>
-                                }
                             </div>
                         )}
+                        {orderData.state === 'pagada' &&
+                            <div>
+                                <button class='DO101' onClick={delivered}>Orden entregada</button>
+                                <button class='DO101' onClick={canceled}>Cancelar orden</button>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>

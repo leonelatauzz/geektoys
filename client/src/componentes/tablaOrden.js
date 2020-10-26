@@ -136,28 +136,28 @@ export default function TablaOrden() {
               <div>
                 {data.all === false && order.state !== 'carrito' &&
                   <div class='bd100'>
-                    <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                    <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                     <div class='te100'><h6>{order.state}</h6></div>
                     <div class='te100'><h6>{order.userId}</h6></div>
                   </div>
                 }
                 {data.pagadas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'cancelada' &&
                   <div class='bd100'>
-                    <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                    <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                     <div class='te100'><h6>{order.state}</h6></div>
                     <div class='te100'><h6>{order.userId}</h6></div>
                   </div>
                 }
                 {data.entregadas === true && order.state !== 'carrito' && order.state !== 'pagada' && order.state !== 'cancelada' &&
                   <div class='bd100'>
-                    <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                    <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                     <div class='te100'><h6>{order.state}</h6></div>
                     <div class='te100'><h6>{order.userId}</h6></div>
                   </div>
                 }
                 {data.canceladas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'pagada' &&
                   <div class='bd100'>
-                    <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                    <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                     <div class='te100'><h6>{order.state}</h6></div>
                     <div class='te100'><h6>{order.userId}</h6></div>
                   </div>

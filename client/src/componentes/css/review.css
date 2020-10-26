@@ -34,3 +34,32 @@ input[type="radio"]{
 input{
    margin: 10px;
 }
+.ReviewCreado{
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+   border-radius: 5px;
+   border: 0.25px gray solid;
+   width: 1100px;
+   height: 200px;
+   margin: auto;
+   margin-bottom: 20px;
+}
+.img{
+   margin-left: 12px;
+}
+.ReviewCreado p{
+   margin-left: 15px;
+}
+.ReviewCreado h1{
+   font-size: 30px;
+   color: #D90429;
+   margin:10px;
+   margin-left:15px;
+}
+.ReviewCreado h5{
+   font-size: 20px;
+   color: black;
+   margin-left:15px;
+}

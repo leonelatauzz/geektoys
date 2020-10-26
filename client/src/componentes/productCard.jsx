@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getAProduct, getProducts } from '../Redux/Actions/actions'
+import { getAProduct, getProducts, getPID } from '../Redux/Actions/actions'
 import eHeart from './images/emp.png';
 import fHeart from './images/cl.png';
 import { Card } from 'react-bootstrap'
@@ -24,8 +24,9 @@ export default function ProductCard(props) {
 
     const handle = (e) => {
         e.preventDefault()
-        history.push(`/products/prod/${props.id}`);
         dispatch(getAProduct(props))
+        dispatch(getPID(props.id))
+        history.push(`/products/prod/${props.id}`);
     }
 
     const handleEH = (e) => {
