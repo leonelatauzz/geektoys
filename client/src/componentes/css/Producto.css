@@ -1,9 +1,9 @@
 .containerProduct{
-    background-color: white ;
+
     height: 770px;
 }
 .cardProduct{
-    background-color: white ;
+
     width: 1500px;    
     display: flex;
     height: 500px;   
@@ -165,7 +165,7 @@
 }
 
 .Letrita{
-    color: #EDF2F4;
+    color: #2B2D42;
 }
 
 .btn6 {
@@ -179,6 +179,7 @@
     padding: 5px;
     display: flex;
     align-items:flex-start;
+    margin-left: auto;
 }
 
 .btn6:hover {

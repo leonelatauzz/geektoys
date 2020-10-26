@@ -4,6 +4,8 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { getAProduct, getProducts } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2'
+import '../componentes/css/productoAdmin.css'
+
 
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard(props) {
@@ -73,23 +75,29 @@ export default function ProductCard(props) {
     const direction2 = "http://localhost:3000/admin/products"
 
     return (
+        
+        <div>
+            
+             <div>
+            
         <div class="container" >
             <div class="row">
-                <div class="col-md-4">
+                <div class='style-cards'>
                     <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" role="button" tabindex="0" alt="..." />
                 </div>
                 <div class="informacion">
-                    <a class="card-title" role="button" tabindex="0" onClick={handle}  >{props.name}</a>
+                    <a class="card-title"onClick={handle}  >{props.name}</a>
                     <p class="card-text-price">${props.price}</p>
                     <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
                 </div>
                 <div class="divBoton"> 
-
-                <button type="button" class="btn btn-outline-success" style={{marginRight: "7px"}} onClick={handleEdit} >Editar</button>  
-                <button type="button" onClick={handleDelete} class="btn btn-outline-danger" >Eliminar</button>
-                <button className="btn5" onClick={dashboard}>Volver al dashboard</button>
+                <button type="button"style={{marginRight:'10px'}} class="btn btn-outline-success rowi" onClick={handleEdit} >Editar</button>  
+                <button type="button" class="btn btn-outline-danger rowi" onClick={handleDelete}  >Eliminar</button>
+                
                 </div>
             </div>
         </div>
+    </div> 
+</div>  
     )
 }

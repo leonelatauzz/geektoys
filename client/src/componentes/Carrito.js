@@ -71,6 +71,7 @@ export default function Cart() {
           <div style={{ margin: '2vh' }}>
             <h3>{count} productos</h3>
             <h1 style={{ color: '#D90429' }}>Subtotal: ${suma}</h1>
+
           </div>
           <Col sm={6}>
             {dbCart.length === 0 ? <span></span> :

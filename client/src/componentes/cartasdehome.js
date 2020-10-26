@@ -48,8 +48,8 @@ export default function CartitasDeHome () {
   <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
     <Card.Img onClick={starwars} style={{padding:'20px'}} variant="top" src={stImg} />
     <Card.Body>
-      <Card.Title style={{color: '#D90429'}}><h2 role="button" tabindex="0">Pochoclera Star Wars</h2></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
+      <Card.Title style={{color: '#D90429', marginLeft:'90px'}}><h2 role="button" tabindex="0">Pochoclera Star Wars</h2></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'center', marginLeft:'-10px'}}>
       PRODUCTO ORIGINAL IMPORTADO DE USA!!
       En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars.
       </Card.Text>
@@ -61,8 +61,8 @@ export default function CartitasDeHome () {
   <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
     <Card.Img onClick={pokemon} style={{padding:'20px'}} variant="top" src={pImg} />
     <Card.Body>
-      <Card.Title style={{marginTop: '30px', color: '#D90429'}}><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
+      <Card.Title style={{marginTop: '30px', color: '#D90429',marginLeft:'90px'}}><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'center', marginLeft:'-10px'}}>
       Linea Pop! Games
       Producto Original Funko
       Nuevo y en su Embalaje Original
@@ -76,8 +76,8 @@ export default function CartitasDeHome () {
   <Card style={{maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)'}}>
     <Card.Img onClick={naruto} style={{padding:'20px'}} variant="top" src={nImg} />
     <Card.Body>
-      <Card.Title style={{marginTop: '25px', color: '#D90429'}}><span role="button" tabindex="0">Figura Kakashi Coleccionable</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'justify'}}>
+      <Card.Title style={{marginTop: '25px', color: '#D90429', marginLeft:'90px'}}><span role="button" tabindex="0">Figura Kakashi Coleccionable</span></Card.Title>
+      <Card.Text style={{fontFamily:'Malgun Gothic Semilight', fontSize: '19px', textAlign: 'center', marginLeft:'-10px'}}>
         Convertite en el mejor ninja!
         ¡Una colección de figuras única e irrepetible!
         Completa esta impresionante colección de figuras exclusivas en la que se encuentran todos los personajes clave de la popular serie animada. Desde los miembros del equipo 7 hasta las bestias con cola, pasando por los principales aliados de Naruto y los miembros de Akatsuki, entre muchos otros.

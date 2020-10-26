@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import {Table} from 'react-bootstrap';
 import {useHistory}  from 'react-router-dom';
-
+import SuperSimpleNavbarAd from './SuperSimpleNavbarAdmin'
 
 export default function Promote(){
    const history= useHistory();
@@ -60,17 +60,18 @@ export default function Promote(){
 
 
     return(
+      <div> <SuperSimpleNavbarAd />
      <div style= {{ width: '70%', margin: 'auto'}}>
-
+       
 <Table striped bordered hover>
   <thead>
     <tr>
       <th>Id</th>
       <th>Nombre</th>
-      <th style= {{ width: '30px'}}>e-mail</th>
+      <th >e-mail</th>
       <th>Role</th>
       <th>Estado</th>
-      <th style= {{ width: '10px'}}>Promover</th>
+      <th>Promover</th>
     </tr>
   </thead>
   <tbody>
@@ -95,6 +96,7 @@ export default function Promote(){
 
 
 
+     </div>
      </div>
 
         )

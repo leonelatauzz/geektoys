@@ -3,6 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getCategories, getProducts } from '../Redux/Actions/actions';
 import axios from 'axios';
+import Nav from 'react-bootstrap/Nav'
+import '../componentes/css/Admin.css'
 
 
 export default function Admin() {
@@ -13,13 +15,13 @@ export default function Admin() {
         e.preventDefault();
         history.push('/admin/addproduct')
     }
-    const btnProducts = async(e) => {
+    const btnProducts = async (e) => {
         e.preventDefault();
         history.push('/admin/products');
         await axios.get('http://localhost:3001/products/')
-        .then(res => {
-            dispatch(getProducts(res.data))
-        })
+            .then(res => {
+                dispatch(getProducts(res.data))
+            })
 
     }
 
@@ -37,37 +39,29 @@ export default function Admin() {
         e.preventDefault();
         history.push('/')
     }
-
+    
     const btnAdmin = (e) => {
         e.preventDefault();
         history.push('/admin/promote')
     }
 
-    
     return (
-        <div className="div_conteiner">
-            <h2 className="tittle" >Dashboard de administrador</h2>
-            <div className="admin" >
-                <div>
-                    <button className="bot" onClick={btnAddProduct}>Agregar nuevo producto</button>
-                </div>
-                <div>
-                    <button className="bot" onClick={btnAddCategory}>Administrar categorías</button>
-                </div>
-                <div>
-                    <button className="bot" onClick={btnProducts}> Productos</button>
-                </div>
-                <div>
-                    <button className="bot" onClick={btnOrders}> Tabla de Ordenes</button>
-                </div>
-                <div>
-                    <button className="Home" onClick={handleHome}> Home</button>
-                </div>
 
-                <div>
-                    <button className="bot" onClick={btnAdmin}> Add Admin </button>
-                </div>
-
+        <div>
+            <div>
+                <div className='contaiiner'>
+                    <h1 className='textin-welcome'>Administrador</h1>
+                    </div>
+            </div>
+            <div className='Div_centrin'>
+                <Nav className="textin">
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAddProduct} eventKey="Agregar nuevo producto">Agregar nuevo producto</Nav.Link>
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAddCategory} eventKey="Administrar categorías">Administrar categorías</Nav.Link>
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnProducts} eventKey="Productos">Productos</Nav.Link>
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnOrders} eventKey="Tabla de Ordenes">Tabla de Ordenes</Nav.Link>
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAdmin} eventKey="Home">Agregar Admin</Nav.Link>
+                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={handleHome} eventKey="Home">Home</Nav.Link>
+                </Nav>
             </div>
         </div>
     )

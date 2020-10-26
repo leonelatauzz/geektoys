@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { getProductCategory, getProducts } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2'
+import '../componentes/css/AdminEdit-elimin-prod.css'
 
 export default function EditOrDelete() {
     let json;
@@ -174,31 +175,31 @@ export default function EditOrDelete() {
     }
 
     return (
-        <div class="col-3 col-s-12" style={{ backgroundColor: "#2B2D42", display: 'flex' }}>
-            <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '550px', marginTop: '30px', backgroundColor: 'white' }}>
-            <button className="btn6" onClick={products}>Volver a productos</button>
-                <form className="form" >
-                    <h3 className="titulo" style={{ color: 'black', border: "grey solid 3px" }}>Editar producto</h3>
-                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Título:</label>
+        <div>
+            <div className="">
+            <button className="volver_dashboard" onClick={products}>Volver a productos</button>
+                <form className="formulin" >
+                    <h3 className="titulo" style={{ color: 'black' }}>Editar producto</h3>
+                    <label className="label" style={{ color: "black"}}>Título:</label>
                     <input name='name' className="h6" value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Descripción:</label>
+                    <label className="label" style={{ color: "black"}}>Descripción:</label>
                     <input name='description' className="h6" value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px" }}>Precio:</label>
+                    <label className="label" style={{ color: "black" }}>Precio:</label>
                     <input name='price' className="h6" value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black", border: "#696969 solid 2px", borderRadius:"3px"  }}>Stock:</label>
+                    <label className="label" style={{ color: "black"}}>Stock:</label>
                     <input name='stock' className="h6" value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
-                    <div style={{ display: 'flex' }}>
-                        <div style={{ width: '200px' }}>
-                            <input style={{ color: 'black' }} className="file" type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '200px', maxWidth: "200px", marginTop: '30px', border: 'solid 1px black' }} /> : <img src={data.displayFile} style={{ maxHeight: '200px', width: 'auto', marginTop: '30px' }} />}
+                    <div style={{ display: 'flex', marginLeft:'20px' }}>
+                        <div >
+                            <input className="img_file" style={{maxWidth:'150px', maxHeight:'150px'}} type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
+                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '150px', maxWidth: "150px", marginTop: '0px'}} /> : <img src={data.displayFile} style={{ maxHeight: '150px', maxWidth: '150px'}} />}
                         </div>
-                        <input className="submit" type='submit' value='Guardar Cambios' style={{ width: '150px', height: '50px', marginTop: '140px', marginLeft: '2px', marginRight: '150px' }} onClick={handleForm}></input>
+                        <input className="btn_guard_cambios" type='submit' value='Guardar Cambios'  onClick={handleForm}></input>
                     </div>
 
                 </form>
             </div>
-            <div className="juan" style={{ padding: '20px', height: '630px', marginLeft: '100px', marginTop: '30px', backgroundColor: 'white' }}>
-                <form className="form">
+            <div className="catesEdit">
+                <form className="formulin_cat">
                     <div>
                         {prCategories.length === 0 ? <h3 className="titulo" style={{ color: 'black' }}>El producto no tiene ninguna categoría asignada</h3> : <h3 className="titulo" style={{ color: 'black' }}> Categorias del producto:</h3>}
                         {prCategories.map((e) => <div>
@@ -206,7 +207,7 @@ export default function EditOrDelete() {
                                 {e.name}
                             </label>
 
-                            <button className="submit" value={e.id} style={{ width: '40px', height: '25px', fontSize: '15px', marginLeft: '100px' }} onClick={handleDelete}>X</button>
+                            <button className="submit" value={e.id} style={{ width: '40px', height: '25px', fontSize: '15px', marginLeft: '100px', marginBottom: '380px'}} onClick={handleDelete}>X</button>
                         </div>
                         )
                         }

@@ -32,7 +32,9 @@ import SeguridadUser from './componentes/SeguridadUser'
 import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
+import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
 import ProductReviews from './componentes/ProductReviews'
+
 
 
 
@@ -125,6 +127,11 @@ function App() {
         render={() => <AdminProducto
         />}
       />
+      <Route
+    exact path= '/admin/products'
+    render={() => <SuperSimpleNavbarAd
+    />}
+    />    
 
       <Route
         exact path='/admin/products'
@@ -234,9 +241,6 @@ function App() {
     render={() => <ProductReviews
     />}
     />
-
-            
-
 
     </Router>
 

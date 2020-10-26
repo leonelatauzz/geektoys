@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { getPurchaseData, getOrderProducts, getA } from '../Redux/Actions/actions'
-
+import SuperSimpleNavbarAd from './SuperSimpleNavbarAdmin'
 
 export default function TablaOrden() {
   const dispatch = useDispatch();
@@ -106,6 +106,7 @@ export default function TablaOrden() {
   return (
 
     <div>
+       <SuperSimpleNavbarAd />
       <div class='container100'>
         <div class='le100'>
           <h1 class='h1100'>Tabla De Ordenes</h1>
