@@ -21,6 +21,10 @@ module.exports = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
+        state:{
+            type: DataTypes.STRING,
+            defaultValue: "alta" 
+        }
     })
     return Adress;
 };

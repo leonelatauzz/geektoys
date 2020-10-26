@@ -5,27 +5,28 @@ import { BrowserRouter as Router, Route, useHistory, useParams } from 'react-rou
 import Nat from './navbar'
 import Footer from './Footer'
 import { useSelector } from "react-redux";
+import pokemon from './images/lugia-pokemon-2.webp'
 
 
 export default function Order() {
-    const userData = useSelector(state => state.userId);     
+    const userData = useSelector(state => state.userId);
     const history = useHistory();
     const params = useParams();
 
 
-    const handleClick = (e) =>{        
-        if(e.target.value === 'ordenes'){
+    const handleClick = (e) => {
+        if (e.target.value === 'ordenes') {
             history.push(`/user/${params.id}/order/${userData.name}/orderUser`)
         }
-        if(e.target.value === 'seguridad'){
+        if (e.target.value === 'seguridad') {
             history.push(`/user/${params.id}/order/${userData.name}/segurity`)
 
         }
-        if(e.target.value === 'privacidad'){
-            history.push(`/user/${params.id}/privacity`)
-        }
+        /*   if(e.target.value === 'privacidad'){
+             history.push(`/user/${params.id}/privacity`)
+         } */
 
-        
+
     }
 
 
@@ -82,42 +83,3 @@ export default function Order() {
         </div>
     )
 }
-
-/*
-<Col sm={3}>
-                    <div className="div_desplegable" style={{display:'flex' ,margin:'20px'}}>
-                        <Accordion defaultActiveKey="0">
-                        <h4 style={{margin: ' 5px 0px 20px 20px'}}>{userData.name} {userData.lastname}</h4>
-                            <Card>
-
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="0" >
-                                        <span> Compras </span>
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body> Ordenes </Card.Body>
-                                </Accordion.Collapse>
-                                <Accordion.Collapse eventKey="0">
-                                    <Card.Body> Preguntas </Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                            <Card>
-                                <Card.Header>
-                                    <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                        <span> Configuracion </span>
-                                    </Accordion.Toggle>
-                                </Card.Header>
-                                <Accordion.Collapse eventKey="1">
-                                    <Card.Body>Mis datos</Card.Body>
-                                </Accordion.Collapse>
-                                <Accordion.Collapse eventKey="1">
-                                    <Card.Body>Seguridad</Card.Body>
-                                </Accordion.Collapse>
-                            </Card>
-                        </Accordion>
-                    </div>
-                </Col>
-                <Col sm={9}>
-
-                </Col> */

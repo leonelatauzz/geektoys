@@ -8,16 +8,20 @@ import axios from 'axios'
 export default function SimpleNavbar() {
     let history = useHistory();
     const dispatch = useDispatch()
-    const userData = useSelector(state => state.userId)
+    const userData = useSelector(state => state.userId);
+    const token = useSelector(state => state.token)
 
 
-    const goDashboard = async(e) => {
+    const goDashboard = async (e) => {
         e.preventDefault();
-        const res = await axios.get(`http://localhost:3001/user/orders/${userData.id}`)
-        .then(resp => {
-            let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
-            dispatch(getUserInfo(resp.data));
-            dispatch(getActiveOrder(activeOrder))
+        const res = await axios.get(`http://localhost:3001/user/orders/getOrders`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(respo => {
+            let activeOrder = respo.data.orders.filter(ord => ord.state === "carrito")
+            dispatch(getUserInfo(respo.data));
+            dispatch(getActiveOrder(activeOrder));
         })
         history.push(`/user/${userData.id}/order`)
     }

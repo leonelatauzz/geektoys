@@ -1,12 +1,36 @@
+input[type="radio"]{
+   display:none;
+}
+
+.star{
+   cursor: pointer;
+   transition: color 200ms;
+}
 .review{
-   height: 200px;
-   width: 95%;
-   padding: 20px;
-   border-radius: 10px;
-   background-color: white;
-   margin:40px; 
-   color: black;
+   display: flex;
+      align-items: center;
+      margin-top:10vw;
+      margin-left: 34vw;
+      box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+      border-radius: 5px;
+      border: 0.25px gray solid;
+      width: 32vw;
+      height: 250px;
+  
+}
+.puntaje{
+   margin-left: 10px;
 }
 .review h1{
    font-size: 30px;
+   color: #D90429;
+   margin:10px;
+}
+.review h5{
+   font-size: 20px;
+   color: black;
+   margin-left:12px;
+}
+input{
+   margin: 10px;
 }

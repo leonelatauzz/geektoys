@@ -79,9 +79,6 @@ const addRelation = async(e) => {
 
 
 const handleAmount =(e) => {
-  if(e.target.value > producItem.stock) {
-    alert(`Este producto solo tiene ${producItem.stock} unidades disponibles`)
-  }
   setData({
     ...data,
     amount: e.target.value
@@ -110,7 +107,7 @@ const handleAmount =(e) => {
             {data.fav === false ? <img onClick={handleEH} class='fav' src={eHeart}/> : <img onClick={handleFH} class='fullFav' src={fHeart}/>}
             </div>
             <div class='contCount' className= "union">
-            {loggedIn === false ? <input className='Contadorsin' class='counter' type='number' onChange={handleAmount} value={data.amount}/>  : <input className='Contadorsin' class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
+            {loggedIn === false ? <span></span>  : <input className='Contadorsin' class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
             {loggedIn === false ? <button type="button" className="btn4" style={{width: '150px', margin: '20px 0px 0px 20px' }} onClick={sendProduct}>Agregar al Carrito</button> : <button style={{width: '150px', margin: '20px 0px 0px 20px' }} type="button" className="btn4" onClick={addRelation}>Agregar al Carrito</button>}
             </div>
             </div>

@@ -1,37 +1,57 @@
+require('dotenv').config()
 const server = require('express').Router();
-const { User, Product, Order, cart, Adress } = require('../db.js');
+const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
-const crypto = require('crypto')
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken')
 
-
+function authenticateToken(req, res, next) {
+  const authHeader = req.headers['authorization']
+  const token = authHeader && authHeader.split(' ')[1];
+  if (!token) {
+    res.sendStatus(401)
+  }
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+    if (err) {
+      res.sendStatus(403)
+    }
+    req.user = user;
+    next()
+  })
+}
 
 
 server.post('/login', (req, res) => {
+  const userName = req.body.email;
+  const user = { name: userName }
   User.findOne({
     where: {
       email: req.body.email,
-    }, include: Order
-  }).then(user => {
-    if (!user) {
+    }
+  }).then(usera => {
+    if (!usera) {
       res.send('Datos incorrectos')
       return;
     }
-    let userSalt = user.dataValues.salt
+    let userSalt = usera.dataValues.salt
     const contra = req.body.password
     const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
     const password = key.toString('hex')
-    if (password !== user.dataValues.password) {
+    if (password !== usera.dataValues.password) {
       res.send("Datos incorrectos")
       return;
     }
-    res.json(user)
+    const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+    res.json({ accessToken: accessToken })
+  }).catch(err => {
+    console.log(err)
   })
 })
 
-server.get('/orders/:userId', (req, res) => {
+server.get('/orders/getOrders', authenticateToken, (req, res) => {
   User.findOne({
     where: {
-      id: req.params.userId
+      email: req.user.name
     }, include: Order
   }).then(user => {
     if (!user) {
@@ -86,11 +106,12 @@ server.get("/:id/orders", (req, res) => {
 })
 
 server.post('/', (req, res) => {
+  const userName = req.body.email;
+  const user = { name: userName }
   const salt = crypto.randomBytes(32).toString('hex')
   const contra = req.body.password
   const key = hash.pbkdf2Sync(contra, salt, 100000, 64, 'sha512');
   const password = key.toString('hex')
-  console.log(salt)
   User.findOne({
     where: {
       email: req.body.email
@@ -107,12 +128,15 @@ server.post('/', (req, res) => {
         role: "user",
         salt: salt,
         state: "alta"
-      }).then((user) => {
-        if (!user) {
+      }).then((usero) => {
+        if (!usero) {
           res.status(404).json({ error: 'no se pudo crear el usuario' })
         } else {
-          res.status(200).json(user)
+          const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+          res.json({ accessToken: accessToken })
         }
+      }).catch(err => {
+        console.log(err)
       })
     }
   })
@@ -191,7 +215,6 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
 
 
 server.post('/newAdress/:userId', (req, res) => {
-  console.log(req.body)
   Adress.create({
     firstLine: req.body.firstLine,
     secondLine: req.body.secondLine,
@@ -234,7 +257,7 @@ server.get('/adress/edit/:adressId', (req, res) => {
       id: req.params.adressId
     }
   }).then(adress => {
-    if(!adress) {
+    if (!adress) {
       res.status(404).send('Dirección no encontrada')
       return;
     }
@@ -254,7 +277,7 @@ server.put('/editAdress/:userId/:adressId', (req, res) => {
       adress.district = req.body.district,
       adress.postalCode = req.body.postalCode,
       adress.save();
-      res.send('Exito')
+    res.send('Exito')
   })
 })
 
@@ -265,7 +288,7 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
       id: req.params.adressId
     }
   }).then(adress => {
-    if(!adress) {
+    if (!adress) {
       res.status(404).send('Dirección no encontrada')
     }
     adress.destroy();
@@ -278,13 +301,13 @@ server.put('/:userId/Promote', (req, res) => {
     where: {
       id: req.params.userId
     }
-  }).then (users => {
-    if(!users) {
+  }).then(users => {
+    if (!users) {
       res.status(404).send('Usuario No Encontrado')
     }
-  
+
     users.role = 'Admin',
-    users.save();
+      users.save();
     res.send(users)
   })
 })
@@ -294,16 +317,73 @@ server.put('/:userId/Despromote', (req, res) => {
     where: {
       id: req.params.userId
     }
-  }).then (users => {
-    if(!users) {
+  }).then(users => {
+    if (!users) {
       res.status(404).send('Usuario No Encontrado')
     }
-  
+
     users.role = 'User',
-    users.save();
+      users.save();
     res.send(users)
   })
 })
+
+
+server.put('/:iduser/baja', (req, res) => {
+  User.findByPk(req.params.iduser)
+    .then(user => {
+      if (!user) {
+        res.status(404).send("no se encontro usuario")
+      } else {
+        user.state = "Baja"
+        user.save()
+        res.status(201).send(user)
+      }
+    })
+})
+
+server.put('/:idAdress/adress/baja', (req, res) => {
+  Adress.findByPk(req.params.idAdress)
+    .then(adress => {
+      if (!adress) {
+        res.status(404).send("no se encontro la direccion")
+      } else {
+        adress.state = "Baja"
+        adress.save()
+        res.status(201).send(adress)
+      }
+    })
+})
+
+server.get('/baja', (req, res) => {
+  UserDisabled.findAll()
+    .then(user => {
+      res.status(200).send(user)
+    })
+})
+
+server.post('/:userId/motivo/baja', (req, res) => {
+  UserDisabled.create({
+    message: req.body.message,
+    valoration: req.body.valoration,
+    userId: req.params.userId
+  }).then(user => {
+    User.findOne({
+      where: {
+        id: req.params.userId
+      }, include: UserDisabled
+    }).then(user => {
+      if (!user) {
+        res.send('Datos incorrectos')
+        return;
+      }
+      res.json(user)
+    })
+  })
+})
+
+
+
 
 
 module.exports = server;

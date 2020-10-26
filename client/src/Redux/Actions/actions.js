@@ -105,6 +105,29 @@ export const getOrderProducts = function(props){
         payload: props
     }
 }
+export const getReviewProducts = function(props){
+    return{
+        type: 'GET_REVIEW_PRODUCTS',
+        payload: props
+    }
+}
+
+export const removeFromCart = function(props){
+    return{
+        type: 'REMOVE_FROM_CART',
+        payload: props
+    }
+}
+export const getToken = function(props){
+    return{
+        type: 'GET_TOKEN',
+        payload: props
+    }
+}
+
+
+
+
 
 
 

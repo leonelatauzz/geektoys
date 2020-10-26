@@ -134,29 +134,6 @@ server.put("/category/:id", (req, res) => {
   })
 })
 
-server.put('/:id/review/:idReview', (req,res) => {
-  const {rating,description} = req.body;
-    Product.findByPk(req.params.id)
-    .then(product =>{
-      if(!product){
-        res.status(404).send('Producto no encontrado');
-      }else{
-        Review.findByPk(req.params.idReview)
-        .then(review => {
-          if(!review){
-            res.status(404).send('Review no encontrada');
-          }else{        
-          review.rating = rating;
-          review.description = description;
-          review.save();
-          res.status(201).send('La review fue modificada correctamente');
-          }
-        })
-      }
-    })
-})
-
-
 server.put("/:id", upload.single('images'), (req, res) => {
   let pic;
   let product;
@@ -215,5 +192,10 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
+// Reviews
 
+
+      
+
+ 
 module.exports = server;

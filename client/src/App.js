@@ -29,9 +29,12 @@ import AgregarDireccion from './componentes/AgregarDireccion';
 import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
+import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
 import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
+import ProductReviews from './componentes/ProductReviews'
+
 
 
 
@@ -211,8 +214,10 @@ function App() {
         render={() => <SeguridadUser
         />}
       />
-      <Route
-        exact path='/products/prod/:id'
+
+ 
+       <Route
+        exact path='/review'
         render={() => <Review
         />}
       />
@@ -228,6 +233,12 @@ function App() {
     <Route
     exact path= '/admin/promote'
     render={() => <UseraAdmin
+    />}
+    />
+
+<Route
+    exact path= '/products/prod/:id'
+    render={() => <ProductReviews
     />}
     />
 
