@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfo, getActiveOrder, logIn, getDbCart, resetCart, getToken } from '../Redux/Actions/actions'
+import { getUserInfo, getActiveOrder, logIn, getDbCart, resetCart, getToken, getFavorites } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2';
 import SuperSimpleNavbar from './SuperSimpleNavbar'
 
@@ -79,30 +79,35 @@ export default function Login() {
                           no-repeat
                         `
                     })
-                    if (cart.length > 0) {
-                        cart.map(async (item) => {
-                            let json = {
-                                idOrder: activeOrder[0].id,
-                                idProduct: item.id,
-                                price: item.price,
-                                amount: 1
-                            }
-                            const res = await axios.post(`http://localhost:3001/user/${respo.data.id}/cart`, json, {
-                                headers: {
-                                    'Content-Type': 'application/json'
-                                }
-                            })
-                        })
-                        const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
-                            .then(resp => {
-                                let products = Object.values(resp.data)
-                                dispatch(getDbCart(products))
-                                dispatch(resetCart())
+                    const rusp = await axios.get(`http://localhost:3001/products/favorites/${respo.data.id}`)
+                        .then(async(repi) => {
+                            let favs = Object.values(repi.data)
+                            dispatch(getFavorites(favs))
+                            if (cart.length > 0) {
+                                cart.map(async (item) => {
+                                    let json = {
+                                        idOrder: activeOrder[0].id,
+                                        idProduct: item.id,
+                                        price: item.price,
+                                        amount: 1
+                                    }
+                                    const res = await axios.post(`http://localhost:3001/user/${respo.data.id}/cart`, json, {
+                                        headers: {
+                                            'Content-Type': 'application/json'
+                                        }
+                                    })
+                                })
+                                const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                                    .then(resp => {
+                                        let products = Object.values(resp.data)
+                                        dispatch(getDbCart(products))
+                                        dispatch(resetCart())
+                                        history.push(`/user/${respo.data.id}/order`)
+                                    })
+                            } else {
                                 history.push(`/user/${respo.data.id}/order`)
-                            })
-                    } else {
-                        history.push(`/user/${respo.data.id}/order`)
-                    }
+                            }
+                        })
                 }
             })
         })

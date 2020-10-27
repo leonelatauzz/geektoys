@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
-import { getAProduct, getProducts, getPID } from '../Redux/Actions/actions'
+import { getAProduct, getProducts, getPID, getFavorites } from '../Redux/Actions/actions'
 import eHeart from './images/emp.png';
 import fHeart from './images/cl.png';
 import { Card } from 'react-bootstrap'
@@ -10,10 +10,15 @@ import { Card } from 'react-bootstrap'
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard(props) {
     const history = useHistory();
+    const favs = useSelector(state => state.favorites)
+    const userData = useSelector(state => state.userId)
     const dispatch = useDispatch();
-    const [data, setData] = useState({
-        fav: false
-    });
+    const [favos, setFavos] = useState(false)
+    const [faves, setFaves] = useState(false)
+    let prueba = []
+    favs.forEach(it => {
+        prueba.push(it.id)
+    })
 
     function setStock(props) {
         return props.stock == 0 ? 'Producto sin stock'
@@ -29,28 +34,35 @@ export default function ProductCard(props) {
         history.push(`/products/prod/${props.id}`);
     }
 
-    const handleEH = (e) => {
+    const handleEH = async (e) => {
         e.preventDefault();
-        setData({
-            ...data,
-            fav: true
-        })
+        const res = await axios.post(`http://localhost:3001/products/${props.id}/favorites/${userData.id}`)
+            .then(() => {
+                setFaves(true);
+                setFavos(true)
+            })
     }
 
-    const handleFH = (e) => {
+    const handleFH = async (e) => {
         e.preventDefault();
-        setData({
-            ...data,
-            fav: false
-        })
+        const res = await axios.delete(`http://localhost:3001/products/${props.id}/favorites/${userData.id}`)
+            .then(() => {
+                setFaves(true)
+                setFavos(false)
+                if (window.location.href.indexOf("favorites") != -1) {
+                    props.reload()
+                }
+                
+            })
+        
     }
 
 
 
     return (
-        <Card class='card103' style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: '5vh'}}>
-            <div onClick={handle} style={{height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', cursor: 'pointer'}}>
-                <Card.Img  style={{ padding: '20px' }} variant="top" src={`http://localhost:3001/uploads/${props.picture}`} />
+        <Card class='card103' style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: '5vh' }}>
+            <div onClick={handle} style={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center', cursor: 'pointer' }}>
+                <Card.Img style={{ padding: '20px' }} variant="top" src={`http://localhost:3001/uploads/${props.picture}`} />
             </div>
             <div>
                 <Card.Body>
@@ -62,7 +74,10 @@ export default function ProductCard(props) {
                 <Card.Footer style={{ display: 'flex', justifyContent: 'space-between', height: '10vh' }}>
                     <h2 style={{ color: '#D90429', alignSelf: 'center' }}>${props.price}</h2>
                     <div class="divBoton" style={{ cursor: 'pointer', }} >
-                        {data.fav === false ? <img onClick={handleEH} class='emptyLike' src={eHeart} /> : <img onClick={handleFH} class='fullLike' src={fHeart} />}
+                        {prueba.includes(props.id) && faves === false && <img onClick={handleFH} class='fullLike' src={fHeart} />}
+                        {!(prueba.includes(props.id)) && faves === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}
+                        {faves === true && favos === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}
+                        {faves === true && favos === true && <img onClick={handleFH} class='fullLike' src={fHeart} />}
                         <span role="button" tabindex="0"></span>
                     </div>
                 </Card.Footer>

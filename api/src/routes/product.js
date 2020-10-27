@@ -1,6 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-const { Category } = require('../db.js')
+const { Product, Category, User } = require('../db.js');
 const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
@@ -192,9 +191,61 @@ server.delete("/:id", (req, res) => {
     return;
   })
 })
-// Reviews
 
+server.post('/:idProducto/favorites/:idUsuario', (req, res) => {
+  Product.findByPk(req.params.idProducto)
+    .then((prod) => {
+      if (!prod) {
+        res.status(404).json({ error: 'Producto no encontrado' })
+        return;
+      } 
+      User.findByPk(req.params.idUsuario).then((user) => {
+        if (!user) {
+          res.status(404).json({ error: 'Usuario no encontrado' })
+          return;
+        }
+        user.addProduct(prod);
+        res.send('Producto agregado correctamente')
+        return;
+      });
+    })
+})
 
+server.get('/favorites/:idUsuario', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.idUsuario
+    },
+    include: Product
+  })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send('Usuario no encontrado')
+      }
+      let resolve = user.dataValues.products;
+      let obj = Object.assign({}, resolve)
+      res.json(obj);
+    })
+})
+
+server.delete('/:idProducto/favorites/:idUsuario', (req, res) => {
+  Product.findByPk(req.params.idProducto)
+    .then((prod) => {
+      if (!prod) {
+        res.status(404).json({ error: 'Producto no encontrado' })
+        return;
+      }
+      User.findByPk(req.params.idUsuario).then((user) => {
+        if (!user) {
+          res.status(404).json({ error: 'Usuario no encontrado' })
+          return;
+        }
+        user.removeProduct(prod);
+        res.send(`>> Se eliminó el usuario id=${req.params.idUsuario} al Producto id=${req.params.idProducto}`);
+        return;
+      });
+    })
+})
       
 
  

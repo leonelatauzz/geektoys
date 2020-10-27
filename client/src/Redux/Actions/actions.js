@@ -130,6 +130,13 @@ export const getPID = function(props){
         payload: props
     }
 }
+export const getFavorites = function(props){
+    return{
+        type: 'GET_FAVORITES',
+        payload: props
+    }
+}
+
 
 
 
