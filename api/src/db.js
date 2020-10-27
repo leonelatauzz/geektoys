@@ -84,6 +84,14 @@ User.hasMany(UserDisabled,{
   foreignKey: "userId"
 })
 
+Product.belongsToMany(User, {
+  through: 'favorite'
+});
+
+User.belongsToMany(Product, {
+  through: 'favorite'
+});
+
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

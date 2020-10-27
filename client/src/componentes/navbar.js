@@ -3,9 +3,10 @@ import axios from 'axios';
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, useHistory } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getCategories, getToken, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
+import { getFavorites, getCategories, getToken, getProducts, getDbCart, logOut, getUserInfo, getActiveOrder, resetCart } from '../Redux/Actions/actions'
 import image from './images/carrito.png';
 import Swal from 'sweetalert2';
+import fHeart from './images/cl.png';
 
 
 export default function Navbar() {
@@ -158,6 +159,16 @@ export default function Navbar() {
         })
     }
 
+    const favs = async (e) => {
+        e.preventDefault();
+        const rusp = await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+            .then(resp => {
+                let favs = Object.values(resp.data)
+                dispatch(getFavorites(favs))
+                history.push(`/favorites/${userData.id}`)
+            })
+    }
+
     function titleCase(str) {
         var splitStr = str.toLowerCase().split(' ');
         for (var i = 0; i < splitStr.length; i++) {
@@ -201,11 +212,16 @@ export default function Navbar() {
                     </li>
                 </ul>
                 <div style={{ display: "flex" }}>
-                    {loggedIn === false ? <div style={{ display: "flex" }}> <button className="nav-link" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
-                        <button className="nav-link" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{ display: 'flex' }}><button onClick={goDashboard} className="nav-link" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="nav-link" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
-                    <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                    <div style={{ display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
                         <img onClick={carrito} src={image} style={{ width: "40px", height: "4vh" }} role="button" tabindex="0" />
                     </div>
+                    {loggedIn === true &&
+                        <div style={{ display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
+                            <img onClick={favs} src={fHeart} style={{ width: "3vh", height: "3vh", alignSelf: 'center' }} role="button" />
+                        </div>
+                    }
+                    {loggedIn === false ? <div style={{ display: "flex" }}> <button className="nav-link" style={{ marginRight: "20px" }} onClick={singIn}> Registrarse</button>
+                        <button className="nav-link" style={{ marginRight: "30px" }} onClick={logIn}>Ingresar</button></div> : <div style={{ display: 'flex' }}><button onClick={goDashboard} className="nav-link" style={{ marginRight: "30px" }}>Mi Usuario</button> <button className="nav-link" style={{ marginRight: "30px" }} onClick={salir}>Salir</button> </div>}
                 </div>
             </div>
         </nav>

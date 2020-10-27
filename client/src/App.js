@@ -33,7 +33,8 @@ import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
 import UseraAdmin from './componentes/useraAdmin';
 import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
-import ProductReviews from './componentes/ProductReviews'
+import ProductReviews from './componentes/ProductReviews';
+import Favorites from './componentes/favorite'
 
 
 
@@ -128,10 +129,10 @@ function App() {
         />}
       />
       <Route
-    exact path= '/admin/products'
-    render={() => <SuperSimpleNavbarAd
-    />}
-    />    
+        exact path='/admin/products'
+        render={() => <SuperSimpleNavbarAd
+        />}
+      />
 
       <Route
         exact path='/admin/products'
@@ -215,8 +216,8 @@ function App() {
         />}
       />
 
- 
-       <Route
+
+      <Route
         exact path='/review'
         render={() => <Review
         />}
@@ -226,21 +227,29 @@ function App() {
         exact path='/admin/selectedOrder/:idOrden'
         render={() => <AdminDetalleOrder
         />}
- 
+
       />
-    
 
-    <Route
-    exact path= '/admin/promote'
-    render={() => <UseraAdmin
-    />}
-    />
 
-<Route
-    exact path= '/products/prod/:id'
-    render={() => <ProductReviews
-    />}
-    />
+      <Route
+        exact path='/admin/promote'
+        render={() => <UseraAdmin
+        />}
+      />
+
+      <Route
+        exact path='/products/prod/:id'
+        render={() => <ProductReviews
+        />}
+      />
+
+      <Route
+        exact path='/favorites/:idUser'
+        render={() => <Favorites
+        />}
+      />
+
+
 
     </Router>
 
