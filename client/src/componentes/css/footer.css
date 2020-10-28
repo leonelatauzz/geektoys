@@ -9,34 +9,37 @@
 
 .footer_div_container {
     display: flex;
-    padding: 30px;
-    justify-content: space-between;
+    padding: 30px;    
     color: black;
 }
 
 .company {
-    margin-left: 60px;
-    width: 40%;
-    margin-right:20px ;
-    font-size: 17px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 100px;
+    margin-top: 30px;    
+    font-size: 30px;
+    align-items: center;
+    text-align: center;
+    margin-right:80px ;
 }
 
 .products {
-    margin-right:60px ;
+    margin-right:80px ;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .contact {
-    margin-right:60px ;
+    margin-right:50px ;    
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .links {
-    margin-right:60px ;
+    margin-right:80px ;
     display: flex;
     flex-direction: column;
     align-items: center;
