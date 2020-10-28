@@ -7,18 +7,36 @@ import { getFavorites, getCategories, getToken, getProducts, getDbCart, logOut, 
 import image from './images/carrito.png';
 import Swal from 'sweetalert2';
 import fHeart from './images/cl.png';
+import eC from './images/empC.png'
 
 
 export default function Navbar() {
-    const loggedIn = useSelector(state => state.loggedIn)
-    const token = useSelector(state => state.token)
-    const userData = useSelector(state => state.userId)
-    let history = useHistory();
-    const dispatch = useDispatch();
-    const categoria = useSelector(state => state.categories)
+    const categoria = useSelector(state => state.categories);
+    const dbCart = useSelector(state => state.dbCart);
+    const cart = useSelector(state => state.cart);
     const [busq, setBusq] = useState([]);
     const activeOrder = useSelector(state => state.activeOrder);
+    const loggedIn = useSelector(state => state.loggedIn);
+    const token = useSelector(state => state.token);
+    const userData = useSelector(state => state.userId);
+    let history = useHistory();
+    const dispatch = useDispatch();
+    const [dc, setDc] = useState([])
+    const [c, setC] = useState([])
 
+    useEffect(() => {
+        async function makeRequests() {
+            if (loggedIn === true) {
+                await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                    .then(resp => {
+                        let products = Object.values(resp.data)
+                        dispatch(getDbCart(products))
+                        setDc(products)
+                    })
+            }
+        }
+        makeRequests();
+    }, []);
 
 
     const handleChange = async (event) => {
@@ -113,6 +131,7 @@ export default function Navbar() {
         if (loggedIn === false) {
             history.push(`/guest/carrito`)
         } else if (loggedIn === true) {
+            console.log(activeOrder[0].id)
             const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
                 .then(resp => {
                     let products = Object.values(resp.data)
@@ -144,6 +163,7 @@ export default function Navbar() {
         dispatch(getUserInfo([]))
         dispatch(getActiveOrder([]))
         dispatch(resetCart())
+        dispatch(getDbCart([]))
         history.push('/')
         Swal.fire({
             title: 'Usuario Desloguedo, ¡Nos vemos pronto!',
@@ -212,9 +232,28 @@ export default function Navbar() {
                     </li>
                 </ul>
                 <div style={{ display: "flex" }}>
-                    <div style={{ display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
-                        <img onClick={carrito} src={image} style={{ width: "40px", height: "4vh" }} role="button" tabindex="0" />
-                    </div>
+                    {loggedIn === true && dc.length === 0 &&
+                        <div onClick={carrito} style={{ cursor: 'pointer', display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
+                            <img src={image} style={{ width: "40px", height: "4vh" }} role="button" />
+                        </div>
+                    }
+                    {loggedIn === false && cart.length === 0 &&
+                        <div onClick={carrito} style={{ cursor: 'pointer', display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
+                            <img src={image} style={{ width: "40px", height: "4vh" }} role="button" />
+                        </div>
+                    }
+                    {loggedIn === true && dc.length > 0 &&
+                        <div onClick={carrito} style={{ cursor: 'pointer', display: "flex", flexDirection: 'column', marginRight: '1.5vw', marginTop: '10px' }}>
+                            <h6 style={{ width: '25px', textAlign: 'center', position: 'absolute', marginLeft: '11px', color: '#D90429' }}>{dc.length}</h6>
+                            <img src={eC} style={{ width: "40px", height: "35px", margin: '0' }} role="button" />
+                        </div>
+                    }
+                    {loggedIn === false && cart.length > 0 &&
+                        <div onClick={carrito} style={{ display: "flex", flexDirection: 'column', marginRight: '1.5vw', marginTop: '10px', cursor: 'pointer' }}>
+                            <h6 style={{ width: '25px', textAlign: 'center', position: 'absolute', marginLeft: '11px', color: '#D90429' }}>{cart.length}</h6>
+                            <img src={eC} style={{ width: "40px", height: "35px", margin: '0' }} role="button" />
+                        </div>
+                    }
                     {loggedIn === true &&
                         <div style={{ display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
                             <img onClick={favs} src={fHeart} style={{ width: "3vh", height: "3vh", alignSelf: 'center' }} role="button" />

@@ -99,7 +99,6 @@ export default function Registro() {
     }, [data.email])
 
     useEffect(() => {
-        console.log("hola")
         if (/[$%&|{}.,()+-<>?¿'"!¡#]/.test(data.lastName)) {
             setErrors({
                 ...errors,
@@ -178,6 +177,8 @@ export default function Registro() {
                                     }
                                 })
                             })
+                            dispatch(resetCart())
+                            console.log(activeOrder[0].id)
                             const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
                                 .then(respe => {
                                     let products = Object.values(respe.data)
@@ -194,7 +195,6 @@ export default function Registro() {
                                                           no-repeat
                                                         `
                                     })
-                                    dispatch(resetCart())
                                     history.push(`/user/${respi.data.id}/order`)
                                 })
                         } else {

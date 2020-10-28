@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
-import { getDbCart } from '../Redux/Actions/actions'
+import { getDbCart } from '../Redux/Actions/actions';
+import Swal from 'sweetalert2'
 
 export default function CardCarrito(props) {
     const dispatch = useDispatch();
@@ -80,12 +81,20 @@ export default function CardCarrito(props) {
         e.preventDefault();
         const ris = await axios.delete(`http://localhost:3001/user/${userData.id}/cart/${e.target.value}/${activeOrder[0].id}`)
             .then(async (resp) => {
-                alert('Producto eliminado correctamente');
                 const reis = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
                     .then((resp) => {
                         let response = Object.values(resp.data)
                         dispatch(getDbCart(response))
-
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Producto eliminado correctamente',
+                            showConfirmButton: true
+                        }).then(respou => {
+                            if (respou.isConfirmed === true) {
+                                window.location.reload()
+                            }
+                        })
                     })
 
             })
@@ -100,7 +109,7 @@ export default function CardCarrito(props) {
                     <p>{props.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
                     <p>Cantidad a comprar:</p>
                     <div style={{ display: 'flex', justifyContent: 'space-evenly', height: '4vh', width: '12vh' }}>
-                        {loggedIn === false ? <p style={{fontSize: '2vh', marginTop: '0.5vh'}} id='comprar'>{data.amount}</p> : <p style={{fontSize: '2vh', marginTop: '0.5vh'}} id='comprar'>{data.amount}</p>}
+                        {loggedIn === false ? <p style={{ fontSize: '2vh', marginTop: '0.5vh' }} id='comprar'>{data.amount}</p> : <p style={{ fontSize: '2vh', marginTop: '0.5vh' }} id='comprar'>{data.amount}</p>}
                         <button class='DO101' style={{ width: '4vh', heigth: '3vh', margin: '0', fontSize: '25px' }} for='comprar' value={props.id + '/' + props.cart.amount} onClick={upAmount}>+</button>
                         <button class='DO101' style={{ width: '4vh', heigth: '3vh', margin: '0', fontSize: '25px' }} for='comprar' value={props.id + '/' + props.cart.amount} onClick={downAmount}>-</button>
                     </div>

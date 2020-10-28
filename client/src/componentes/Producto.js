@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import eHeart from './images/emp.png';
 import fHeart from './images/cl.png';
-import { deliverToCart, getFavorites } from '../Redux/Actions/actions';
+import { deliverToCart, getFavorites, getDbCart } from '../Redux/Actions/actions';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import Swal from 'sweetalert2'
@@ -23,21 +23,21 @@ export default function Productos() {
   const [favis, setFavis] = useState([])
   const [favos, setFavos] = useState(false)
   const [faves, setFaves] = useState(false)
-  
+
 
   useEffect(() => {
     async function makeRequests() {
 
-        await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+      await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
         .then(resp => {
-            let faves = Object.values(resp.data)
-            dispatch(getFavorites(faves))
-            setFavis(faves)
+          let faves = Object.values(resp.data)
+          dispatch(getFavorites(faves))
+          setFavis(faves)
         })
     }
     makeRequests();
-}, []);
-let prueba = []
+  }, []);
+  let prueba = []
   favis.forEach(it => {
     prueba.push(it.id)
   })
@@ -95,15 +95,25 @@ let prueba = []
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(resp => {
+    }).then(async (resp) => {
       if (resp.data === 'Exito') {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Producto agregado correctamente',
-          showConfirmButton: false,
-          timer: 1500
-        })
+        const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+          .then(respi => {
+            let products = Object.values(respi.data)
+            dispatch(getDbCart(products))
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Producto agregado correctamente',
+              showConfirmButton: true
+            }).then(respou => {
+              if (respou.isConfirmed === true) {
+                window.location.reload()
+              }
+            }) 
+
+          })
+
       }
     })
 
