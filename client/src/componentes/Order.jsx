@@ -53,7 +53,7 @@ export default function Order() {
                             </Card.Body>
                         </Card>
                     </div>
-                    <div style={{ marginLeft: '50px' }}>
+{/*                     <div style={{ marginLeft: '50px' }}>
                         <Card style={{ width: '15rem' }}>
                             <Card.Img variant="top" src="https://i.imgur.com/du1UGbF.jpg" />
                             <Card.Body>
@@ -64,10 +64,10 @@ export default function Order() {
                                 <Button style={{marginLeft: '60px'}} onClick= {handleClick} value="privacidad" variant="danger">Ver más</Button>
                             </Card.Body>
                         </Card>
-                    </div>
+                    </div> */}
                     <div style={{ marginLeft: '50px' }}>
                         <Card style={{ width: '15rem' }}>
-                            <Card.Img variant="top" src="https://i.imgur.com/n12K3dz.jpg" />
+                            <Card.Img variant="top" src="https://i.imgur.com/du1UGbF.jpg" />
                             <Card.Body >
                                 <Card.Title style={{color:'red', textAlign:'center', margin:'1rem', padding:'1rem'}}>Seguridad</Card.Title>
                                 <Card.Text style={{textAlign:'center', margin:'1rem', padding:'1rem'}}>
