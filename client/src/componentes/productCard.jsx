@@ -10,13 +10,25 @@ import { Card } from 'react-bootstrap'
 // se crea diseño de productos en una card utilizando bootstrap
 export default function ProductCard(props) {
     const history = useHistory();
-    const favs = useSelector(state => state.favorites)
     const userData = useSelector(state => state.userId)
     const dispatch = useDispatch();
+    const [favis, setFavis] = useState([])
     const [favos, setFavos] = useState(false)
     const [faves, setFaves] = useState(false)
+    useEffect(() => {
+        async function makeRequests() {
+
+            await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+                .then(resp => {
+                    let faves = Object.values(resp.data)
+                    dispatch(getFavorites(faves))
+                    setFavis(faves)
+                })
+        }
+        makeRequests();
+    }, []);
     let prueba = []
-    favs.forEach(it => {
+    favis.forEach(it => {
         prueba.push(it.id)
     })
 
@@ -37,24 +49,33 @@ export default function ProductCard(props) {
     const handleEH = async (e) => {
         e.preventDefault();
         const res = await axios.post(`http://localhost:3001/products/${props.id}/favorites/${userData.id}`)
-            .then(() => {
-                setFaves(true);
-                setFavos(true)
+            .then(async () => {
+                const reishh = await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+                    .then(resp => {
+                        let faves = Object.values(resp.data)
+                        dispatch(getFavorites(faves));
+                        setFaves(true);
+                        setFavos(true);
+                    })
             })
     }
 
     const handleFH = async (e) => {
         e.preventDefault();
         const res = await axios.delete(`http://localhost:3001/products/${props.id}/favorites/${userData.id}`)
-            .then(() => {
-                setFaves(true)
-                setFavos(false)
-                if (window.location.href.indexOf("favorites") != -1) {
-                    props.reload()
-                }
-                
+            .then(async () => {
+                const reish = await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+                    .then(resp => {
+                        let faves = Object.values(resp.data)
+                        dispatch(getFavorites(faves));
+                        setFaves(true)
+                        setFavos(false)
+                        if (window.location.href.indexOf("favorites") != -1) {
+                            props.reload()
+                        }
+                    })
             })
-        
+
     }
 
 
@@ -73,7 +94,7 @@ export default function ProductCard(props) {
                 </Card.Body>
                 <Card.Footer style={{ display: 'flex', justifyContent: 'space-between', height: '10vh' }}>
                     <h2 style={{ color: '#D90429', alignSelf: 'center' }}>${props.price}</h2>
-                    <div class="divBoton" style={{ cursor: 'pointer', }} >
+                    <div class="divBoton" style={{ cursor: 'pointer', marginLeft: '16vw' }} >
                         {prueba.includes(props.id) && faves === false && <img onClick={handleFH} class='fullLike' src={fHeart} />}
                         {!(prueba.includes(props.id)) && faves === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}
                         {faves === true && favos === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}

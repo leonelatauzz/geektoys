@@ -34,19 +34,19 @@
     border: 1px solid black;
 }
 .emptyLike {
-    height: 30px;
-    margin: 20px 0px 0px 70px;
+    height: 40px;
+    align-self: center;
 }
 .emptyLike:hover {
-    height: 33px;
+    height: 43px;
 }
 .fullLike {
-    height: 32px;
-    margin: 20px 0px 0px 70px;
+    height: 42px;
+    align-self: center;
 
 }
 .fullLike:hover {
-    height: 35px;
+    height: 45px;
 }
 
 .informacion{
