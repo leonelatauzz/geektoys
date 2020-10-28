@@ -5,7 +5,9 @@ import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
 import { removeFromCart } from '../Redux/Actions/actions'
 import Nat from './navbar'
-import Footer from './Footer'
+import Footer from './Footer';
+import Swal from 'sweetalert2'
+
 
 
 export default function Cart() {
@@ -48,6 +50,12 @@ export default function Cart() {
       ...data,
       products: data.products.filter(item => item.id != e.target.value)
     })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Producto eliminado correctamente',
+      showConfirmButton: true
+  })
   }
 
   return (
