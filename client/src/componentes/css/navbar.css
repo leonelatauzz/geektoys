@@ -15,7 +15,7 @@ body {
     cursor: pointer;
     font-size: 19px;
     height: 4.2vh;
-    padding: 0.5vh;
+    padding: 0.5vw;
 }
 .nav-link:hover {
     background-color: whitesmoke;
