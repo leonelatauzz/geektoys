@@ -197,7 +197,7 @@ export default function ResumenCompra() {
                 }
             }).then(async () => {
                 const ras = await axios.post(`http://localhost:3001/order/${userData.id}`)
-                    .then((resp) => {
+                    .then(async (resp) => {
                         let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
                         dispatch(getActiveOrder(activeOrder))
                         let pData = {
@@ -217,8 +217,12 @@ export default function ResumenCompra() {
                             timer: 1500
                         })
                         history.push(`/aproved/${activeOrder[0].id}/${userData.id}`)
+                        const res = await axios.post('http://localhost:3001/user/send-mail',json,{
+                            headers:{
+                                'content-type': 'application/json'
+                            }
+                        })
                     })
-
             })
         }
 

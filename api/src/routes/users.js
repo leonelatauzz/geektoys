@@ -4,6 +4,7 @@ const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js')
 const hash = require('pbkdf2')
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
+const nodemailer = require("nodemailer")
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -19,6 +20,34 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
+
+server.post('/send-mail',(req,res)=>{
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,         
+      pass: process.env.PASSWORD      
+    }
+  })
+
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: 'davidagustinhemmings@gmail.com',
+    cc: process.env.EMAIL,
+    bcc: process.env.EMAIL,
+    subject: "testing",
+    text: "que onda rey ?",
+  }
+
+  transporter.sendMail(mailOptions,(err,data)=>{
+    if(err){
+      console.log(err)
+      res.status(500).send(err)
+    } else {
+      res.status(200).send("email correcto")
+    }
+  })
+})
 
 
 server.post('/login', (req, res) => {
