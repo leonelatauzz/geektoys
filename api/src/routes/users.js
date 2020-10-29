@@ -3,7 +3,10 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const upload = multer({ dest: `${__dirname}/uploads` });
+const fs = require('fs')
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -45,6 +48,28 @@ server.post('/login', (req, res) => {
     res.json({ accessToken: accessToken })
   }).catch(err => {
     console.log(err)
+  })
+})
+
+server.put("/info/:userId", upload.single('images'), (req, res) => {
+  let pic;
+  let product;
+  if (req.file) {
+    fs.renameSync(req.file.path, req.file.path + '.' + req.file.mimetype.split('/')[1])
+    pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
+    product = JSON.parse(req.body.json)
+  } else if (!req.file) {
+    product = JSON.parse(req.body.json)
+    pic = product.picture
+  }
+
+  const { name, lastname} = product;
+  User.findByPk(req.params.userId).then((us) => {
+    us.name = name;
+    us.lastname = lastname;
+    us.picture = pic
+    us.save();
+    res.status(201).send("El usuario se modifico correctamente")
   })
 })
 
