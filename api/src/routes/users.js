@@ -3,10 +3,12 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
+const nodemailer = require("nodemailer")
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const upload = multer({ dest: `${__dirname}/uploads` });
 const fs = require('fs')
+
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -22,6 +24,37 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
+
+server.post('/send-mail',(req,res)=>{
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,         
+      pass: process.env.PASSWORD      
+    }
+  })
+
+ 
+
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: req.body.email,
+    cc: process.env.EMAIL,
+    bcc: process.env.EMAIL,
+    subject: 'recibo de factura',
+    text: "Estimado cliente, desde la comunidad de GeekToys agradecemos la confianza puesta en nostros, a continuacion recibira un" + 
+    " resumen de la compra efectuda."
+  }
+
+  transporter.sendMail(mailOptions,(err,data)=>{
+    if(err){
+      console.log(err)
+      res.status(500).send(err)
+    } else {
+      res.status(200).send("email correcto")
+    }
+  })
+})
 
 
 server.post('/login', (req, res) => {
