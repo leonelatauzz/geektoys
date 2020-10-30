@@ -110,7 +110,7 @@ export default function Productos() {
               if (respou.isConfirmed === true) {
                 window.location.reload()
               }
-            }) 
+            })
 
           })
 
@@ -128,6 +128,12 @@ export default function Productos() {
       amount: e.target.value
     })
   }
+  function setStock(props) {
+    return props.stock == 0 ? 'Producto sin stock'
+      : props.stock == 1 ? 'Última unidad disponible'
+        : props.stock <= 5 ? 'Últimas ' + props.stock + ' unidades disponibles'
+          : props.stock + ' unidades disponibles';
+  }
 
 
   return (
@@ -138,23 +144,27 @@ export default function Productos() {
           <div class="imagenContainer">
             <img class="imagenP" width="160" height="50" src={`http://localhost:3001/uploads/${producItem.picture}`} />
             <div class="info">
-              <h3 class="productName">{producItem.name}</h3>
+              <h2 class="productName">{producItem.name}</h2>
               <h4 class="productPrice">${producItem.price}</h4>
               <h5 class="productDescription">{producItem.description}</h5>
-
+              <h6 style={{ marginLeft: '70px' }}>{setStock(producItem)}</h6>
               <div class='corazon' style={{ cursor: 'pointer' }}>
                 {producItem.stock === 0 ?
                   <div style={{ border: '1px solid black', borderRadius: '5px', margin: "30px 2px 3px 70px" }} ><span style={{ cursor: 'pointer' }} style={{ padding: '5px' }}>Este producto no tiene stock</span></div> : <span></span>
 
                 }
-                {prueba.includes(producItem.id) && faves === false && <img onClick={handleFH} class='fullFav' src={fHeart} />}
-                {!(prueba.includes(producItem.id)) && faves === false && <img onClick={handleEH} class='fav' src={eHeart} />}
-                {faves === true && favos === false && <img onClick={handleEH} class='fav' src={eHeart} />}
-                {faves === true && favos === true && <img onClick={handleFH} class='fullFav' src={fHeart} />}
+                <div style={{display: 'flex', height: 'min-content'}}>
+                  {loggedIn === false ? <span></span> : <input class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
+                  {loggedIn === true && data.amount == 1 && <span style={{ alignSelf: 'center', marginTop: '30px', marginLeft: '15px' }}>unidad</span>}
+                  {loggedIn === true && data.amount > 1 && <span style={{ alignSelf: 'center',  marginTop: '30px', marginLeft: '15px' }}>unidades</span>}
+                </div>
               </div>
-              <div class='contCount' className="union">
-                {loggedIn === false ? <span></span> : <input className='Contadorsin' class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
-                {loggedIn === false ? <button type="button" className="btn4" style={{ width: '150px', margin: '20px 0px 0px 20px' }} onClick={sendProduct}>Agregar al Carrito</button> : <button style={{ width: '150px', margin: '20px 0px 0px 20px' }} type="button" className="btn4" onClick={addRelation}>Agregar al Carrito</button>}
+              <div class='contCount'>
+                {loggedIn === false ? <button type="button" className="nav-link" style={{ width: '150px', margin: '10px 40px 0px 30px', height: 'min-content' }} onClick={sendProduct}>Agregar al Carrito</button> : <button class='nav-link' style={{ width: '150px', margin: '20px 40px 0px 20px', height: 'min-content' }} type="button" onClick={addRelation}>Agregar al Carrito</button>}
+                {loggedIn === true && prueba.includes(producItem.id) && faves === false && <img onClick={handleFH} class='fullFav' src={fHeart} />}
+                {loggedIn === true && !(prueba.includes(producItem.id)) && faves === false && <img onClick={handleEH} class='fav' src={eHeart} />}
+                {loggedIn === true && faves === true && favos === false && <img onClick={handleEH} class='fav' src={eHeart} />}
+                {loggedIn === true && faves === true && favos === true && <img onClick={handleFH} class='fullFav' src={fHeart} />}
               </div>
             </div>
           </div>
