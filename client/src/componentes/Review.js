@@ -41,6 +41,7 @@ export default function Review() {
         rating:e.target.value})
         
       }
+      
       const handleChange = async(e)=>{
         e.preventDefault();
         console.log(dataProduct)
@@ -50,7 +51,7 @@ export default function Review() {
            productId:dataProduct,
            userId: userData.id
         }
-        const res = await axios.post(`http://localhost:3001/review/${userData.id}/review`, json, {
+        const res = await axios.post(`http://localhost:3001/products/${userData.id}/review`, json, {
             headers: {
                 'Content-Type': 'application/json'
             }

@@ -3,19 +3,13 @@ import React from 'react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from "react-redux";
-import StarRating from './rating.js'
 import Swal from 'sweetalert2'
-import DetalleOrder from './DetalleOrder.jsx'
-import { getReviewProducts } from '../Redux/Actions/actions.js';
-
+import {useSelector, useDispatch} from 'react-redux'
+import {getReviewId } from '../Redux/Actions/actions'
 export default function ProductReviews() {
     const userData = useSelector(state => state.userId);
-    const dataProduct = useSelector(state => state.productId)
-    const reviewProducts = useSelector(state => state.review)
     const history = useHistory();
-    const dispatch = useDispatch();
+    const dispatch= useDispatch();
     const pID = useSelector(state => state.idP)
     const [data, setData] = useState({
         reviews: [],
@@ -29,17 +23,60 @@ export default function ProductReviews() {
     }
     useEffect(() => {
         async function makeRequests() {
-
-            await axios.get(`http://localhost:3001/review/reviews/${pID}`, {
+            await axios.get(`http://localhost:3001/products/reviews/${pID}`, {
             }).then(reviu => {
+                console.log(reviu)
                 setData({
                     ...data,
-                    reviews: Object.values(reviu.data)
+                    reviews: Object.values(reviu.data),
+                    
                 })
             })
         }
         makeRequests();
     }, []);
+    const handleDelete = async(e)=>{
+        e.preventDefault();
+       const idReview = e.target.value;
+       
+        Swal.fire({
+            title: 'Estas seguro',
+            text: "No hay vuelta atras!!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Eliminar'
+          }).then( async(result) => {
+            if (result.isConfirmed) {
+                const res = await axios.delete(`http://localhost:3001/products/${pID}/review/${idReview}`)
+                    .then(async (res) => {
+                        await axios.get(`http://localhost:3001/products/reviews/${pID}`, {
+                        }).then(reviu => {
+                            setData({
+                                ...data,
+                                reviews: Object.values(reviu.data)
+                            })
+                        })
+    
+                    })
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        title: 'Review eliminada del producto',
+                        showConfirmButton: false,
+                        timer: 1500
+                      })
+            }
+          })
+    }
+    const handlePut = (e)=>{
+        e.preventDefault();
+        var reviuId = e.target.value;
+        dispatch(getReviewId(reviuId))
+        history.push(`${pID}/review/${reviuId}`)
+        
+    }
     return (
 
         <div>
@@ -52,6 +89,8 @@ export default function ProductReviews() {
                         <img src={Star} style={{ maxWidth: "25px" }} />
                     )}</div>
                     <p>{reviu.description}</p>
+                    <button value={reviu.id} onClick={handleDelete}>Eliminar</button>
+                    <button value={reviu.id} onClick={handlePut}>Editar</button>
                 </div>
             )}
 
