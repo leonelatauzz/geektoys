@@ -19,7 +19,7 @@ export default function AprovedPurchase() {
     }
 
     return (
-        <div>
+        <div >
             <Nat />
             <div class='container99'>
                 <div class='cont99'>

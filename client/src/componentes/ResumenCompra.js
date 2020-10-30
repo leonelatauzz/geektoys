@@ -9,6 +9,7 @@ import SimpleNavbar from './SimpleNavbar'
 import Footer from './Footer'
 
 
+
 export default function ResumenCompra() {
     const history = useHistory()
     const dispatch = useDispatch();
@@ -216,6 +217,12 @@ export default function ResumenCompra() {
                             showConfirmButton: false,
                             timer: 1500
                         })
+                        
+                        let json = {
+                            email: userData.email,
+                        }
+
+                        
                         history.push(`/aproved/${activeOrder[0].id}/${userData.id}`)
                         const res = await axios.post('http://localhost:3001/user/send-mail',json,{
                             headers:{
@@ -230,7 +237,7 @@ export default function ResumenCompra() {
 
 
     return (
-        <div>
+        <div id="prueba">
             <SimpleNavbar />
             {data.payment === false &&
                 <div class='containerRC'>

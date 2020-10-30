@@ -6,6 +6,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken')
 const nodemailer = require("nodemailer")
 
+
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
   const token = authHeader && authHeader.split(' ')[1];
@@ -30,13 +31,16 @@ server.post('/send-mail',(req,res)=>{
     }
   })
 
+ 
+
   let mailOptions = {
     from: process.env.EMAIL,
-    to: 'davidagustinhemmings@gmail.com',
+    to: req.body.email,
     cc: process.env.EMAIL,
     bcc: process.env.EMAIL,
-    subject: "testing",
-    text: "que onda rey ?",
+    subject: 'recibo de factura',
+    text: "Estimado cliente, desde la comunidad de GeekToys agradecemos la confianza puesta en nostros, a continuacion recibira un" + 
+    " resumen de la compra efectuda."
   }
 
   transporter.sendMail(mailOptions,(err,data)=>{
