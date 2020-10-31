@@ -6,7 +6,7 @@ import {getCategories} from '../Redux/Actions/actions';
 import { useDispatch, useSelector } from "react-redux";
 import {getCategoryId} from '../Redux/Actions/actions';
 import Swal from 'sweetalert2'
-
+import Nat from './SuperSimpleNavbarAdmin'
 
 export default function AddCategory() {
     const dispatch = useDispatch();
@@ -106,6 +106,7 @@ export default function AddCategory() {
     
     return (
         <div>
+            <Nat/>
             <div className="div_container">
                 <button className="my_butom" style={{marginLeft: '900px', marginTop: '0px'}} onClick={clickBtn}>Volver al dashboard</button>
                 <div className="categories_existentes">
