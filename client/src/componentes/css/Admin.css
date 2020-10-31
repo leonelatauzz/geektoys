@@ -1,5 +1,6 @@
 body{
     background-image: linear-gradient(to left, #8D99AE 0%, white 100%);
+    
 }
 
 .textin {
@@ -11,16 +12,20 @@ body{
 }
 
 .textin-welcome{
+    color: #D90429;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 5%;
+    margin-top: 5%;    
 }
 
 .Div_centrin{
     margin: 10%
+    
 }
 
-.contaiiner{
+.contaiiner{    
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
     border: 0.25px gray solid;
     width: 20vw;
@@ -29,7 +34,8 @@ body{
     justify-content: center;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 40px;
+    margin-top: 100px;
+    margin-bottom: 70px;
 }
 
 .Form_cat_admin {

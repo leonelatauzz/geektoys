@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import {Table} from 'react-bootstrap';
 import {useHistory}  from 'react-router-dom';
-import SuperSimpleNavbarAd from './SuperSimpleNavbarAdmin'
+import Nat from './SuperSimpleNavbarAdmin'
 
 export default function Promote(){
    const history= useHistory();
@@ -60,7 +60,7 @@ export default function Promote(){
 
 
     return(
-      <div> <SuperSimpleNavbarAd />
+      <div> <Nat />
      <div style= {{ width: '70%', margin: 'auto'}}>
        
 <Table striped bordered hover>
