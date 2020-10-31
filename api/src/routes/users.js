@@ -44,9 +44,15 @@ server.post('/send-mail',(req,res)=>{
     to: req.body.email,
     cc: process.env.EMAIL,
     bcc: process.env.EMAIL,
-    subject: 'recibo de factura',
-    text: "Estimado cliente, desde la comunidad de GeekToys agradecemos la confianza puesta en nostros, a continuacion recibira un" + 
-    " resumen de la compra efectuda."
+    subject: 'Confirmación de compra',
+    text: "Estimado cliente:" + 
+    "El pago se ha realizado con éxito, dentro de las 24 hrs se estará despachando su pedido." +
+    "Este mail cuenta como recibo de compra. Todos nuestros productos cuentan con garantía, en el caso de que el paquete llegue dañado u ocurra el extravío del mismo, la compañía se hará cargo de todos los gastos correspondientes." +
+    "En caso de querer realizar la cancelación de la compra, enviar un correo electrónico a devoluciones_geektoys@gmail.com." +
+    "En nombre del equipo de GekkToys le agradecemos por su confianza."
+    
+
+    
   }
 
   transporter.sendMail(mailOptions,(err,data)=>{
