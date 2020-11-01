@@ -18,7 +18,8 @@ const initialState = {
     review: [],
     token: null,
     idP: null,
-    favorites: []
+    favorites: [],
+    rID: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -66,6 +67,8 @@ export default function (state = initialState, action) {
             return { ...state, idP: action.payload }
         case 'GET_FAVORITES':
             return { ...state, favorites: action.payload }
+        case 'GET_RID':
+            return {...state, rID: action.payload}
         default:
             return state;
     }

@@ -1,24 +1,85 @@
-.div_container_desplegable{
+
+.cont109 {
+    display: flex;
+    margin: auto;
+    justify-content: space-between;
+    margin-top: 100px;
+    width: 70vw;
+    padding: 100px;
+    background-color: white;
+    border: gray 0.5px solid;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+}
+.opCard109 {
+
+    display: flex;
+    width: 40vw;
+    justify-content: space-evenly;
+    margin: auto;
+    margin-left: 5vw;
+}
+.profCont109 {
+    border: 1px solid gray;
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+    padding: 1vw;
+
+}
+.pic109 {
+    width: 10vw;
+    border-radius: 50px;
+    border: 2px solid  #D90429;
+    margin: auto;  
+    margin-top: 20px;
+    margin-bottom: 40px;  
+}
+
+.titu109 {
+    margin: auto;
+    margin-top:20px;
+    margin-bottom: 0;
+    text-align: center;
+}
+.btn109 {
+    background-color: white;
+    color: #D90429;
+    width: min-content;
+    height: min-content;
+    padding: 0.5vw;
+    margin: auto;
+    border-radius: 5px;
+    margin-top: 60px;
+    font-size: 19px;
+}
+.btn109:hover {
+    background-color: #D90429;
+    color: white;
+}
+
+/* .div_container_desplegable{
     width: 100%;
     margin-top: 30px;
 }
 
 .div_desplegable {
     border-right: 1px solid grey;
-}
+} */
 
-.display_options {
+/* .display_options {
     position: relative;
     left: 370px;
     bottom: 257px;
     border: black solid 1px;
     width: 100%;
     height: 200px;
-}
+} */
 
-.barra_estados {
+/* .barra_estados {
     background-color: red;
     width: 100%;
     height: 15%;
 
-}
+} */
+

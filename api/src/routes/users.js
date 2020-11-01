@@ -3,11 +3,20 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
+
 const jwt = require('jsonwebtoken');
 const _ = require('lodash')
 const {OAuth2Client} = require ('google-auth-library')
 
 const client = new OAuth2Client('689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com')
+
+const nodemailer = require("nodemailer")
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const upload = multer({ dest: `${__dirname}/uploads` });
+const fs = require('fs')
+
+
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -23,6 +32,46 @@ function authenticateToken(req, res, next) {
     next()
   })
 }
+
+server.post('/send-mail',(req,res)=>{
+  let transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: process.env.EMAIL,         
+      pass: process.env.PASSWORD      
+    },
+    tls: {
+      rejectUnauthorized: false
+    }
+  })
+
+ 
+
+  let mailOptions = {
+    from: process.env.EMAIL,
+    to: req.body.email,
+    cc: process.env.EMAIL,
+    bcc: process.env.EMAIL,
+    subject: 'Confirmación de compra',
+    text: "Estimado cliente:" + 
+    "El pago se ha realizado con éxito, dentro de las 24 hrs se estará despachando su pedido." +
+    "Este mail cuenta como recibo de compra. Todos nuestros productos cuentan con garantía, en el caso de que el paquete llegue dañado u ocurra el extravío del mismo, la compañía se hará cargo de todos los gastos correspondientes." +
+    "En caso de querer realizar la cancelación de la compra, enviar un correo electrónico a devoluciones_geektoys@gmail.com." +
+    "En nombre del equipo de GekkToys le agradecemos por su confianza."
+    
+
+    
+  }
+
+  transporter.sendMail(mailOptions,(err,data)=>{
+    if(err){
+      console.log(err)
+      res.status(500).send(err)
+    } else {
+      res.status(200).send("email correcto")
+    }
+  })
+})
 
 
 server.post('/login', (req, res) => {
@@ -50,6 +99,28 @@ server.post('/login', (req, res) => {
     res.json({ accessToken: accessToken })
   }).catch(err => {
     console.log(err)
+  })
+})
+
+server.put("/info/:userId", upload.single('images'), (req, res) => {
+  let pic;
+  let product;
+  if (req.file) {
+    fs.renameSync(req.file.path, req.file.path + '.' + req.file.mimetype.split('/')[1])
+    pic = req.file.filename + '.' + req.file.mimetype.split('/')[1];
+    product = JSON.parse(req.body.json)
+  } else if (!req.file) {
+    product = JSON.parse(req.body.json)
+    pic = product.picture
+  }
+
+  const { name, lastname} = product;
+  User.findByPk(req.params.userId).then((us) => {
+    us.name = name;
+    us.lastname = lastname;
+    us.picture = pic
+    us.save();
+    res.status(201).send("El usuario se modifico correctamente")
   })
 })
 

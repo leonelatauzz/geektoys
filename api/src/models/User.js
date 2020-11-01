@@ -30,6 +30,11 @@ module.exports = (sequelize) => {
         state: {
             type: DataTypes.STRING,
             allowNull: false
+        },
+        picture: {
+            type: DataTypes.STRING,
+            defaultValue: ""
+
         }
 
     });

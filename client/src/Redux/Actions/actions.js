@@ -136,6 +136,12 @@ export const getFavorites = function(props){
         payload: props
     }
 }
+export const getReviewId = function(props){
+    return{
+        type: 'GET_RID',
+        payload: props
+    }
+}
 
 
 

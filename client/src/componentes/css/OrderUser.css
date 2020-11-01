@@ -87,7 +87,9 @@
 .DO101{
     background-color: white;
     color: #D90429;
-    height: 4vh;
+    width: min-content;
+    height: min-content;
+    padding: 0.5vw;
     border-radius: 5px;
     margin-top: 1vh;
     font-size: 19px;

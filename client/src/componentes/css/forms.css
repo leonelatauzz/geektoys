@@ -76,7 +76,7 @@
 
 .imgDisp{
     position: relative;
-    top: -32%; 
+    top: -25%; 
     left: 35%;
     width: 150px;
     height: 150px;
@@ -88,13 +88,13 @@
 
 .imgCarga{
     position: relative;
-    top: -45%;
+    top: -35%;
     left: 34%;
     width: 150px;
     height: 150px;
     margin: 5px;
     margin-left: 150px;
-    margin-top: 150px;
+    margin-top: 100px;
     border:2px solid black;
     display: block;
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)

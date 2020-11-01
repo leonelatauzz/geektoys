@@ -35,7 +35,7 @@ import UseraAdmin from './componentes/useraAdmin';
 import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
 import ProductReviews from './componentes/ProductReviews';
 import Favorites from './componentes/favorite'
-
+import PutReview from './componentes/modificarReview'
 
 
 
@@ -249,7 +249,11 @@ function App() {
         />}
       />
 
-
+      <Route
+        exact path='/products/prod/:id/review/:idReview'
+        render={() => <PutReview
+        />}
+      />
 
     </Router>
 

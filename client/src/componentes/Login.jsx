@@ -225,7 +225,12 @@ export default function Login() {
                                         history.push(`/user/${respo.data.id}/order`)
                                     })
                             } else {
-                                history.push(`/user/${respo.data.id}/order`)
+                                const rous = await axios.get(`http://localhost:3001/order/cart/${activeOrder[0].id}`)
+                                .then(resp => {
+                                    let products = Object.values(resp.data)
+                                    dispatch(getDbCart(products))
+                                    history.push(`/user/${respo.data.id}/order`)
+                                })
                             }
                         })
                 }
