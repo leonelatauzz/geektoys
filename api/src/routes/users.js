@@ -3,8 +3,6 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
-
-const jwt = require('jsonwebtoken');
 const _ = require('lodash')
 const {OAuth2Client} = require ('google-auth-library')
 
