@@ -51,6 +51,8 @@ const sendProduct= (e) =>{
 
 const addRelation = async(e) => {
   e.preventDefault();
+  console.log(activeOrder[0], producItem)
+
   let json = {
     idOrder: activeOrder[0].id,
     idProduct: producItem.id,

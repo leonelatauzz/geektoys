@@ -3,7 +3,11 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const _ = require('lodash')
+const {OAuth2Client} = require ('google-auth-library')
+
+const client = new OAuth2Client('689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com')
 
 function authenticateToken(req, res, next) {
   const authHeader = req.headers['authorization']
@@ -29,6 +33,7 @@ server.post('/login', (req, res) => {
       email: req.body.email,
     }
   }).then(usera => {
+   
     if (!usera) {
       res.send('Datos incorrectos')
       return;
@@ -382,11 +387,39 @@ server.post('/:userId/motivo/baja', (req, res) => {
   })
 })
 
-
-
-
-
+server.post('/login/google', (req, res) => {
+  const { tokenId } = req.body;
+   client.verifyIdToken({idToken: tokenId, audience:'689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com'}).then(response => {
+     const {email_verified, name, email} = response.payload
+     if(email_verified){ 
+      const userName = response.payload.email;
+      const user = { name: userName }
+      User.findOne({
+        where: {
+          email: response.payload.email
+        }
+    }).then((usera) => {
+      if(!usera){
+      User.create({
+        name: response.payload.given_name,
+        lastname: response.payload.family_name,
+        email: response.payload.email,
+        password: response.payload.at_hash,
+        role: "user",
+        salt: 0,
+        state: "alta"
+      }).then((usercin) => {
+          const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+          res.json({ accessToken: accessToken })
+      })
+      }else{
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        res.json({ accessToken: accessToken })
+        }
+      })
+    }
+    })
+  console.log()
+})
 
 module.exports = server;
-
-
