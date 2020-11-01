@@ -3,11 +3,17 @@ const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
 const crypto = require('crypto');
+const _ = require('lodash')
+const {OAuth2Client} = require ('google-auth-library')
+
+const client = new OAuth2Client('689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com')
+
 const nodemailer = require("nodemailer")
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const upload = multer({ dest: `${__dirname}/uploads` });
 const fs = require('fs')
+
 
 
 function authenticateToken(req, res, next) {
@@ -44,9 +50,15 @@ server.post('/send-mail',(req,res)=>{
     to: req.body.email,
     cc: process.env.EMAIL,
     bcc: process.env.EMAIL,
-    subject: 'recibo de factura',
-    text: "Estimado cliente, desde la comunidad de GeekToys agradecemos la confianza puesta en nostros, a continuacion recibira un" + 
-    " resumen de la compra efectuda."
+    subject: 'Confirmación de compra',
+    text: "Estimado cliente:" + 
+    "El pago se ha realizado con éxito, dentro de las 24 hrs se estará despachando su pedido." +
+    "Este mail cuenta como recibo de compra. Todos nuestros productos cuentan con garantía, en el caso de que el paquete llegue dañado u ocurra el extravío del mismo, la compañía se hará cargo de todos los gastos correspondientes." +
+    "En caso de querer realizar la cancelación de la compra, enviar un correo electrónico a devoluciones_geektoys@gmail.com." +
+    "En nombre del equipo de GekkToys le agradecemos por su confianza."
+    
+
+    
   }
 
   transporter.sendMail(mailOptions,(err,data)=>{
@@ -67,6 +79,7 @@ server.post('/login', (req, res) => {
       email: req.body.email,
     }
   }).then(usera => {
+   
     if (!usera) {
       res.send('Datos incorrectos')
       return;
@@ -440,6 +453,7 @@ server.post('/:userId/motivo/baja', (req, res) => {
   })
 })
 
+
 server.get('/:userId', (req,res)=>{
   User.findByPk(req.params.userId)
   .then(idUser=>{
@@ -456,4 +470,42 @@ server.get('/:userId', (req,res)=>{
 
 module.exports = server;
 
+
+
+server.post('/login/google', (req, res) => {
+  const { tokenId } = req.body;
+   client.verifyIdToken({idToken: tokenId, audience:'689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com'}).then(response => {
+     const {email_verified, name, email} = response.payload
+     if(email_verified){ 
+      const userName = response.payload.email;
+      const user = { name: userName }
+      User.findOne({
+        where: {
+          email: response.payload.email
+        }
+    }).then((usera) => {
+      if(!usera){
+      User.create({
+        name: response.payload.given_name,
+        lastname: response.payload.family_name,
+        email: response.payload.email,
+        password: response.payload.at_hash,
+        role: "user",
+        salt: 0,
+        state: "alta"
+      }).then((usercin) => {
+          const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+          res.json({ accessToken: accessToken })
+      })
+      }else{
+        const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
+        res.json({ accessToken: accessToken })
+        }
+      })
+    }
+    })
+  console.log()
+})
+
+module.exports = server;
 

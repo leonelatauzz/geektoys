@@ -38,6 +38,7 @@ const { Review } = sequelize.models;
 const { Adress } = sequelize.models;
 const { UserDisabled } = sequelize.models;
 
+
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 

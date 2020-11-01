@@ -5,6 +5,9 @@ import { getCategories, getProducts } from '../Redux/Actions/actions';
 import axios from 'axios';
 import Nav from 'react-bootstrap/Nav'
 import '../componentes/css/Admin.css'
+import { Container, Card, Row } from 'react-bootstrap'
+import Nat from './SuperSimpleNavbarAdmin'
+import Footer from './Footer';
 
 
 export default function Admin() {
@@ -39,7 +42,7 @@ export default function Admin() {
         e.preventDefault();
         history.push('/')
     }
-    
+
     const btnAdmin = (e) => {
         e.preventDefault();
         history.push('/admin/promote')
@@ -48,21 +51,57 @@ export default function Admin() {
     return (
 
         <div>
-            <div>
-                <div className='contaiiner'>
-                    <h1 className='textin-welcome'>Administrador</h1>
-                    </div>
+            <Nat />
+            <div className='divPrincipalAdmin' style={{marginTop:'5%', marginLeft:'10%'}}>
+            <Card className='cardAdmin' style={{width: '80rem', border:'solid 1px black'}}>
+            <h1 className='textin-welcome'>Administrador</h1>
+            <div className='divAdmin-1' style={{ display: "flex", justifyContent: 'center', margin: '20px' }}>
+                <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429' , margin:'auto'}} onClick={btnAddProduct} eventKey="Agregar nuevo producto">Agregar nuevo producto</Card.Title>
+                    </Card.Body>
+                </Card>
+               
+                <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>                   
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429' , margin:'auto'}} onClick={btnAddCategory} eventKey="Administrar categorías">Administrar categorías</Card.Title>
+
+                    </Card.Body>
+                </Card>
+                
+                <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>                   
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429', margin:'auto'}} onClick={btnProducts} eventKey="Productos">Productos</Card.Title>
+
+                    </Card.Body>
+                </Card>
+                
             </div>
-            <div className='Div_centrin'>
-                <Nav className="textin">
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAddProduct} eventKey="Agregar nuevo producto">Agregar nuevo producto</Nav.Link>
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAddCategory} eventKey="Administrar categorías">Administrar categorías</Nav.Link>
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnProducts} eventKey="Productos">Productos</Nav.Link>
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnOrders} eventKey="Tabla de Ordenes">Tabla de Ordenes</Nav.Link>
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={btnAdmin} eventKey="Home">Agregar Admin</Nav.Link>
-                    <Nav.Link style={{ color: 'black', background: 'none', border: 'none', boxShadow:'none' }} onClick={handleHome} eventKey="Home">Home</Nav.Link>
-                </Nav>
+            <div className='divAdmin-1' style={{ display: "flex", justifyContent: 'center', margin: 'auto', marginBottom:'150px' }}>
+            <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>                    
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429', margin:'auto'}} onClick={btnOrders} eventKey="Tabla de Ordenes">Tabla de ordenes</Card.Title>
+
+                    </Card.Body>
+                </Card>
+               
+                <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>                    
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429', margin:'auto'}}onClick={btnAdmin} eventKey="btnAdmin">Agregar admin</Card.Title>
+                    </Card.Body>
+                </Card>
+                
+                <Card border="danger" style={{ width: '25rem' , marginRight:'10px'}}>                   
+                    <Card.Body>
+                        <Card.Title style={{color: '#D90429', margin:'auto'}} onClick={handleHome} eventKey="Home">Home</Card.Title>
+                    </Card.Body>
+                </Card>
+               
             </div>
+            
+            </Card>
+            </div>
+            <Footer />
         </div>
     )
 }
