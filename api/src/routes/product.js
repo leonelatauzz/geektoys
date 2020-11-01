@@ -298,15 +298,17 @@ server.post("/:id/review", (req, res) => {
     if(!producto){
       res.status(404).send("El producto no fue encontrado")
     }else{
-      Review.create({
-        rating: req.body.rating,
-        description: req.body.description,
-        productId:producto.id,
-        userId: req.body.userId
-      }).then(function (review) {
-        res.status(201).json(review);
+      User.findByPk(req.body.userId)
+      .then(usuario=>{
+        Review.create({
+          rating: req.body.rating,
+          description: req.body.description,
+          productId:producto.id,
+          name: `${usuario.dataValues.name} ${usuario.dataValues.lastname}`
+        }).then(function (review) {
+          res.status(201).json(review);
+        })
       })
-    .catch((error) => res.status(204).send(error));
     }
 
   })

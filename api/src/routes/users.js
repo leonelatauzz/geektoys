@@ -51,7 +51,6 @@ server.post('/send-mail',(req,res)=>{
 
   transporter.sendMail(mailOptions,(err,data)=>{
     if(err){
-      console.log(err)
       res.status(500).send(err)
     } else {
       res.status(200).send("email correcto")
@@ -83,7 +82,6 @@ server.post('/login', (req, res) => {
     const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET)
     res.json({ accessToken: accessToken })
   }).catch(err => {
-    console.log(err)
   })
 })
 
@@ -197,7 +195,6 @@ server.post('/', (req, res) => {
           res.json({ accessToken: accessToken })
         }
       }).catch(err => {
-        console.log(err)
       })
     }
   })
@@ -443,7 +440,16 @@ server.post('/:userId/motivo/baja', (req, res) => {
   })
 })
 
-
+server.get('/:userId', (req,res)=>{
+  User.findByPk(req.params.userId)
+  .then(idUser=>{
+    if(!idUser){
+      res.status(404).send("El id que buscas no existe")
+    }else{
+      res.status(201).json(idUser)
+    }
+  })
+})
 
 
 

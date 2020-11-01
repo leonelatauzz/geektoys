@@ -51,7 +51,7 @@ export default function Review() {
            productId:dataProduct,
            userId: userData.id
         }
-        const res = await axios.post(`http://localhost:3001/products/${userData.id}/review`, json, {
+        const res = await axios.post(`http://localhost:3001/products/${dataProduct}/review`, json, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -79,7 +79,6 @@ export default function Review() {
     {loggedIn === false ?  <span><label style={{color:"black"}}>Logea para opinar sobre el producto</label><Button onClick={handleRegister} className="Register" style={{marginRight: '10px'}} variant="info">Registrarse</Button>
     <Button onClick={handleLogin} variant="info" className="Register" style={{marginRight: '10px'}}>Ingresar</Button></span> : <div>
         <h1>Opinion sobre el producto</h1>
-        <h5>{userData.name} {userData.lastname}</h5>
         <div onClick={handleRating}><StarRating /></div>
       <input style={{width: "300px"}} type="text" value={data.description} onChange={handleCambio}/>
       <button onClick={handleChange} style={{height: "29px" }} type="submit">Enviar</button>

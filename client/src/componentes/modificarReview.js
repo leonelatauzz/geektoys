@@ -6,14 +6,14 @@ import { useSelector } from "react-redux";
 import StarRating from './rating.js'
 import Star from './images/star.png'
 import Swal from 'sweetalert2'
-import { Form, FormGroup, FormControl } from 'react-bootstrap'
+
 
 export default function PutReview() {
     const userData = useSelector(state => state.userId);
     const history = useHistory();
     const pID = useSelector(state => state.idP)
     const rID = useSelector(state => state.rID)
-    var count = 0;
+    const dataProduct = useSelector(state=>state.productId)
     const [data, setData] = useState({
         rating: "",
         description: "",
@@ -53,16 +53,39 @@ export default function PutReview() {
          description:e.target.value})
         console.log(data.description)
        }
+       const handleEdit = async(e)=>{
+           e.preventDefault();
+           let json={
+               rating: data.rating,
+               description: data.description,
+               
+           }
+           console.log(json)
+           const ras = await axios.put(`http://localhost:3001/products/${pID}/review/${rID}`, json, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+           }).then((rev)=>{
+           
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: 'Review editada correctamente',
+                showConfirmButton: false,
+                timer: 1500
+              })                            
+           
+           })
+           history.push(`/products/prod/${pID}`)
+       }
     return (
         <div>
-            <div className="ReviewCreado">
+            <div className="ReviewCreado2">
                 <h1>Opinion sobre el producto</h1>
                 <h5>{userData.name} {userData.lastname}</h5>
                 <div onClick={handlePrueba}><StarRating /></div>
-                {/* <Form.Group>
-                <Form.Control value={data.description} onChange={handleCambio} size="lg" type="text" placeholder={data.description} />
-            </Form.Group> */}
             <input className="inputNuevo" value={data.description} onChange={handleCambio} type="text"></input>
+            <button className="BtnEditar" onClick={handleEdit}>Modificar</button>
                 </div>
             </div>
            

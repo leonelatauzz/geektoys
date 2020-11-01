@@ -68,9 +68,6 @@ Product.hasMany(Review, {
   foreignKey: 'productId'
 });
 
-Review.belongsTo(User, {
-  foreignKey: 'userId'
-})
 
 User.hasMany(Adress, {
   foreignKey: 'userId'
