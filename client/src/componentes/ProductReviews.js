@@ -80,17 +80,25 @@ export default function ProductReviews() {
     return (
 
         <div>
+            {console.log(data.reviews)}
             {data.reviews.map(reviu =>
                 <div className="ReviewCreado">
-                    <h1>Opinion sobre el producto</h1>
+                    {userData.id===reviu.id? <span><h1>Opinion sobre el producto</h1>
                     <h6 style={{marginLeft:"15px"}}>{reviu.updatedAt.split('T')[0]}</h6>
-                    <h5>{userData.name} {userData.lastname}</h5>
+                    <h5>{reviu.name}</h5>
                     <div className="img">{setPick(reviu).map(star =>
                         <img src={Star} style={{ maxWidth: "25px" }} />
                     )}</div>
                     <p>{reviu.description}</p>
-                    <button value={reviu.id} onClick={handleDelete}>Eliminar</button>
-                    <button value={reviu.id} onClick={handlePut}>Editar</button>
+                    <button className="BtnDelete" value={reviu.id} onClick={handleDelete}>Eliminar</button>
+                    <button value={reviu.id} className="BtnEdit" onClick={handlePut}>Editar</button></span>:<span><h1>Opinion sobre el producto</h1>
+                    <h6 style={{marginLeft:"15px"}}>{reviu.updatedAt.split('T')[0]}</h6>
+                    <h5>{reviu.name}</h5>
+                    <div className="img">{setPick(reviu).map(star =>
+                        <img src={Star} style={{ maxWidth: "25px" }} />
+                    )}</div>
+                    <p>{reviu.description}</p></span>}
+                   
                 </div>
             )}
 
