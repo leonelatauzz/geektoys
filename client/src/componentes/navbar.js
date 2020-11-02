@@ -232,7 +232,12 @@ export default function Navbar() {
                     </li>
                 </ul>
                 <div style={{ display: "flex" }}>
-                    {loggedIn === true && dc.length === 0 &&
+                    {loggedIn === true && userData.role === 'Admin' &&
+                        <div style={{ cursor: 'pointer', display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
+                          <button className="nav-link" onClick={() => history.push('/admin')}>administracion</button>
+                        </div>
+                    }
+                     {loggedIn === true && dc.length === 0 &&
                         <div onClick={carrito} style={{ cursor: 'pointer', display: "flex", justifyContent: "flex-end", marginRight: '1.5vw' }}>
                             <img src={image} style={{ width: "40px", height: "4vh" }} role="button" />
                         </div>

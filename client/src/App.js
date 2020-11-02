@@ -40,6 +40,12 @@ import PutReview from './componentes/modificarReview'
 
 
 function App() {
+  const user = useSelector(state=> state.userId.role)
+  const login = useSelector(state=> state.loggedIn)
+
+  const protection = (component) => {
+   return !login ? <Redirect to='/user/login'/> : user !== 'Admin' ? <Redirect to='/' /> : component
+  }
 
 
   return (
@@ -83,32 +89,27 @@ function App() {
 
       <Route
         exact path='/admin/addproduct'
-        render={() => <AddProduct
-        />}
+        render={() => protection(<AddProduct/>)}
       />
 
       <Route
         exact path='/admin/addcategory'
-        render={() => <AddCategory
-        />}
+        render={() => protection(<AddCategory/>)}
       />
 
       <Route
         exact path='/admin/editordelete/:id'
-        render={() => <Editordelete
-        />}
+        render={() => protection(<Editordelete/>)}
       />
 
       <Route
         exact path='/admin/editordelete/cat/:id'
-        render={() => <Categoria
-        />}
+        render={() => protection(<Categoria/>)}
       />
 
       <Route
         exact path='/admin'
-        render={() => <Admin
-        />}
+        render={() => protection(<Admin/>)}
       />
 
       <Route
@@ -125,19 +126,17 @@ function App() {
 
       <Route
         exact path='/products/prod/admin/:id'
-        render={() => <AdminProducto
-        />}
-      />
-      <Route
-        exact path='/admin/products'
-        render={() => <SuperSimpleNavbarAd
-        />}
+        render={() => protection(<AdminProducto/>)}
       />
 
       <Route
         exact path='/admin/products'
-        render={() => <AdminCatalogo
-        />}
+        render={() => protection(<SuperSimpleNavbarAd/>)}
+      />
+
+      <Route
+        exact path='/admin/products'
+        render={() => protection(<AdminCatalogo/>)}
       />
 
       <Route
@@ -154,8 +153,7 @@ function App() {
 
       <Route
         exact path='/admin/orderlist'
-        render={() => <TablaOrder
-        />}
+        render={() => protection(<TablaOrder/>)}
       />
 
       <Route
@@ -225,16 +223,15 @@ function App() {
 
       <Route
         exact path='/admin/selectedOrder/:idOrden'
-        render={() => <AdminDetalleOrder
-        />}
+        render={() => protection(<AdminDetalleOrder/>)}
 
       />
 
 
       <Route
         exact path='/admin/promote'
-        render={() => <UseraAdmin
-        />}
+        render={() => protection(<UseraAdmin
+        />)}
       />
 
       <Route
