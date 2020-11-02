@@ -26,7 +26,7 @@ export default function AprovedPurchase() {
                 <h1 class='TT99'>Muchas gracias por tu compra!</h1>
                 <h4>Una copia de tu recibo te llegará al mail {pData.user.email}, tambien puedes ver y gestionar la compra en tu perfil.</h4>
                 </div>
-                <div class='card99'>
+                <div class='card99' style={{backgroundColor: 'white'}}>
                     <div class='top99'>
                         <h3 class='titu99'>Orden #{pData.order}</h3>
                         <h5>{utc}</h5>

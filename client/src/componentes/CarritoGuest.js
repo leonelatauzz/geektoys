@@ -65,10 +65,10 @@ export default function Cart() {
         {data.products.length === 0 && <h1 class='titA102'>Tu carrito esta vacío!</h1>}
         {data.products.length > 0 && <h1 class='titA102'>Mi carrito</h1>}
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", width: '90vw', margin: 'auto', marginRight: '8vw' }}>
         <div class='leftD' style={{ marginLeft: '6.5vw' }}>
           {data.products.map(product =>
-            <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between' }}>
+            <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between', marginLeft: '1vw', marginTop: '1vw' }}>
               <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${product.picture}`} />
               <div style={{marginTop: '4vh'}}>
                 <h2 style={{ color: '#D90429' }}> {product.name} </h2>

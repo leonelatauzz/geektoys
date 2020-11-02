@@ -26,16 +26,18 @@ export default function Productos() {
 
 
   useEffect(() => {
-    async function makeRequests() {
+    if (loggedIn === true) {
+      async function makeRequests() {
 
-      await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
-        .then(resp => {
-          let faves = Object.values(resp.data)
-          dispatch(getFavorites(faves))
-          setFavis(faves)
-        })
+        await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+          .then(resp => {
+            let faves = Object.values(resp.data)
+            dispatch(getFavorites(faves))
+            setFavis(faves)
+          })
+      }
+      makeRequests();
     }
-    makeRequests();
   }, []);
   let prueba = []
   favis.forEach(it => {
@@ -139,8 +141,8 @@ export default function Productos() {
   return (
     <div>
       <Nat />
-      <div class="containerProduct" >
-        <div class="cardProduct">
+      <div class="containerProduct">
+        <div class="cardProduct" >
           <div class="imagenContainer">
             <img class="imagenP" width="160" height="50" src={`http://localhost:3001/uploads/${producItem.picture}`} />
             <div class="info">
@@ -153,10 +155,10 @@ export default function Productos() {
                   <div style={{ border: '1px solid black', borderRadius: '5px', margin: "30px 2px 3px 70px" }} ><span style={{ cursor: 'pointer' }} style={{ padding: '5px' }}>Este producto no tiene stock</span></div> : <span></span>
 
                 }
-                <div style={{display: 'flex', height: 'min-content'}}>
+                <div style={{ display: 'flex', height: 'min-content' }}>
                   {loggedIn === false ? <span></span> : <input class='counter' type='number' onChange={handleAmount} value={data.amount}></input>}
                   {loggedIn === true && data.amount == 1 && <span style={{ alignSelf: 'center', marginTop: '30px', marginLeft: '15px' }}>unidad</span>}
-                  {loggedIn === true && data.amount > 1 && <span style={{ alignSelf: 'center',  marginTop: '30px', marginLeft: '15px' }}>unidades</span>}
+                  {loggedIn === true && data.amount > 1 && <span style={{ alignSelf: 'center', marginTop: '30px', marginLeft: '15px' }}>unidades</span>}
                 </div>
               </div>
               <div class='contCount'>
