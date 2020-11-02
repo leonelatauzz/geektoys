@@ -197,7 +197,7 @@ server.post('/', (req, res) => {
         lastname: req.body.lastname,
         email: req.body.email,
         password: password,
-        role: "user",
+        role: "User",
         salt: salt,
         state: "alta"
       }).then((usero) => {
@@ -490,7 +490,7 @@ server.post('/login/google', (req, res) => {
         lastname: response.payload.family_name,
         email: response.payload.email,
         password: response.payload.at_hash,
-        role: "user",
+        role: "User",
         salt: 0,
         state: "alta"
       }).then((usercin) => {
