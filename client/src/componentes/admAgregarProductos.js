@@ -6,6 +6,7 @@ import { getProducts, getCategoryProduct } from '../Redux/Actions/actions'
 import mImg from './images/marioPic.png';
 import Uimg from './images/up.png'
 import Swal from 'sweetalert2'
+import SuperSimpleNavbarAdmin from './SuperSimpleNavbarAdmin'
 
 
 export default function AddProduct() {
@@ -122,6 +123,9 @@ export default function AddProduct() {
     
 
     return (
+        <div>
+            <SuperSimpleNavbarAdmin />
+       
         <div className="imagen_fondo">
         <div className="div_container" >
         <button style={{marginLeft: '950px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>            
@@ -170,6 +174,7 @@ export default function AddProduct() {
                 </div> : <span></span>
             }
             </div>
+        </div>
         </div>
         </div>
     )

@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProductCategory, getProducts } from '../Redux/Actions/actions'
 import Swal from 'sweetalert2'
 import '../componentes/css/AdminEdit-elimin-prod.css'
+import SuperSimpleNavbarAdmin from './SuperSimpleNavbarAdminProd'
+
 
 export default function EditOrDelete() {
     let json;
@@ -176,6 +178,7 @@ export default function EditOrDelete() {
 
     return (
         <div>
+            <SuperSimpleNavbarAdmin />
             <div className="">
             <button className="volver_dashboard" onClick={products}>Volver a productos</button>
                 <form className="formulin" >
