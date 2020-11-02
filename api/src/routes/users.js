@@ -215,20 +215,28 @@ server.post('/', (req, res) => {
 
 
 server.post('/:id/passwordReset', (req, res) => {
+  const {oldPassword,password} = req.body
+  console.log(oldPassword)
+  console.log(password)
+
   User.findByPk(req.params.id)
     .then(user => {
-      if (!user) {
-        res.status(404).json({ error: 'no se encontro usuario con este email' })
-      } else {
-        const contrasena = req.body.password;
-        const salt = user.dataValues.salt;
-        const key = hash.pbkdf2Sync(contrasena, salt, 100000, 64, 'sha512');
-        const passNuevo = key.toString('hex');
-
-        user.update({ password: passNuevo })
-        res.status(200).send('Contraseña modificada correctamente')
+      const key = hash.pbkdf2Sync(oldPassword, user.salt, 100000, 64, 'sha512');
+      const hashOldPassword = key.toString('hex')
+      const keyPass = hash.pbkdf2Sync(password, user.salt, 100000, 64, 'sha512');
+      const newPassword = keyPass.toString('hex')
+      if(hashOldPassword !== user.dataValues.password) {
+        res.status(201).send('contraseña incorrecta')
+        return
       }
-    })
+      if( hashOldPassword === newPassword ) {
+        res.status(201).send('la nueva contraseña no puede ser igual a la anterior')
+        return
+      }
+        user.update({ password: newPassword })
+        res.status(200).send('Contraseña modificada correctamente')
+        return
+      })
 })
 
 
