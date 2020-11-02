@@ -29,9 +29,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
-    },
-    guestAmount: {
-      type: DataTypes.INTEGER
     }
   });
   return Product;

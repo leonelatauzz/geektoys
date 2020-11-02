@@ -268,7 +268,7 @@ export default function Login() {
                             clientId="689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com"
                             buttonText="Iniciar Sesion"
                             onSuccess={responseSuccessGoogle}
-                            isSignedIn={true}
+                            isSignedIn={false}
                             onFailure={responseErrorGoogle}
                             cookiePolicy={'single_host_origin'}
                         />

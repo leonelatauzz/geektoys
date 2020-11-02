@@ -8,9 +8,13 @@ import axios from 'axios'
 export default function SuperSimpleNavbarAd() {
     let history = useHistory();
 
-    const handleHome = (e) => {
+    const goDashboard = (e) => {
         e.preventDefault();
         history.push('/admin')
+    }
+    const handleHome = (e) => {
+        e.preventDefault();
+        history.push('/')
     }
 
     return (
@@ -18,6 +22,7 @@ export default function SuperSimpleNavbarAd() {
             <a onClick={handleHome} class="navbar-brand">
                 <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{ cursor: 'pointer' }} />
             </a>
+            <button onClick={goDashboard} class="smButtRC" class='nav-link' >Dashboard</button>
         </nav>
     )
 }

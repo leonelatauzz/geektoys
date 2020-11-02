@@ -42,28 +42,30 @@ export default function ProductCard(props) {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Eliminar'
-          }).then( async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await axios.delete(`http://localhost:3001/products/${props.id}`)
-                .then(async () => {
-                    history.push('/admin/products')
-                    await axios.get('http://localhost:3001/products/')
-                        .then((res) => {
-                            dispatch(getProducts(res.data))
-                        })
-                })
+                    .then(async () => {
+                        history.push('/admin/products')
+                        await axios.get('http://localhost:3001/products/')
+                            .then((res) => {
+                                dispatch(getProducts(res.data))
+                            })
+                    })
                 Swal.fire({
                     position: 'center',
                     icon: 'success',
                     title: 'Producto eliminado correctamente',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                }).then(()=> {
+                    window.location.reload()
+                })
             }
-           
-          })
+
+        })
     }
- 
+
 
 
     const dashboard = (e) => {
@@ -71,33 +73,33 @@ export default function ProductCard(props) {
         history.push('/admin')
     }
 
-    const direction =  window.location.href
+    const direction = window.location.href
     const direction2 = "http://localhost:3000/admin/products"
 
     return (
-        
+
         <div>
-            
-             <div>
-            
-        <div class="container" >
-            <div class="row">
-                <div class='style-cards'>
-                    <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" role="button" tabindex="0" alt="..." />
-                </div>
-                <div class="informacion">
-                    <a class="card-title"onClick={handle}  >{props.name}</a>
-                    <p class="card-text-price">${props.price}</p>
-                    <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
-                </div>
-                <div class="divBoton"> 
-                <button type="button"style={{marginRight:'10px'}} class="btn btn-outline-success rowi" onClick={handleEdit} >Editar</button>  
-                <button type="button" class="btn btn-outline-danger rowi" onClick={handleDelete}  >Eliminar</button>
-                
+
+            <div>
+
+                <div class="container" >
+                    <div class="row" style={{backgroundColor: "white"}}>
+                        <div class='style-cards'>
+                            <img onClick={handle} src={`http://localhost:3001/uploads/${props.picture}`} class="card-img" style={{margin: 'auto'}} role="button" tabindex="0" alt="..." />
+                        </div>
+                        <div class="informacion">
+                            <a class="card-title" onClick={handle} style={{color: '#D90429'}}  >{props.name}</a>
+                            <p class="card-text-price">${props.price}</p>
+                            <p class="card-text"><small className="text-muted">{setStock(props)}</small></p>
+                        </div>
+                        <div class="divBoton" style={{marginBottom: '15px'}}>
+                            <button type="button" style={{ marginRight: '10px' }} class="btn btn-outline-success rowi" onClick={handleEdit} >Editar</button>
+                            <button type="button" class="btn btn-outline-danger rowi" onClick={handleDelete}  >Eliminar</button>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div> 
-</div>  
     )
 }

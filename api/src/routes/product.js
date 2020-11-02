@@ -304,7 +304,8 @@ server.post("/:id/review", (req, res) => {
           rating: req.body.rating,
           description: req.body.description,
           productId:producto.id,
-          name: `${usuario.dataValues.name} ${usuario.dataValues.lastname}`
+          name: `${usuario.dataValues.name} ${usuario.dataValues.lastname}`,
+          userId: req.body.userId
         }).then(function (review) {
           res.status(201).json(review);
         })

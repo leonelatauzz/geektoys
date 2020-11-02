@@ -8,6 +8,7 @@ import {useSelector, useDispatch} from 'react-redux'
 import {getReviewId } from '../Redux/Actions/actions'
 export default function ProductReviews() {
     const userData = useSelector(state => state.userId);
+    const loggedIn = useSelector(state => state.loggedIn);
     const history = useHistory();
     const dispatch= useDispatch();
     const pID = useSelector(state => state.idP)
@@ -83,7 +84,7 @@ export default function ProductReviews() {
             {console.log(data.reviews)}
             {data.reviews.map(reviu =>
                 <div className="ReviewCreado">
-                    {userData.id===reviu.id? <span><h1>Opinion sobre el producto</h1>
+                    {loggedIn === true && userData.id==reviu.userId? <span><h1>Opinion sobre el producto</h1>
                     <h6 style={{marginLeft:"15px"}}>{reviu.updatedAt.split('T')[0]}</h6>
                     <h5>{reviu.name}</h5>
                     <div className="img">{setPick(reviu).map(star =>

@@ -96,7 +96,7 @@ export default function EditOrDelete() {
                 title: 'Producto editado correctamente',
                 showConfirmButton: false,
                 timer: 1500
-              })                            
+            })
             history.push('/admin/products')
             await axios.get('http://localhost:3001/products/')
                 .then((res) => {
@@ -118,7 +118,7 @@ export default function EditOrDelete() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Eliminar'
-          }).then( async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 const res = await axios.delete(`http://localhost:3001/products/${data.idProduct}/category/${valor}`)
                     .then(async (res) => {
@@ -127,21 +127,21 @@ export default function EditOrDelete() {
                                 let pCategories = Object.values(res.data)
                                 dispatch(getProductCategory(pCategories))
                             })
-    
+
                     })
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'success',
-                        title: 'Categoria eliminada del producto',
-                        showConfirmButton: false,
-                        timer: 1500
-                      })
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Categoria eliminada del producto',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
-          })
+        })
     }
 
- 
- 
+
+
 
     const handleCat = (e) => {
         setData({
@@ -154,79 +154,78 @@ export default function EditOrDelete() {
         e.preventDefault()
         const res = await axios.post(`http://localhost:3001/products/${data.idProduct}/category/${data.idCategory}`)
             .then(async () => {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'categoria agregada correctamente',
-                    showConfirmButton: false,
-                    timer: 1500
-                  })
                 await axios.get(`http://localhost:3001/products/categoria/prod/${data.idProduct}`)
                     .then(res => {
                         let pCategories = Object.values(res.data)
                         dispatch(getProductCategory(pCategories))
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'categoria agregada correctamente',
+                            showConfirmButton: false,
+                            timer: 1500
+                        }).then(()=> {
+                            window.location.reload()
+
+                        })
 
 
                     })
             })
     }
 
-    const products = (e) => {
-        e.preventDefault()
-        history.push('/admin/products')
-    }
+
 
     return (
         <div>
             <SuperSimpleNavbarAdmin />
             <div className="">
-            <button className="volver_dashboard" onClick={products}>Volver a productos</button>
-                <form className="formulin" >
+                <form className="formulin" style={{ backgroundColor: 'white', padding: '1vw', height: 'min-content' }}>
                     <h3 className="titulo" style={{ color: 'black' }}>Editar producto</h3>
-                    <label className="label" style={{ color: "black"}}>Título:</label>
+                    <label className="label" style={{ color: "black" }}>Título:</label>
                     <input name='name' className="h6" value={data.name} type='text' placeholder='Título del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black"}}>Descripción:</label>
+                    <label className="label" style={{ color: "black" }}>Descripción:</label>
                     <input name='description' className="h6" value={data.description} type='text' placeholder='Descripción del producto...' onChange={handlerChange}></input>
                     <label className="label" style={{ color: "black" }}>Precio:</label>
                     <input name='price' className="h6" value={data.price} type='text' placeholder='Precio del producto...' onChange={handlerChange}></input>
-                    <label className="label" style={{ color: "black"}}>Stock:</label>
+                    <label className="label" style={{ color: "black" }}>Stock:</label>
                     <input name='stock' className="h6" value={data.stock} type='text' placeholder='Stock del producto...' onChange={handlerChange}></input>
-                    <div style={{ display: 'flex', marginLeft:'20px' }}>
+                    <div style={{ display: 'flex', marginLeft: '20px' }}>
                         <div >
-                            <input className="img_file" style={{maxWidth:'150px', maxHeight:'150px'}} type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
-                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '150px', maxWidth: "150px", marginTop: '0px'}} /> : <img src={data.displayFile} style={{ maxHeight: '150px', maxWidth: '150px'}} />}
+                            <input className="img_file" style={{ maxWidth: '150px', maxHeight: '150px' }} type="file" onChange={handleChange} id="img" name="img" accept="image/*" />
+                            {data.pic === false ? <img src={`http://localhost:3001/uploads/${data.file}`} style={{ maxHeight: '150px', maxWidth: "150px", marginTop: '0px' }} /> : <img src={data.displayFile} style={{ maxHeight: '150px', maxWidth: '150px' }} />}
                         </div>
-                        <input className="btn_guard_cambios" type='submit' value='Guardar Cambios'  onClick={handleForm}></input>
+                        <input className="btn_guard_cambios" type='submit' value='Guardar Cambios' onClick={handleForm}></input>
                     </div>
 
                 </form>
             </div>
             <div className="catesEdit">
-                <form className="formulin_cat">
+                <form className="formulin_cat" style={{ backgroundColor: 'white', padding: '1vw' }}>
                     <div>
                         {prCategories.length === 0 ? <h3 className="titulo" style={{ color: 'black' }}>El producto no tiene ninguna categoría asignada</h3> : <h3 className="titulo" style={{ color: 'black' }}> Categorias del producto:</h3>}
-                        {prCategories.map((e) => <div>
-                            <label className="label" style={{ color: 'black', textTransform: 'capitalize' }}>
+                        {prCategories.map((e) => <div style={{ display: 'flex', justifyContent: 'space-between', width: '15vw', margin: 'auto'  }}>
+                            <label style={{ color: 'black', textTransform: 'capitalize', marginTop: '5px' }}>
                                 {e.name}
                             </label>
 
-                            <button className="submit" value={e.id} style={{ width: '40px', height: '25px', fontSize: '15px', marginLeft: '100px', marginBottom: '380px'}} onClick={handleDelete}>X</button>
+                            <button style={{backgroundColor: '#D90429', color: 'white', borderRadius: '5px'}} value={e.id} onClick={handleDelete}>X</button>
                         </div>
                         )
                         }
                     </div>
-                    <label className="label">¿Deseas agregar una categoria al producto?:</label>
-                    <select  onChange={handleCat}>
-                        <option className= 'Edit-Cat-Adm' >Categorias</option>
+                    <label className="label" style={{margin: 'auto', marginTop: '2vw', marginBottom: '0'}}>¿Deseas agregar una categoria al producto?:</label>
+                    <select onChange={handleCat}>
+                        <option className='Edit-Cat-Adm' >Categorias</option>
                         {existingCategories.map((cat) => <option key={cat.id} value={cat.id} name={cat.name} > {cat.name} </option>)}
                     </select>
-                    <div className= 'Adm-agre'>
-                    <input className="submit" type='submit' value="Agregar" onClick={handleClick}  />
+                    <div style={{marginTop: '50px'}}>
+                        <input className="submit" style={{marginLeft: '140px'}} type='submit' value="Agregar" onClick={handleClick} />
                     </div>
                 </form>
-                
+
             </div>
         </div>
-        
+
     )
 }

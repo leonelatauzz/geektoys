@@ -101,7 +101,7 @@ export default function CardCarrito(props) {
     }
 
     return (
-        <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between' }}>
+        <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between', marginLeft: '1vw', marginTop: '1vw' }}>
             <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${props.picture}`} />
             <div style={{ display: "flex", width: '23vw', justifyContent: 'space-between', padding: '1vh', alignSelf: 'center' }}>
                 <div>

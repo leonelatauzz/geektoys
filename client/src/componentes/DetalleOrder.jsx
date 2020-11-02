@@ -42,7 +42,7 @@ export default function DetalleOrder() {
 
         <div>
             <Nat />
-            <div class='card99' style={{ margin: 'auto', marginTop: '15vh' }}>
+            <div class='card99' style={{ margin: 'auto', marginTop: '15vh', backgroundColor: "white" }}>
                 <div class='top99'>
                     <h3 class='titu99'>Orden #{orderData.id} - {orderData.state}</h3>
                     <h5>{orderData.updatedAt.split('T')[0]}</h5>
@@ -76,7 +76,7 @@ export default function DetalleOrder() {
                                 <h4 class='titu99'>{titleCase(item.name)}</h4>
                                 {item.cart.amount == 1 ? <p>{item.cart.amount} unidad</p> : <p>{item.cart.amount} unidades</p>}
                                 <h5>${(item.cart.price) * (item.cart.amount)}</h5>
-                                <button class='DO101' value={item.id} onClick={handleButtonClick}>Agrega tu Opinion</button>        
+                                <button class='DO101'style={{width: '200px'}} value={item.id} onClick={handleButtonClick}>Agrega tu Opinion</button>        
 
                               
 

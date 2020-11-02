@@ -129,7 +129,7 @@ export default function Order() {
                         {console.log(userData.picture)}
                         {userData.picture.length < 2 ? <img src={empUser} class='pic109' /> : <img src={`http://localhost:3001/uploads/${userData.picture}`} class='pic109' />}
                         <h2 class='titu109'>{userData.name} {userData.lastname}</h2>
-                        {userData.role === 'Admin' && <h3>Administrador</h3>}
+                        {userData.role === 'Admin' && <h3 style={{textAlign: "center"}}>Administrador</h3>}
                         <button class='btn109' onClick={handleEdit}>Editar</button>
                     </div>
                 }
