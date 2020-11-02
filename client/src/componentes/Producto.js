@@ -69,17 +69,6 @@ export default function Productos() {
           })
       })
 
-
-const addRelation = async(e) => {
-  e.preventDefault();
-  console.log(activeOrder[0], producItem)
-
-  let json = {
-    idOrder: activeOrder[0].id,
-    idProduct: producItem.id,
-    price: producItem.price,
-    amount: parseInt(data.amount)
-
   }
 
   const sendProduct = (e) => {
@@ -184,4 +173,3 @@ const addRelation = async(e) => {
     </div>
   )
 }
-
