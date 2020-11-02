@@ -13,7 +13,8 @@ export default function ResetPass() {
 
 
     const [data, setState] = useState({
-        password: ''
+        password: '',
+        oldPassword: ''
     })
 
     const [errors, setErrors] = useState({
@@ -26,7 +27,7 @@ export default function ResetPass() {
     const handleChange = (e) => {
         setState({
             ...data,
-            password: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -34,6 +35,7 @@ export default function ResetPass() {
     const handlSubmit = async (e) => {
         e.preventDefault();
         const json = {
+            oldPassword: data.oldPassword,
             password: data.password
         }
         const password = await axios.post(`http://localhost:3001/user/${params.id}/passwordReset`, json, {
@@ -41,14 +43,24 @@ export default function ResetPass() {
                 'Content-Type': 'application/json'
             }
         })
-        .then(()=>{
-            Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Contraseña modificada correctamente',
-                showConfirmButton: false,
-                timer: 1500
-              })
+        .then((message)=>{
+            if(message.status !== 200){
+                Swal.fire({
+                    position: 'center',
+                    icon: 'warning',
+                    title: message.data,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            } else {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: message.data,
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+            }
         })
     }
 
@@ -82,6 +94,8 @@ export default function ResetPass() {
         }
     }, [data.password])
 
+    
+
 
     return (
         <div>
@@ -89,7 +103,10 @@ export default function ResetPass() {
             <Form.Group controlId="formBasicEmail">
                     <Form.Label column sm="10" style={{fontSize:'22px'}}>Restablecer contraseña</Form.Label>
                     <Col sm="10">
-                        <Form.Control onChange={handleChange} type="password" placeholder="Contraseña nueva" />
+                        <Form.Control name='oldPassword' onChange={handleChange} type="password" placeholder="Actual contraseña" />
+                    </Col>
+                    <Col sm="10">
+                        <Form.Control name='password' onChange={handleChange} type="password" placeholder="Contraseña nueva" />
                         {errors.passwordError === true ? <small className="detail" style={{fontSize:'15px', color: 'red'}}>Debe tener al menos 6 caracteres, una mayuscula, una minuscula y un numero</small> : <div></div>}
                     </Col>
                 </Form.Group>
