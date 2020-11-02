@@ -3,9 +3,11 @@ import Axios from 'axios';
 import { Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import SuperSimpleNavbarAd from './SuperSimpleNavbarAdmin'
+import { useDispatch, useSelector } from "react-redux";
 
 export default function Promote() {
   const history = useHistory();
+  const userData = useSelector(state => state.userId);
   const [usuarios, setUsuarios] = useState({
     usuario: []
   });
@@ -56,8 +58,15 @@ export default function Promote() {
             })
           })
       })
-
   }
+
+ 
+  const users = usuarios.usuario.filter((user)=>{
+    if(user.id !== userData.id){
+      return user
+    }
+  })
+  console.log(users)
 
 
 
@@ -78,7 +87,17 @@ export default function Promote() {
             </tr>
           </thead>
           <tbody>
-            {usuarios.usuario.map(e => <tr>
+            <tr>
+              <td>{userData.id}</td>
+              <td>{userData.name}</td>
+              <td>{userData.email}</td>
+              <td>{userData.role}</td>
+              <td>{userData.state}</td>
+              <td> <button disabled='true' className='bot' style={{ margin: "30px" }} > User </button></td>
+            </tr>
+          </tbody>
+          <tbody>
+            {users.map(e => <tr>
               <td>{e.id}</td>
               <td>{e.name}</td>
               <td>{e.email}</td>
@@ -95,6 +114,7 @@ export default function Promote() {
 
 
           </tbody>
+          
         </Table>
 
 
