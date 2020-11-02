@@ -416,7 +416,7 @@ server.put('/:iduser/baja', (req, res) => {
       } else {
         user.state = "Baja"
         user.save()
-        res.status(201).send(user)
+        res.status(201).send('usuario dado de baja correctamente')
       }
     })
 })
