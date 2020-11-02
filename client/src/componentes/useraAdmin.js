@@ -104,8 +104,8 @@ export default function Promote() {
               <td>{e.role}</td>
               <td>{e.state}</td>
               <td>
-                {e.role === 'Admin' ? <button className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnUser}> User </button>
-                  : <button className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnAdmin}> Admin </button>
+                {e.role === 'Admin' ? <button disabled={e.state === 'Baja'} className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnUser}> User </button>
+                  : <button disabled={e.state === 'Baja'} className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnAdmin}> Admin </button>
                 }
 
               </td>
