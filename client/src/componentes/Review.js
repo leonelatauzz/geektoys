@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StarRating from './rating.js'
 import Swal from 'sweetalert2'
 import DetalleOrder from './DetalleOrder.jsx'
-import SimpleNavbar from './SimpleNavbar.js'
+import SimpleNavbar from './navbar'
 
 
 export default function Review() {

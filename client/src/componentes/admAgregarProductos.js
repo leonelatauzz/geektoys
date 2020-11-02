@@ -116,11 +116,7 @@ export default function AddProduct() {
         })
     }
 
-    const handleB = (e) => {
-        e.preventDefault();
-        history.push('/admin')
-    }
-    
+   
 
     return (
         <div>
@@ -128,8 +124,7 @@ export default function AddProduct() {
        
         <div className="imagen_fondo">
         <div className="div_container" >
-        <button style={{marginLeft: '950px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>            
-            <div className="juan" style={{height: '650px'}}>            
+            <div className="juan" style={{height: '650px', backgroundColor: 'white', height: '65vh', marginTop: '5vw'}}>            
             {data.send === false ?
                 <form className="form" >
                     <h3 className="titulo" >Agregar nuevo producto</h3>
@@ -150,7 +145,7 @@ export default function AddProduct() {
                     </div>
                     {data.check === true && data.name.length > 0 && data.description.length > 0  ? <input className="submit" type='submit' value='Agregar producto' onClick={handleForm}></input> : <span className= "text">Se requieren todos los campos</span>}
                 </form> : data.hola === false ? <div>
-                    <div className= "labelin">
+                    <div className= "labelin" style={{marginTop: '1vw'}}>
                         ¿Deseas agregar una categoria al producto?
                         </div>
                 </div  > : <div>

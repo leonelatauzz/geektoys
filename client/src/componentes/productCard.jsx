@@ -11,21 +11,24 @@ import { Card } from 'react-bootstrap'
 export default function ProductCard(props) {
     const history = useHistory();
     const userData = useSelector(state => state.userId)
+    const loggedIn = useSelector(state => state.loggedIn);
     const dispatch = useDispatch();
     const [favis, setFavis] = useState([])
     const [favos, setFavos] = useState(false)
     const [faves, setFaves] = useState(false)
     useEffect(() => {
-        async function makeRequests() {
+        if (loggedIn === true) {
+            async function makeRequests() {
 
-            await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
-                .then(resp => {
-                    let faves = Object.values(resp.data)
-                    dispatch(getFavorites(faves))
-                    setFavis(faves)
-                })
+                await axios.get(`http://localhost:3001/products/favorites/${userData.id}`)
+                    .then(resp => {
+                        let faves = Object.values(resp.data)
+                        dispatch(getFavorites(faves))
+                        setFavis(faves)
+                    })
+            }
+            makeRequests();
         }
-        makeRequests();
     }, []);
     let prueba = []
     favis.forEach(it => {
@@ -94,13 +97,13 @@ export default function ProductCard(props) {
                 </Card.Body>
                 <Card.Footer style={{ display: 'flex', justifyContent: 'space-between', height: '10vh' }}>
                     <h2 style={{ color: '#D90429', alignSelf: 'center' }}>${props.price}</h2>
-                    <div class="divBoton" style={{ cursor: 'pointer', marginLeft: '16vw' }} >
+                    {loggedIn === true && <div class="divBoton" style={{ cursor: 'pointer', marginLeft: '16vw' }} >
                         {prueba.includes(props.id) && faves === false && <img onClick={handleFH} class='fullLike' src={fHeart} />}
                         {!(prueba.includes(props.id)) && faves === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}
                         {faves === true && favos === false && <img onClick={handleEH} class='emptyLike' src={eHeart} />}
                         {faves === true && favos === true && <img onClick={handleFH} class='fullLike' src={fHeart} />}
                         <span role="button" tabindex="0"></span>
-                    </div>
+                    </div>}
                 </Card.Footer>
             </div>
         </Card>

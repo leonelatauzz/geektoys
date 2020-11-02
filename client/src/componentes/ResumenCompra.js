@@ -220,6 +220,13 @@ export default function ResumenCompra() {
                         
                         let json = {
                             email: userData.email,
+                            products: dbCart,
+                            adress: data.selectedAdress,
+                            deliveryMethod: data.dMethod,
+                            user: userData,
+                            order: nOrden,
+                            total: suma
+
                         }
 
                         
@@ -267,15 +274,15 @@ export default function ResumenCompra() {
                                                 <h4>{item.firstLine}</h4>
                                                 <p>{item.secondLine} - {item.postalCode}</p>
                                                 <p>{item.district} - {item.province}</p>
-                                                <button style={{ margin: '1vh' }} class='DO101' value={item.id} onClick={editA}>Editar</button>
+                                                <button  class='DO101' style={{ margin: '1vh' }} value={item.id} onClick={editA}>Editar</button>
                                                 <button style={{ margin: '1vh' }} class='DO101' value={item.id} onClick={deleteA}>Eliminar</button>
                                             </div>
                                             <button style={{ margin: '1vh' }} class='DO101' value={item.id} onClick={selectA}>Seleccionar Dirección</button>
                                         </div>
                                     )
                                 }
-                                <button style={{ margin: '1vh' }} class='DO101' onClick={addA}>Agregar nueva dirección</button>
-                                <button style={{ margin: '1vh' }} class='DO101' onClick={resetOptions}>Elegir otro método de entrega</button>
+                                <button  class='DO101' style={{ margin: '1vh', width: '250px' }} onClick={addA}>Agregar nueva dirección</button>
+                                <button  class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro método de entrega</button>
                             </div>
                         }
                         {data.sA === true &&
@@ -286,8 +293,8 @@ export default function ResumenCompra() {
                                         <h4>{data.selectedAdress.firstLine}</h4>
                                         <p>{data.selectedAdress.secondLine} - {data.selectedAdress.postalCode}</p>
                                         <p>{data.selectedAdress.district} - {data.selectedAdress.province}</p>
-                                        <button style={{ margin: '1vh' }} class='DO101' onClick={hideOptionsA}>Elegir otra dirección</button>
-                                        <button style={{ margin: '1vh' }} class='DO101' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button  class='DO101' style={{ margin: '1vh', width: '250px' }} onClick={hideOptionsA}>Elegir otra dirección</button>
+                                        <button class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>
@@ -300,7 +307,7 @@ export default function ResumenCompra() {
                                         <h4>Calle falsa123</h4>
                                         <p>Microcentro - Capital Federal</p>
                                         <p>Lunes a Viernes, 9:00 a 18:00</p>
-                                        <button style={{ margin: '1vh' }} class='DO101' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>

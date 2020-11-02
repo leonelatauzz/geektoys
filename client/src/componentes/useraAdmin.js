@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { Table } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import SuperSimpleNavbarAd from './SuperSimpleNavbarAdmin'
+import Swal from 'sweetalert2'
 
 export default function Promote() {
   const history = useHistory();
@@ -38,6 +39,16 @@ export default function Promote() {
               ...usuarios,
               usuario: users.data
             })
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Usuario modificado correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(()=> {
+              window.location.reload()
+            })
+             
           })
       })
 
@@ -54,6 +65,15 @@ export default function Promote() {
               ...usuarios,
               usuario: users.data
             })
+            Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: 'Usuario modificado correctamente',
+              showConfirmButton: false,
+              timer: 1500
+            }).then(()=> {
+              window.location.reload()
+            })
           })
       })
 
@@ -66,7 +86,7 @@ export default function Promote() {
       <SuperSimpleNavbarAd />
       <div style={{ width: '70%', margin: 'auto' }}>
 
-        <Table striped bordered hover>
+        <Table striped bordered hover style={{backgroundColor: 'white'}}>
           <thead>
             <tr>
               <th>Id</th>
@@ -85,8 +105,8 @@ export default function Promote() {
               <td>{e.role}</td>
               <td>{e.state}</td>
               <td>
-                {e.role === 'Admin' ? <button className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnUser}> User </button>
-                  : <button className='bot' value={e.id} style={{ margin: "30px" }} onClick={btnAdmin}> Admin </button>
+                {e.role === 'Admin' ? <button className='bot' value={e.id} style={{margin: 'auto', marginBottom: '10px'}} onClick={btnUser}> User </button>
+                  : <button className='bot' value={e.id} style={{margin: 'auto', marginBottom: '10px'}} onClick={btnAdmin}> Admin </button>
                 }
 
               </td>

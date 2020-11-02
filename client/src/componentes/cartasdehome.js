@@ -47,12 +47,12 @@ export default function CartitasDeHome() {
     <div>
       <div>
       <div style={{textAlign:'center',marginTop:'100px',fontFamily: 'Malgun Gothic Semilight', fontSize: '19px'}}>
-      <h1 style={{fontFamily: 'Malgun Gothic Semilight', color: '#D90429', textDecoration:'bold', fontSize: '45px'}}>Productos Destacados</h1>
+      <h1 style={{fontFamily: 'Malgun Gothic Semilight', color: '#D90429', textDecoration:'bold', fontSize: '45px', backgroundColor: 'white', padding: '2vw', width: '30vw', margin: 'auto', borderRadius: '10px'}}>Productos Destacados</h1>
       </div>
       <CardDeck style={{ width: '70vw', margin: 'auto', marginTop: '10vh', display: 'flex', justifyContent: 'space-around' }}>
       <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
-  <Card.Img onClick={starwars} style={{ padding: '20px' }} variant="top" src={stImg} />
-    <Card.Body>
+  <Card.Img onClick={starwars} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={stImg} />
+    <Card.Body >
     <Card.Title onClick={starwars} style={{ color: '#D90429'}}>Pochoclera Star Wars</Card.Title>
       <Card.Text style={{ fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
       La Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. 
@@ -64,9 +64,9 @@ export default function CartitasDeHome() {
     </Card.Footer>
   </Card>
   <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
-  <Card.Img onClick={pokemon} style={{ padding: '20px' }} variant="top" src={pImg} />
+  <Card.Img onClick={pokemon} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={pImg} />
     <Card.Body>
-      <Card.Title onClick={pokemon} style={{ color: '#D90429'}}>Funko Pokemon</Card.Title>
+      <Card.Title onClick={pokemon} style={{ color: '#D90429'}}>Funko Pikachu</Card.Title>
       <Card.Text style={{ fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
       Alucinante Figura POP, de la marca Funko, de unos 10cms de alto. Ideal para fanáticos y coleccionistas, para regalar o regalarse, no podes dejar de tener esta hermosa figura.
 
@@ -77,9 +77,9 @@ export default function CartitasDeHome() {
     </Card.Footer>
   </Card>
   <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
-  <Card.Img onClick={naruto} style={{ padding: '20px' }} variant="top" src={nImg} />
+  <Card.Img onClick={naruto} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={nImg} />
     <Card.Body>
-    <Card.Title onClick={naruto} style={{ color: '#D90429'}}>Figura Kakashi Coleccionable</Card.Title>
+    <Card.Title onClick={naruto} style={{ color: '#D90429'}}>Funko Kakashi</Card.Title>
     <Card.Text style={{fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
       Convertite en el mejor ninja!
                 ¡Una colección de figuras única e irrepetible!
