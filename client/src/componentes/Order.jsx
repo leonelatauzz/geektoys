@@ -124,6 +124,7 @@ export default function Order() {
         <div>
             <Nat />
             <div class='cont109'>
+                {console.log(userData.id)}
                 {data.edit === false &&
                     <div class='profCont109'>
                         {console.log(userData.picture)}
