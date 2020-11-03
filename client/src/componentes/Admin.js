@@ -52,8 +52,8 @@ export default function Admin() {
 
         <div>
             <Nat />
-            <div className='divPrincipalAdmin' style={{ marginTop: '5%', marginLeft: '10%' }}>
-                <Card className='cardAdmin' style={{ width: '80rem', border: 'solid 1px black' }}>
+            <div className='divPrincipalAdmin' style={{ margin: 'auto' }}>
+                <Card className='cardAdmin' style={{ width: '80rem', border: 'solid 1px black', margin: 'auto' }}>
                     <h1 className='textin-welcome'>Administrador</h1>
                     <div className='divAdmin-1' style={{ display: "flex", justifyContent: 'center', margin: '20px' }}>
                         <Card border="danger" style={{ width: '25rem', marginRight: '10px' }}>
