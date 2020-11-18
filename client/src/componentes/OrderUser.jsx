@@ -11,15 +11,24 @@ export default function OrderUser() {
         all: false,
         pagadas: false,
         entregadas: false,
-        canceladas: false
+        canceladas: false,
+        orders: []
     });
     const dispatch = useDispatch();
     let history = useHistory();
     const activeOrder = useSelector(state => state.activeOrder)
     const userData = useSelector(state => state.userId);
+    useEffect(() => {
+       setData({...data,
+    orders: userData.orders
+    })
+    }, []);
+
     const getOrderData = async (e) => {
         e.preventDefault();
+        console.log(e.target)
         var orderId = e.target.value
+        console.log(orderId)
         const rous = await axios.get(`http://localhost:3001/order/${orderId}`)
             .then(async (resp) => {
                 console.log('2')
@@ -114,33 +123,33 @@ export default function OrderUser() {
                         <div class='tit100'><h5>Estado</h5></div>
                     </div>
                     <div class='body100'>
-                        {userData.orders.map(order =>
+                        {data.orders.map(order =>
 
                             <div>
                                 {data.all === false && order.state !== 'carrito' &&
                                     <div class='bd100'>
-                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                                         <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
                                         <div class='te100'><h6>{order.state}</h6></div>
                                     </div>
                                 }
                                 {data.pagadas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'cancelada' &&
                                     <div class='bd100'>
-                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                                         <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
                                         <div class='te100'><h6>{order.state}</h6></div>
                                     </div>
                                 }
                                 {data.entregadas === true && order.state !== 'carrito' && order.state !== 'pagada' && order.state !== 'cancelada' &&
                                     <div class='bd100'>
-                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                                         <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
                                         <div class='te100'><h6>{order.state}</h6></div>
                                     </div>
                                 }
                                 {data.canceladas === true && order.state !== 'carrito' && order.state !== 'entregada' && order.state !== 'pagada' &&
                                     <div class='bd100'>
-                                        <button value={order.id} onClick={getOrderData} class='tbe100'><h6>{order.id}</h6></button>
+                                        <button value={order.id} onClick={getOrderData} class='tbe100'>{order.id}</button>
                                         <div class='te100'><h6>{order.updatedAt.split('T')[0]}</h6></div>
                                         <div class='te100'><h6>{order.state}</h6></div>
                                     </div>

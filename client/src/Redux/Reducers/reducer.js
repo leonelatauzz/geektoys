@@ -1,3 +1,4 @@
+import localStorage from 'local-storage'
 const initialState = {
     products: [],
     productId: null,
@@ -15,7 +16,11 @@ const initialState = {
     adressId: null,
     purchaseData: null,
     purchaseProducts: [],
-    review: []
+    review: [],
+    token: null,
+    idP: null,
+    favorites: [],
+    rID: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -37,8 +42,13 @@ export default function (state = initialState, action) {
             return { ...state, userId: action.payload }
         case 'GET_ACTIVE_ORDER':
             return { ...state, activeOrder: action.payload }
-        case 'LOGIN':
-            return { ...state, loggedIn: true }
+            case 'LOGIN':
+                // localStorage.setItem('datos', JSON.stringify(user))
+                // console.log(localStorage.getItem("datos"))
+        return { ...state,
+             loggedIn: true 
+            
+            }
         case 'LOGOUT':
             return { ...state, loggedIn: false }
         case 'GET_DB_CART':
@@ -55,6 +65,16 @@ export default function (state = initialState, action) {
             return { ...state, purchaseProducts: action.payload }
         case 'GET_REVIEW_PRODUCTS':
             return { ...state, review: action.payload }
+        case 'REMOVE_FROM_CART':
+            return { ...state, cart: state.cart.filter(item => item.id != action.payload) }
+        case 'GET_TOKEN':
+            return { ...state, token: action.payload }
+        case 'GET_PID':
+            return { ...state, idP: action.payload }
+        case 'GET_FAVORITES':
+            return { ...state, favorites: action.payload }
+        case 'GET_RID':
+            return {...state, rID: action.payload}
         default:
             return state;
     }

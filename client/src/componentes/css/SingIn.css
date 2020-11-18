@@ -7,9 +7,11 @@
     border-radius: 8px;
     width: min-content;
     margin: auto;
-    margin-top: 10vh;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
     height: 50vh;
     padding: 2vh;
+    background-color: whitesmoke;
 }
 .Titulo-Ingresar{
     width: 10vw;

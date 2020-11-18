@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import StarRating from './rating.js'
 import Swal from 'sweetalert2'
 import DetalleOrder from './DetalleOrder.jsx'
-
+import SimpleNavbar from './navbar'
 
 
 export default function Review() {
@@ -16,10 +16,8 @@ export default function Review() {
     const dataProduct = useSelector(state=>state.productId)
     const history = useHistory();
     const [data, setData] = useState({
-      id: dataProduct,
    rating: "",
    description: "",
-   date: "",
   })
   
     const handleRegister = (e) =>{
@@ -36,25 +34,24 @@ export default function Review() {
       const handleCambio= (e)=>{
        setData({ ...data, 
         description:e.target.value})
-        console.log(e.target.value)
+       
       }
       const handleRating= (e)=>{
         setData({...data,
         rating:e.target.value})
-        console.log(e.target.value)
+        
       }
+      
       const handleChange = async(e)=>{
         e.preventDefault();
-        setData({...data,
-        id:e.target.value
-        })
+        console.log(dataProduct)
         let json = {
-            id:data.id,
            rating:data.rating,
-           description:data.description
+           description:data.description,
+           productId:dataProduct,
+           userId: userData.id
         }
-       console.log(json)
-        const res = await axios.post(`http://localhost:3001/products/${data.id}/review`, json, {
+        const res = await axios.post(`http://localhost:3001/products/${dataProduct}/review`, json, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -71,29 +68,24 @@ export default function Review() {
          }
         })
     }
-    const parseDate = (oldDate) => {
-      return new Date(oldDate).toLocaleString("es", {
-          "weekday": "long",
-          "month": "long",
-          "day": "numeric",
-      });
-  }
+
    
   return (
+    <div>
+
+    <SimpleNavbar />
     <div className= "review">
     
-    {loggedIn === false ?  <span><label style={{color:"white"}}>Logea para opinar sobre el producto</label><Button onClick={handleRegister} className="Register" style={{marginRight: '10px'}} variant="info">Registrarse</Button>
+    {loggedIn === false ?  <span><label style={{color:"black"}}>Logea para opinar sobre el producto</label><Button onClick={handleRegister} className="Register" style={{marginRight: '10px'}} variant="info">Registrarse</Button>
     <Button onClick={handleLogin} variant="info" className="Register" style={{marginRight: '10px'}}>Ingresar</Button></span> : <div>
         <h1>Opinion sobre el producto</h1>
-        <div>Fecha</div>
-        <h5>{userData.name} {userData.lastname}</h5>
         <div onClick={handleRating}><StarRating /></div>
       <input style={{width: "300px"}} type="text" value={data.description} onChange={handleCambio}/>
-      <button onClick={handleChange}  style={{height: "29px" }} type="submit">Enviar</button>
+      <button onClick={handleChange} style={{height: "29px" }} type="submit">Enviar</button>
       
 
     </div>} 
   </div>
-    
+  </div>
   );
 }

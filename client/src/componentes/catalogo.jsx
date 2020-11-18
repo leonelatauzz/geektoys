@@ -7,7 +7,7 @@ import Footer from './Footer'
 
 
 
-// llega un array en props, se recorre y se renderiza en cada card
+
 export default function Catalogo() {
 
     const catalogo = useSelector(state => state.products)

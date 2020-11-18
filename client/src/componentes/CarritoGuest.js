@@ -5,7 +5,9 @@ import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
 import { removeFromCart } from '../Redux/Actions/actions'
 import Nat from './navbar'
-import Footer from './Footer'
+import Footer from './Footer';
+import Swal from 'sweetalert2'
+
 
 
 export default function Cart() {
@@ -41,6 +43,21 @@ export default function Cart() {
     history.push('/user/login')
   }
 
+  const handDel = (e) => {
+    e.preventDefault();
+    dispatch(removeFromCart(e.target.value))
+    setData({
+      ...data,
+      products: data.products.filter(item => item.id != e.target.value)
+    })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Producto eliminado correctamente',
+      showConfirmButton: true
+  })
+  }
+
   return (
     <div>
       <Nat />
@@ -48,10 +65,10 @@ export default function Cart() {
         {data.products.length === 0 && <h1 class='titA102'>Tu carrito esta vacío!</h1>}
         {data.products.length > 0 && <h1 class='titA102'>Mi carrito</h1>}
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", width: '90vw', margin: 'auto', marginRight: '8vw' }}>
         <div class='leftD' style={{ marginLeft: '6.5vw' }}>
           {data.products.map(product =>
-            <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between' }}>
+            <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between', marginLeft: '1vw', marginTop: '1vw' }}>
               <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${product.picture}`} />
               <div style={{marginTop: '4vh'}}>
                 <h2 style={{ color: '#D90429' }}> {product.name} </h2>
@@ -65,7 +82,7 @@ export default function Cart() {
               </div>
               <div style={{ margin: '8.3vh 1vw 0 0' }}>
                 {/* <h5 style={{ marginBottom: '15px' }}> Precio: ${product.price}</h5> */}
-                {/* <button value={props.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button> */}
+                <button value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button>
               </div>
             </div>
 

@@ -112,6 +112,40 @@ export const getReviewProducts = function(props){
     }
 }
 
+export const removeFromCart = function(props){
+    return{
+        type: 'REMOVE_FROM_CART',
+        payload: props
+    }
+}
+export const getToken = function(props){
+    return{
+        type: 'GET_TOKEN',
+        payload: props
+    }
+}
+export const getPID = function(props){
+    return{
+        type: 'GET_PID',
+        payload: props
+    }
+}
+export const getFavorites = function(props){
+    return{
+        type: 'GET_FAVORITES',
+        payload: props
+    }
+}
+export const getReviewId = function(props){
+    return{
+        type: 'GET_RID',
+        payload: props
+    }
+}
+
+
+
+
 
 
 

@@ -53,7 +53,7 @@ export default function Cart() {
         {dbCart.length === 0 && <h1 class='titA102'>Tu carrito esta vacío!</h1>}
         {dbCart.length > 0 && <h1 class='titA102'>Mi carrito</h1>}
       </div>
-      <div style={{ display: "flex" }}>
+      <div style={{ display: "flex", width: '90vw', margin: 'auto', marginRight: '8vw' }}>
         <div class='leftD' style={{ marginLeft: '6.5vw' }}>
           {dbCart.map(p => <CardCarrito
             key={p.id}
@@ -71,6 +71,7 @@ export default function Cart() {
           <div style={{ margin: '2vh' }}>
             <h3>{count} productos</h3>
             <h1 style={{ color: '#D90429' }}>Subtotal: ${suma}</h1>
+
           </div>
           <Col sm={6}>
             {dbCart.length === 0 ? <span></span> :

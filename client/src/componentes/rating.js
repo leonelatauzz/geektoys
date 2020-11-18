@@ -15,7 +15,6 @@ export default function StarRating(){
                   name='rating' 
                   value={ratingValue} 
                   onClick={()=>setRating(ratingValue+1)}
-                  
                   />
                   <FaStar 
                   className='star' 
@@ -27,11 +26,11 @@ export default function StarRating(){
                 </label>   
             )  
           })}
-          {rating===1?<p>Malo</p>:""}
-          {rating===2?<p>Bueno</p>:""}
-          {rating===3?<p>Muy Bueno</p>:""}
-          {rating===4?<p>Tremendo</p>:""}
-          {rating===5?<p>Excelente</p>:""}
+          {rating===1?<p style={{marginBottom:"0px", marginLeft:"0px"}}>Malo</p>:""}
+          {rating===2?<p style={{marginBottom:"0px", marginLeft:"0px"}}>Bueno</p>:""}
+          {rating===3?<p style={{marginBottom:"0px", marginLeft:"0px"}}>Muy Bueno</p>:""}
+          {rating===4?<p style={{marginBottom:"0px", marginLeft:"0px"}}>Tremendo</p>:""}
+          {rating===5?<p style={{marginBottom:"0px", marginLeft:"0px"}}>Excelente</p>:""}
           </div>
            
     )

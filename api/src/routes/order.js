@@ -46,7 +46,6 @@ server.put('/:orderId', (req, res) => {
 });
 
 server.put('/:orderId/payment', (req, res) => {
-  console.log(req.body)
   Order.findByPk(req.params.orderId).then((order) => {
     if (!order) {
       res.status(404).send('Orden no encontrada');

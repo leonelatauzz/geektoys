@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
+import '../componentes/css/forms.css'
+import SuperSimpleNavbarAdmin from './SuperSimpleNavbarAdminProd'
 
 export default function Productos() {
   const history = useHistory();
@@ -13,9 +15,9 @@ const handleB = (e) => {
 
   return (
     <div>
-        
+        <SuperSimpleNavbarAdmin />
     <div class="containerProduct">
-    <button style={{marginLeft: '950px', marginTop:'20px'}} className="my_butom" onClick={handleB}>Volver al dashboard</button>
+    <button className="submit1" onClick={handleB}>Volver al dashboard</button>
       <div class="cardProduct">
         <div class="imagenContainer">
           <div class="imagenProduct">
