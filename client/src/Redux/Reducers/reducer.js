@@ -15,7 +15,12 @@ const initialState = {
     adresses: [],
     adressId: null,
     purchaseData: null,
-    purchaseProducts: []
+    purchaseProducts: [],
+    review: [],
+    token: null,
+    idP: null,
+    favorites: [],
+    rID: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
@@ -58,8 +63,18 @@ export default function (state = initialState, action) {
             return { ...state, purchaseData: action.payload }
         case 'GET_ORDER_PRODUCTS':
             return { ...state, purchaseProducts: action.payload }
-
-
+        case 'GET_REVIEW_PRODUCTS':
+            return { ...state, review: action.payload }
+        case 'REMOVE_FROM_CART':
+            return { ...state, cart: state.cart.filter(item => item.id != action.payload) }
+        case 'GET_TOKEN':
+            return { ...state, token: action.payload }
+        case 'GET_PID':
+            return { ...state, idP: action.payload }
+        case 'GET_FAVORITES':
+            return { ...state, favorites: action.payload }
+        case 'GET_RID':
+            return {...state, rID: action.payload}
         default:
             return state;
     }

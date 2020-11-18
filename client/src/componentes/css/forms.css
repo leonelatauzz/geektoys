@@ -1,35 +1,38 @@
+@media screen and (max-width: 800px) {
+    .div_container, .image, .juan {
+      width: 100%; 
+    }
+  }
 
 .image{
     position: absolute;
-    bottom: 5px;
+    bottom: 0px;
     left: 750px;
-    width: 600px;
-    height: 550px;
+    width: 400px;
+    height: 500px;
 }
 
 .div_container{
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center ;
-    height: 676px;
-    background-color: #8D99AE;
+    align-items: center;
+    margin-top: 40px;
 }
 
 .juan{
     position: relative;
-    right: 400px;
+    right: 20%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: 45,83,54,7;
-    align-items: center;
-    height: 500px;
-    width: 600px;
-    margin-left: 30p;
-    border: whitesmoke 1px solid;
+    height: 60%;
+    width: 30%;
+    margin-left: 5%;
+    border: black 1px solid;
     border-radius: 15px;
-    color:white
+    color: #D90429;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .form{
@@ -40,26 +43,29 @@
 }
 
 .my_butom{
-    background-color: #D90429;
-    border :black solid 3px;
+    background-color: white;
+    border: 0.25px gray solid;
     border-radius: 5px;
-    color: whitesmoke;
+    color: black;
     position: absolute;
     display: flex;
     justify-content: space-between;
     top: 20px;
     top: 3px;
     left: 290px;
+    cursor: pointer;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .my_butom:hover {
-    background-color: #2B2D42;
-    border: black solid 3px;
+    background-color: #8D99AE;
+    border: black solid 1px;
 }
 
 .inputs{
     margin-top: .5em;
     margin-bottom: .5em;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .file {
@@ -69,88 +75,142 @@
 }
 
 .imgDisp{
-    max-width: 35%;
-    left: 55%;
-    bottom: 17px;  
+    position: relative;
+    top: -25%; 
+    left: 35%;
+    width: 150px;
+    height: 150px;
+    margin: 30%;
+    border:2px solid black;
+    display: block;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .imgCarga{
-    max-width: 150px;
-    max-height: 200px;
-    left: 55%;
-    bottom: 35px;
+    position: relative;
+    top: -35%;
+    left: 34%;
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+    margin-left: 150px;
+    margin-top: 100px;
+    border:2px solid black;
+    display: block;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .text{
     position: absolute;
-    text-align:left;
-    text-justify: initial;
+    text-align:center;
     bottom: 30px;
 }
 
-.submit{
-    position: relative;
-    left: 70px;
-    width: 300px;
-    height:30px;
-    border-radius: 5px;
-    margin-right: 100px;
-    background-color: #D90429;
-    border :black solid 3px;
-
+.textin {
+    font-size: 20px;
+    color:  #2B2D42;
+    display: flex;
+    text-align: center;
 }
 
-.submit:hover{
-    background-color: #2B2D42;
-    border: black solid 3px;
-}
-
-.label {
+.label{
     font-size: 18px;
     color:  #2B2D42;
+    display: flex;
+    text-align: center;
 }
 
-.titulo {
-    position: relative;
-    text-align: center;
+.labelin{
+    font-size: 28px;
     color:  #2B2D42;
+    display: flex;
+    text-align: center;   
+}
 
+
+.op_cat{
+    border: black 1px;
+    border-radius: 15px;
 }
 
 .juan1{
     position: relative;
     display: flex;
-    border: whitesmoke 1px;
+    border: black 1px;
     border-radius: 15px ;
-    color: white;
+    color: black;
     height: 450px;
-    width: 500px ;
-    right: 450px;    
-    flex-direction: column;
+    width: 500px;    
+    flex-direction: column;  
+    align-items: center; 
 }
 
+.submit {
+    background-color: white;
+    border: 0.25px gray solid;
+    border-radius: 5px;
+    color: black;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    bottom: 100px;
+    left: 70px;
+    cursor: pointer;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
+}
+
+.submit:hover {
+    background-color: #8D99AE;
+    border: black solid 1px;
+}
 
 .submit1 {
-    position: relative;
-    top: 10px;
-    background-color: #D90429;
-    border :black solid 3px;
-    border-radius: 3px;
-    color: whitesmoke;
-    width: 150px;
-    height: 30px;
+    background-color: white;
+    border: 0.25px gray solid;
+    border-radius: 5px;
+    color: black;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    bottom: -20px;
+    left: 42px;
+    cursor: pointer;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .submit1:hover{
-    background-color: #2B2D42;
-    border: black solid 3px;
+    background-color: #8D99AE;
+    border: black solid 1px;
+}
+
+.btn_agregar{
+    background-color: white;
+    border: 0.25px gray solid;
+    border-radius: 5px;
+    color: black;
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+    bottom: -20px;
+    left: 42px;
+    cursor: pointer;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
+}
+
+.btn_agregar:hover{
+    background-color: #8D99AE;
+    border: black solid 1px;
 }
 
 .label1 {
     font-size: 25px;
-    color:  #2B2D42;
+    color:  #2B2D42; 
 }
 
+.label_cat {
+    font-size: 20px;
+    color:  #2B2D42;
+}
 
 .inputs1 {
     border: whitesmoke 2px solid;
@@ -158,13 +218,25 @@
     margin-right:30px;
     box-sizing: border-box;
     border-radius:4px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    width: 400px
 }
 
 .categories {
     position: absolute;
     top: 180px;
     left: 1000px;
-    border: 1px whitesmoke;
+    border: 1px black;
+    padding: 20px;
+    border-radius: 15px;
+    color:  #2B2D42;
+}
+
+.categories_existentes {
+    position: absolute;
+    top: 120px;
+    left: 380px;
+    border: 1px black;
     padding: 20px;
     border-radius: 15px;
     color:  #2B2D42;
@@ -196,29 +268,31 @@
 .edit {
     position: relative;
     left: 5px;
-    color: white;
-    background-color: #D90429;
-    border :black solid 3px;
-    border-radius: 3px;
+    color: black;
+    background-color: white;
+    border: 0.25px gray solid;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .delete {
-    color: white;
     position: relative;
-    left: 10px;
-    background-color: #D90429;
-    border :black solid 3px;
-    border-radius: 3px;
+    left: 15px;
+    color: black;
+    background-color: white;
+    border: 0.25px gray solid;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35)
 }
 
 .delete:hover {
-    background-color: #2B2D42;
-    border: black solid 3px;
+    background-color: #8D99AE;
+    border: black solid 1px;
 }
 
 .edit:hover {
-    background-color: #2B2D42;
-    border: black solid 3px;
+    background-color: #8D99AE;
+    border: black solid 1px;
 }
 
 .div_conteiner{
@@ -331,6 +405,10 @@
     color: #495057;
     background-color: lightgrey;
     border :black solid 1px;
+    margin-left: 1900px;
+    margin-top: -130px;
+    width: 100px;
+    height: 50px;
 
 }
 

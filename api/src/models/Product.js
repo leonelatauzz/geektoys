@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    description:{
+    description: {
       type: DataTypes.STRING,
       allowNull: false
     },
@@ -22,16 +22,16 @@ module.exports = (sequelize) => {
     },
     picture: {
       type: DataTypes.STRING,
-      
+
     },
-   
+
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true
     }
   });
-    return Product;
-  };
- 
+  return Product;
+};
+
 

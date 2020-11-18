@@ -1,6 +1,8 @@
 
 .container{
-    margin-top: 15px;   
+    margin-top: 80px;  
+    display: block;
+    margin-bottom: 50px;
 }
 
 .row{
@@ -8,67 +10,69 @@
     box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
     border-radius: 8px;
     display: flex; 
-    flex-direction: row;
-    background-color: white;  
+    flex-direction: column;
+    max-width: 500px; 
+    margin: none;
 }
-
-.col-md-4{
-    padding: 5px;
-    margin:  5px;
-    margin-left: 30px;
-    margin-right: 30px;
-
-
+.rowi{ 
+    border: 0.25px gray solid;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: column;
+    background-color: whitesmoke;
 }
 
 .card-img{
     width: auto;
     max-width: 300px;
     height: 300px;
+    display: block;
+    margin-left: 70px; 
 }
 .card-img:hover {
     border: 1px solid black;
 }
 .emptyLike {
-    height: 30px;
-    margin: 20px 0px 0px 70px;
+    height: 40px;
+    align-self: center;
 }
 .emptyLike:hover {
-    height: 33px;
+    height: 43px;
 }
 .fullLike {
-    height: 32px;
-    margin: 20px 0px 0px 70px;
+    height: 42px;
+    align-self: center;
 
 }
 .fullLike:hover {
-    height: 35px;
-
+    height: 45px;
 }
 
 .informacion{
     display: flex;
     flex-direction: column;
     height: 200px;
-    width: 450px;
-    margin-left: 60px;
-    margin-top: 20px;
+    width: 480px;
+    margin-top: -20px;
 }
 
 .divBoton{
-    display: flex;    
-    margin-top: 10px;
-    margin-bottom: 50px;
-    height: 40px;
-    width: 120px;
-    margin-left: 20px;
+    display: flex;
+    justify-content: center;
+    top: 20px;
+    margin: auto;
+
 }
 
 .card-title{
     font-family: 'Helvetica Neue', sans-serif;
-    font-size: 30px;
-    margin-top: 20px;
+    font-size: 28px;
+    margin-top: 50px;
+    margin-left: 60px;
     color: #0645AD;
+    cursor: pointer;
+    
 }
 .card-title:hover {
     color: cornflowerblue;
@@ -76,13 +80,13 @@
 
 .card-text-price{
     font-family: 'Open Sans', sans-serif;
-    font-size: 45px;
-    font-weight: 300;
-    margin-top: 30px;
+    font-size: 40px;
+    margin-top: -60px;
+    margin-left: 350px;
 }
 
 .card-text{
     font-family: 'Malgun Gothic';
     font-size: 18px;
-    margin-top: 20px;
+    margin-left: 60px;
 }

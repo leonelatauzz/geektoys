@@ -29,10 +29,25 @@ import AgregarDireccion from './componentes/AgregarDireccion';
 import EditarDireccion from './componentes/EditarDireccion';
 import AprovedPurchase from './componentes/AprovedPurchase'
 import SeguridadUser from './componentes/SeguridadUser'
+import StarRating from './componentes/rating.js'
 import AdminDetalleOrder from './componentes/AdminDetalleOrder'
+import UseraAdmin from './componentes/useraAdmin';
+import SuperSimpleNavbarAd from './componentes/SuperSimpleNavbarAdmin';
+import ProductReviews from './componentes/ProductReviews';
+import Favorites from './componentes/favorite'
+import PutReview from './componentes/modificarReview'
 
 function App() {
+
 // const guardado = window.localStorage
+
+  const user = useSelector(state=> state.userId.role)
+  const login = useSelector(state=> state.loggedIn)
+
+  const protection = (component) => {
+   return !login ? <Redirect to='/user/login'/> : user !== 'Admin' ? <Redirect to='/' /> : component
+  }
+
 
 // guardado.setItem("hola", "chau")
 //   console.log(hola)
@@ -78,32 +93,27 @@ function App() {
 
       <Route
         exact path='/admin/addproduct'
-        render={() => <AddProduct
-        />}
+        render={() => protection(<AddProduct/>)}
       />
 
       <Route
         exact path='/admin/addcategory'
-        render={() => <AddCategory
-        />}
+        render={() => protection(<AddCategory/>)}
       />
 
       <Route
         exact path='/admin/editordelete/:id'
-        render={() => <Editordelete
-        />}
+        render={() => protection(<Editordelete/>)}
       />
 
       <Route
         exact path='/admin/editordelete/cat/:id'
-        render={() => <Categoria
-        />}
+        render={() => protection(<Categoria/>)}
       />
 
       <Route
         exact path='/admin'
-        render={() => <Admin
-        />}
+        render={() => protection(<Admin/>)}
       />
 
       <Route
@@ -120,14 +130,17 @@ function App() {
 
       <Route
         exact path='/products/prod/admin/:id'
-        render={() => <AdminProducto
-        />}
+        render={() => protection(<AdminProducto/>)}
       />
 
       <Route
         exact path='/admin/products'
-        render={() => <AdminCatalogo
-        />}
+        render={() => protection(<SuperSimpleNavbarAd/>)}
+      />
+
+      <Route
+        exact path='/admin/products'
+        render={() => protection(<AdminCatalogo/>)}
       />
 
       <Route
@@ -144,8 +157,7 @@ function App() {
 
       <Route
         exact path='/admin/orderlist'
-        render={() => <TablaOrder
-        />}
+        render={() => protection(<TablaOrder/>)}
       />
 
       <Route
@@ -205,17 +217,45 @@ function App() {
         render={() => <SeguridadUser
         />}
       />
+
+
       <Route
-        exact path='/products/prod/:id'
+        exact path='/review'
         render={() => <Review
         />}
       />
 
       <Route
         exact path='/admin/selectedOrder/:idOrden'
-        render={() => <AdminDetalleOrder
+        render={() => protection(<AdminDetalleOrder/>)}
+
+      />
+
+
+      <Route
+        exact path='/admin/promote'
+        render={() => protection(<UseraAdmin
+        />)}
+      />
+
+      <Route
+        exact path='/products/prod/:id'
+        render={() => <ProductReviews
         />}
       />
+
+      <Route
+        exact path='/favorites/:idUser'
+        render={() => <Favorites
+        />}
+      />
+
+      <Route
+        exact path='/products/prod/:id/review/:idReview'
+        render={() => <PutReview
+        />}
+      />
+
     </Router>
 
 

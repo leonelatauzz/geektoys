@@ -1,3 +1,13 @@
 .tarjeta{
-    margin-top: 15px;    
+    width: 90vw;
+    margin-left: 6.5vw;
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);  
+}
+.infoCat102 {
+    margin: 5vh 0 5vh 6.5vw;
+    color: #D90429;
 }

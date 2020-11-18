@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios'
 import { Row, Col, Button } from 'react-bootstrap';
-import {removeFromCart} from '../Redux/Actions/actions'
+import { removeFromCart } from '../Redux/Actions/actions'
 import Nat from './navbar'
-import Footer from './Footer'
+import Footer from './Footer';
+import Swal from 'sweetalert2'
+
 
 
 export default function Cart() {
@@ -30,69 +32,80 @@ export default function Cart() {
 
 
 
-  const handleRegister = (e) =>{
+  const handleRegister = (e) => {
     e.preventDefault();
     history.push('/user/singin')
   }
 
 
-  const handleLogin = (e) =>{
+  const handleLogin = (e) => {
     e.preventDefault();
     history.push('/user/login')
   }
 
+  const handDel = (e) => {
+    e.preventDefault();
+    dispatch(removeFromCart(e.target.value))
+    setData({
+      ...data,
+      products: data.products.filter(item => item.id != e.target.value)
+    })
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: 'Producto eliminado correctamente',
+      showConfirmButton: true
+  })
+  }
+
   return (
     <div>
-      <Nat/>
-      <h1 style={{ margin: '20px' ,color: '#8D99AE' }}>Mis productos</h1>
-      <Row style={{ margin: '40px 200px 0px 200px', border: "none", boxShadow: "none" }}>
-        {data.products.length === 0 ? <div class='nfContainer' style={{ position: "absolute", width: '40vw', border: '0.5px solid black', boxShadow: '10px 15px 5px 0px rgba(0,0,0,0.35)', margin: 'auto', marginTop: '50px', borderRadius: '5px' }}>
-          <h4 style={{ textAlign: 'center', top:"300px" }}>Tu carrito esta vacío!</h4>
-        </div> : data.products.map(product =>
-          <div className='contenedor' style={{ display: "flex" }}>
-            <Col sm={8}>
-              <div style={{ display: "flex" }}>
-                <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${product.picture}`} />
-                <div style={{ display: "flex", flexDirection: "column", margin: '30px' }}>
-                  <h3 style={{ marginBottom: '15px' }}> {product.name} </h3>
-                  <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
-                  {console.log(product.stock)}
-                  <h5 style={{ marginBottom: '15px' }}> Precio del producto: ${product.price}</h5>
-                  <div style={{ display: 'flex' }}>
-                    {loggedIn === false ? <span></span> : <p>{product.cart.amount}</p>}
-                  </div>
-                </div>
+      <Nat />
+      <div class='infoCat102'>
+        {data.products.length === 0 && <h1 class='titA102'>Tu carrito esta vacío!</h1>}
+        {data.products.length > 0 && <h1 class='titA102'>Mi carrito</h1>}
+      </div>
+      <div style={{ display: "flex", width: '90vw', margin: 'auto', marginRight: '8vw' }}>
+        <div class='leftD' style={{ marginLeft: '6.5vw' }}>
+          {data.products.map(product =>
+            <div style={{ border: '0.25px gray solid', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)', borderRadius: '8px', width: '40vw', marginBottom: '5vh', display: "flex", justifyContent: 'space-between', marginLeft: '1vw', marginTop: '1vw' }}>
+              <img style={{ width: "190px", height: "250px", margin: '10px' }} src={`http://localhost:3001/uploads/${product.picture}`} />
+              <div style={{marginTop: '4vh'}}>
+                <h2 style={{ color: '#D90429' }}> {product.name} </h2>
+                <p>{product.stock > 0 ? 'Disponible' : 'Producto sin stock'}</p>
+                <h5 style={{ marginBottom: '15px' }}> Precio: ${product.price}</h5>
+                {/* <div style={{ display: 'flex', justifyContent: 'space-evenly', height: '4vh', width: '12vh' }}>
+                        {loggedIn === false ? <p style={{fontSize: '2vh', marginTop: '0.5vh'}} id='comprar'>{data.amount}</p> : <p style={{fontSize: '2vh', marginTop: '0.5vh'}} id='comprar'>{data.amount}</p>}
+                        <button class='DO101' style={{ width: '4vh', heigth: '3vh', margin: '0', fontSize: '25px' }} for='comprar' value={props.id + '/' + props.cart.amount} onClick={upAmount}>+</button>
+                        <button class='DO101' style={{ width: '4vh', heigth: '3vh', margin: '0', fontSize: '25px' }} for='comprar' value={props.id + '/' + props.cart.amount} onClick={downAmount}>-</button>
+                    </div> */}
               </div>
-            </Col>
-            <Col sm={4}>
-              <div style={{ display: "flex" }}>               
-                {/* <button style={{width: '100px', height:'40px', margin:'100px 0px 0px 210px'}} value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar</button> */}
+              <div style={{ margin: '8.3vh 1vw 0 0' }}>
+                {/* <h5 style={{ marginBottom: '15px' }}> Precio: ${product.price}</h5> */}
+                <button value={product.id} onClick={handDel} class="btn btn-outline-danger">Eliminar producto</button>
               </div>
-            </Col>
-            <div style={{ borderBottom: "black solid 1px", position: "absolute", left: "250px", width: "900px" }}></div>
-            
-          </div>
-          
-        )}
-      
-      </Row>
+            </div>
 
-      <Row style={{ border: "none", boxShadow: "none", marginTop: '40px' }}>
-        <Col sm={6}>
-{/*           <div style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
-            <h3>Subtotal: #</h3>
-          </div> */}
-        </Col>
-        <Col sm={6}>
-          <div className='divSubtotal' style={{ display: "flex", justifyContent: 'center', marginTop: '10px', marginBottom: '50px', marginTop: '5px' }}>
-          
-            <Button onClick={handleRegister} className="Register" style={{marginRight: '10px'}} variant="info">Registrarse</Button>
-            <Button onClick={handleLogin} variant="info" className="Register" style={{marginRight: '10px'}}>Ingresar</Button>
-            
+          )}
+
+        </div>
+        <div class='rigthD'>
+          <div style={{ margin: '2vh' }}>
+            <h3>Inicia sesión para continuar</h3>
           </div>
-        </Col>
-      </Row>
-      <Footer/>
+          <Col sm={6}>
+            <div>
+              <div class='adressRC' style={{ marginTop: '5vh', width: '10vh' }} onClick={handleLogin}>
+                <p class='pRC'>Ingresar</p>
+              </div>
+              <div class='adressRC' style={{ marginTop: '5vh', width: '10vh' }} onClick={handleRegister}>
+                <p class='pRC'>Registrarse</p>
+              </div>
+            </div>
+          </Col>
+        </div>
+      </div>
+      <Footer />
     </div>
   )
 }

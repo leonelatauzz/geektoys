@@ -7,57 +7,60 @@ import Footer from './Footer'
 
 
 
-// llega un array en props, se recorre y se renderiza en cada card
+
 export default function Catalogo() {
- 
+
     const catalogo = useSelector(state => state.products)
     const categoria = useSelector(state => state.categories)
 
     function titleCase(str) {
         var splitStr = str.toLowerCase().split(' ');
         for (var i = 0; i < splitStr.length; i++) {
-            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);     
+            splitStr[i] = splitStr[i].charAt(0).toUpperCase() + splitStr[i].substring(1);
         }
-        return splitStr.join(' '); 
-     }
+        return splitStr.join(' ');
+    }
 
-     
-  function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
 
-  const parametro = useParams()
-  let description;
-  
-  categoria.forEach(element => {
-      if(element.name === parametro.nombreCat ){
-          description = element.description
-      }
-      if(parametro.nombreCat === undefined){
-          description = "Aquí estan todos nuestros productos"
-      }    
-  });
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    const parametro = useParams()
+    let name;
+    let description;
+
+    categoria.forEach(element => {
+        if (element.name === parametro.nombreCat) {
+            name = element.name
+            description = element.description
+        }
+        if (parametro.nombreCat === undefined) {
+            name= 'Catálogo'
+            description = "Todos los productos del universo geek!"
+        }
+    });
 
     return (
-        <div>   
-
-            <Nat/>
-
-           {description ? <h1 className="titulo_catalogo" style={{fontFamily:'Malgun Gothic', color:"#2B2D42", maxWidth:"35%",margin:"auto",backgroundColor:"#EDF2F4",textAlign:"center",border:"white solid 1px",borderRadius:"25px",marginTop:"25px"}}>{description}</h1> : <div></div>}
-        <div class="tarjeta" >
-            {catalogo.map((p) => <ProductCard
-                key={p.id}
-                id={p.id}
-                name={titleCase(p.name)}
-                description={capitalizeFirstLetter(p.description)}
-                picture={p.picture}
-                price={p.price}
-                stock={p.stock}
-            />
-
-            )}
-        </div>
-        <Footer/>
+        <div>
+            <Nat />
+            <div class='infoCat102'>
+            {name && <h1 class='titA102'>{capitalizeFirstLetter(name)}</h1>}
+            {description && <h3 class='titC102'>{capitalizeFirstLetter(description)}</h3>}
+            </div>
+            <div class="tarjeta" >
+                {catalogo.map((p) => <ProductCard
+                    key={p.id}
+                    id={p.id}
+                    name={titleCase(p.name)}
+                    description={capitalizeFirstLetter(p.description)}
+                    picture={p.picture}
+                    price={p.price}
+                    stock={p.stock}
+                />
+                )}
+            </div>
+            <Footer />
         </div>
 
     )

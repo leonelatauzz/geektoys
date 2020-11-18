@@ -6,94 +6,92 @@ import { CardDeck } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom';
 import stImg from './images/swCard.jpg';
 import pImg from './images/pCard.png';
-import nImg from './images/nCard.png'
+import nImg from './images/kakashi.jpg'
 import { useDispatch, useSelector } from "react-redux";
-import {getProducts} from "../Redux/Actions/actions";
+import { getProducts } from "../Redux/Actions/actions";
 import Axios from 'axios';
-export default function CartitasDeHome () {
+export default function CartitasDeHome() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const starwars = async(e) => {
+  const starwars = async (e) => {
     e.preventDefault();
     const res = await Axios.get(`http://localhost:3001/products/categoria/starwars`)
-    .then(res =>{
-      history.push(`/products/categoria/starwars`)
-      const productDist = Object.values(res.data);
-      dispatch(getProducts(productDist))
-    })
+      .then(res => {
+        history.push(`/products/categoria/starwars`)
+        const productDist = Object.values(res.data);
+        dispatch(getProducts(productDist))
+      })
   }
-  const pokemon = async(e) => {
+  const pokemon = async (e) => {
     e.preventDefault();
     const res = await Axios.get(`http://localhost:3001/products/categoria/pokemon`)
-    .then(res =>{
-      history.push(`/products/categoria/pokemon`)
-      const productDist = Object.values(res.data);
-      dispatch(getProducts(productDist))
-    })
+      .then(res => {
+        history.push(`/products/categoria/pokemon`)
+        const productDist = Object.values(res.data);
+        dispatch(getProducts(productDist))
+      })
   }
-  const naruto = async(e) => {
+  const naruto = async (e) => {
     e.preventDefault();
     const res = await Axios.get(`http://localhost:3001/products/categoria/naruto`)
-    .then(res =>{
-      history.push(`/products/categoria/naruto`)
-      const productDist = Object.values(res.data);
-      dispatch(getProducts(productDist))
-    })
+      .then(res => {
+        history.push(`/products/categoria/naruto`)
+        const productDist = Object.values(res.data);
+        dispatch(getProducts(productDist))
+      })
   }
 
 
-    return (
+  return (
 
-<CardDeck style={{margin: '30px 10px 10px 10px'}}>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={stImg}  width= "400" height= "450"/>
-    <Card.Body>
-      <Button variant="secondary" size="medium" as="a" value="starwars" onClick={starwars} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Pochoclera Star Wars</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
-      PRODUCTO ORIGINAL IMPORTADO DE USA!!
-      En las películas de Star Wars, la Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. Esta pochoclera Death Star Star Wars, es una opción perfecta para cualquier fan de Star Wars. Sentirás la potencia del lado oscuro, cada vez que uses esta pochoclera divertida y finamente diseñada, para disfrutar los pochoclos frescos, dulces o salados, mientras ves tu película favorita de Star Wars o también solo para exhibir.
-      La tapa funciona como bowl contenedor de pochoclos!
-      Funciona utilizando aire caliente. Acabado: gris, con escamas metálicas.
+    <div>
+      <div>
+      <div style={{textAlign:'center',marginTop:'100px',fontFamily: 'Malgun Gothic Semilight', fontSize: '19px'}}>
+      <h1 style={{fontFamily: 'Malgun Gothic Semilight', color: '#D90429', textDecoration:'bold', fontSize: '45px', backgroundColor: 'white', padding: '2vw', width: '30vw', margin: 'auto', borderRadius: '10px'}}>Productos Destacados</h1>
+      </div>
+      <CardDeck style={{ width: '70vw', margin: 'auto', marginTop: '10vh', display: 'flex', justifyContent: 'space-around' }}>
+      <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
+  <Card.Img onClick={starwars} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={stImg} />
+    <Card.Body >
+    <Card.Title onClick={starwars} style={{ color: '#D90429'}}>Pochoclera Star Wars</Card.Title>
+      <Card.Text style={{ fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
+      La Estrella de la Muerte tiene el poder suficiente para destruir un planeta entero, está pochoclera de la Estrella De La Muerte, también tiene el poder para hacer el mejor pochoclo de la galaxia. 
+
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-      <medium className="text-muted">Precio $30000</medium>
+    <h3 style={{ color: '#D90429', textAlign:"center"}}>$7.500</h3>
     </Card.Footer>
   </Card>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={pImg} width= "400" height= "450"/>
+  <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
+  <Card.Img onClick={pokemon} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={pImg} />
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" value="pokemon" onClick={pokemon} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Funko Pop Pikachu 353</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
-      Linea Pop! Games
-      Producto Original Funko
-      Nuevo y en su Embalaje Original
-      Alucinante Figura POP, de la marca Funko, de unos 10cms de alto. Ideal para fanáticos y coleccionistas, para regalar o regalarse, no podes dejar de tener esta hermosa figura. Marca Funko en Caja cerrada, en Excelente estado de conservación, nunca abierta ni exhibida.
+      <Card.Title onClick={pokemon} style={{ color: '#D90429'}}>Funko Pikachu</Card.Title>
+      <Card.Text style={{ fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
+      Alucinante Figura POP, de la marca Funko, de unos 10cms de alto. Ideal para fanáticos y coleccionistas, para regalar o regalarse, no podes dejar de tener esta hermosa figura.
+
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <medium className="text-muted">Precio $2000</medium>
+    <h3 style={{ color: '#D90429', textAlign:"center"}}>$2.000</h3>
     </Card.Footer>
   </Card>
-  <Card style={{maxWidth: '450px'}}>
-    <Card.Img style={{padding:'20px'}} variant="top" src={nImg}  width= "400" height= "450"/>
+  <Card style={{ maxWidth: '25vw', boxShadow: '10px 10px 5px 0px rgba(0,0,0,0.35)' }}>
+  <Card.Img onClick={naruto} style={{ padding: '20px', cursor: 'pointer' }} variant="top" src={nImg} />
     <Card.Body>
-    <Button variant="secondary" size="medium" as="a" value="naruto" onClick={naruto} active>Conseguilo acá</Button>
-      <Card.Title><span role="button" tabindex="0">Figura Gaara mode 185</span></Card.Title>
-      <Card.Text style={{fontFamily:'Malgun Gothic Semilight'}}>
-        Convertite en el mejor ninja!
-        ¡Una colección de figuras única e irrepetible!
-        Completa esta impresionante colección de figuras exclusivas en la que se encuentran todos los personajes clave de la popular serie animada. Desde los miembros del equipo 7 hasta las bestias con cola, pasando por los principales aliados de Naruto y los miembros de Akatsuki, entre muchos otros.
-        Las figuras se han reproducido con todo detalle, respetando los rasgos, vestuario y complementos originales de cada personaje.
-        ¡Un póster central en cada entre
+    <Card.Title onClick={naruto} style={{ color: '#D90429'}}>Funko Kakashi</Card.Title>
+    <Card.Text style={{fontFamily: 'Malgun Gothic Semilight', margin:'5px', textAlign:'justify'}}>
+      Convertite en el mejor ninja!
+                ¡Una colección de figuras única e irrepetible!
+                Completa esta impresionante colección de figuras exclusivas en la que se encuentran todos los personajes clave de la popular serie animada.
       </Card.Text>
     </Card.Body>
     <Card.Footer>
-    <medium className="text-muted">Precio $1500</medium>
+    <h3 style={{ color: '#D90429', textAlign:"center"}}>$1.500</h3>
     </Card.Footer>
   </Card>
 </CardDeck>
-    )
-    } 
+      </div>
+    </div>
+  )
+} 

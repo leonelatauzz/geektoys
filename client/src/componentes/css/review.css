@@ -1,12 +1,133 @@
+input[type="radio"]{
+   display:none;
+}
+
+.star{
+   cursor: pointer;
+   transition: color 200ms;
+}
 .review{
-   height: 200px;
-   width: 95%;
-   padding: 20px;
-   border-radius: 10px;
-   background-color: white;
-   margin:40px; 
-   color: black;
+   display: flex;
+      align-items: center;
+      margin-top:10vw;
+      margin-left: 34vw;
+      box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+      border-radius: 5px;
+      border: 0.25px gray solid;
+      width: 32vw;
+      height: 250px;
+  
+}
+.puntaje{
+   margin-left: 10px;
 }
 .review h1{
    font-size: 30px;
+   color: #D90429;
+   margin:10px;
+}
+.review h5{
+   font-size: 20px;
+   color: black;
+   margin-left:12px;
+}
+input{
+   margin: 10px;
+}
+.ReviewCreado{
+   background-color: white;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+   border-radius: 5px;
+   border: 0.25px gray solid;
+   width: 1100px;
+   height: 250px;
+   margin: auto;
+   margin-bottom: 20px;
+}
+.ReviewCreado2{
+   margin-top: 15%;
+   margin-left:25%;
+   background-color:white;
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+   box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+   border-radius: 5px;
+   border: 0.25px gray solid;
+   width: 1100px;
+   height: 250px;
+   margin-bottom: 20px;
+}
+.BtnDelete{
+   margin-left:12px;
+   margin-right: 5px;
+   background-color: white;
+   border: gray 0.5px solid;
+   border-radius: 5px;
+   box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+   color: #D90429;
+   cursor: pointer;
+   font-size: 19px;
+   width: 85px;
+   height: 4.2vh;
+  
+}
+.BtnEdit{
+   background-color: white;
+   border: gray 0.5px solid;
+   border-radius: 5px;
+   box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+   color: #D90429;
+   cursor: pointer;
+   font-size: 19px;
+   height: 4.2vh;
+  
+   width:85px;
+}
+.BtnEditar{
+   background-color: white;
+   border: gray 0.5px solid;
+   border-radius: 5px;
+   box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+   color: #D90429;
+   cursor: pointer;
+   font-size: 19px;
+   height: 4.2vh;
+  
+   width:100px;
+   margin-left: 12px;
+}
+.img{
+   margin-left: 12px;
+}
+.ReviewCreado p{
+   margin-left: 15px;
+}
+.ReviewCreado h1{
+   font-size: 30px;
+   color: #D90429;
+   margin:10px;
+   margin-left:15px;
+}
+.ReviewCreado h5{
+   font-size: 20px;
+   color: black;
+   margin-left:15px;
+}
+.ReviewCreado2 p{
+   margin-left: 15px;
+}
+.ReviewCreado2 h1{
+   font-size: 30px;
+   color: #D90429;
+   margin:10px;
+   margin-left:15px;
+}
+.ReviewCreado2 h5{
+   font-size: 20px;
+   color: black;
+   margin-left:15px;
 }

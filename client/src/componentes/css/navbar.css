@@ -1,48 +1,67 @@
 body {
     background-color:white;
 }
-
-.botonete {
-    background-color: lightgrey;
-    color: black;
-    border-radius: 5px;
-    margin-top: 8px;
-    margin-left: 15px;
-    display: flex;
-    flex-flow: row wrap;
-    text-align: center;
-    padding-left: 10px;
-    padding-top: 5px;
-    width: 70px;
-    height: 40px;
-    
+.nav-item {
+    margin-left: 1vw;
+    margin-top: 1vh;
+    align-content: center;
 }
+.nav-link {
+    background-color: white;
+    border: gray 0.5px solid;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+    color: #D90429;
+    cursor: pointer;
+    font-size: 19px;
+    height: 4.2vh;
+    padding: 0.5vw;
+}
+.nav-link:hover {
+    background-color: whitesmoke;
+}
+.custom-select {
+    background-color: white;
+    border: gray 0.5px solid;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+    color: #D90429;
+    cursor: pointer;
+    font-size: 19px;
+    height: 4.2vh;
+    justify-content: center;
+    padding-bottom: 0.4vh;
+}
+.custom-select:hover {
+    background-color: whitesmoke;
+}
+.opt102 {
+    font-size: 19px;
+}
+
+
 .botonete:hover {
     background: #8D99AE;
     color: black;
 }
 
-.input[type=text] { 
-    border-top-left-radius: 0,25rem;
-    border-bottom-left-radius: 0.25rem;
-    margin-left:10px;
-    padding: 12px 20px 12px 40px;
+.input102[type=text] { 
+    box-shadow: 0px 0px 5px 2px rgba(0,0,0,0.29);
+    padding: 6px 0 7px 1vw;
     display: flex;
     flex-flow: row wrap;
-    width: 150px;
+    width: 30vw;
+    margin-left: 2vw;
+    margin-top: 1vh;
     box-sizing: border-box;
-    border: 1px solid #bdbdbd;
+    border: 0.5px solid gray;
     border-radius:4px;
-    font-size: 16px;
-    background-position: 10px 10px;
-    background-repeat: no-repeat;
-    background-image: url('http://img.icons8.com/metro/26/000000/search.png');
-    -webkit-transition: width 0.4s ease-in-out;
-    transition: width 0.4s ease-in-out;
+    font-size: 19px;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+    border-right: white;
+    height: 4.2vh;
 
-}
-.input[type=text]:focus {
-    width:100%
 }
 
 .categ {

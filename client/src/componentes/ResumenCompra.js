@@ -9,6 +9,7 @@ import SimpleNavbar from './SimpleNavbar'
 import Footer from './Footer'
 
 
+
 export default function ResumenCompra() {
     const history = useHistory()
     const dispatch = useDispatch();
@@ -31,6 +32,7 @@ export default function ResumenCompra() {
         cardName: '',
         cardCcv: ''
     });
+    let idA;
     let json;
     let nOrden = activeOrder[0].id
     let utc = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
@@ -49,14 +51,15 @@ export default function ResumenCompra() {
         e.preventDefault();
         const res = await axios.get(`http://localhost:3001/user/adress/${userData.id}`)
             .then(resp => {
-                dispatch(getAdress(resp.data.adresses))
+                let filtered = resp.data.adresses.filter(item => item.state !== "Baja")
+                dispatch(getAdress(filtered))
                 setData({
                     ...data,
                     options: true,
                     domicilio: true,
                     sucursal: false,
                     sA: false,
-                    adresses: resp.data.adresses,
+                    adresses: filtered,
                     forward: false
                 })
             })
@@ -71,7 +74,7 @@ export default function ResumenCompra() {
             sucursal: true,
             dMethod: 'sucursal',
             forward: true,
-            selectedAdress: {id: 0}
+            selectedAdress: { id: 0 }
         })
     }
 
@@ -88,10 +91,7 @@ export default function ResumenCompra() {
 
     const deleteA = async (e) => {
         e.preventDefault()
-        setData({
-            ...data,
-            adressId: e.target.value
-        })
+        idA = e.target.value
         Swal.fire({
             title: '¿Estas seguro?',
             text: "No hay vuelta atras!!",
@@ -102,9 +102,8 @@ export default function ResumenCompra() {
             confirmButtonText: 'Eliminar'
         }).then(async (alert) => {
             if (alert.isConfirmed === true) {
-                const res = await axios.delete(`http://localhost:3001/user/deleteAdress/${userData.id}/${data.adressId}`)
+                const res = await axios.put(`http://localhost:3001/user/${idA}/adress/baja`)
                     .then(resp => {
-                        dispatch(getAdress(resp.data.adresses));
                         setData({
                             ...data,
                             options: false,
@@ -199,7 +198,7 @@ export default function ResumenCompra() {
                 }
             }).then(async () => {
                 const ras = await axios.post(`http://localhost:3001/order/${userData.id}`)
-                    .then((resp) => {
+                    .then(async (resp) => {
                         let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
                         dispatch(getActiveOrder(activeOrder))
                         let pData = {
@@ -218,17 +217,34 @@ export default function ResumenCompra() {
                             showConfirmButton: false,
                             timer: 1500
                         })
-                        history.push(`/aproved/${activeOrder[0].id}/${userData.id}`)
-                    })
+                        
+                        let json = {
+                            email: userData.email,
+                            products: dbCart,
+                            adress: data.selectedAdress,
+                            deliveryMethod: data.dMethod,
+                            user: userData,
+                            order: nOrden,
+                            total: suma
 
+                        }
+
+                        
+                        history.push(`/aproved/${activeOrder[0].id}/${userData.id}`)
+                        const res = await axios.post('http://localhost:3001/user/send-mail',json,{
+                            headers:{
+                                'content-type': 'application/json'
+                            }
+                        })
+                    })
             })
         }
 
     }
 
-    
+
     return (
-        <div>
+        <div id="prueba">
             <SimpleNavbar />
             {data.payment === false &&
                 <div class='containerRC'>
@@ -253,20 +269,20 @@ export default function ResumenCompra() {
                                 {data.adresses.length === 0 ?
                                     <h4>No tienes direcciones guardadas</h4> :
                                     data.adresses.map(item =>
-                                        <div class='aRCCard'>
+                                        <div class='aRCCard' style={{ marginBottom: '3vh' }}>
                                             <div class='liRc'>
                                                 <h4>{item.firstLine}</h4>
                                                 <p>{item.secondLine} - {item.postalCode}</p>
                                                 <p>{item.district} - {item.province}</p>
-                                                <button class='smButtRC' value={item.id} onClick={editA}>Editar</button>
-                                                <button class='smButtRC' value={item.id} onClick={deleteA}>Eliminar</button>
+                                                <button  class='DO101' style={{ margin: '1vh' }} value={item.id} onClick={editA}>Editar</button>
+                                                <button style={{ margin: '1vh' }} class='DO101' value={item.id} onClick={deleteA}>Eliminar</button>
                                             </div>
-                                            <button class='slButtRC' value={item.id} onClick={selectA}>Seleccionar Dirección</button>
+                                            <button style={{ margin: '1vh' }} class='DO101' value={item.id} onClick={selectA}>Seleccionar Dirección</button>
                                         </div>
                                     )
                                 }
-                                <button class='fBRC' onClick={addA}>Agregar nueva dirección</button>
-                                <button class='fBRC' onClick={resetOptions}>Elegir otro método de entrega</button>
+                                <button  class='DO101' style={{ margin: '1vh', width: '250px' }} onClick={addA}>Agregar nueva dirección</button>
+                                <button  class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro método de entrega</button>
                             </div>
                         }
                         {data.sA === true &&
@@ -277,8 +293,8 @@ export default function ResumenCompra() {
                                         <h4>{data.selectedAdress.firstLine}</h4>
                                         <p>{data.selectedAdress.secondLine} - {data.selectedAdress.postalCode}</p>
                                         <p>{data.selectedAdress.district} - {data.selectedAdress.province}</p>
-                                        <button class='fBRC' onClick={hideOptionsA}>Elegir otra dirección</button>
-                                        <button class='fBRC' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button  class='DO101' style={{ margin: '1vh', width: '250px' }} onClick={hideOptionsA}>Elegir otra dirección</button>
+                                        <button class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>
@@ -291,7 +307,7 @@ export default function ResumenCompra() {
                                         <h4>Calle falsa123</h4>
                                         <p>Microcentro - Capital Federal</p>
                                         <p>Lunes a Viernes, 9:00 a 18:00</p>
-                                        <button class='fBRC' onClick={resetOptions}>Elegir otro metodo de entrega</button>
+                                        <button class='DO101' style={{ margin: '1vh', width: '300px' }} onClick={resetOptions}>Elegir otro metodo de entrega</button>
                                     </div>
                                 </div>
                             </div>
@@ -299,7 +315,7 @@ export default function ResumenCompra() {
                     </div>
                     <div class='rigthD'>
                         <div class='RC2'>
-                            <h2>Resumen de tu compra</h2>
+                            <h2 style={{ color: '#D90429' }}>Resumen de tu compra</h2>
                             <div class='mRC'>
                                 {dbCart.map(item =>
                                     <p class='mItemRC'>{titleCase(item.name)} ({item.cart.amount}) -- ${(item.cart.price) * (item.cart.amount)}</p>

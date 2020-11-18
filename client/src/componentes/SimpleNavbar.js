@@ -8,16 +8,20 @@ import axios from 'axios'
 export default function SimpleNavbar() {
     let history = useHistory();
     const dispatch = useDispatch()
-    const userData = useSelector(state => state.userId)
+    const userData = useSelector(state => state.userId);
+    const token = useSelector(state => state.token)
 
 
-    const goDashboard = async(e) => {
+    const goDashboard = async (e) => {
         e.preventDefault();
-        const res = await axios.get(`http://localhost:3001/user/orders/${userData.id}`)
-        .then(resp => {
-            let activeOrder = resp.data.orders.filter(ord => ord.state === "carrito")
-            dispatch(getUserInfo(resp.data));
-            dispatch(getActiveOrder(activeOrder))
+        const res = await axios.get(`http://localhost:3001/user/orders/getOrders`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        }).then(respo => {
+            let activeOrder = respo.data.orders.filter(ord => ord.state === "carrito")
+            dispatch(getUserInfo(respo.data));
+            dispatch(getActiveOrder(activeOrder));
         })
         history.push(`/user/${userData.id}/order`)
     }
@@ -30,9 +34,9 @@ export default function SimpleNavbar() {
     return (
         <nav class="navbar navbar-expand-lg navbar-light bg-light" style={{ display: "flex", justifyContent: 'space-between', borderBottom: '1px black solid', backgroundColor: 'red' }}>
             <a onClick={handleHome} class="navbar-brand">
-                <img src="https://i.imgur.com/QUOAdAS.png" width="160" height="50" alt="" style={{ cursor: 'pointer' }} />
+                <img src="https://i.imgur.com/QUOAdAS.png" width="190vh" height="80vh" alt="" style={{ cursor: 'pointer' }} />
             </a>
-            <button onClick={goDashboard} class="smButtRC" style={{ marginRight: "30px", height:'5vh' }} >Mi Usuario</button>
+            <button onClick={goDashboard} class="smButtRC" class='nav-link' >Mi Usuario</button>
         </nav>
     )
 }

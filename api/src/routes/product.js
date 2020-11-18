@@ -1,7 +1,5 @@
 const server = require('express').Router();
-const { Product } = require('../db.js');
-const { Category } = require('../db.js')
-const { Review } = require('../db.js')
+const { Product, Category, User, Review } = require('../db.js');
 const multer = require('multer');
 const { json } = require('express');
 const upload = multer({ dest: `${__dirname}/uploads` });
@@ -137,29 +135,6 @@ server.put("/category/:id", (req, res) => {
   })
 })
 
-server.put('/:id/review/:idReview', (req,res) => {
-  const {rating,description} = req.body;
-    Product.findByPk(req.params.id)
-    .then(product =>{
-      if(!product){
-        res.status(404).send('Producto no encontrado');
-      }else{
-        Review.findByPk(req.params.idReview)
-        .then(review => {
-          if(!review){
-            res.status(404).send('Review no encontrada');
-          }else{        
-          review.rating = rating;
-          review.description = description;
-          review.save();
-          res.status(201).send('La review fue modificada correctamente');
-          }
-        })
-      }
-    })
-})
-
-
 server.put("/:id", upload.single('images'), (req, res) => {
   let pic;
   let product;
@@ -219,24 +194,142 @@ server.delete("/:id", (req, res) => {
   })
 })
 
-// Reviews
+server.post('/:idProducto/favorites/:idUsuario', (req, res) => {
+  Product.findByPk(req.params.idProducto)
+    .then((prod) => {
+      if (!prod) {
+        res.status(404).json({ error: 'Producto no encontrado' })
+        return;
+      } 
+      User.findByPk(req.params.idUsuario).then((user) => {
+        if (!user) {
+          res.status(404).json({ error: 'Usuario no encontrado' })
+          return;
+        }
+        user.addProduct(prod);
+        res.send('Producto agregado correctamente')
+        return;
+      });
+    })
+})
 
-server.get('/review', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
+server.get('/favorites/:idUsuario', (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.idUsuario
+    },
+    include: Product
+  })
+    .then((user) => {
+      if (!user) {
+        res.status(400).send('Usuario no encontrado')
+      }
+      let resolve = user.dataValues.products;
+      let obj = Object.assign({}, resolve)
+      res.json(obj);
+    })
+})
+
+server.delete('/:idProducto/favorites/:idUsuario', (req, res) => {
+  Product.findByPk(req.params.idProducto)
+    .then((prod) => {
+      if (!prod) {
+        res.status(404).json({ error: 'Producto no encontrado' })
+        return;
+      }
+      User.findByPk(req.params.idUsuario).then((user) => {
+        if (!user) {
+          res.status(404).json({ error: 'Usuario no encontrado' })
+          return;
+        }
+        user.removeProduct(prod);
+        res.send(`>> Se eliminó el usuario id=${req.params.idUsuario} al Producto id=${req.params.idProducto}`);
+        return;
+      });
+    })
+})
+      
+////// reviews //////
+
+server.delete("/:id/review/:idReview", (req, res) => {          
+  Review.findByPk(req.params.idReview).then((review) => {
+        if(!review){
+          res.status(404).send("La review no fue encontrada")
+        }else{
+        review.destroy();
+        res.status(200).send("La Review se elimino correctamente")
+        }
+      })
+    })
+server.get('/', (req, res, next) => {  //// Get de Prueba, NO BORRAR!!!!
   Review.findAll()
     .then(calif => {
       res.send(calif);
     })
     .catch(next);
 });
-
-
-server.post('/:id/review', (req, res) => {
-  Review.create({
+server.get('/reviews/:productid', (req, res) => {
+  Product.findOne({
+    where: {
+      id: req.params.productid
+    },
+    include: Review,
+  })
+    .then((prod) => {
+      if (!prod) {
+        res.status(400).send('El producto no fue encontrado')
+      }
+      let resolve = prod.dataValues.reviews;
+      let obj = Object.assign({}, resolve)
+      res.json(obj);
+    })
+})
+server.get('/:id/review/:idReview', (req,res)=>{
+  Review.findByPk(req.params.idReview)
+  .then(rev=>{
+    if(!rev){
+      res.status(404).send("La review no fue encontrada")
+    }else{
+      res.status(200).json(rev)
+    }
+  })
+})
+server.post("/:id/review", (req, res) => {
+  Product.findByPk(req.params.id)
+  .then((producto) =>{
+    if(!producto){
+      res.status(404).send("El producto no fue encontrado")
+    }else{
+      User.findByPk(req.body.userId)
+      .then(usuario=>{
+        Review.create({
           rating: req.body.rating,
-          description: req.body.description
-        }).then(function () {
-          res.status(201).send('Review creada correctamente');
+          description: req.body.description,
+          productId:producto.id,
+          name: `${usuario.dataValues.name} ${usuario.dataValues.lastname}`,
+          userId: req.body.userId
+        }).then(function (review) {
+          res.status(201).json(review);
         })
-      });
+      })
+    }
 
+  })
+ 
+});
+server.put('/:id/review/:idReview', (req ,res) => {     
+          Review.findByPk(req.params.idReview)
+          .then(review=>{
+            if(!review){
+              res.status(404).send("La review no existe")
+            }else{
+              review.description =req.body.description,
+              review.rating = req.body.rating,
+              review.save()
+              res.status(201).json(review)
+            }
+          })
+        })  
+
+ 
 module.exports = server;
