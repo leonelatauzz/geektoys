@@ -39,6 +39,9 @@ import PutReview from './componentes/modificarReview'
 
 function App() {
 
+function App() {
+
+
 // const guardado = window.localStorage
 
   const user = useSelector(state=> state.userId.role)
@@ -51,6 +54,7 @@ function App() {
 
 // guardado.setItem("hola", "chau")
 //   console.log(hola)
+
 
   return (
     <Router>

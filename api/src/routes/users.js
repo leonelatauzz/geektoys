@@ -4,17 +4,60 @@ const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js')
 const hash = require('pbkdf2')
 
 const crypto = require('crypto')
+
+const passport= require('passport')
+const Strategy = require('passport-local').Strategy
+
 const passport = require('passport')
 const Strategy = require('passport-local').Strategy;
 const bodyParser = require('body-parser')
 const jwt = require('jsonwebtoken');
 
+
 const crypto = require('crypto');
 const _ = require('lodash')
 const {OAuth2Client} = require ('google-auth-library')
 
+passport.use(new Strategy(
+  function(username, password, done) {
+    const contra = password
+    User.findOne({
+      where : {
+        email: username
+      }
+    })
+      .then((user) => {
+        if(!user) {
+          return done(null, false);
+        }
+        let userSalt = user.dataValues.salt
+        const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
+        const password = key.toString('hex')
+        if(user.dataValues.password !== password) {
+          return done(null, false);
+        }
+        return done(null, user);
+      })
+    .catch(err => {
+      return done(err);
+    })
+  }));
+
+  function isAuthenticated(req, res, next) {
+    if(req.isAuthenticated()) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  }
+
 
 const client = new OAuth2Client('689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com')
+
+
+server.post('/login',
+passport.authenticate('local', { successRedirect: 'http://localhost:3000/' }),
+(req, res) => {
 
 
 passport.use(new Strategy((username, password, done) =>{
@@ -44,6 +87,7 @@ return done(null, user);
 
 
 server.post('/login',passport.authenticate('local',{successRedirect:'http://localhost:3000/guest/carrito'}),(req, res) => {
+
   User.findOne({
     where: {
       email: req.body.email,
@@ -161,6 +205,11 @@ server.get('/orders/:userId', (req, res) => {
   })
 })
 
+
+server.get('/orders/:userId',
+isAuthenticated, 
+(req, res) => {
+
 server.put("/info/:userId", upload.single('images'), (req, res) => {
   let pic;
   let product;
@@ -185,6 +234,7 @@ server.put("/info/:userId", upload.single('images'), (req, res) => {
 
 server.get('/orders/getOrders', authenticateToken, (req, res) => {
 
+
   User.findOne({
     where: {
       email: req.user.name
@@ -198,7 +248,9 @@ server.get('/orders/getOrders', authenticateToken, (req, res) => {
   })
 })
 
-server.post('/:idUser/cart', (req, res) => {
+server.post('/:idUser/cart',
+isAuthenticated
+, (req, res) => {
   Order.findByPk(req.body.idOrder)
     .then(order => {
       if (!order) {
@@ -278,10 +330,16 @@ server.post('/', (req, res) => {
 })
 
 
+
+server.post('/:id/passwordReset',
+isAuthenticated
+, (req, res) => {
+
 server.post('/:id/passwordReset', (req, res) => {
   const {oldPassword,password} = req.body
   console.log(oldPassword)
   console.log(password)
+
 
   User.findByPk(req.params.id)
     .then(user => {
@@ -305,7 +363,9 @@ server.post('/:id/passwordReset', (req, res) => {
 
 
 
-server.put("/:idUser/cart", (req, res) => {
+server.put("/:idUser/cart",
+isAuthenticated
+, (req, res) => {
   cart.findOne({
     where: {
       orderId: req.body.orderId,
@@ -318,6 +378,17 @@ server.put("/:idUser/cart", (req, res) => {
 
 })
 
+server.get('/:idUser',(req,res)=>{
+  User.findByPk(req.params.idUser)
+  .then(user=>{
+    if(!user){
+      res.send("usuario no encontrado")
+    } else {
+      res.status(200).send(user)
+    }
+  })
+})
+
 
 server.get('/', (req, res) => {
   User.findAll()
@@ -325,19 +396,13 @@ server.get('/', (req, res) => {
       res.send(users);
     })
 });
-// GET /users/:id/orders
-server.get("/:id/orders", (req, res) => {
-  User.findAll({
-    where: {
-      id: req.params.id
-    },
-    include: Order
-  })
-
-})
 
 
-server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
+
+
+server.delete('/:idUser/cart/:idProducto/:idOrder',
+isAuthenticated
+, (req, res) => {
   Product.findByPk(req.params.idProducto)
     .then((prod) => {
       if (!prod) {
@@ -357,7 +422,14 @@ server.delete('/:idUser/cart/:idProducto/:idOrder', (req, res) => {
 })
 
 
+
+server.post('/newAdress/:userId',
+isAuthenticated
+, (req, res) => {
+  console.log(req.body)
+
 server.post('/newAdress/:userId', (req, res) => {
+
   Adress.create({
     firstLine: req.body.firstLine,
     secondLine: req.body.secondLine,
@@ -394,7 +466,9 @@ server.get('/adress/:userId', (req, res) => {
   })
 })
 
-server.get('/adress/edit/:adressId', (req, res) => {
+server.get('/adress/edit/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -408,7 +482,9 @@ server.get('/adress/edit/:adressId', (req, res) => {
   })
 })
 
-server.put('/editAdress/:userId/:adressId', (req, res) => {
+server.put('/editAdress/:userId/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -425,7 +501,9 @@ server.put('/editAdress/:userId/:adressId', (req, res) => {
 })
 
 
-server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
+server.delete('/deleteAdress/:userId/:adressId',
+isAuthenticated
+, (req, res) => {
   Adress.findOne({
     where: {
       id: req.params.adressId
@@ -440,7 +518,13 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
 })
 
 
+server.put('/:userId/Promote',
+isAuthenticated
+, (req, res) => {
+
+
 server.put('/:userId/Promote', (req, res) => {
+
   User.findOne({
     where: {
       id: req.params.userId
@@ -456,7 +540,9 @@ server.put('/:userId/Promote', (req, res) => {
   })
 })
 
-server.put('/:userId/Despromote', (req, res) => {
+server.put('/:userId/Despromote',
+isAuthenticated
+, (req, res) => {
   User.findOne({
     where: {
       id: req.params.userId

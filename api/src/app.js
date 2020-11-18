@@ -6,7 +6,9 @@ const routes = require('./routes/index.js');
 const path = require('path');
 const cors = require('cors')
 const passport = require('passport')
+
 const jwt = require('jsonwebtoken')
+
 
 
 
@@ -21,13 +23,47 @@ server.use(bodyParser.json({ limit: '50mb' }));
 server.use(cookieParser());
 server.use(morgan('dev'));
 
+
 server.use(`/uploads`, express.static(path.join(__dirname, '/routes/uploads')));
+
 
 server.use(require('express-session')({
   secret: 'secret',
   resave: false,
   saveUninitialized: false
 }));
+
+
+// Inicializa Passport y recupera el estado de autenticación de la sesión.
+server.use(passport.initialize());
+server.use(passport.session());
+
+// Middleware para mostrar la sesión actual en cada request
+server.use((req, res, next) => {
+  //  console.log(req.session);
+  //  console.log(req.user);
+  next();
+});
+
+server.use(`/uploads`, express.static(path.join(__dirname, '/routes/uploads')));
+
+
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
+});
+
+
+passport.deserializeUser(function(id, done) {
+  User.findByPk(id)
+    .then((user) => {
+      done(null, user);
+      console.log(user)
+    })
+    .catch(err => {
+      return done(err);
+    })
+});
+
 
 passport.serializeUser(function (user, done){
   done(null, user.id);
@@ -48,6 +84,7 @@ server.use(passport.session());
 server.use((req, res, next) =>{
   next();
 });
+
 
 server.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', 'http://localhost:3000'); // update to match the domain you will make the request from
