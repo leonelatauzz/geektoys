@@ -1,0 +1,102 @@
+.containerRC {
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    min-height: 91vh;
+}
+.leftD {
+    background-color: white;
+    width: 60vw;
+    border-right: 0.5px solid black;
+    min-height: 70vh;
+}
+.rigthD {
+    background-color: white;
+    min-height: 70vh;
+    width: 40vw;
+}
+.RC1 {
+    width: 50vw;
+    margin: 10vh 5vw 10vh 5vw;
+}
+.RC2 {
+    width: 30vw;
+    margin: 10vh 5vw 0 5vw;
+}
+.RC1_5 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 20vh;
+    margin: 10vh;
+}
+.adressRC{
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 5px;
+    border: 0.25px gray solid;
+    width: 10vw;
+    height: 5vh;
+    cursor: pointer;
+    color:  #D90429;
+    font-size: 19px;
+}
+.pRC {
+    height: 3vh;
+    margin-top: 1vh;
+    text-align: center;
+}
+.adressRC:hover {
+    background-color: #D90429;
+    color: white;
+}
+.mRC {
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 5px;
+    border: 0.25px gray solid;
+    margin-top: 5vh;
+}
+.mItemRC {
+    margin: 1vh 0 1vh 1vw;
+}
+.aRCCard {
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 5px;
+    border: 0.25px gray solid;
+    margin-top: 2vh;
+    display: flex;
+    justify-content: space-between;
+}
+.liRc {
+    margin: 1vh 1vw 1vh 1vw;
+}
+.smButtRC {
+    margin: 0 1vw 0 0;
+    border-radius: 4px;
+    height: 4vh;
+}
+.smButtRC:hover {
+    background-color: #D90429;
+    color: white;
+}
+.slButtRC {
+    height: 3vh;
+    align-self: center;
+    margin-right: 2vh;
+    border-radius: 4px;
+    height: 4vh;;
+}
+.slButtRC:hover {
+    background-color: #D90429;
+    color: white;
+}
+.fBRC {
+    margin: 3vh 1vw 2vh 0;
+    border-radius: 4px;
+    height: 4vh;;
+
+}
+.fBRC:hover {
+    background-color: #D90429;
+    color: white;
+    
+}

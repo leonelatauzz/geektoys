@@ -15,7 +15,7 @@
            allowNull: false,
          },
          description: {
-             type: DataTypes.STRING  //Esto no es necesario para nuestro modelo
+             type: DataTypes.STRING  
          }
         },{});
        

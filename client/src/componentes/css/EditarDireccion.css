@@ -1,0 +1,28 @@
+.containerEAS {
+    background-color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.formAS {
+    height: 70vh;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 5px;
+    border: 0.25px gray solid;
+    margin: 5vh 35vw 5vh 35vw
+}
+.lAS {
+    margin-top: 1vh;
+
+}
+
+.btnEAS {
+    margin-top: 2vh;
+    border-radius: 4px;
+    height: 4vh;;
+}
+.btnEAS:hover {
+    background-color: #D90429;
+    color: white;
+    
+}

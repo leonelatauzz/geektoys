@@ -1,0 +1,54 @@
+.total{
+    display: flex;
+    align-items: flex-start;
+    
+}
+.container99 {
+    min-height: 91vh;
+    margin: 10vh 5vw 10vh 5vw;
+    display: flex;
+    justify-content: space-around;
+}
+.cont99 {
+    margin-top: 20vh;
+    width: 34vw;
+}
+.TT99 {
+    color: #D90429;
+
+}
+.card99 {
+    margin-left: 15vh;
+    margin-top: 15vh;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 5px;
+    border: 0.25px gray solid;
+    width: 32vw;
+    height: min-content;
+}
+.top99 {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    border-bottom: gray 0.5px solid;
+    padding: 2vh;
+}
+.bot99 {
+    display: flex;
+    justify-content: space-between;
+    padding: 2vh;
+}
+.dIz99 {
+    width: 17vw;
+}
+.titu99 {
+    color: #EF233C;
+
+}
+.dDer99 {
+    width: 12vw;
+    align-content: center;
+    padding-left: 1vh;
+    border-left: gray 0.5px solid;;
+
+}

@@ -1,0 +1,92 @@
+
+.container{
+    margin-top: 80px;  
+    display: block;
+    margin-bottom: 50px;
+}
+
+.row{
+    border: 0.25px gray solid;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: column;
+    max-width: 500px; 
+    margin: none;
+}
+.rowi{ 
+    border: 0.25px gray solid;
+    box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.35);
+    border-radius: 8px;
+    display: flex; 
+    flex-direction: column;
+    background-color: whitesmoke;
+}
+
+.card-img{
+    width: auto;
+    max-width: 300px;
+    height: 300px;
+    display: block;
+    margin-left: 70px; 
+}
+.card-img:hover {
+    border: 1px solid black;
+}
+.emptyLike {
+    height: 40px;
+    align-self: center;
+}
+.emptyLike:hover {
+    height: 43px;
+}
+.fullLike {
+    height: 42px;
+    align-self: center;
+
+}
+.fullLike:hover {
+    height: 45px;
+}
+
+.informacion{
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    width: 480px;
+    margin-top: -20px;
+}
+
+.divBoton{
+    display: flex;
+    justify-content: center;
+    top: 20px;
+    margin: auto;
+
+}
+
+.card-title{
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 28px;
+    margin-top: 50px;
+    margin-left: 60px;
+    color: #0645AD;
+    cursor: pointer;
+    
+}
+.card-title:hover {
+    color: cornflowerblue;
+}
+
+.card-text-price{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 40px;
+    margin-top: -60px;
+    margin-left: 350px;
+}
+
+.card-text{
+    font-family: 'Malgun Gothic';
+    font-size: 18px;
+    margin-left: 60px;
+}

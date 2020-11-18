@@ -1,5 +1,5 @@
 require('dotenv').config();
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 const {
@@ -32,20 +32,63 @@ sequelize.models = Object.fromEntries(capsEntries);
 // Para relacionarlos hacemos un destructuring
 const { Product } = sequelize.models;
 const { Category } = sequelize.models;
+const { User } = sequelize.models;
+const { Order } = sequelize.models;
+const { Review } = sequelize.models;
+const { Adress } = sequelize.models;
+const { UserDisabled } = sequelize.models;
+
 
 // Aca vendrian las relaciones
 // Product.hasMany(Reviews);
 
-Product.belongsToMany(Category,{
-  through: 'ProductoCategoria',
-  foreignKey: 'Product_id'
-})
+Product.belongsToMany(Category, {
+  through: 'productocategoria'
+});
+
+Category.belongsToMany(Product, {
+  through: 'productocategoria'
+});
 
 
-Category.belongsToMany(Product,{
-  through: 'ProductoCategoria',
-  foreignKey: 'Category_id'
+const cart = sequelize.define('cart', {
+  price: DataTypes.FLOAT,
+  amount: DataTypes.INTEGER
+}, { timestamps: false });
+Order.belongsToMany(Product, { through: cart });
+
+Product.belongsToMany(Order, { through: cart });
+
+
+User.hasMany(Order, {
+  foreignKey: 'userId'
+});
+
+
+Product.hasMany(Review, {
+  foreignKey: 'productId'
+});
+
+
+User.hasMany(Adress, {
+  foreignKey: 'userId'
+});
+
+Order.belongsTo(Adress, {
+  foreignKey: 'adressId'
 })
+
+User.hasMany(UserDisabled,{
+  foreignKey: "userId"
+})
+
+Product.belongsToMany(User, {
+  through: 'favorite'
+});
+
+User.belongsToMany(Product, {
+  through: 'favorite'
+});
 
 
 module.exports = {

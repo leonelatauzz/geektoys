@@ -1,0 +1,20 @@
+#2B2D42
+azul
+
+#8D99AE
+azulito
+
+#EDF2F4
+gris
+
+#EF233C
+rojito
+
+#D90429
+rojo
+
+Titulos sin font 
+Botones sin font
+Parrafos  --->  fontFamily:'Malgun Gothic'
+
+
