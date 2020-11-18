@@ -37,9 +37,10 @@ import ProductReviews from './componentes/ProductReviews';
 import Favorites from './componentes/favorite'
 import PutReview from './componentes/modificarReview'
 
-
-
 function App() {
+
+// const guardado = window.localStorage
+
   const user = useSelector(state=> state.userId.role)
   const login = useSelector(state=> state.loggedIn)
 
@@ -47,6 +48,9 @@ function App() {
    return !login ? <Redirect to='/user/login'/> : user !== 'Admin' ? <Redirect to='/' /> : component
   }
 
+
+// guardado.setItem("hola", "chau")
+//   console.log(hola)
 
   return (
     <Router>

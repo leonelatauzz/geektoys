@@ -2,11 +2,55 @@ require('dotenv').config()
 const server = require('express').Router();
 const { User, Product, Order, cart, Adress, UserDisabled } = require('../db.js');
 const hash = require('pbkdf2')
+
+const crypto = require('crypto')
+const passport = require('passport')
+const Strategy = require('passport-local').Strategy;
+const bodyParser = require('body-parser')
+const jwt = require('jsonwebtoken');
+
 const crypto = require('crypto');
 const _ = require('lodash')
 const {OAuth2Client} = require ('google-auth-library')
 
+
 const client = new OAuth2Client('689080969961-k4i4ccctckdvf369ln044ar325rfd1km.apps.googleusercontent.com')
+
+
+passport.use(new Strategy((username, password, done) =>{
+  const contra = password
+  User.findOne({
+  where:{
+  email: username
+}
+})
+.then((user)=>{
+  if(!user){
+    return done(null, false);
+  }
+let userSalt = user.dataValues.salt
+const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64,'sha512');
+const password = key.toString("hex")
+if(user.dataValues.password !== password){
+  return done(null, false);
+}
+return done(null, user);
+})
+.catch(err =>{
+  return done(err);
+})
+}));
+
+
+
+server.post('/login',passport.authenticate('local',{successRedirect:'http://localhost:3000/guest/carrito'}),(req, res) => {
+  User.findOne({
+    where: {
+      email: req.body.email,
+    }, include: Order
+  }).then(user => {
+    if (!user) {
+      res.json({mensaje: 'Datos incorrectos'})
 
 const nodemailer = require("nodemailer")
 const jwt = require('jsonwebtoken');
@@ -82,8 +126,27 @@ server.post('/login', (req, res) => {
    
     if (!usera) {
       res.send('Datos incorrectos')
+
+      return;
+      
+    }
+
+    else{
+      let userSalt = user.dataValues.salt
+    const contra = req.body.password
+    const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
+    const password = key.toString('hex')
+    if(password !== user.dataValues.password) {
+      res.send("Datos incorrectos")
       return;
     }
+    res.json(user)
+  
+  }
+})
+})
+server.get('/orders/:userId', (req, res) => {
+
     let userSalt = usera.dataValues.salt
     const contra = req.body.password
     const key = hash.pbkdf2Sync(contra, userSalt, 100000, 64, 'sha512');
@@ -121,6 +184,7 @@ server.put("/info/:userId", upload.single('images'), (req, res) => {
 })
 
 server.get('/orders/getOrders', authenticateToken, (req, res) => {
+
   User.findOne({
     where: {
       email: req.user.name
@@ -370,10 +434,11 @@ server.delete('/deleteAdress/:userId/:adressId', (req, res) => {
     if (!adress) {
       res.status(404).send('Dirección no encontrada')
     }
-    adress.destroy();
+    adress.destroy()
     res.send('Dirección eliminada')
   })
 })
+
 
 server.put('/:userId/Promote', (req, res) => {
   User.findOne({
@@ -472,6 +537,7 @@ server.get('/:userId', (req,res)=>{
     }
   })
 })
+
 
 
 

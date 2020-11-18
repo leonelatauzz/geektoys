@@ -103,6 +103,8 @@ server.get('/categoria/:nombreCat', (req, res) => {
       let resolve = cat.dataValues.products;
       let obj = Object.assign({}, resolve)
       res.json(obj);
+    }).catch((err)=>{
+      res.send(err);
     })
 })
 
